@@ -126,7 +126,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon", sans-serif}
     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
       <i class="fa fa-remove"></i>
     </a>
-    <img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:55%;" class="w3-round"><br><br>
+    <img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" onclick="document.getElementById('posInfo').style.display='block'" style="width:55%;" class="w3-round"><br><br>
     <h4><b>${userVO.memberNm }</b></h4>
     <p class="w3-text-grey">POS part_휴무관리시스템</p>
   </div>
@@ -138,20 +138,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon", sans-serif}
     <i class="fa fa-users fa-fw w3-margin-right"></i>파트원 현황</a> 
     <a href="${ pageContext.servletContext.contextPath }/page/user/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
     <i class="fa fa-sign-out fa-fw w3-margin-right "></i>로그아웃</a> 
-    <div class="w3-margin-top">
-	    <a href="#" 
-	    onclick="document.getElementById('posInfo').style.display='block'" class="w3-bar-item w3-button w3-padding">
-	    <i class="fa fa-exclamation-circle  fa-fw w3-margin-right"></i><i>*POS계정정보*</i></a> 
-    </div>
+ 
   </div>
   <!-- 계정정보 모달 -->
-  <div id="id01" class="w3-modal">
+  <div id="posInfo" class="w3-modal">
     <div class="w3-modal-content">
       <div class="w3-container">
         <span onclick="document.getElementById('posInfo').style.display='none'" class="w3-button w3-display-topright">&times;</span>
         <p>
-        <img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" 
-        style="width:55%;" class="w3-round">
+        <img src="${ pageContext.servletContext.contextPath }/imgs/pos.jpg" 
+        style="width:95%;" class="w3-round">
         </p>
       </div>
     </div>
