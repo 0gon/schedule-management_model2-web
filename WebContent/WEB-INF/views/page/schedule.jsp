@@ -37,7 +37,7 @@ function buildCalendar(){
     var yoilStr ='<td class="w3-center w3-border" style="padding-left: 8px">'+
     '<i class="fa fa-caret-square-o-left " style="margin-right:10px" onclick="prevCalendar()"></i>'+ 
     '<i class="fa fa-caret-square-o-right" onclick="nextCalendar()"></i></td>';
-    
+    var commonStr = ""
     //윤년체크
     if(month==1){
         if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
@@ -81,6 +81,7 @@ function buildCalendar(){
     }
     $('#date').html(dateStr);
     $('#yoil').html(yoilStr);
+    
     $('#buttonDate').text(Number(month)+1);
     var today_yellow = new Date();
     var today_year = today_yellow.getFullYear();
@@ -122,7 +123,15 @@ function buildCalendar(){
     	scheduleList.push(scheduleVO);
 	</c:forEach>
     var weekend=setDate.getDay();
-    var schedule =''
+    
+    //공통열 추가 
+    var schedule ='<tr class="" ><td class="w3-border w3-center w3-sand">공통</td>';
+    for(var j=0;j<lastDay;j++){
+  	     schedule +='<td class="w3-sand w3-border w3-text-red" id="commonId'+year+(month+1)+(j+1)+
+  	     '"<td style="text-align:center"></td>'
+    }
+    schedule += '</tr>';
+    
     for(var i=2;i<memberList.length-1;i++){
       schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
       for(var j=0;j<lastDay;j++){
