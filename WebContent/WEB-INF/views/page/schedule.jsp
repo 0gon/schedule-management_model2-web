@@ -125,7 +125,7 @@ function buildCalendar(){
     var weekend=setDate.getDay();
     
     //공통열 추가 
-    var schedule ='<tr class="" ><td class="w3-border w3-center w3-sand">공통</td>';
+    var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand">공통</td>';
     for(var j=0;j<lastDay;j++){
   	     schedule +='<td class="w3-sand w3-border w3-text-red" id="commonId'+year+(month+1)+(j+1)+
   	     '"<td style="text-align:center"></td>'
@@ -262,6 +262,10 @@ function buildCalendar(){
 			            scheduleList[i].content+'</font></div>'+
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+			    //관리자 & 기타(공통)으로 등록한 경우
+			    if(scheduleList[i].memberId==11){
+			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
+			    }
     		}else if(scheduleList[i].dutyId==5){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-brown w3-dropdown-hover w3-border',
@@ -313,6 +317,7 @@ function buildCalendar(){
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
     		}
+    		
     	}
     }
  	//마우스 근접시 해당 칼럼 음영
