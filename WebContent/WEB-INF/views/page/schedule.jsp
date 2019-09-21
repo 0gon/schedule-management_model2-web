@@ -136,12 +136,13 @@ function buildCalendar(){
       schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
       for(var j=0;j<lastDay;j++){
     	  //토요일 일요일마다 회색 음영
+    	  var currentId = memberList[i].memberId+year+(month+1)+(j+1);
     	  if(week[(weekend+j)%7]=='토'||week[(weekend+j)%7]=='일'){  
-    	     schedule +='<td class="w3-light-grey w3-border " id="sdid'+
-    	     memberList[i].memberId+year+(month+1)+(j+1)+'"></td>'
+    	     schedule +='<td class="w3-light-grey w3-border " onclick="scheduleClick('+currentId+')" id="sdid'+
+    	     currentId+'"></td>'
     	  }else{
-    	     schedule +='<td class="w3-border" style="text-align:center" id="sdid'+
-    	     memberList[i].memberId+year+(month+1)+(j+1)+'"></td>'
+    	     schedule +='<td class="w3-border" onclick="scheduleClick()" style="text-align:center" id="sdid'+
+    	     currentId+'"></td>'
     	  }
       }
       schedule += '</tr>'  
@@ -327,13 +328,16 @@ function buildCalendar(){
 	    	})
 	    $('#trid'+memberList[i].memberId).mouseleave(function(){
 	    	$(this).removeAttr("bgcolor");
-	    	})
-    }
-    
+	    })
+	}
+}
+function scheduleClick(currentId){
+	console.log(currentId);
 }
 
 $(function(){
 	buildCalendar();
+	
 	
 })
 function fromServer(){
