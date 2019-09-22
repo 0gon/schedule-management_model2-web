@@ -367,12 +367,22 @@ function dayClick(clickSid){
 //일정 클릭시 발생 함수
 function scheduleClick(scheduleId, smemberId){
 	var currentId= '${userVO.id}'; //현재 접속자 아이디
+	var grade=${userVO.grade};
 	
-	//현재접속자와 등록된 스캐줄에 해당 맴버아이디가 같은경우
-	if(currentId==smemberId){
-        contentView(scheduleId);
-        document.getElementById('addDay').style.display='none';
-        document.getElementById('message').style.display='block';
+	//관리자 권한이 있는 경우
+	if(grade==1){
+		if(confirm("삭제하시겠습니까?")){
+		location.href='${ pageContext.servletContext.contextPath }/page/deleteSchedule?id='+scheduleId+'&type=2'
+		}else{
+			return
+		}
+	}else{
+		//현재접속자와 등록된 스캐줄에 해당 맴버아이디가 같은경우
+		if(currentId==smemberId){
+	        contentView(scheduleId);
+	        document.getElementById('addDay').style.display='none';
+	        document.getElementById('message').style.display='block';
+		}
 	}
 }
 
@@ -388,17 +398,6 @@ function fromServer(){
 	}	
 }
 
-//관리자 계정일 경우 해당 일정 클릭 시 삭제
-function adminDelete(scheduleId){
-	var grade=${userVO.grade};
-	if(grade==1){
-		if(confirm("삭제하시겠습니까?")){
-		location.href='${ pageContext.servletContext.contextPath }/page/deleteSchedule?id='+scheduleId+'&type=2'
-		}else{
-			return
-		}
-	}
-}
 </script>
 <div class="w3-main" style="overflow:scroll;height:830px;margin-left:230px">
   <!-- Header -->
