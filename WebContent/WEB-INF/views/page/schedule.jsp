@@ -273,10 +273,6 @@ function buildCalendar(){
 			            scheduleList[i].content+'</font></div>'+
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
-			    //관리자 & 기타(공통)으로 등록한 경우
-			    if(scheduleList[i].memberId==11){
-			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
-			    }
     		}else if(scheduleList[i].dutyId==5){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-brown w3-dropdown-hover w3-border',
@@ -329,6 +325,11 @@ function buildCalendar(){
 			            scheduleList[i].content+'</font></div>'+
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+			     //관리자 & 기타(공통)으로 등록한 경우
+			    if(scheduleList[i].memberId==12){
+			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
+			    }
+			       
     		}
     		
     	}
@@ -337,9 +338,9 @@ function buildCalendar(){
  	//마우스 근접시 해당 칼럼 음영
     for(var i =0 ; i<memberList.length;i++){
 	    $('#trid'+memberList[i].memberId).mouseover(function(e){
-	    	var mouseoverId=e.target.id.charAt(4);
-	    	//접속아이디와 마우스오버된 아이디가 같은 경우 파랑색 음영 || 드랍다운된 박스 오버된 경우
-	    	if(currentId==mouseoverId || mouseoverId==''){
+	    	var mouseoverId=e.target.id.charAt(4)==1?e.target.id.substring(4,6):e.target.id.charAt(4); // sid=10 20190912 
+	    	//접속아이디와 마우스오버된 아이디가 같은 경우 파랑색 음영 
+	    	if(currentId==mouseoverId){
 		    	$(this).attr("bgcolor", "#BBDEFB");
 	    	}else{
 		    	$(this).attr("bgcolor", "pink");
@@ -353,7 +354,7 @@ function buildCalendar(){
 
 //일정없는 날 클릭시 발생 함수
 function dayClick(clickSid){
-	var clickId = String(clickSid).charAt(0); //사용자가 클릭한 아이디
+	var clickId = String(clickSid).charAt(0)==1?String(clickSid).substring(0,2):String(clickSid).charAt(0); //사용자가 클릭한 아이디
 	var currentId= '${userVO.id}'; //현재 접속자 아이디
 	var subDate = String(clickSid).substring(1,clickSid.length)
 	if(currentId==clickId){
@@ -377,7 +378,7 @@ function scheduleClick(scheduleId, smemberId){
 			return
 		}
 	}else{
-		//현재접속자와 등록된 스캐줄에 해당 맴버아이디가 같은경우
+		//클릭된 일정 상세보기
 		if(currentId==smemberId){
 	        contentView(scheduleId);
 	        document.getElementById('addDay').style.display='none';
