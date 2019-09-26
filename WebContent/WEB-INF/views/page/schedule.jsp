@@ -358,6 +358,9 @@ function dayClick(clickSid){
 	var currentId= '${userVO.id}'; //현재 접속자 아이디
 	var subDate = String(clickSid).substring(1,clickSid.length)
 	if(currentId==clickId){
+		//일정 클릭시 현재 날짜가 모달창에 등록
+		//일정 클릭한 날짜가 모달에 등록되도록 수정 필요
+		//clickId 가공 필요
 		document.getElementById('startdate').value=new Date().toISOString().substring(0, 10);
 		document.getElementById('enddate').value=new Date().toISOString().substring(0, 10);
         document.getElementById('addDay').style.display='block';
