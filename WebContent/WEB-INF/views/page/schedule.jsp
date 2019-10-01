@@ -352,6 +352,9 @@ function buildCalendar(){
 	}
 }
 
+
+
+
 //일정없는 날 클릭시 발생 함수
 function dayClick(clickSid){
 	var clickId = String(clickSid).charAt(0)==1?String(clickSid).substring(0,2):String(clickSid).charAt(0); //사용자가 클릭한 아이디
@@ -394,13 +397,6 @@ function scheduleClick(scheduleId, smemberId){
 $(function(){
 	buildCalendar();
 })
-function fromServer(){
-	if(httpRequest.readyState==4){
-		if(httpRequest.status==200){
-			document.getElementById("messageContent").innerHTML=httpRequest.responseText;
-		}
-	}	
-}
 
 </script>
 <div class="w3-main" style="overflow:scroll;height:830px;margin-left:230px">
@@ -664,7 +660,7 @@ function fromServer(){
        <input type="date" id="enddate" name="endDate"  min="2019-01-01" max="2024-12-31" placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
        </li>
        
-       <li><button class="w3-button w3-black" id="commitbtn" onclick="checkValue();"
+       <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
        
        <span class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
@@ -680,71 +676,17 @@ function fromServer(){
     </div>
 </div>
  
+<script>sessionStorage.setItem("contextpath", "${ pageContext.servletContext.contextPath }")</script>
+<script src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
+
+
+
 <script >
-function checkValue(){
-	
-	var input=eval("document.userinput");
-	var thisform=document.userinput;
-	if(!userinput.startdate.value){
-		alert("시작일을 입력하세요");
-		event.preventDefault(); 
-		return userinput.startdate.focus();
-	}else
-	if(!userinput.enddate.value){
-		alert("종료일을 입력하세요");
-		event.preventDefault(); 
-		return userinput.enddate.focus();
-	}else
-
-	if(userinput.startdate.value>userinput.enddate.value){
-		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-		event.preventDefault(); 
-		return userinput.enddate.focus();
-	}else{ 
-		$('#userinput').submit(function(event){
-		  var data=$(this).serialize();
-		  addSchedule(data);
-		  document.getElementById('addDay').style.display='none';
-		  document.getElementById('message').style.display='block';
-          event.preventDefault(); } 
-		); 
-
-	};
-		
-}
-function checkReg(){
-    	
-    	var input=eval("document.regForm");
-    	var thisform=document.regForm;
-    	if(!regForm.sDate.value){
-    		alert("시작일을 입력하세요");
-    		event.preventDefault(); 
-    		return regForm.sDate.focus();
-    	}else
-    	if(!regForm.eDate.value){
-    		alert("종료일을 입력하세요");
-    		event.preventDefault(); 
-    		return regForm.eDate.focus();
-    	}else
-
-    	if(regForm.sDate.value>regForm.eDate.value){
-    		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-    		event.preventDefault(); 
-    		return regForm.eDate.focus();
-    	}else{ 
-    		$('#regForm').submit(function(event){
-    		  var data=$(this).serialize();
-    		  addSchedule(data);
-    		  document.getElementById('addDay').style.display='none';
-    		  document.getElementById('message').style.display='block';
-              event.preventDefault(); } //기본 폼의 submit이 발생되지 않게 막기
-    		); 
-
-    	};
-    		
-    }
+// function checkReg() 삭제 
+// 해당소스는 register.jsp 백업
 function checkUpdateValue(){
-	
 	var input=eval("document.updateinput");
 	var thisform=document.updateinput;
 	if(!updateinput.startdate.value){
@@ -774,23 +716,8 @@ function checkUpdateValue(){
 	};
 		
 }
-function contentView(data){
-	var id="id="+data;
-	sendRequest("<%=request.getContextPath()%>/page/contentsView",id,fromServer,"POST");
-}
 
-function fromServer(){
-	if(httpRequest.readyState==4){
-		if(httpRequest.status==200){
-			document.getElementById("messageContent").innerHTML=httpRequest.responseText;
-		}
-	}	
-}
 
-function deleteSchedule(data){
-	var id="id="+data;
-	sendRequest("<%=request.getContextPath()%>/page/deleteSchedule",id,fromServer,"POST");
-}
 
 var menuClick = function(url){
 	if(url == '/'){
@@ -813,77 +740,6 @@ var menuClick = function(url){
 };
 
 
-function addSchedule(data){
- 	sendRequest("<%=request.getContextPath()%>/page/addSchedule",data,fromServer,"POST"); 
-}
-
-function update(data){
-	sendRequest("<%=request.getContextPath()%>/page/updatePro",data,fromServer,"POST");
-}
-function updateInclueDuty(data){
-	sendRequest("<%=request.getContextPath()%>/page/updateProDuty",data,fromServer,"POST");
-}
-function toUpdatePage(data){
-	var data1="id="+data;
-		sendRequest("<%=request.getContextPath()%>/page/updateForm",data1,fromServer,"POST");	
-		event.preventDefault(); 	
-}
-function dutyChange(dutyCode){
-    if(dutyCode.value==1){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide(); 
-        $('#duty1').show();$('#duty2').hide();
-        $('#duty3').hide();$('#duty4').hide();$('#duty5').hide(); $('#duty6').hide(); 
-        
-    }else if(dutyCode.value==2){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        var tmp = $('#eduTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-        $('#duty1').hide();$('#duty2').show();
-        $('#duty3').hide();$('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==3){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').show();
-        $('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==4){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-         var tmp = $('#etcTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-        $('#duty1').hide();$('#duty2').hide();
-        $('#duty3').hide();$('#duty4').show();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==5){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').hide();$('#duty4').hide();$('#duty6').hide();  
-        $('#duty5').show();
-    }else if(dutyCode.value==6){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#duty1').hide();$('#duty2').hide();$('#duty3').hide(); 
-        $('#duty4').hide();$('#duty5').hide();$('#duty6').hide();  
-        $('#registerWork').hide(); 
-    }else if(dutyCode.value==7){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').hide();$('#duty4').hide();$('#duty5').hide();  
-        $('#duty6').show();
-    }
-}
 function eduCheck(chk){
     if(chk==1){
         var tmp = $('#eduTime').is(':checked')

@@ -35,7 +35,6 @@ public class LoginFormPro implements CommandHandler {
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		if(userVO==null || !memberPwd.equals(userVO.getMemberPwd())) {
 			req.setAttribute("memberId",memberId);
-			
 			return "/WEB-INF/views/user/login.jsp";
 		}
 		else {
