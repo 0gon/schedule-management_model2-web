@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- !PAGE CONTENT! -->
+<script>sessionStorage.setItem("contextpath", "${ pageContext.servletContext.contextPath }")</script>
+<script src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
+<!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
 <script type="text/javascript">
 var today = new Date();
@@ -665,112 +671,14 @@ $(function(){
        
        <span class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
                 취소</span>
-                
                 </li>
-                
                 </ul>
-               
             </form>
         </div>
         </div>
     </div>
 </div>
- 
-<script>sessionStorage.setItem("contextpath", "${ pageContext.servletContext.contextPath }")</script>
-<script src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
 
-
-
-<script >
-// function checkReg() 삭제 
-// 해당소스는 register.jsp 백업
-function checkUpdateValue(){
-	var input=eval("document.updateinput");
-	var thisform=document.updateinput;
-	if(!updateinput.startdate.value){
-		alert("시작일을 입력하세요");
-		event.preventDefault(); 
-		return updateinput.startdate.focus();
-	}else
-	if(!updateinput.enddate.value){
-		alert("종료일을 입력하세요");
-		event.preventDefault(); 
-		return updateinput.enddate.focus();
-	}else
-	if(updateinput.startdate.value>updateinput.enddate.value){
-		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-		event.preventDefault(); 
-		return updateinput.enddate.focus();
-	}else{ 
-		$('#updateinput').submit(function(event){
-		 
-		  var data=$(this).serialize();
-		  updateInclueDuty(data);
-		   document.getElementById('addDay').style.display='none';
-		   document.getElementById('message').style.display='block';
-			  
-			  event.preventDefault(); } //기본 폼의 submit이 발생되지 않게 막기
-		); 
-	};
-		
-}
-
-
-
-var menuClick = function(url){
-	if(url == '/'){
-		location.reload(true);
-		return;
-	}
-	$.ajax({
-		type: 'POST',
-		url: url,
-		async:false,
-		data: "",
-		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-		success: function(data) {
-			$('#messageContent').html(data);
-		},
-		error: function(request, status, error) {
-			alert(error);
-		}
-	});
-};
-
-
-function eduCheck(chk){
-    if(chk==1){
-        var tmp = $('#eduTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-    }else if(chk==2){
-         var tmp = $('#etcTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-    }
-}
-
-function startAnim(animName) {
-    var i;
-    var x = document.getElementsByClassName("animTest");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";  
-    }
-    var y =document.getElementsByClassName('animTest '+animName);
-    for (i = 0; i < y.length; i++) {
-       y[i].style.display = "block";  
-    }
-    
-}
-</script> 
 </div>
 
 
