@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- !PAGE CONTENT! -->
-<script>sessionStorage.setItem("contextpath", "${ pageContext.servletContext.contextPath }")</script>
+<script>
+	sessionStorage.setItem("contextpath", "${ pageContext.servletContext.contextPath }")
+	sessionStorage.setItem("currentId", "${userVO.id}")
+	sessionStorage.setItem("grade", "${userVO.grade}")
+</script>
 <script src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
 <script type="text/javascript">
@@ -17,7 +22,6 @@ function pad(n, width) {
 }    
 function prevCalendar() {//이전 달
      today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-	console.log(today.getMonth() - 1)
      $('.scheduleTr').remove();
      buildCalendar(); 
     }
@@ -28,8 +32,6 @@ function nextCalendar() {//다음 달
      buildCalendar();
 }
 function schaduleModal(){
-	 document.getElementById('startdate').value=new Date().toISOString().substring(0, 10);
-	 document.getElementById('enddate').value=new Date().toISOString().substring(0, 10);
      document.getElementById('addDay').style.display='block';
 }
 function buildCalendar(){
@@ -43,7 +45,6 @@ function buildCalendar(){
     var week = new Array("일", "월", "화", "수", "목", "금", "토");
     var lastDay = lastDate[month];
     var currentId= '${userVO.id}'; //현재 접속자 아이디
-    
     
     var dateStr ="<td class='w3-border w3-center' >"+year+"."+pad((Number(month)+1),2)+"</td>";
     var yoilStr ='<td class="w3-center w3-border" style="padding-left: 8px">'+
@@ -105,7 +106,6 @@ function buildCalendar(){
 	
     var memberList = new Array();
     var scheduleList = new Array();
-    
     <c:forEach var="member" items="${members }">
     	var memberVO = {
     			memberId: "${member.id}",
@@ -170,8 +170,6 @@ function buildCalendar(){
 		    		'class' :'w3-red w3-dropdown-hover w3-border',
 		    		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
 		    		});
-		    			
-		    			
 		    	var term = ""
 		    	if(scheduleList[i].startDay==(scheduleList[i].endDay-1)||(scheduleList[i].dutyTerm==1&&scheduleList[i].endDay==1)){
 		    		term='<div  class="w3-bar-item  " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'
@@ -335,9 +333,7 @@ function buildCalendar(){
 			    if(scheduleList[i].memberId==12){
 			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
 			    }
-			       
     		}
-    		
     	}
     }
     
@@ -357,48 +353,6 @@ function buildCalendar(){
 	    })
 	}
 }
-
-
-
-
-//일정없는 날 클릭시 발생 함수
-function dayClick(clickSid){
-	var clickId = String(clickSid).charAt(0)==1?String(clickSid).substring(0,2):String(clickSid).charAt(0); //사용자가 클릭한 아이디
-	var currentId= '${userVO.id}'; //현재 접속자 아이디
-	var subDate = String(clickSid).substring(1,clickSid.length)
-	if(currentId==clickId){
-		//일정 클릭시 현재 날짜가 모달창에 등록
-		//일정 클릭한 날짜가 모달에 등록되도록 수정 필요
-		//clickId 가공 필요
-		document.getElementById('startdate').value=new Date().toISOString().substring(0, 10);
-		document.getElementById('enddate').value=new Date().toISOString().substring(0, 10);
-        document.getElementById('addDay').style.display='block';
-	}else{
-		alert('자신의 일정만 조정가능합니다.')
-	}
-}
-//일정 클릭시 발생 함수
-function scheduleClick(scheduleId, smemberId){
-	var currentId= '${userVO.id}'; //현재 접속자 아이디
-	var grade=${userVO.grade};
-	
-	//관리자 권한이 있는 경우
-	if(grade==1){
-		if(confirm("삭제하시겠습니까?")){
-		location.href='${ pageContext.servletContext.contextPath }/page/deleteSchedule?id='+scheduleId+'&type=2'
-		}else{
-			return
-		}
-	}else{
-		//클릭된 일정 상세보기
-		if(currentId==smemberId){
-	        contentView(scheduleId);
-	        document.getElementById('addDay').style.display='none';
-	        document.getElementById('message').style.display='block';
-		}
-	}
-}
-
 
 $(function(){
 	buildCalendar();
