@@ -104,6 +104,7 @@ function buildCalendar(){
 		'style' : 'font-weight:bold',
 		});
 	
+	//DB에 저장되어있는 user,schedule 목록 js 배열로 저장
     var memberList = new Array();
     var scheduleList = new Array();
     <c:forEach var="member" items="${members }">
@@ -198,6 +199,7 @@ function buildCalendar(){
     		   			'</div>'
     				$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
     			}
+    		//교육 및 세미나
     		}else if(scheduleList[i].dutyId==2){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-green w3-dropdown-hover w3-border',
@@ -226,6 +228,7 @@ function buildCalendar(){
 			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'+
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    		//휴가
     		}else if(scheduleList[i].dutyId==3){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-orange w3-dropdown-hover w3-border ',
@@ -248,6 +251,7 @@ function buildCalendar(){
 			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'+
 			            term
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    		//출장
     		}else if(scheduleList[i].dutyId==4){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-blue w3-dropdown-hover w3-border',
@@ -277,6 +281,7 @@ function buildCalendar(){
 			            scheduleList[i].content+'</font></div>'+
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    		//근무
     		}else if(scheduleList[i].dutyId==5){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-brown w3-dropdown-hover w3-border',
@@ -290,6 +295,7 @@ function buildCalendar(){
 			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'+
 		   			'</div>'
 		   		$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    		//점검
     		}else if(scheduleList[i].dutyId==6){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-grey w3-dropdown-hover w3-border',
@@ -301,6 +307,7 @@ function buildCalendar(){
 			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> 점검</font></div>'+
 		   			'</div>'
 				$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    		//기타일정
     		}else if(scheduleList[i].dutyId==7){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
     				'class' :'w3-purple w3-dropdown-hover w3-border',
