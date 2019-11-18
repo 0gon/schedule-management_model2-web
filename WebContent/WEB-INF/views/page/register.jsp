@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:230px">
+<div class="w3-main" style="margin-left:100px">
   <!-- Header -->
   <header id="portfolio">
     <a href="#"><img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>

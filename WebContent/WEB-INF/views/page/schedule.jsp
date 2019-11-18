@@ -366,7 +366,7 @@ $(function(){
 })
 
 </script>
-<div class="w3-main" style="overflow:scroll;height:830px;margin-left:230px">
+<div class="w3-main" style="overflow:scroll;height:830px;margin-left:100px">
   <!-- Header -->
   <header id="portfolio">
     <a href="#"><img src="../imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
