@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/api/w3css.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+
     <!--달력 api-->  
 <link href="${ pageContext.servletContext.contextPath }/api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/> 
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/api/fullcalendar-3.9.0/lib/moment.min.js"></script>
@@ -107,7 +108,6 @@ var dataset = [
     
     
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon", sans-serif}
 #mySidebar {
   background-image: url('${ pageContext.servletContext.contextPath }/imgs/navBack.jpeg');
   min-height: 100%;
@@ -115,7 +115,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon", sans-serif}
   background-size: cover;
 }
 </style>
-    
+    <style>
+@font-face {
+  font-family: 'Do Hyeon';
+  font-style: normal;
+  font-weight: 400;
+  src: url('${ pageContext.servletContext.contextPath }/api/fonts/do-hyeon-v11-latin_korean-regular.eot'); /* IE9 Compat Modes */
+  src: local('Do Hyeon Regular'), local('DoHyeon-Regular'),
+       url('${ pageContext.servletContext.contextPath }/api/fonts/do-hyeon-v11-latin_korean-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('${ pageContext.servletContext.contextPath }/api/fonts/do-hyeon-v11-latin_korean-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('${ pageContext.servletContext.contextPath }/api/fonts/do-hyeon-v11-latin_korean-regular.woff') format('woff'), /* Modern Browsers */
+       url('${ pageContext.servletContext.contextPath }/api/fonts/do-hyeon-v11-latin_korean-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('${ pageContext.servletContext.contextPath }/api/fonts/do-hyeon-v11-latin_korean-regular.svg#DoHyeon') format('svg'); /* Legacy iOS */
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
+
+</style>
     
     
 <body class="w3-light-grey w3-content" style="max-width:2000px">
