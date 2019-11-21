@@ -337,36 +337,12 @@ function buildCalendar(){
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
 			     //관리자 & 기타(공통)으로 등록한 경우
-			    if(scheduleList[i].memberId==11){
-			    	console.log("aaa")
+			    if(scheduleList[i].memberId==12){
 			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
-			       //해당영역에 클릭이벤트 
-			       // 체크해야할 부분 관리자가 memberId가 몇인지 home: 11 
-			       // 출장이랑 기타근무랑 차이 
-			       /*
-					1	23074	1234	송영곤
-					2	23075	1234	김재우
-					3	23076	1234	김재민
-					4	23077	1234	김승환
-					5	23078	1234	윤현구
-					6	23079	1234	오영진
-					7	23080	1234	유대혁
-					8	23081	1234	이은성
-					9	23082	1234	류태현
-					10	23083	1234	성연진
-					11	admin	1234	관리자
-			       
-			       */
-			       
-			       /*
-			       휴무(연차/대휴)
-				교육 및 세미나
-				휴가
-				기타일정
-				근무
-				점검
-			       
-			       */
+			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
+	    				'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
+	    				});
+				  //home db에 기타->출장 수정, 기타근무 추가     
 			    }
     		}
     	}
