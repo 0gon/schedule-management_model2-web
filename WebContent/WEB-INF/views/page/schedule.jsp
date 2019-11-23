@@ -34,6 +34,15 @@ function nextCalendar() {//다음 달
 function schaduleModal(){
      document.getElementById('addDay').style.display='block';
 }
+
+function userDBtoJS(){
+	
+}
+
+function scheduleDBtoJS(){
+	
+}
+//유지보수 가능 코딩1 _ buildCalendar() 수정하기
 function buildCalendar(){
     var year = today.getFullYear();
     var month = today.getMonth();
