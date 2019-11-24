@@ -35,13 +35,75 @@ function schaduleModal(){
      document.getElementById('addDay').style.display='block';
 }
 
-function userDBtoJS(){
-	
+// DB저장되어 있는 유저정보 List
+function memberDBtoJS(){
+    var memberList = new Array();
+    <c:forEach var="member" items="${members}">
+    	var memberVO = {
+    			memberId: "${member.id}",
+    			memberNm: "${member.memberNm}"
+    	}
+    	memberList.push(memberVO);
+    </c:forEach>
+    return memberList;
+}
+// DB저장되어 있는 일정정보 List
+function scheduleDBtoJS(){
+   var scheduleList = new Array();
+    <c:forEach var="schedule" items="${schedules }">
+		var startDate = new Date("${schedule.startDate}");
+		var endDate = new Date("${schedule.endDate}");
+		var transTerm = endDate.getTime() - startDate.getTime() 
+
+		var dutyTerm = transTerm/(1000*60*60*24);
+    	var scheduleVO={
+    			scheduleId: "${schedule.id}",
+    			dutyId: "${schedule.dutyId}",
+    			memberId: "${schedule.memberId}",
+    			startDay: startDate.getDate(),
+    			endDay: endDate.getDate(),
+    			year: startDate.getFullYear(),
+    			month:startDate.getMonth()+1,
+    			dutyTerm : dutyTerm,
+    			content : "${schedule.content}",
+    			startWorkTime : "${schedule.startWorkTime}",
+    			endWorkTime : "${schedule.endWorkTime}",
+    	};
+    	scheduleList.push(scheduleVO);
+	</c:forEach>
+	return scheduleList;
 }
 
-function scheduleDBtoJS(){
-	
+//근무기간 return 
+function viewTerm(scheduleList,i){
+	var term = ""
+		if(scheduleList[i].startDay==(scheduleList[i].endDay-1)||(scheduleList[i].dutyTerm==1&&scheduleList[i].endDay==1)){
+			term='<div  class="w3-bar-item  " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'
+			+scheduleList[i].startDay+'일'+'</font><font> (하루)</font></div>'+
+				'</div>'
+		}else{
+			term='<div  class="w3-bar-item " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'+
+			scheduleList[i].startDay+'일~'+Number(scheduleList[i].endDay-1)+'일</font><font> ( '+
+					scheduleList[i].dutyTerm+'일 )</font></div>'+
+				'</div>'
+		}
+	return term;
 }
+
+// dutyid 1,3,5 해당 schedule view 
+function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
+	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
+		'class' :'w3-'+scheduleColor+' w3-dropdown-hover w3-border',
+		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
+		});
+	var hoverContent = 
+        scheduleName+'</span><div class="w3-dropdown-content w3-bar-block w3-border" >'+  
+            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> '+scheduleName+'</font></div>'+
+            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
+            +term;
+	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+}
+
 //유지보수 가능 코딩1 _ buildCalendar() 수정하기
 function buildCalendar(){
     var year = today.getFullYear();
@@ -114,36 +176,10 @@ function buildCalendar(){
 		});
 	
 	//DB에 저장되어있는 user,schedule 목록 js 배열로 저장
-    var memberList = new Array();
-    var scheduleList = new Array();
-    <c:forEach var="member" items="${members }">
-    	var memberVO = {
-    			memberId: "${member.id}",
-    			memberNm: "${member.memberNm}"
-    	}
-    	memberList.push(memberVO);
-    </c:forEach>
-    <c:forEach var="schedule" items="${schedules }">
-		var startDate = new Date("${schedule.startDate}");
-		var endDate = new Date("${schedule.endDate}");
-		var transTerm = endDate.getTime() - startDate.getTime() 
-
-		var dutyTerm = transTerm/(1000*60*60*24);
-    	var scheduleVO={
-    			scheduleId: "${schedule.id}",
-    			dutyId: "${schedule.dutyId}",
-    			memberId: "${schedule.memberId}",
-    			startDay: startDate.getDate(),
-    			endDay: endDate.getDate(),
-    			year: startDate.getFullYear(),
-    			month:startDate.getMonth()+1,
-    			dutyTerm : dutyTerm,
-    			content : "${schedule.content}",
-    			startWorkTime : "${schedule.startWorkTime}",
-    			endWorkTime : "${schedule.endWorkTime}",
-    	};
-    	scheduleList.push(scheduleVO);
-	</c:forEach>
+    var memberList = memberDBtoJS();
+    var scheduleList = scheduleDBtoJS();
+    
+    
     var weekend=setDate.getDay();
     
     //공통열 추가 
@@ -175,28 +211,8 @@ function buildCalendar(){
     		//연차인 경우
     		if(scheduleList[i].dutyId==1){
     			if(scheduleList[i].content!='공휴일'){
-		    	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+
-		    			scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-		    		'class' :'w3-red w3-dropdown-hover w3-border',
-		    		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
-		    		});
-		    	var term = ""
-		    	if(scheduleList[i].startDay==(scheduleList[i].endDay-1)||(scheduleList[i].dutyTerm==1&&scheduleList[i].endDay==1)){
-		    		term='<div  class="w3-bar-item  " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'
-		    		+scheduleList[i].startDay+'일'+'</font><font> (하루)</font></div>'+
-		   			'</div>'
-		    	}else{
-		    		scheduleList[i].startDay+'일~'+Number(scheduleList[i].endDay-1)+'일</font><font> ( '+
-		    				scheduleList[i].dutyTerm+'일 )</font></div>'+
-		   			'</div>'
-		    	}
-		    	var hoverContent = 
-			        '휴무</span><div class="w3-dropdown-content w3-bar-block w3-border" >'+  
-			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> 휴무</font></div>'+
-			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
-			            +term;
-			            
-		    	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    				var term = viewTerm(scheduleList,i);
+    				viewSchedule('red','휴무',scheduleList,i,j,term);	
     			}else{
     				$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
         				'class' :'w3-light-grey w3-dropdown-hover w3-border',
@@ -239,27 +255,8 @@ function buildCalendar(){
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
     		//휴가
     		}else if(scheduleList[i].dutyId==3){
-    			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-    				'class' :'w3-orange w3-dropdown-hover w3-border ',
-    				'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
-		    		
-    			})
-    			var term = ""
-    				if(scheduleList[i].startDay==(scheduleList[i].endDay-1)||(scheduleList[i].dutyTerm==1&&scheduleList[i].endDay==1)){
-    		    		term='<div  class="w3-bar-item " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'
-    		    		+scheduleList[i].startDay+'일'+'</font><font> (하루)</font></div>'+
-    		   			'</div>'
-    		    	}else{
-    		    		term='<div  class="w3-bar-item " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'+
-    		    		scheduleList[i].startDay+'일~'+Number(scheduleList[i].endDay-1)+'일</font><font> ( '+scheduleList[i].dutyTerm+'일 )</font></div>'+
-    		   			'</div>'
-    		    	}
-    			var hoverContent = 
-			        '휴가<div class="w3-dropdown-content w3-bar-block w3-border ">'+  
-			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> 휴가</font></div>'+
-			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'+
-			            term
-			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    			var term = viewTerm(scheduleList,i);
+    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
     		//출장
     		}else if(scheduleList[i].dutyId==4){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
@@ -292,18 +289,7 @@ function buildCalendar(){
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
     		//근무
     		}else if(scheduleList[i].dutyId==5){
-    			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-    				'class' :'w3-brown w3-dropdown-hover w3-border',
-    				'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
-		    		
-    			})
-    			
-    			var hoverContent = 
-			        '근무<div class="w3-dropdown-content w3-bar-block w3-border ">'+  
-			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> 근무</font></div>'+
-			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'+
-		   			'</div>'
-		   		$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+    			viewSchedule('brown','근무',scheduleList,i,j,'');	
     		//점검
     		}else if(scheduleList[i].dutyId==6){
     			$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
