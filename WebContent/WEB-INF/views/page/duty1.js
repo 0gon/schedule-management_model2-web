@@ -53,3 +53,12 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
             hoverContent+=term;
 	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
 }
+viewScheduleList(scheduleList);
+if(scheduleList[i].dutyId==1){
+	if(scheduleList[i].content!='공휴일'){
+		var term = viewTerm(scheduleList,i);
+		viewSchedule('red','휴무',scheduleList,i,j,term);	
+	}else{
+		viewSchedule('light-grey','공휴',scheduleList,i,j,'');	
+	}
+//교육 및 세미나 green

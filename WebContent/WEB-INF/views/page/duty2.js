@@ -27,3 +27,16 @@
 			            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'+
 			            term+time
 			       $('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+			       
+			       
+			   	else if(scheduleList[i].dutyId==2){ 	//교육
+	    			var term = viewTerm(scheduleList,i);
+					viewSchedule('green','교육',scheduleList,i,j,term);	//근무시간 기능 제외 -> 백업은 duty2.js
+	    		
+	    		}else if(scheduleList[i].dutyId==3){ //휴가
+	    			var term = viewTerm(scheduleList,i);
+	    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
+	    		
+	    		}else if(scheduleList[i].dutyId==4){ //출장
+	    			var term = viewTerm(scheduleList,i);
+					viewSchedule('blue','출장',scheduleList,i,j,term);	

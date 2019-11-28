@@ -90,6 +90,34 @@ function viewTerm(scheduleList,i){
 	return term;
 }
 
+function viewScheduleList(scheduleList){
+	 for(var i=0; i<scheduleList.length;i++){
+	    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
+	    		viewScheduleByDuty1(scheduleList,i,j);
+	    		viewScheduleByDuty234(scheduleList,i,j);
+	    		
+	    		
+	    		if(scheduleList[i].dutyId==5){ //근무
+	    			viewSchedule('brown','근무',scheduleList,i,j,'');	
+	    		}else if(scheduleList[i].dutyId==6){ 	//점검
+	    			viewSchedule('grey','점검',scheduleList,i,j,'');	
+	    		
+	    		}else if(scheduleList[i].dutyId==7){ //기타일정 
+	    			var term = viewTerm(scheduleList,i);
+					viewSchedule('purple','기타',scheduleList,i,j,term);	
+				     //관리자 & 기타(공통)으로 등록한 경우
+				    if(scheduleList[i].memberId==12){
+				       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
+				       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
+		    				'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
+		    				});
+					  //home db에 기타->출장 수정, 기타근무 추가     
+				    }
+	    		}
+	    	}
+	    }
+}
+
 // dutyid 1,3,5 해당 schedule view 
 function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
 	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
@@ -104,6 +132,32 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
         }    
             hoverContent+=term;
 	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+}
+
+function viewScheduleByDuty1(scheduleList,i,j){
+	if(scheduleList[i].content!='공휴일'){
+		var term = viewTerm(scheduleList,i);
+		viewSchedule('red','휴무',scheduleList,i,j,term);	
+	}else{
+		viewSchedule('light-grey','공휴',scheduleList,i,j,'');	
+	}
+}
+
+function viewScheduleByDuty234(scheduleList,i,j){
+	var term = viewTerm(scheduleList,i);
+	var color ;
+	var duty ;
+	if(scheduleList[i].dutyId==2){ 	//교육
+		color = 'green';
+		duty = '교육'; 	//근무시간 기능 제외 -> 백업은 duty2.js
+	}else if(scheduleList[i].dutyId==3){ //휴가
+		color = 'orange';
+		duty = '휴가'; 	
+	}else if(scheduleList[i].dutyId==4){ //출장
+		color = 'blue';
+		duty = '출장'; 
+	}
+	viewSchedule(color,duty,scheduleList,i,j,term);
 }
 
 //유지보수 가능 코딩1 _ buildCalendar() 수정하기
@@ -208,50 +262,8 @@ function buildCalendar(){
       schedule += '</tr>'  
     }
     $('#yoil').after(schedule);
-    for(var i=0; i<scheduleList.length;i++){
-    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
-    		//연차인 경우
-    		if(scheduleList[i].dutyId==1){
-    			if(scheduleList[i].content!='공휴일'){
-    				var term = viewTerm(scheduleList,i);
-    				viewSchedule('red','휴무',scheduleList,i,j,term);	
-    			}else{
-    				viewSchedule('light-grey','공휴',scheduleList,i,j,'');	
-    			}
-    		//교육 및 세미나 green
-    		}else if(scheduleList[i].dutyId==2){
-    			var term = viewTerm(scheduleList,i);
-				viewSchedule('green','교육',scheduleList,i,j,term);	
-				//근무시간 기능 제외 -> 백업은 duty2.js
-    		//휴가
-    		}else if(scheduleList[i].dutyId==3){
-    			var term = viewTerm(scheduleList,i);
-    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
-    		//출장
-    		}else if(scheduleList[i].dutyId==4){
-    			var term = viewTerm(scheduleList,i);
-				viewSchedule('blue','출장',scheduleList,i,j,term);	
-    		//근무
-    		}else if(scheduleList[i].dutyId==5){
-    			viewSchedule('brown','근무',scheduleList,i,j,'');	
-    		//점검
-    		}else if(scheduleList[i].dutyId==6){
-    			viewSchedule('grey','점검',scheduleList,i,j,'');	
-    		//기타일정 
-    		}else if(scheduleList[i].dutyId==7){
-    			var term = viewTerm(scheduleList,i);
-				viewSchedule('purple','기타',scheduleList,i,j,term);	
-			     //관리자 & 기타(공통)으로 등록한 경우
-			    if(scheduleList[i].memberId==12){
-			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
-			       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-	    				'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
-	    				});
-				  //home db에 기타->출장 수정, 기타근무 추가     
-			    }
-    		}
-    	}
-    }
+    
+    viewScheduleList(scheduleList);
     
  	//마우스 근접시 해당 칼럼 음영
     for(var i =0 ; i<memberList.length;i++){
