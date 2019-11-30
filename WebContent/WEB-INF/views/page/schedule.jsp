@@ -11,6 +11,7 @@
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/hashmap.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
 <script type="text/javascript">
@@ -90,14 +91,42 @@ function viewTerm(scheduleList,i){
 	return term;
 }
 
+
+var map = new HashMap();
+	map.put("휴무", new Array('red','light-grey','휴무'));
+	map.put("교육", new Array('red','light-grey','휴무'));
+	map.put("휴가", new Array('red','light-grey','휴무'));
+	map.put("출장", new Array('red','light-grey','휴무'));
+	map.put("근무", new Array('red','light-grey','휴무'));
+	map.put("점검", new Array('red','light-grey','휴무'));
+	map.put("기타", new Array('red','light-grey','휴무'));
+	
+	
+	
 function viewScheduleList(scheduleList){
 	 for(var i=0; i<scheduleList.length;i++){
 	    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
-	    		viewScheduleByDuty1(scheduleList,i,j);
-	    		viewScheduleByDuty234(scheduleList,i,j);
+	    		if(scheduleList[i].dutyId==1){
+	    			if(scheduleList[i].content!='공휴일'){
+	    				var term = viewTerm(scheduleList,i);
+	    				viewSchedule('red','휴무',scheduleList,i,j,term);	
+	    			}else{
+	    				viewSchedule('light-grey','공휴',scheduleList,i,j,'');
+	    			}
+	    		}    
+			   	else if(scheduleList[i].dutyId==2){ 	//교육
+	    			var term = viewTerm(scheduleList,i);
+					viewSchedule('green','교육',scheduleList,i,j,term);	//근무시간 기능 제외 -> 백업은 duty2.js
 	    		
+	    		}else if(scheduleList[i].dutyId==3){ //휴가
+	    			var term = viewTerm(scheduleList,i);
+	    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
 	    		
-	    		if(scheduleList[i].dutyId==5){ //근무
+	    		}else if(scheduleList[i].dutyId==4){ //출장
+	    			var term = viewTerm(scheduleList,i);
+					viewSchedule('blue','출장',scheduleList,i,j,term);	
+					
+	    		}else if(scheduleList[i].dutyId==5){ //근무
 	    			viewSchedule('brown','근무',scheduleList,i,j,'');	
 	    		}else if(scheduleList[i].dutyId==6){ 	//점검
 	    			viewSchedule('grey','점검',scheduleList,i,j,'');	
@@ -162,6 +191,7 @@ function viewScheduleByDuty234(scheduleList,i,j){
 
 //유지보수 가능 코딩1 _ buildCalendar() 수정하기
 function buildCalendar(){
+	
     var year = today.getFullYear();
     var month = today.getMonth();
     var day = today.getDate();
