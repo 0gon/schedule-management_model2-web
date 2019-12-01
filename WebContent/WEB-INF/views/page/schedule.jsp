@@ -94,13 +94,12 @@ function viewTerm(scheduleList,i){
 
 var map = new HashMap();
 	map.put("휴무", new Array('red','light-grey','휴무'));
-	map.put("교육", new Array('red','light-grey','휴무'));
-	map.put("휴가", new Array('red','light-grey','휴무'));
-	map.put("출장", new Array('red','light-grey','휴무'));
-	map.put("근무", new Array('red','light-grey','휴무'));
-	map.put("점검", new Array('red','light-grey','휴무'));
-	map.put("기타", new Array('red','light-grey','휴무'));
-	
+	map.put("교육", new Array('green','light-grey','휴무'));
+	map.put("휴가", new Array('orange','light-grey','휴무'));
+	map.put("출장", new Array('blue','light-grey','휴무'));
+	map.put("근무", new Array('brown','light-grey','휴무'));
+	map.put("점검", new Array('grey','light-grey','휴무'));
+	map.put("기타", new Array('purple','light-grey','휴무'));
 	
 	
 function viewScheduleList(scheduleList){
@@ -118,8 +117,8 @@ function viewScheduleList(scheduleList){
 	    			var term = viewTerm(scheduleList,i);
 					viewSchedule('green','교육',scheduleList,i,j,term);	//근무시간 기능 제외 -> 백업은 duty2.js
 	    		
-	    		}else if(scheduleList[i].dutyId==3){ //휴가
-	    			var term = viewTerm(scheduleList,i);
+	    		}else if(scheduleList[i].dutyId==3){ //휴가 
+	    			var term = viewTerm(scheduleList,i); 
 	    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
 	    		
 	    		}else if(scheduleList[i].dutyId==4){ //출장
