@@ -91,10 +91,27 @@ function viewTerm(scheduleList,i){
 	return term;
 }
 
+class humu {
+	test(scheduleList,i,j){
+		if(scheduleList[i].content!='공휴일'){
+			var term = viewTerm(scheduleList,i);
+			viewSchedule('red','휴무',scheduleList,i,j,term);	
+		}else{
+			viewSchedule('light-grey','공휴',scheduleList,i,j,'');
+		}
+	}
+}
+
+class edu {
+	test(scheduleList,i,j){
+		var term = viewTerm(scheduleList,i);
+		viewSchedule('green','교육',scheduleList,i,j,term);
+	}
+}
 
 var map = new HashMap();
-	map.put("휴무", new Array('red','light-grey','휴무'));
-	map.put("교육", new Array('green','light-grey','휴무'));
+	map.put(1, new humu());
+	map.put(2, new edu());
 	map.put("휴가", new Array('orange','light-grey','휴무'));
 	map.put("출장", new Array('blue','light-grey','휴무'));
 	map.put("근무", new Array('brown','light-grey','휴무'));
@@ -105,19 +122,13 @@ var map = new HashMap();
 function viewScheduleList(scheduleList){
 	 for(var i=0; i<scheduleList.length;i++){
 	    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
-	    		if(scheduleList[i].dutyId==1){
-	    			if(scheduleList[i].content!='공휴일'){
-	    				var term = viewTerm(scheduleList,i);
-	    				viewSchedule('red','휴무',scheduleList,i,j,term);	
-	    			}else{
-	    				viewSchedule('light-grey','공휴',scheduleList,i,j,'');
-	    			}
-	    		}    
-			   	else if(scheduleList[i].dutyId==2){ 	//교육
-	    			var term = viewTerm(scheduleList,i);
-					viewSchedule('green','교육',scheduleList,i,j,term);	//근무시간 기능 제외 -> 백업은 duty2.js
+	    		var humu = map.get(1);
 	    		
-	    		}else if(scheduleList[i].dutyId==3){ //휴가 
+	    		var edu = map.get(2);
+	    		humu.test(scheduleList,i,j);
+	    		edu.test(scheduleList,i,j);
+
+	    		if(scheduleList[i].dutyId==3){ //휴가 
 	    			var term = viewTerm(scheduleList,i); 
 	    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
 	    		
