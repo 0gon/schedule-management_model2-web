@@ -123,12 +123,22 @@ function viewScheduleList(scheduleList){
 	 for(var i=0; i<scheduleList.length;i++){
 	    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
 	    		var humu = map.get(1);
-	    		
 	    		var edu = map.get(2);
-	    		humu.test(scheduleList,i,j);
-	    		edu.test(scheduleList,i,j);
-
-	    		if(scheduleList[i].dutyId==3){ //휴가 
+	    		//humu.test(scheduleList,i,j);
+	    		//edu.test(scheduleList,i,j);
+				
+	    		
+	    		if(scheduleList[i].dutyId==1){ //휴가 
+		    		if(scheduleList[i].content!='공휴일'){
+		    			var term = viewTerm(scheduleList,i);
+		    			viewSchedule('red','휴무',scheduleList,i,j,term);	
+		    		}else{
+		    			viewSchedule('light-grey','공휴',scheduleList,i,j,'');
+		    		}
+	    		}else if(scheduleList[i].dutyId==2){
+	    			var term = viewTerm(scheduleList,i);
+	    			viewSchedule('green','교육',scheduleList,i,j,term);
+	    		}else if(scheduleList[i].dutyId==3){ //휴가 
 	    			var term = viewTerm(scheduleList,i); 
 	    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
 	    		
