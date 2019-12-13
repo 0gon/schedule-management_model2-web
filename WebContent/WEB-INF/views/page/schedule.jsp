@@ -91,43 +91,9 @@ function viewTerm(scheduleList,i){
 	return term;
 }
 
-class humu {
-	test(scheduleList,i,j){
-		if(scheduleList[i].content!='공휴일'){
-			var term = viewTerm(scheduleList,i);
-			viewSchedule('red','휴무',scheduleList,i,j,term);	
-		}else{
-			viewSchedule('light-grey','공휴',scheduleList,i,j,'');
-		}
-	}
-}
-
-class edu {
-	test(scheduleList,i,j){
-		var term = viewTerm(scheduleList,i);
-		viewSchedule('green','교육',scheduleList,i,j,term);
-	}
-}
-
-var map = new HashMap();
-	map.put(1, new humu());
-	map.put(2, new edu());
-	map.put("휴가", new Array('orange','light-grey','휴무'));
-	map.put("출장", new Array('blue','light-grey','휴무'));
-	map.put("근무", new Array('brown','light-grey','휴무'));
-	map.put("점검", new Array('grey','light-grey','휴무'));
-	map.put("기타", new Array('purple','light-grey','휴무'));
-	
-	
 function viewScheduleList(scheduleList){
 	 for(var i=0; i<scheduleList.length;i++){
 	    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
-	    		var humu = map.get(1);
-	    		var edu = map.get(2);
-	    		//humu.test(scheduleList,i,j);
-	    		//edu.test(scheduleList,i,j);
-				
-	    		
 	    		if(scheduleList[i].dutyId==1){ //휴가 
 		    		if(scheduleList[i].content!='공휴일'){
 		    			var term = viewTerm(scheduleList,i);
@@ -183,39 +149,28 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
 	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
 }
 
-function viewScheduleByDuty1(scheduleList,i,j){
-	if(scheduleList[i].content!='공휴일'){
-		var term = viewTerm(scheduleList,i);
-		viewSchedule('red','휴무',scheduleList,i,j,term);	
-	}else{
-		viewSchedule('light-grey','공휴',scheduleList,i,j,'');	
-	}
-}
-
-function viewScheduleByDuty234(scheduleList,i,j){
-	var term = viewTerm(scheduleList,i);
-	var color ;
-	var duty ;
-	if(scheduleList[i].dutyId==2){ 	//교육
-		color = 'green';
-		duty = '교육'; 	//근무시간 기능 제외 -> 백업은 duty2.js
-	}else if(scheduleList[i].dutyId==3){ //휴가
-		color = 'orange';
-		duty = '휴가'; 	
-	}else if(scheduleList[i].dutyId==4){ //출장
-		color = 'blue';
-		duty = '출장'; 
-	}
-	viewSchedule(color,duty,scheduleList,i,j,term);
+function markTodayYoil(day){
+	 var today_yellow = new Date();
+	    var today_year = today_yellow.getFullYear();
+	    var today_month = today_yellow.getMonth();
+		$('.'+today_year+Number(today_month+1)+day).attr({
+			'class' :'w3-center w3-border w3-yellow w3-text-black',
+			'style' : 'font-weight:bold',
+		});
 }
 
 //유지보수 가능 코딩1 _ buildCalendar() 수정하기
 function buildCalendar(){
 	
+	//DB에 저장되어있는 user,schedule 목록 js 배열로 저장
+    var memberList = memberDBtoJS();
+    var scheduleList = scheduleDBtoJS();
+  
     var year = today.getFullYear();
     var month = today.getMonth();
     var day = today.getDate();
     var setDate = new Date(year, month, 1);
+    var weekend=setDate.getDay();
     var firstDay = setDate.getDate();
     var yoil = setDate.getDay(); 
     var lastDate = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
@@ -237,56 +192,17 @@ function buildCalendar(){
     for(var i=1;i<=lastDay;i++){
          dateStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+i+"</td>"
     }
+    
     for(var i=1;i<=lastDay;i++){
-        switch (i%7) {
-            case 1 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-            case 2 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"' >"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-            case 3 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-            case 4 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-            case 5 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-            case 6 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-            case 0 :
-                yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-                yoil++;
-                break;
-        }
+    	yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
+        yoil++;
     }
+    
     $('#date').html(dateStr);
     $('#yoil').html(yoilStr);
     
     $('#buttonDate').text(Number(month)+1);
-    var today_yellow = new Date();
-    var today_year = today_yellow.getFullYear();
-    var today_month = today_yellow.getMonth();
-	$('.'+today_year+Number(today_month+1)+day).attr({
-		'class' :'w3-center w3-border w3-yellow w3-text-black',
-		'style' : 'font-weight:bold',
-		});
-	
-	//DB에 저장되어있는 user,schedule 목록 js 배열로 저장
-    var memberList = memberDBtoJS();
-    var scheduleList = scheduleDBtoJS();
-    
-    
-    var weekend=setDate.getDay();
+    markTodayYoil(day);
     
     //공통열 추가 
     var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand">공통</td>';
