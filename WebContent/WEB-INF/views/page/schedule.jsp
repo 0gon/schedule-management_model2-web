@@ -16,7 +16,6 @@
 
 <script type="text/javascript">
 var today = new Date();
-
 function pad(n, width) {
   n += '';
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
@@ -26,7 +25,6 @@ function prevCalendar() {//이전 달
      $('.scheduleTr').remove();
      buildCalendar(); 
     }
-
 function nextCalendar() {//다음 달
     today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
      $('.scheduleTr').remove();
@@ -35,7 +33,6 @@ function nextCalendar() {//다음 달
 function schaduleModal(){
      document.getElementById('addDay').style.display='block';
 }
-
 // DB저장되어 있는 유저정보 List
 function memberDBtoJS(){
     var memberList = new Array();
@@ -55,7 +52,6 @@ function scheduleDBtoJS(){
 		var startDate = new Date("${schedule.startDate}");
 		var endDate = new Date("${schedule.endDate}");
 		var transTerm = endDate.getTime() - startDate.getTime() 
-
 		var dutyTerm = transTerm/(1000*60*60*24);
     	var scheduleVO={
     			scheduleId: "${schedule.id}",
@@ -74,7 +70,6 @@ function scheduleDBtoJS(){
 	</c:forEach>
 	return scheduleList;
 }
-
 //근무기간 return 
 function viewTerm(scheduleList,i){
 	var term = ""
@@ -89,6 +84,33 @@ function viewTerm(scheduleList,i){
 				'</div>'
 		}
 	return term;
+}
+
+function viewCommonList(memberList, year, month, lastDay, week, weekend) {
+    //공통열 추가 
+    var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand">공통</td>';
+    for(var j=0;j<lastDay;j++){
+  	     schedule +='<td class="w3-sand w3-border w3-text-red" id="commonId'+year+(month+1)+(j+1)+
+  	     '"<td style="text-align:center"></td>'
+    }
+    schedule += '</tr>';
+    
+    for(var i=2;i<memberList.length-1;i++){
+      schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
+      for(var j=0;j<lastDay;j++){
+    	  //토요일 일요일마다 회색 음영
+    	  var clickSid = memberList[i].memberId+year+(month+1)+(j+1);
+    	  if(week[(weekend+j)%7]=='토'||week[(weekend+j)%7]=='일'){  
+    	     schedule +='<td class="w3-light-grey w3-border " onclick="dayClick('+clickSid+')" id="sdid'+
+    	     clickSid+'"></td>'
+    	  }else{
+    	     schedule +='<td class="w3-border" onclick="dayClick('+clickSid+')" style="text-align:center" id="sdid'+
+    	     clickSid+'"></td>'
+    	  }
+      }
+      schedule += '</tr>'  
+    }
+    $('#yoil').after(schedule);
 }
 
 function viewScheduleList(scheduleList){
@@ -132,7 +154,6 @@ function viewScheduleList(scheduleList){
 	    	}
 	    }
 }
-
 // dutyid 1,3,5 해당 schedule view 
 function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
 	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
@@ -148,7 +169,6 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
             hoverContent+=term;
 	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
 }
-
 function markTodayYoil(day){
 	 var today_yellow = new Date();
 	    var today_year = today_yellow.getFullYear();
@@ -157,6 +177,25 @@ function markTodayYoil(day){
 			'class' :'w3-center w3-border w3-yellow w3-text-black',
 			'style' : 'font-weight:bold',
 		});
+}
+//마우스 근접시 해당 칼럼 음영
+function mouseoverEffect(memberList){
+	var currentId= '${userVO.id}'; //현재 접속자 아이디
+    for(var i =0 ; i<memberList.length;i++){
+	    $('#trid'+memberList[i].memberId).mouseover(function(e){
+	    	var mouseoverId=e.target.id.charAt(4)==1?e.target.id.substring(4,6):e.target.id.charAt(4); 
+	    	// sid=10 20190912 
+	    	//접속아이디와 마우스오버된 아이디가 같은 경우 파랑색 음영 
+	    	if(currentId==mouseoverId){
+		    	$(this).attr("bgcolor", "#BBDEFB");
+	    	}else{
+		    	$(this).attr("bgcolor", "pink");
+	    	}
+	    	})
+	    $('#trid'+memberList[i].memberId).mouseleave(function(){
+	    	$(this).removeAttr("bgcolor");
+	    })
+	}
 }
 
 //유지보수 가능 코딩1 _ buildCalendar() 수정하기
@@ -204,54 +243,15 @@ function buildCalendar(){
     $('#buttonDate').text(Number(month)+1);
     markTodayYoil(day);
     
-    //공통열 추가 
-    var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand">공통</td>';
-    for(var j=0;j<lastDay;j++){
-  	     schedule +='<td class="w3-sand w3-border w3-text-red" id="commonId'+year+(month+1)+(j+1)+
-  	     '"<td style="text-align:center"></td>'
-    }
-    schedule += '</tr>';
-    
-    for(var i=2;i<memberList.length-1;i++){
-      schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
-      for(var j=0;j<lastDay;j++){
-    	  //토요일 일요일마다 회색 음영
-    	  var clickSid = memberList[i].memberId+year+(month+1)+(j+1);
-    	  if(week[(weekend+j)%7]=='토'||week[(weekend+j)%7]=='일'){  
-    	     schedule +='<td class="w3-light-grey w3-border " onclick="dayClick('+clickSid+')" id="sdid'+
-    	     clickSid+'"></td>'
-    	  }else{
-    	     schedule +='<td class="w3-border" onclick="dayClick('+clickSid+')" style="text-align:center" id="sdid'+
-    	     clickSid+'"></td>'
-    	  }
-      }
-      schedule += '</tr>'  
-    }
-    $('#yoil').after(schedule);
-    
+    viewCommonList(memberList, year, month, lastDay, week, weekend);
     viewScheduleList(scheduleList);
+ 	mouseoverEffect(memberList);
     
- 	//마우스 근접시 해당 칼럼 음영
-    for(var i =0 ; i<memberList.length;i++){
-	    $('#trid'+memberList[i].memberId).mouseover(function(e){
-	    	var mouseoverId=e.target.id.charAt(4)==1?e.target.id.substring(4,6):e.target.id.charAt(4); // sid=10 20190912 
-	    	//접속아이디와 마우스오버된 아이디가 같은 경우 파랑색 음영 
-	    	if(currentId==mouseoverId){
-		    	$(this).attr("bgcolor", "#BBDEFB");
-	    	}else{
-		    	$(this).attr("bgcolor", "pink");
-	    	}
-	    	})
-	    $('#trid'+memberList[i].memberId).mouseleave(function(){
-	    	$(this).removeAttr("bgcolor");
-	    })
-	}
+    
 }
-
 $(function(){
 	buildCalendar();
 })
-
 </script>
 <div class="w3-main" style="overflow:scroll;height:830px;margin-left:100px">
   <!-- Header -->
@@ -528,5 +528,3 @@ $(function(){
 </div>
 
 </div>
-
-
