@@ -12,6 +12,7 @@
 <script src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/hashmap.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
 <script type="text/javascript">
@@ -84,33 +85,6 @@ function viewTerm(scheduleList,i){
 				'</div>'
 		}
 	return term;
-}
-
-function viewCommonList(memberList, year, month, lastDay, week, weekend) {
-    //공통열 추가 
-    var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand">공통</td>';
-    for(var j=0;j<lastDay;j++){
-  	     schedule +='<td class="w3-sand w3-border w3-text-red" id="commonId'+year+(month+1)+(j+1)+
-  	     '"<td style="text-align:center"></td>'
-    }
-    schedule += '</tr>';
-    
-    for(var i=2;i<memberList.length-1;i++){
-      schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
-      for(var j=0;j<lastDay;j++){
-    	  //토요일 일요일마다 회색 음영
-    	  var clickSid = memberList[i].memberId+year+(month+1)+(j+1);
-    	  if(week[(weekend+j)%7]=='토'||week[(weekend+j)%7]=='일'){  
-    	     schedule +='<td class="w3-light-grey w3-border " onclick="dayClick('+clickSid+')" id="sdid'+
-    	     clickSid+'"></td>'
-    	  }else{
-    	     schedule +='<td class="w3-border" onclick="dayClick('+clickSid+')" style="text-align:center" id="sdid'+
-    	     clickSid+'"></td>'
-    	  }
-      }
-      schedule += '</tr>'  
-    }
-    $('#yoil').after(schedule);
 }
 
 function viewScheduleList(scheduleList){
@@ -221,7 +195,6 @@ function buildCalendar(){
     var yoilStr ='<td class="w3-center w3-border" style="padding-left: 8px">'+
     '<i class="fa fa-caret-square-o-left " style="margin-right:10px" onclick="prevCalendar()"></i>'+ 
     '<i class="fa fa-caret-square-o-right" onclick="nextCalendar()"></i></td>';
-    var commonStr = ""
     //윤년체크
     if(month==1){
         if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
@@ -231,22 +204,17 @@ function buildCalendar(){
     for(var i=1;i<=lastDay;i++){
          dateStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+i+"</td>"
     }
-    
     for(var i=1;i<=lastDay;i++){
     	yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
         yoil++;
     }
-    
     $('#date').html(dateStr);
     $('#yoil').html(yoilStr);
-    
     $('#buttonDate').text(Number(month)+1);
     markTodayYoil(day);
-    
     viewCommonList(memberList, year, month, lastDay, week, weekend);
     viewScheduleList(scheduleList);
  	mouseoverEffect(memberList);
-    
     
 }
 $(function(){
