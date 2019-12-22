@@ -13,25 +13,18 @@
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/hashmap.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
 <script type="text/javascript">
 var today = new Date();
-function pad(n, width) {
-  n += '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
-}    
-function prevCalendar() {//이전 달
-     today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-     $('.scheduleTr').remove();
-     buildCalendar(); 
-    }
-function nextCalendar() {//다음 달
-    today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-     $('.scheduleTr').remove();
-     buildCalendar();
-}
-function schaduleModal(){
+
+function scheduleModal(){
      document.getElementById('addDay').style.display='block';
 }
 // DB저장되어 있는 유저정보 List
@@ -71,152 +64,7 @@ function scheduleDBtoJS(){
 	</c:forEach>
 	return scheduleList;
 }
-//근무기간 return 
-function viewTerm(scheduleList,i){
-	var term = ""
-		if(scheduleList[i].startDay==(scheduleList[i].endDay-1)||(scheduleList[i].dutyTerm==1&&scheduleList[i].endDay==1)){
-			term='<div  class="w3-bar-item  " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'
-			+scheduleList[i].startDay+'일'+'</font><font> (하루)</font></div>'+
-				'</div>'
-		}else{
-			term='<div  class="w3-bar-item " style="width:220px"><font color="grey">[기간]:</font> <font size="4">'+
-			scheduleList[i].startDay+'일~'+Number(scheduleList[i].endDay-1)+'일</font><font> ( '+
-					scheduleList[i].dutyTerm+'일 )</font></div>'+
-				'</div>'
-		}
-	return term;
-}
 
-function viewScheduleList(scheduleList){
-	 for(var i=0; i<scheduleList.length;i++){
-	    	for(var j=0; j<scheduleList[i].dutyTerm;j++){
-	    		if(scheduleList[i].dutyId==1){ //휴가 
-		    		if(scheduleList[i].content!='공휴일'){
-		    			var term = viewTerm(scheduleList,i);
-		    			viewSchedule('red','휴무',scheduleList,i,j,term);	
-		    		}else{
-		    			viewSchedule('light-grey','공휴',scheduleList,i,j,'');
-		    		}
-	    		}else if(scheduleList[i].dutyId==2){
-	    			var term = viewTerm(scheduleList,i);
-	    			viewSchedule('green','교육',scheduleList,i,j,term);
-	    		}else if(scheduleList[i].dutyId==3){ //휴가 
-	    			var term = viewTerm(scheduleList,i); 
-	    			viewSchedule('orange','휴가',scheduleList,i,j,term);	
-	    		
-	    		}else if(scheduleList[i].dutyId==4){ //출장
-	    			var term = viewTerm(scheduleList,i);
-					viewSchedule('blue','출장',scheduleList,i,j,term);	
-					
-	    		}else if(scheduleList[i].dutyId==5){ //근무
-	    			viewSchedule('brown','근무',scheduleList,i,j,'');	
-	    		}else if(scheduleList[i].dutyId==6){ 	//점검
-	    			viewSchedule('grey','점검',scheduleList,i,j,'');	
-	    		
-	    		}else if(scheduleList[i].dutyId==7){ //기타일정 
-	    			var term = viewTerm(scheduleList,i);
-					viewSchedule('purple','기타',scheduleList,i,j,term);	
-				     //관리자 & 기타(공통)으로 등록한 경우
-				    if(scheduleList[i].memberId==12){
-				       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).text(scheduleList[i].content)
-				       $('#commonId'+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-		    				'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
-		    				});
-					  //home db에 기타->출장 수정, 기타근무 추가     
-				    }
-	    		}
-	    	}
-	    }
-}
-// dutyid 1,3,5 해당 schedule view 
-function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
-	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-		'class' :'w3-'+scheduleColor+' w3-dropdown-hover w3-border',
-		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
-		});
-	var hoverContent = 
-        scheduleName+'<div class="w3-dropdown-content w3-bar-block w3-border" >'+  
-            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> '+scheduleName+'</font></div>'
-        if(scheduleName!=='점검'){
-        	hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
-        }    
-            hoverContent+=term;
-	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
-}
-function markTodayYoil(day){
-	 var today_yellow = new Date();
-	    var today_year = today_yellow.getFullYear();
-	    var today_month = today_yellow.getMonth();
-		$('.'+today_year+Number(today_month+1)+day).attr({
-			'class' :'w3-center w3-border w3-yellow w3-text-black',
-			'style' : 'font-weight:bold',
-		});
-}
-//마우스 근접시 해당 칼럼 음영
-function mouseoverEffect(memberList){
-	var currentId= '${userVO.id}'; //현재 접속자 아이디
-    for(var i =0 ; i<memberList.length;i++){
-	    $('#trid'+memberList[i].memberId).mouseover(function(e){
-	    	var mouseoverId=e.target.id.charAt(4)==1?e.target.id.substring(4,6):e.target.id.charAt(4); 
-	    	// sid=10 20190912 
-	    	//접속아이디와 마우스오버된 아이디가 같은 경우 파랑색 음영 
-	    	if(currentId==mouseoverId){
-		    	$(this).attr("bgcolor", "#BBDEFB");
-	    	}else{
-		    	$(this).attr("bgcolor", "pink");
-	    	}
-	    	})
-	    $('#trid'+memberList[i].memberId).mouseleave(function(){
-	    	$(this).removeAttr("bgcolor");
-	    })
-	}
-}
-
-//유지보수 가능 코딩1 _ buildCalendar() 수정하기
-function buildCalendar(){
-	
-	//DB에 저장되어있는 user,schedule 목록 js 배열로 저장
-    var memberList = memberDBtoJS();
-    var scheduleList = scheduleDBtoJS();
-  
-    var year = today.getFullYear();
-    var month = today.getMonth();
-    var day = today.getDate();
-    var setDate = new Date(year, month, 1);
-    var weekend=setDate.getDay();
-    var firstDay = setDate.getDate();
-    var yoil = setDate.getDay(); 
-    var lastDate = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
-    var week = new Array("일", "월", "화", "수", "목", "금", "토");
-    var lastDay = lastDate[month];
-    var currentId= '${userVO.id}'; //현재 접속자 아이디
-    
-    var dateStr ="<td class='w3-border w3-center' >"+year+"."+pad((Number(month)+1),2)+"</td>";
-    var yoilStr ='<td class="w3-center w3-border" style="padding-left: 8px">'+
-    '<i class="fa fa-caret-square-o-left " style="margin-right:10px" onclick="prevCalendar()"></i>'+ 
-    '<i class="fa fa-caret-square-o-right" onclick="nextCalendar()"></i></td>';
-    //윤년체크
-    if(month==1){
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
-            lastDay=29;        
-        }        
-    }
-    for(var i=1;i<=lastDay;i++){
-         dateStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+i+"</td>"
-    }
-    for(var i=1;i<=lastDay;i++){
-    	yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
-        yoil++;
-    }
-    $('#date').html(dateStr);
-    $('#yoil').html(yoilStr);
-    $('#buttonDate').text(Number(month)+1);
-    markTodayYoil(day);
-    viewCommonList(memberList, year, month, lastDay, week, weekend);
-    viewScheduleList(scheduleList);
- 	mouseoverEffect(memberList);
-    
-}
 $(function(){
 	buildCalendar();
 })
@@ -233,7 +81,7 @@ $(function(){
      <font size="6">월</font>
      <i class="	fa fa-arrow-circle-o-right w3-button" style="font-size:34px;" onclick="nextCalendar()"></i>
      
-     <button class='w3-button w3-black' style='margin-left:20px'onclick="schaduleModal()">
+     <button class='w3-button w3-black' style='margin-left:20px'onclick="scheduleModal()">
      	<i class="	fa fa-plus" style="font-size:10px;" onclick="nextCalendar()"></i>
      	<font size="4">일정등록</font></button>
      
