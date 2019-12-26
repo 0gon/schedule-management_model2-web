@@ -31,11 +31,14 @@ function scheduleModal(){
 function memberDBtoJS(){
     var memberList = new Array();
     <c:forEach var="member" items="${members}">
-    	var memberVO = {
-    			memberId: "${member.id}",
-    			memberNm: "${member.memberNm}"
-    	}
-    	memberList.push(memberVO);
+    console.log("${member.useyn}")
+	    if("${member.useyn}"==1){
+	    	var memberVO = {
+	    			memberId: "${member.id}",
+	    			memberNm: "${member.memberNm}"
+	    	}
+	    	memberList.push(memberVO);
+	    }
     </c:forEach>
     return memberList;
 }

@@ -13,8 +13,15 @@ public class UserVO {
 	private String memberNm;
 	private int dptNo;
 	private int grade;
+	private int useyn;
 	private String createDate;
 	
+	public int getUseyn() {
+		return useyn;
+	}
+	public void setUseyn(int useyn) {
+		this.useyn = useyn;
+	}
 	
 	public int getId() {
 		return Id;

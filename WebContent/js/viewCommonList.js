@@ -7,7 +7,7 @@ function viewCommonList(memberList, year, month, lastDay, week, weekend) {
     }
     schedule += '</tr>';
     
-    for(var i=2;i<memberList.length-1;i++){
+    for(var i=0;i<memberList.length;i++){
       schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
       for(var j=0;j<lastDay;j++){
     	  //토요일 일요일마다 회색 음영
