@@ -58,14 +58,7 @@ body, html {height: 100%}
     by gon
   </div>
 </div>
-<script>
-	$('#lotteLogo').click(function(){
-		if(prompt("관리자 비밀번호: ")=="1234"){
-		location.href="${ pageContext.servletContext.contextPath }/page/user/LoginFormPro?admin=1"
-		}else{
-			alert('권한없음')
-		}
-	});
-</script>
+<script src="${ pageContext.servletContext.contextPath }/js/adminCheck.js"></script>
+
 </body>
 </html>
