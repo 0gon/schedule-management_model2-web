@@ -259,10 +259,10 @@
                     </div>
                 </li>
        <li><label>시작일</label>
-       <input type="date" id="startdate" name="startDate" min="2019-01-01" max="2024-12-31" placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
+       <input type="date" id="startdate" name="startDate"  placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
        </li>
        <li><label>종료일</label>
-       <input type="date" id="enddate" name="endDate"  min="2019-01-01" max="2024-12-31" placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
+       <input type="date" id="enddate" name="endDate"  placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
        </li>
        
        <li><button class="w3-button w3-black" id="commitbtn" onclick="checkValue();"

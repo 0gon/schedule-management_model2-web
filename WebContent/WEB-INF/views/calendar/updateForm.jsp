@@ -178,10 +178,10 @@
                     </div>
                		 </li>
          <li><label>시작일</label>
-       <input value="${schedule.startDate}" type="date" id="startdate" name="startDate" min="2019-01-01" max="2019-12-31" placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
+       <input value="${schedule.startDate}" type="date" id="startdate" name="startDate"  placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
        </li>
        <li><label>종료일</label>
-       <input value="${schedule.endDate }" type="date" id="enddate" name="endDate"  min="2019-01-01" max="2019-12-31" placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
+       <input value="${schedule.endDate }" type="date" id="enddate" name="endDate" placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
        </li>
                		 
                		 
