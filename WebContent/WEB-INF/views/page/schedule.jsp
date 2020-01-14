@@ -31,7 +31,6 @@ function scheduleModal(){
 function memberDBtoJS(){
     var memberList = new Array();
     <c:forEach var="member" items="${members}">
-    console.log("${member.useyn}")
 	    if("${member.useyn}"==1){
 	    	var memberVO = {
 	    			memberId: "${member.id}",
@@ -50,6 +49,9 @@ function scheduleDBtoJS(){
 		var endDate = new Date("${schedule.endDate}");
 		var transTerm = endDate.getTime() - startDate.getTime() 
 		var dutyTerm = transTerm/(1000*60*60*24);
+		var padMonth = startDate.getMonth()+1;
+		if (startDate.getMonth() < 9)  padMonth = '0' + padMonth.toString();
+		
     	var scheduleVO={
     			scheduleId: "${schedule.id}",
     			dutyId: "${schedule.dutyId}",
@@ -57,7 +59,7 @@ function scheduleDBtoJS(){
     			startDay: startDate.getDate(),
     			endDay: endDate.getDate(),
     			year: startDate.getFullYear(),
-    			month:startDate.getMonth()+1,
+    			month:padMonth,
     			dutyTerm : dutyTerm,
     			content : "${schedule.content}",
     			startWorkTime : "${schedule.startWorkTime}",

@@ -25,16 +25,19 @@ function buildCalendar(){
             lastDay=29;        
         }        
     }
+    
+    month = month < 9 ? month = '0'+(month+1).toString() : month + 1; 
+    
     for(var i=1;i<=lastDay;i++){
-         dateStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+i+"</td>"
+         dateStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+i+"</td>"
     }
     for(var i=1;i<=lastDay;i++){
-    	yoilStr+= "<td class='w3-border w3-center "+year+Number(month+1)+i+"'>"+week[yoil%7]+"</td>"
+    	yoilStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+week[yoil%7]+"</td>"
         yoil++;
     }
     $('#date').html(dateStr);
     $('#yoil').html(yoilStr);
-    $('#buttonDate').text(Number(month)+1);
+    $('#buttonDate').text(month);
     markTodayYoil(day);
     viewCommonList(memberList, year, month, lastDay, week, weekend);
     viewScheduleList(scheduleList);
