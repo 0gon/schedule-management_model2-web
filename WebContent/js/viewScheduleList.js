@@ -5,7 +5,17 @@ function viewScheduleList(scheduleList){
 	    		if(scheduleList[i].dutyId==1){ //휴가 
 		    		if(scheduleList[i].content!='공휴일'){
 		    			var term = viewTerm(scheduleList,i);
-		    			viewSchedule('red','휴무',scheduleList,i,j,term);	
+		    			if(scheduleList[i].content=='대체휴무'){
+		    				viewSchedule('red','대휴',scheduleList,i,j,term);	
+		    			}else if(scheduleList[i].content=='공가'){
+		    				viewSchedule('red','공가',scheduleList,i,j,term);	
+		    			}else if(scheduleList[i].content=='정기휴무'){
+		    				viewSchedule('red','정휴',scheduleList,i,j,term);
+		    			}else if(scheduleList[i].content=='보상'){
+		    				viewSchedule('red','보상',scheduleList,i,j,term);
+		    			}else{
+		    				viewSchedule('red','연차',scheduleList,i,j,term);
+		    			}	
 		    		}else{
 		    			viewSchedule('light-grey','공휴',scheduleList,i,j,'');
 		    		}
@@ -21,7 +31,11 @@ function viewScheduleList(scheduleList){
 					viewSchedule('blue','출장',scheduleList,i,j,term);	
 					
 	    		}else if(scheduleList[i].dutyId==5){ //근무
-	    			viewSchedule('brown','근무',scheduleList,i,j,'');	
+	    			if(scheduleList[i].content=='주말근무'){
+	    				viewSchedule('brown','근무',scheduleList,i,j,'');	
+	    			}else{
+	    				viewSchedule('brown','책당',scheduleList,i,j,'');	
+	    			}
 	    		}else if(scheduleList[i].dutyId==6){ 	//점검
 	    			viewSchedule('grey','점검',scheduleList,i,j,'');	
 	    		
