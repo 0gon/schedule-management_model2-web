@@ -1,23 +1,33 @@
-var currentId = sessionStorage.getItem("currentId"); //세션에 저장되어있는 현재 접속자 아이디
-var ctx = sessionStorage.getItem("contextpath"); //현재경로
-var grade = sessionStorage.getItem("grade"); //현재 회원 등급 -> userVO로 통합할 수 있는지 여부
+var currentId = sessionStorage.getItem("currentId"); // 세션에 저장되어있는 현재 접속자 아이디
+var ctx = sessionStorage.getItem("contextpath"); // 현재경로
+var grade = sessionStorage.getItem("grade"); // 현재 회원 등급 -> userVO로 통합할 수 있는지
+												// 여부
 
-//일정없는 날 클릭시 발생 함수
+// 일정없는 날 클릭시 발생 함수
 function dayClick(clickSid){
-	var clickId = String(clickSid).charAt(0)==1?String(clickSid).substring(0,2):String(clickSid).charAt(0); //사용자가 클릭한 아이디
-	var subDate = String(clickSid).substring(1,clickSid.length)
+	// 사용자가 클릭한 아이디, 현재 접속아이디: currentId
+	var clickId = String(clickSid).charAt(0)==1?String(clickSid).substring(0,2):String(clickSid).charAt(0); 
+	var subDate = String(clickSid).substring(1,clickSid.length); //2020011
+	var clickDate = dateFormat(subDate);
 	if(currentId==clickId){
-		//일정 클릭시 현재 날짜가 모달창에 등록
-		//일정 클릭한 날짜가 모달에 등록되도록 수정 필요
-		//clickId 가공 필요
+		document.getElementById('startdate').value=clickDate;
+		document.getElementById('enddate').value=clickDate;
         document.getElementById('addDay').style.display='block';
 	}else{
 		alert('자신의 일정만 조정가능합니다.')
 	}
 }
-//일정 클릭시 발생 함수
+// 2020011 -> 2020-01-01로 바꿔주는 함수
+function dateFormat(date){
+	  var yyyy = date.substring(0,4);
+	  var mm = date.substring(4,6);
+	  var dd = date.substring(6);
+	  return yyyy + "-" + mm + "-" + (dd[1] ? dd : "0" + dd[0]);
+}
+
+// 일정 클릭시 발생 함수
 function scheduleClick(scheduleId, smemberId){
-	//관리자 권한이 있는 경우
+	// 관리자 권한이 있는 경우
 	if(grade==1){
 		if(confirm("삭제하시겠습니까?")){
 		location.href=ctx+'/page/deleteSchedule?id='+scheduleId+'&type=2'
@@ -25,7 +35,7 @@ function scheduleClick(scheduleId, smemberId){
 			return
 		}
 	}else{
-		//클릭된 일정 상세보기
+		// 클릭된 일정 상세보기
 		if(currentId==smemberId){
 	        contentView(scheduleId);
 	        document.getElementById('addDay').style.display='none';

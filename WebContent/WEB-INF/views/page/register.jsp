@@ -5,7 +5,6 @@
   <!-- Header -->
   <header id="portfolio">
     <a href="#"><img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
     <div class="w3-container" style="padding-top:  10px">
         <font size="6">일정관리 </font>
     <div class="w3-padding w3-bottombar">
@@ -259,10 +258,10 @@
                     </div>
                 </li>
        <li><label>시작일</label>
-       <input type="date" id="startdate" name="startDate"  placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
+       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
        </li>
        <li><label>종료일</label>
-       <input type="date" id="enddate" name="endDate"  placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
+       <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
        
        <li><button class="w3-button w3-black" id="commitbtn" onclick="checkValue();"

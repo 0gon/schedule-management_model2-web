@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <div class="w3-modal-content w3-light-grey w3-card-4"
 	style="max-width: 400px;">
 	<div class="w3-container w3-center w3-teal" style="height: 38px">
@@ -51,12 +50,6 @@
                     <div class="w3-padding">
                           교육명 : <input type="text" id="eduSubject" name="eduSubject" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
-                    <div>
-                        <span>근무시간 등록여부 :</span>
-                        <span >
-                         <input type="checkbox" name="chkBox" id="eduTime" class="w3-radio"  onchange="eduCheck(1)" > (체크시 등록)
-                        </span>
-                    </div>
                     </div>
                     
                     <!-- 휴가 huga로 보내서 1 or 2로 받음-->
@@ -73,12 +66,6 @@
                     <div id="duty4" style="display: none">
                     <div class="w3-padding">
                           내용 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
-                    </div>
-                    <div>
-                        <span>근무시간 등록여부 :</span>
-                        <span >
-                         <input type="checkbox" name="chkBox" id="etcTime"  class="w3-radio" onclick="eduCheck(2)"> (체크시 등록)
-                        </span>
                     </div>
                
                     </div>
@@ -177,17 +164,20 @@
                       </div>
                     </div>
                		 </li>
-         <li><label>시작일</label>
-       <input value="${schedule.startDate}" type="date" id="startdate" name="startDate"  placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
+       
+       <li><label>시작일</label>
+       <input type="text" value="${schedule.startDate}"  id="ud_startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
        </li>
        <li><label>종료일</label>
-       <input value="${schedule.endDate }" type="date" id="enddate" name="endDate" placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
+       <input type="text" value="${schedule.endDate }" id="ud_enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
                		 
                		 
-					<li><button class="w3-button" id="commitbtn"
-							onclick="checkUpdateValue();">전송</button>
-						<input type="reset" class="w3-button" value="다시쓰기"></li>
+					<li><button class="w3-button w3-black" id="commitbtn"
+							onclick="checkUpdateValue();">수정하기</button>
+					 <span class="w3-button w3-red" onclick="document.getElementById('message').style.display='none';">
+                취소</span>	
+					</li>
 				</ul>
 				<input type="hidden" name="id" value="${schedule.id }"> 
 			</form>
@@ -195,77 +185,4 @@
 		</div>
 	</div>
 </div>
-<script>
-function dutyChange(dutyCode){
-    if(dutyCode.value==1){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide(); 
-        $('#duty1').show();$('#duty2').hide();
-        $('#duty3').hide();$('#duty4').hide();$('#duty5').hide(); $('#duty6').hide(); 
-    }else if(dutyCode.value==2){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        var tmp = $('#eduTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-        $('#duty1').hide();$('#duty2').show();
-        $('#duty3').hide();$('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==3){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').show();
-        $('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==4){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-         var tmp = $('#etcTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-        $('#duty1').hide();$('#duty2').hide();
-        $('#duty3').hide();$('#duty4').show();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==5){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').hide();$('#duty4').hide(); 
-        $('#duty5').show();$('#duty6').hide(); 
-    }else if(dutyCode.value==6){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#duty1').hide();$('#duty2').hide();$('#duty3').hide(); 
-        $('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-        $('#registerWork').hide(); 
-    }else if(dutyCode.value==7){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').hide();$('#duty4').hide();$('#duty5').hide();  
-        $('#duty6').show();
-    }
-}
-function eduCheck(chk){
-    if(chk==1){
-        var tmp = $('#eduTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-    }else if(chk==2){
-         var tmp = $('#etcTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-    }
-}
-</script>
+

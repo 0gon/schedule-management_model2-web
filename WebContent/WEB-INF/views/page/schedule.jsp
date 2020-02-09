@@ -8,6 +8,7 @@
 </script>
 <script src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/datePicker.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
@@ -78,7 +79,6 @@ $(function(){
   <!-- Header -->
   <header id="portfolio">
     <a href="#"><img src="../imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
     <div class="w3-container" style="padding-top:  10px">
         <font size="6">파트원 현황</font> 
      <i class="fa fa-arrow-circle-o-left w3-button" style="font-size:34px;margin-left:10px" onclick="prevCalendar()"></i> 
@@ -329,10 +329,10 @@ $(function(){
                     </div>
                 </li>
        <li><label>시작일</label>
-       <input type="date" id="startdate" name="startDate" min="2019-01-01" max="2024-12-31" placeholder="YYYY-MM-DD"  value="" class="w3-input w3-border">
+       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
        </li>
        <li><label>종료일</label>
-       <input type="date" id="enddate" name="endDate"  min="2019-01-01" max="2024-12-31" placeholder="YYYY-MM-DD" value="" class="w3-input w3-border">
+       <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
        
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
@@ -347,5 +347,7 @@ $(function(){
         </div>
     </div>
 </div>
-
 </div>
+<script>
+datePicker();
+</script>
