@@ -19,9 +19,19 @@ function dayClick(clickSid){
 }
 // 2020011 -> 2020-01-01로 바꿔주는 함수
 function dateFormat(date){
-	  var yyyy = date.substring(0,4);
-	  var mm = date.substring(4,6);
-	  var dd = date.substring(6);
+    var yyyy = ""
+	var mm = ""
+	var dd = ""
+	//memberId = 10이상인 경우, ex) date가 18.20200201 -> 8.20200201 로 잘림 두번째자리가 2로 비교 
+	if(date.substring(1,2) == 2 ){
+ 	  yyyy = date.substring(1,5);	
+	  mm = date.substring(5,7);
+	  dd = date.substring(7);
+	}else{
+	  yyyy = date.substring(0,4);
+	  mm = date.substring(4,6);
+	  dd = date.substring(6);
+	}
 	  return yyyy + "-" + mm + "-" + (dd[1] ? dd : "0" + dd[0]);
 }
 
