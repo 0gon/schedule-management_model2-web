@@ -23,7 +23,6 @@ public class UpdatePro implements CommandHandler {
 		scheduleVO.setEndDate(transEndDate);
 		scheduleVO.setStartDate(transStartDate);
 
-		
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		scheduleDAO.updateSchedule(scheduleVO);
 		return "redirect:/page/register";
