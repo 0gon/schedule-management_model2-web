@@ -31,11 +31,7 @@ public class LoginFormPro implements CommandHandler {
 			memberId="admin";
 			memberPwd="1234";
 		}
-		System.out.println("test");
-		res.sendRedirect(req.getContextPath()+"/page/register");
 		
-		return null;
-		/*
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		if(userVO==null || !memberPwd.equals(userVO.getMemberPwd())) {
 			req.setAttribute("memberId",memberId);
@@ -69,6 +65,5 @@ public class LoginFormPro implements CommandHandler {
 			req.setAttribute("userVO",userVO);
 			return "/WEB-INF/views/page/register.jsp";
 		}
-		*/
 	}
 }

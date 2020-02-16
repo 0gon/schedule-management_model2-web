@@ -123,12 +123,28 @@ $(function(){
     </div>
     </div>
   </header>
-  <div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1400px;margin-left:10px;margin-top:10px">
+  
+ <!--  채팅 div --> 
+  <div class="w3-cell w3-container w3-margin-bottom"  id="draggable" >
+      <div class="w3-container w3-white">
+      <h6 style="display: inline-block; cursor: move;">IT_POS Part</h6> 
+      <span class=" w3-tag w3-white w3-middle w3-margin-top" style="float: right; "><font style="font-color:grey; font-size:12px;" id="curMember" ></font></span>
+      </div>
+     <div class="w3-card-4">
+  <div class="w3-container ui-widget-content" id="chat" style="padding:0; margin:0; overflow:auto; background: rgba(241, 241, 241, 0.75); ">
+      </div>
+      </div>
+    </div>
+    
+  <div class="w3-container w3-cell w3-padding-large w3-card-2 w3-white" style="width:1400px;margin-left:10px;margin-top:10px">
     <table id="scheduleTable" class="w3-table" >
         <tr id ='date'>
         </tr>
         <tr id='yoil'></tr>
     </table>
+  </div>
+  <div class="w3-container w3-padding">
+  * 대화 내용은 3일치까지 표시됩니다.
   </div>
   
     <!-- 메시지 모달 -->
@@ -350,4 +366,5 @@ $(function(){
 </div>
 <script>
 datePicker();
+$('#chat').load('${ pageContext.servletContext.contextPath }/page/chat/intro?dptNo=${userVO.dptNo}&userId=${userVO.id}&useyn=${userVO.useyn}');  
 </script>
