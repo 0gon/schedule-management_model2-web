@@ -20,7 +20,8 @@ import javax.websocket.server.ServerEndpoint;
 
 import controller.CommandHandler;
 
-public class WebSocketServerGroup implements CommandHandler {
+@ServerEndpoint("/webGroup")
+public class WebSocketServerGroup {
 		private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("a h:mm");
@@ -143,9 +144,4 @@ public class WebSocketServerGroup implements CommandHandler {
 
 	}
 
-	@Override
-	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

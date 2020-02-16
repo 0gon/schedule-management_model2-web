@@ -116,7 +116,7 @@ pre {
 	<div class="w3-container " style="margin: 0; padding: 0;">
 
 		<div class="w3-container w3-padding"
-			style="height: 320px; overflow-x: hidden; overflow-y: auto; background: inherit;"
+			style="height: 340px;  overflow-y: auto; background: inherit;"
 			id="messageWindow"></div>
 
 		<!-- 전송창부분   -->
@@ -146,7 +146,8 @@ pre {
 
 							</td>
 					</table>
-
+					<span class=" w3-margin-left w3-tag w3-white w3-border" >
+					<font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
 				</div>
 
 
@@ -163,7 +164,7 @@ pre {
 </body>
 <script type="text/javascript">
 var lastday=${lastday};
-var today =new Date().toString('yyyyMMdd');
+var today =getFormatDate(new Date());
  var isEmpty=document.getElementById('isEmpty').value;
  var memArr=new Array();
   var chatdata = [
@@ -182,8 +183,8 @@ var today =new Date().toString('yyyyMMdd');
   ${nameJs3};
         var textarea = document.getElementById("messageWindow");
         var webSocket = new WebSocket(
-   'ws://localhost:8080${ pageContext.servletContext.contextPath }/page/chat/webGroup?name='
-   		+encodeURIComponent('123')+'&group='+encodeURIComponent('${group}'));
+   'ws://172.30.1.2:8080${ pageContext.servletContext.contextPath }/webGroup?name='
+   		+encodeURIComponent('${name}')+'&group='+encodeURIComponent('${group}'));
         var inputMessage = document.getElementById('inputMessage');
     
     webSocket.onerror = function(event) {     onError(event)   };
@@ -191,7 +192,6 @@ var today =new Date().toString('yyyyMMdd');
     webSocket.onmessage = function(event) {   onMessage(event) };
     
     function testProcess(data){
-    	
     	var t=data.trim();
 		var tmp=t.substr(t.indexOf('[')+1,t.lastIndexOf(']')-1);
     	var cutTmp = tmp.split('] [');
@@ -208,21 +208,11 @@ var today =new Date().toString('yyyyMMdd');
       		var count=0;
       		for(var i=0; i<fromServer.length-1;i++){
       			var groupAndName=fromServer[i].split("-");
-      			var memArrForList=new Array();
+      			memArr[groupAndName[1]]= groupAndName[1]
       			if(groupAndName[0]==${group}){
       				count++;
-      				memArr[groupAndName[1]]={
-      						nick:groupAndName[2],
-      						photo:'<%=request.getContextPath()%>'+groupAndName[3],
-      						position:groupAndName[4]
-      				};
-      				memArrForList[groupAndName[1]]={
-      						nick:groupAndName[2],
-      						photo:groupAndName[3],
-      						position:groupAndName[4]
-      				};
       				document.getElementById("curMember").innerHTML +=
-      		      		"<a href='#' class='w3-bar-item w3-button'><img src='<%=request.getContextPath()%>"+memArrForList[groupAndName[1]].photo+"' class='profileThum' >&nbsp;"+memArrForList[groupAndName[1]].nick+"&nbsp;("+memArrForList[groupAndName[1]].position+")</a>"; 
+      		      		"<a href='#' class='w3-bar-item w3-button w3-center'>"+groupAndName[1]+"</a>"; 
       			}
       		}
       		document.getElementById("curCount").innerHTML ='현재 접속자 : '+count+'명'; 
@@ -230,8 +220,9 @@ var today =new Date().toString('yyyyMMdd');
       		return;
       	}
      var texts=testProcess(event.data);
+     console.log("texts:" + texts)
      if((lastday!=today)||(isEmpty=='true')){
-    	 var todaytext=new Date().toString('yyyy년 MM월 dd일');
+    	 var todaytext=getFormatDate(new Date());
     	 textarea.innerHTML +="<div class='w3-margin-top dateTitle' style='width:100%;' align='center'>"
  			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+todaytext+"</span></div><br>";
      	lastday=today;
@@ -239,7 +230,7 @@ var today =new Date().toString('yyyyMMdd');
      }
     textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-	        +"<img src='"+memArr[texts[0]].photo+"' class='profileThum' >&nbsp;"+memArr[texts[0]].nick+"<br>"
+	        +texts[0]+"<br>"
 	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+texts[2]+"</font></span>"
 	      +" </div><br><span class='w3-small'>"+texts[1]+"</span></li></ul></td></tr></table></div>"; 
@@ -265,7 +256,7 @@ var today =new Date().toString('yyyyMMdd');
 		  }else{
 		 textarea.innerHTML +="<div><table align='left' style='width:100%;'><tr><td>"
 		 +"<ul class='w3-ul' style='display:block;' ><li class='w3-large' style='border:none; max-width:80%;'> "
-	        +"<img src='"+map[l0]+"' class='profileThum'>&nbsp;"+map2[l0]+"<br>"
+	        +map2[l0]+"<br>"
 	        +" <div class='w3-panel w3-round-large w3-padding' style='margin:0; background: rgba(0, 150, 136, 0.75); display:inline-block;'>"
 	        +" <span class='w3-medium'><font color='white'>"+l2+"</font></span>"
 	      +" </div><br><span class='w3-small'>"+l1+"</span></li></ul></td></tr></table></div>"; 
@@ -282,7 +273,7 @@ var today =new Date().toString('yyyyMMdd');
     function onError(event) {     alert(event.data);   }
   
     function send() {
-    	today=new Date().toString('yyyyMMdd');
+    	today=getFormatDate(new Date());
     	
     	var rename="";
     	 var now = new Date();
@@ -303,9 +294,10 @@ var today =new Date().toString('yyyyMMdd');
         	 
          	}
          if((lastday!=today)||(isEmpty=='true')){
-        	 var todaytext=new Date().toString('yyyy년 MM월 dd일');
+        	 var todaytext=getFormatDate(new Date());
+
         	 textarea.innerHTML +="<div class='w3-margin-top dateTitle' style='width:100%;' align='center'>"
-     			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+"test"+"</span></div><br>";
+     			+"<span class='w3-tag w3-white w3-border w3-margin-top'>"+todaytext+"</span></div><br>";
         	 
          	lastday=today;
          	isEmpty='false';
@@ -318,7 +310,6 @@ var today =new Date().toString('yyyyMMdd');
 		 textarea.scrollTop=textarea.scrollHeight;
          webSocket.send(inputMessage.value.trim());
         inputMessage.value = "";
-         document.getElementById('searchText').value='';
              $("#messageWindow > div").show();
        textarea.scrollTop=textarea.scrollHeight;
     }
@@ -355,6 +346,16 @@ function checkKey(e){
     	}
 	}
 	document.getElementById('inputMessage').onkeypress = checkKey;
+	
+	
+	function getFormatDate(date){
+	    var year = date.getFullYear();              //yyyy
+	    var month = (1 + date.getMonth());          //M
+	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+	    var day = date.getDate();                   //d
+	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+	    return  year + '-' + month + '-' + day;
+	}
 </script> 
 
 

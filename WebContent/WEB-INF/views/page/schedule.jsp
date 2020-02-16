@@ -125,18 +125,28 @@ $(function(){
   </header>
   
  <!--  채팅 div --> 
-  <div class="w3-cell w3-container w3-margin-bottom"  id="draggable" >
+<div class="w3-row">
+
+<div class="w3-col w3-container w3-margin-bottom" style="width: 420px;"  id="draggable" >
+   
       <div class="w3-container w3-white">
-      <h6 style="display: inline-block; cursor: move;">IT_POS Part</h6> 
-      <span class=" w3-tag w3-white w3-middle w3-margin-top" style="float: right; "><font style="font-color:grey; font-size:12px;" id="curMember" ></font></span>
+      <h6 style="display: inline-block; cursor: move;" id="handle">IT_POS Part</h6>  
+      <div class="w3-dropdown-hover w3-right w3-small " style="margin-top:5px;"> 
+    <button class="w3-button">접속자 목록</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" id="curMember" style="width:100px;max-height:300px; overflow:auto;">
+      <a href="#" class="w3-bar-item w3-button">접속자 없음</a> 
+   </div></div>
       </div>
      <div class="w3-card-4">
-  <div class="w3-container ui-widget-content" id="chat" style="padding:0; margin:0; overflow:auto; background: rgba(241, 241, 241, 0.75); ">
+ <!-- 채팅 div -->
+  <div class="w3-container ui-widget-content" id="chat" ondrop="drop(event)" ondragover="allowDrop(event)" style="padding:0; margin:0; overflow:auto; background: rgba(241, 241, 241, 0.75); ">
+
       </div>
+  
       </div>
     </div>
     
-  <div class="w3-container w3-cell w3-padding-large w3-card-2 w3-white" style="width:1400px;margin-left:10px;margin-top:10px">
+  <div class="w3-container w3-rest w3-padding-large w3-card-2 w3-white">
     <table id="scheduleTable" class="w3-table" >
         <tr id ='date'>
         </tr>
