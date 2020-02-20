@@ -1,6 +1,6 @@
 
 //유지보수 가능 코딩1 _ buildCalendar() 수정하기
-function buildCalendar(today){
+function buildCalendar(){
 	//DB에 저장되어있는 user,schedule 목록 js 배열로 저장
     var memberList = memberDBtoJS();
     var scheduleList = scheduleDBtoJS();

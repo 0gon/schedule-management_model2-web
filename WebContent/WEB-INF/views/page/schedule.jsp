@@ -38,9 +38,7 @@
 <script type="text/javascript">
 	var today = new Date();
 	
-	function scheduleModal() {
-		document.getElementById('addDay').style.display = 'block';
-	}
+
 	// DB저장되어 있는 유저정보 List
 	function memberDBtoJS() {
 		var memberList = new Array();
@@ -85,8 +83,17 @@
 		return scheduleList;
 	}
 
+	function clickTest(){
+		
+		$('#chat')
+		.load(
+				'${ pageContext.servletContext.contextPath }/page/chat/intro?dptNo=${userVO.dptNo}&userId=${userVO.id}&useyn=${userVO.useyn}');
+	}
 	$(function() {
-		buildCalendar(today);
+		
+		buildCalendar();
+	
+		
 	})
 </script>
 <div class="w3-main"
@@ -109,6 +116,12 @@
 					onclick="nextCalendar()"></i> <font size="4">일정등록</font>
 			</button>
 
+
+<button class='w3-button w3-black' style='margin-left: 20px'
+				onclick="clickTest()">
+				<i class="	fa fa-plus" style="font-size: 10px;"
+					onclick="clickTest()"></i> <font size="4">tet</font>
+			</button>
 			<div class="w3-padding w3-bottombar">
 				<table>
 					<tr>
@@ -406,7 +419,5 @@
 	</div>
 	<script>
 		datePicker();
-		$('#chat')
-				.load(
-						'${ pageContext.servletContext.contextPath }/page/chat/intro?dptNo=${userVO.dptNo}&userId=${userVO.id}&useyn=${userVO.useyn}');
+
 	</script>
