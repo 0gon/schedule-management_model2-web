@@ -220,7 +220,6 @@ var today =getFormatDate(new Date());
       		return;
       	}
      var texts=testProcess(event.data);
-     console.log("texts:" + texts)
      if((lastday!=today)||(isEmpty=='true')){
     	 var todaytext=getFormatDate(new Date());
     	 textarea.innerHTML +="<div class='w3-margin-top dateTitle' style='width:100%;' align='center'>"
