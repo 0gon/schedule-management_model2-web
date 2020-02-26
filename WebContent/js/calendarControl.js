@@ -2,6 +2,10 @@ function scheduleModal() {
 	document.getElementById('addDay').style.display = 'block';
 }
 
+function borderModal() {
+	document.getElementById('borderList').style.display = 'block';
+}
+
 function pad(n, width) {
 	n += '';
 	return n.length >= width ? n : new Array(width - n.length + 1).join('0')

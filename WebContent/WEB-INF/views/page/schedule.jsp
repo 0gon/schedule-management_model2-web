@@ -109,6 +109,10 @@
 				<i class="	fa fa-plus" style="font-size: 10px;"
 					></i> <font size="4">일정등록</font>
 			</button>
+			<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 20px'
+				onclick="borderModal()">
+				<font size="4">게시판</font>
+			</button>
 
 
 			<div class="w3-padding w3-bottombar">
@@ -298,4 +302,20 @@
         </div>
     </div>
 </div>
+
+
+
+  <!-- 게시판 모달 -->
+<div id="borderList" class="w3-modal" >
+    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 400px;">
+        <div class="w3-container w3-center w3-teal" style="height:38px">
+            <div style="margin-top:2px"><font size=5>게시판 리스트</font></div>
+        </div>
+        <div class="w3-container w3-padding" >
+        <span onclick="document.getElementById('borderList').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+
+        </div>
+    </div>
+</div>
+
 </div>
