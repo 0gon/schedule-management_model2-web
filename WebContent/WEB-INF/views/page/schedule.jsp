@@ -97,22 +97,78 @@
 		<a href="#"><img src="../imgs/avatar_g2.jpg" style="width: 65px;"
 			class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
 		<div class="w3-container" style="padding-top: 10px">
-			<font size="6">파트원 현황</font> <i
-				class="fa fa-arrow-circle-o-left w3-button"
-				style="font-size: 34px; margin-left: 10px" onclick="prevCalendar()"></i>
-			<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
-				class="	fa fa-arrow-circle-o-right w3-button"
-				style="font-size: 34px;" onclick="nextCalendar()"></i>
+		
+		<div class="w3-row">
+			<div class="w3-col" style="width:610px;height:88px">
+				<font size="6">파트원 현황</font> <i
+					class="fa fa-arrow-circle-o-left w3-button"
+					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
+				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
+					class="	fa fa-arrow-circle-o-right w3-button"
+					style="font-size: 34px;" onclick="nextCalendar()"></i>
+	
+				<button class='w3-button w3-black' style='margin-left: 5px'
+					onclick="scheduleModal()">
+					<i class="	fa fa-plus" style="font-size: 10px;"
+						></i> <font size="4">일정등록</font>
+				</button>
+				<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
+					onclick="startAnim()">
+				<font size="4">공지사항
+				</font>
+				</button>
+				<!-- 새 글이 있는 경우  NEW 이미지 -->
+				<div style="display:inline;">
+				<img src="${ pageContext.servletContext.contextPath }/imgs/new.png" style="width:35px;margin-top:-50px;margin-left:-10px" >
+				</div>
 
-			<button class='w3-button w3-black' style='margin-left: 20px'
-				onclick="scheduleModal()">
-				<i class="	fa fa-plus" style="font-size: 10px;"
-					></i> <font size="4">일정등록</font>
-			</button>
-			<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 20px'
-				onclick="borderModal()">
-				<font size="4">게시판</font>
-			</button>
+			</div>
+			
+			<!-- 공지사항 영역-->
+			<div class="w3-col borderAnim w3-border w3-border-black" style="display:none;width:800px">
+				<div class="w3-row">
+					<div class="w3-col" style="width:85px; margin-left:10px;margin-top:10px">
+						<div class="w3-tag w3-round" style="padding:3px">
+						  <div class="w3-tag w3-round w3-border w3-border-white">
+						  <i class="fa fa-pencil"></i>
+						     쓰 기
+						  </div>
+						</div>
+						
+						<div style="margin-left:7px">
+							<font size="5px" class="w3-button" style="padding:2px">◀</font>
+							<font size="5px" class="w3-button" style="padding:2px">▶</font>
+						</div>
+					</div>
+					<div class="w3-col" style="width:500px">
+						<table >
+							<tr class="w3-button" style="padding:0px">
+								<td>[2020.02.29]</td>
+								<td>[송영곤]</td>
+								<td>: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+								<span class="w3-badge w3-teal w3-small">4</span>
+								</td>
+							</tr>
+							<tr class="w3-button" style="padding:0px">
+								<td>[2020.02.29]</td>
+								<td>[송영곤]</td>
+								<td>: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+								<span class="w3-badge w3-teal w3-small">4</span>
+								</td>
+							</tr>
+							<tr class="w3-button" style="padding:0px">
+								<td>[2020.02.29]</td>
+								<td>[송영곤]</td>
+								<td>: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+								</td>
+							</tr>
+							
+						</table>
+					</div>				
+				</div>
+			</div>
+		</div>
+			
 
 
 			<div class="w3-padding w3-bottombar">
@@ -157,6 +213,7 @@
 			</div>
 		</div>
 	</header>
+	<!-- 일정 -->
 	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1400px;margin-left:10px;margin-top:10px">
     <table id="scheduleTable" class="w3-table" >
         <tr id ='date'>
@@ -319,3 +376,14 @@
 </div>
 
 </div>
+<script>
+	document.getElementsByClassName('borderAnim').style.display="none"
+	function startAnim() {
+	    var i;
+	    var y =document.getElementsByClassName('borderAnim');
+	    for (i = 0; i < y.length; i++) {
+	       y[i].style.display = "block";  
+	    }
+	    
+	}
+</script>
