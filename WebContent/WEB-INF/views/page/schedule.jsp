@@ -114,52 +114,52 @@
 				</button>
 				<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
 					onclick="startAnim()">
-				<font size="4">공지사항
+				<font size="4" id="noticeBoard">공지사항
 				</font>
 				</button>
 				<!-- 새 글이 있는 경우  NEW 이미지 -->
 				<div style="display:inline;">
-				<img src="${ pageContext.servletContext.contextPath }/imgs/new.png" style="width:35px;margin-top:-50px;margin-left:-10px" >
+				<img src="${ pageContext.servletContext.contextPath }/imgs/new_y.png" style="width:35px;margin-top:-50px;margin-left:-10px" >
 				</div>
 
-			</div>
+			</div> 
 			
 			<!-- 공지사항 영역-->
 			<div class="w3-col borderAnim w3-border w3-border-black" style="display:none;width:800px">
 				<div class="w3-row">
 					<div class="w3-col" style="width:85px; margin-left:10px;margin-top:10px">
 						<div class="w3-tag w3-round" style="padding:3px">
-						  <div class="w3-tag w3-round w3-border w3-border-white">
+						  <div class="w3-tag w3-round w3-border w3-border-white w3-hover-opacity w3-hover-white">
 						  <i class="fa fa-pencil"></i>
 						     쓰 기
 						  </div>
 						</div>
 						
-						<div style="margin-left:7px">
+						<div style="margin-left:7px"> 
 							<font size="5px" class="w3-button" style="padding:2px">◀</font>
 							<font size="5px" class="w3-button" style="padding:2px">▶</font>
 						</div>
 					</div>
-					<div class="w3-col" style="width:500px">
-						<table >
-							<tr class="w3-button" style="padding:0px">
-								<td>[2020.02.29]</td>
-								<td>[송영곤]</td>
-								<td>: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+					<div class="w3-col" style="width:700px">
+						<table style="border-collapse: collapse; margin-top:5px">
+							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
+								<td>[2020.02.29 13:20]</td>
+								<td style="width:50px">[송영곤]</td>
+								<td >: 1
 								<span class="w3-badge w3-teal w3-small">4</span>
 								</td>
 							</tr>
-							<tr class="w3-button" style="padding:0px">
-								<td>[2020.02.29]</td>
-								<td>[송영곤]</td>
-								<td>: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+							<tr class="w3-hover-opacity w3-hover-pale-red"  >
+								<td>[2020.02.29 17:12]</td>
+								<td style="width:50px">[송영곤]</td>
+								<td >: 1
 								<span class="w3-badge w3-teal w3-small">4</span>
 								</td>
 							</tr>
-							<tr class="w3-button" style="padding:0px">
-								<td>[2020.02.29]</td>
-								<td>[송영곤]</td>
-								<td>: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
+								<td>[2020.02.29 15:11]</td> 
+								<td style="width:50px">[송영곤]</td>
+								<td  >: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
 								</td>
 							</tr>
 							
@@ -377,13 +377,16 @@
 
 </div>
 <script>
-	document.getElementsByClassName('borderAnim').style.display="none"
 	function startAnim() {
-	    var i;
 	    var y =document.getElementsByClassName('borderAnim');
-	    for (i = 0; i < y.length; i++) {
-	       y[i].style.display = "block";  
+	    if(y[0].style.display == "none"){
+		    y[0].style.display = "block";  
+		    $("#noticeBoard").text("공지닫기")
+	    }else{
+		    $("#noticeBoard").text("공지사항")
+		    y[0].style.display = "none";  
 	    }
+	       
 	    
 	}
 </script>
