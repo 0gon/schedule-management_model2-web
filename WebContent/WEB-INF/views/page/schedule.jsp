@@ -99,7 +99,7 @@
 		<div class="w3-container" style="padding-top: 10px">
 		
 		<div class="w3-row">
-			<div class="w3-col" style="width:610px;height:88px">
+			<div class="w3-col" style="width:600px;height:88px">
 				<font size="6">파트원 현황</font> <i
 					class="fa fa-arrow-circle-o-left w3-button"
 					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
@@ -125,22 +125,22 @@
 			</div> 
 			
 			<!-- 공지사항 영역-->
-			<div class="w3-col borderAnim w3-border w3-border-black" style="display:none;width:800px">
+			<div class="w3-col borderAnim w3-border w3-border-black" style="display:none;width:760px">
 				<div class="w3-row">
-					<div class="w3-col" style="width:85px; margin-left:10px;margin-top:10px">
+					<div class="w3-col w3-center" style="width:80px;margin-top:5px" >
 						<div class="w3-tag w3-round" style="padding:3px">
-						  <div class="w3-tag w3-round w3-border w3-border-white w3-hover-opacity w3-hover-white">
+						  <div onclick="boardWriteForm()" class="w3-tag w3-round w3-border w3-border-white w3-hover-opacity w3-hover-white">
 						  <i class="fa fa-pencil"></i>
 						     쓰 기
 						  </div>
 						</div>
 						
-						<div style="margin-left:7px"> 
+						<div class="w3-center"> 
 							<font size="5px" class="w3-button" style="padding:2px">◀</font>
 							<font size="5px" class="w3-button" style="padding:2px">▶</font>
 						</div>
 					</div>
-					<div class="w3-col" style="width:700px">
+					<div class="w3-col" style="width:640px;margin-left:5px">
 						<table style="border-collapse: collapse; margin-top:5px">
 							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
 								<td>[2020.02.29 13:20]</td>
@@ -366,11 +366,12 @@
 <div id="borderList" class="w3-modal" >
     <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 400px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
-            <div style="margin-top:2px"><font size=5>게시판 리스트</font></div>
+            <div style="margin-top:2px"><font size=5>상 세 보 기</font></div>
         </div>
         <div class="w3-container w3-padding" >
         <span onclick="document.getElementById('borderList').style.display='none';" class="w3-button w3-display-topright">&times;</span>
-
+			<div><label>title:</label><input class="w3-input" type="text" readonly="readonly" value="제목은40글자내외"/></div>
+			<div><label>content: </label></div>
         </div>
     </div>
 </div>
@@ -386,7 +387,10 @@
 		    $("#noticeBoard").text("공지사항")
 		    y[0].style.display = "none";  
 	    }
-	       
-	    
 	}
+	
+	function boardWriteForm() {
+		document.getElementById('borderList').style.display = 'block';
+	}
+
 </script>
