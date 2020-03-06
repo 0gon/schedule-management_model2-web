@@ -364,14 +364,57 @@
 
   <!-- 게시판 모달 -->
 <div id="borderList" class="w3-modal" >
-    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 400px;">
+ <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 700px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>상 세 보 기</font></div>
         </div>
         <div class="w3-container w3-padding" >
         <span onclick="document.getElementById('borderList').style.display='none';" class="w3-button w3-display-topright">&times;</span>
-			<div><label>title:</label><input class="w3-input" type="text" readonly="readonly" value="제목은40글자내외"/></div>
-			<div><label>content: </label></div>
+                <div class="w3-row w3-padding">
+                   <table class="w3-table-all w3-small">
+                    <tr>
+                      <th style="width:15%" class="w3-sand w3-center">제 목 :</th>
+                      <th>이번주 토요일 작업있습니다.</th>
+                    </tr>
+                    <tr>
+                      <td class="w3-sand w3-center">작 성 자 : </td>
+                      <td> 송영곤</td>
+                    </tr>
+                    <tr>
+                      <td class="w3-sand w3-center">작 성 일 : </td>
+                      <td> 2020.03.15 일요일 14:23 </td>
+                    </tr>
+                    <tr>
+                      <td class="w3-sand w3-center" style="padding-top:100px;padding-bottom: 100px">내 용 : </td>
+                      <td> 자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용</td>
+                    </tr>
+                   
+                  </table>
+                    
+                    <table class="w3-table w3-small w3-border" style="margin-top:10px">
+                        <tr class="w3-border">
+                            <th colspan="4" class="w3-center" style="padding-top:8px;padding-bottom: 8px">[댓글목록]</th>
+                        </tr>
+                        <tr>
+                            <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">송영곤
+                            </th>
+                            <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
+                            <td class="w3-pale-blue"></td>
+                            <td class="w3-pale-blue"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" > > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
+                        </tr>
+                      
+                    
+                        
+                    </table>
+                <div class="w3-container w3-padding">
+                    <form>
+                        <input/>
+                    </form>
+                </div>
+                </div>
         </div>
     </div>
 </div>
