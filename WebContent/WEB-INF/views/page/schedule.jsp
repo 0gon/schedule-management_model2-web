@@ -127,7 +127,7 @@
 			<!-- 공지사항 영역-->
 			<div class="w3-col borderAnim w3-border w3-border-black" style="display:none;width:760px">
 				<div class="w3-row">
-					<div class="w3-col w3-center" style="width:80px;margin-top:5px" >
+					<div class="w3-col w3-center" style="width:80px;margin-top:5px;padding-bottom:5px" >
 						<div class="w3-tag w3-round" style="padding:3px">
 						  <div onclick="boardWriteForm()" class="w3-tag w3-round w3-border w3-border-white w3-hover-opacity w3-hover-white">
 						  <i class="fa fa-pencil"></i>
@@ -140,29 +140,29 @@
 							<font size="5px" class="w3-button" style="padding:2px">▶</font>
 						</div>
 					</div>
-					<div class="w3-col" style="width:640px;margin-left:5px">
+					<div class="w3-col" style="width:660px;margin-left:5px">
 						<table style="border-collapse: collapse; margin-top:5px">
 							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
-								<td>[2020.02.29 13:20]</td>
-								<td style="width:50px">[송영곤]</td>
-								<td >: 1
-								<span class="w3-badge w3-teal w3-small">4</span>
+								<td><font color="grey">[132]</font> </td>
+								<td style="width:50px">송영곤</td>
+								<td  >: 2
 								</td>
+								<td style="width:140px">&nbsp;_2020.02.29 (월) 15:11</td> 
 							</tr>
-							<tr class="w3-hover-opacity w3-hover-pale-red"  >
-								<td>[2020.02.29 17:12]</td>
-								<td style="width:50px">[송영곤]</td>
-								<td >: 1
-								<span class="w3-badge w3-teal w3-small">4</span>
+								<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
+								<td><font color="grey">[131]</font> </td>
+								<td style="width:50px">송영곤</td>
+								<td  >: 1
 								</td>
+								<td style="width:140px">&nbsp;_2020.02.29 (월) 15:11</td> 
 							</tr>
-							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
-								<td>[2020.02.29 15:11]</td> 
-								<td style="width:50px">[송영곤]</td>
-								<td  >: 가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅가나다라마바사가나팅
+								<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
+								<td><font color="grey">[130]</font> </td>
+								<td style="width:50px">송영곤</td>
+								<td  >: 가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오
 								</td>
+								<td style="width:140px">&nbsp;_2020.02.29 (월) 15:11</td> 
 							</tr>
-							
 						</table>
 					</div>				
 				</div>
@@ -364,7 +364,7 @@
 
   <!-- 게시판 모달 -->
 <div id="borderList" class="w3-modal" >
- <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 700px;">
+  <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 700px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>상 세 보 기</font></div>
         </div>
@@ -374,7 +374,7 @@
                    <table class="w3-table-all w3-small">
                     <tr>
                       <th style="width:15%" class="w3-sand w3-center">제 목 :</th>
-                      <th>이번주 토요일 작업있습니다.</th>
+                      <th>이번주 토요일 작업있습니다. (6)</th>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center">작 성 자 : </td>
@@ -385,38 +385,103 @@
                       <td> 2020.03.15 일요일 14:23 </td>
                     </tr>
                     <tr>
-                      <td class="w3-sand w3-center" style="padding-top:100px;padding-bottom: 100px">내 용 : </td>
-                      <td> 자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용</td>
+                      <td class="w3-sand w3-center" style="padding-top:70px;padding-bottom: 70px">내 용 : </td>
+                      <td> 자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용</td>
                     </tr>
                    
                   </table>
-                    
-                    <table class="w3-table w3-small w3-border" style="margin-top:10px">
+                    <div class="w3-container w3-padding w3-row">
+                        <div class="w3-col" style="width:520px">
+                    <form>
+                        <input class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
+                    </form>
+                        </div>
+                        <div class="w3-col w3-padding" style="width:5px">
+                            <button class="w3-button w3-card-4 w3-teal">댓글</button>
+                        </div>
+                  </div>
+                    <table class="w3-table w3-small w3-border" >
                         <tr class="w3-border">
-                            <th colspan="4" class="w3-center" style="padding-top:8px;padding-bottom: 8px">[댓글목록]</th>
+                            <th colspan="2" class="w3-center" style="padding-top:8px;padding-bottom: 8px">
+                            [댓글목록] (6)
+                            </th>
+                            <td class="w3-button w3-center" style="padding-top:8px;">▼</td>
+                        </tr>
+                        <!-- 댓글 영역-->
+                        <tr>
+                            <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">송영곤
+                            </th>
+                            <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
+                            <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="w3-white"> > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
+                            <td class="w3-white"><i class="fa fa-close w3-button w3-white" style="padding:3px"></i></td>
+                        </tr>
+                        <tr>
+                            <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">성연진
+                            </th>
+                            <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
+                            <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="w3-white"> > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
                         </tr>
                         <tr>
                             <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">송영곤
                             </th>
                             <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
-                            <td class="w3-pale-blue"></td>
-                            <td class="w3-pale-blue"></td>
+                            <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
                         </tr>
                         <tr>
-                            <td colspan="4" > > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
+                            <td colspan="3" class="w3-white"> > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
                         </tr>
                       
                     
                         
                     </table>
-                <div class="w3-container w3-padding">
-                    <form>
-                        <input/>
-                    </form>
-                </div>
+                    
+                    <!--
+ 
+<c:if test="${count>0 }">
+			 <div class="w3-center w3-padding-16">
+    <div class="w3-bar">
+			<c:if test="${startPage>bottomLine }">
+		
+			<a onclick="$('#content').load('../board/study_board?pageNum=${startPage-bottomLine}');" class="w3-bar-item w3-button w3-hover-black">«</a>
+			</c:if>
+			
+	<c:forEach var="i" begin="${startPage }" end="${endPage}">
+				<c:if test="${i!=currentPage }">  <a onclick="$('#content').load('../board/study_board?pageNum=${i }');" class="w3-bar-item w3-button w3-hover-black">${i }</a>
+				</c:if>
+				<c:if test="${i==currentPage }">  <a onclick="$('#content').load('../board/study_board?pageNum=${i }');" class="w3-bar-item w3-black w3-button">${i }</a>
+				</c:if>
+			</c:forEach>
+			<c:if test="${endPage<pageCount }">
+				
+				<a onclick="$('#content').load('../board/study_board?pageNum=${startPage+bottomLine}');" class="w3-bar-item w3-button w3-hover-black">»</a>
+			</c:if>
+			    </div>
+  </div>
+		</c:if>
+
+
+-->
+                    
+                    
+			 <div class="w3-center">
+                <div class="w3-bar">
+                    <a class="w3-bar-item w3-button w3-hover-black">«</a>
+                    <a class="w3-bar-item w3-button w3-hover-black ">1</a>
+                    <a class="w3-bar-item w3-button w3-hover-black">2</a>
+				    <a class="w3-bar-item w3-button w3-hover-black">»</a>
+			    </div>
+            </div>
+                
                 </div>
         </div>
     </div>
+</div>
 </div>
 
 </div>
