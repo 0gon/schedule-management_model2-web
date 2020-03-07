@@ -1,14 +1,22 @@
 package model;
 
+import java.util.Date;
+
 public class BoardVO {
 	private int Id;
 	private String memberId;
 	private String memberNm;
 	private String title;
 	private String content;
-	private String regDate;
+	private Date regDate;
+	private String formatDate;
 	
-	
+	public String getFormatDate() {
+		return formatDate;
+	}
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -39,10 +47,10 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 	

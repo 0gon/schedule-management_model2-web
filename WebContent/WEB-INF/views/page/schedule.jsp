@@ -141,33 +141,62 @@
 						</div>
 					</div>
 					<div class="w3-col" style="width:660px;margin-left:5px">
-						<table style="border-collapse: collapse; margin-top:5px">
+						<table style="border-collapse: collapse;width:660px; margin-top:5px">
+						 <c:forEach var="board" items="${boards}">
 							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
-								<td><font color="grey">[132]</font> </td>
-								<td style="width:50px">송영곤</td>
-								<td  >: 2
+								<td><font color="grey">[${number}]</font> </td>
+								<c:set var="number" value="${number-1}"/>
+								<td class="w3-text-indigo" style="width:50px">${board.memberNm }</td>
+								<td style="width:450px" >: ${board.content }
 								</td>
-								<td style="width:140px">&nbsp;_2020.02.29 (월) 15:11</td> 
+								<td style="width:140px">&nbsp;${board.formatDate }</td> 
 							</tr>
-								<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
-								<td><font color="grey">[131]</font> </td>
-								<td style="width:50px">송영곤</td>
-								<td  >: 1
-								</td>
-								<td style="width:140px">&nbsp;_2020.02.29 (월) 15:11</td> 
-							</tr>
-								<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
-								<td><font color="grey">[130]</font> </td>
-								<td style="width:50px">송영곤</td>
-								<td  >: 가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오
-								</td>
-								<td style="width:140px">&nbsp;_2020.02.29 (월) 15:11</td> 
-							</tr>
+						 </c:forEach>
 						</table>
 					</div>				
 				</div>
 			</div>
 		</div>
+		<!-- 공지사항 end -->
+		
+		
+		<!-- 게시판 작성 작성하기 Form -->
+		<div id="borderReg" class="w3-modal" >
+		    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
+		        <div class="w3-container w3-center w3-teal" style="height:38px">
+		            <div style="margin-top:2px"><font size=5>작 성 하 기</font></div>
+		        </div>
+		        <div class="w3-container w3-padding" >
+		        <span onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+		                <div class="w3-row w3-padding">
+		                   <table class="w3-table-all">
+		                    <tr>
+		                      <td class="w3-sand w3-center" style="width: 200px">제 목 :</td>
+		                      <td><input class="w3-input" placeholder="35자 이내로 작성해주세요." style="padding: 2px;width: 90%"/></td>
+		                    </tr>
+		                    <tr>
+		                      <td class="w3-sand w3-center">작 성 자 :</td>
+		                      <td > 송영곤</td>
+		                    </tr>
+		                    <tr>
+		                      <td class="w3-sand w3-center" style="padding-top:80px;padding-bottom: 80px">내 용 : </td>
+		                      <td> <textarea cols="60" rows="10" style="resize: none;"></textarea></td>
+		                    </tr>
+		                   
+		                  </table>
+		                  <div class="w3-container w3-padding w3-row">
+		                        <div class="w3-padding w3-center">
+		                            <button class="w3-button  w3-black">등록</button>
+		                            <button class="w3-button  w3-red"
+		                                    onclick="document.getElementById('borderReg').style.display='none';" 
+		                                    >취소</button>
+		                        </div>
+		                  </div>
+		                </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- 게시판 작성 Form end -->
 			
 
 
@@ -362,19 +391,22 @@
 
 
 
-  <!-- 게시판 모달 -->
-<div id="borderList" class="w3-modal" >
+  <!-- 게시판 모달 상세보기-->
+<div id="borderDetail" class="w3-modal"  >
   <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 700px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>상 세 보 기</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <span onclick="document.getElementById('borderList').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+        <span onclick="document.getElementById('borderDetail').style.display='none';" class="w3-button w3-display-topright">&times;</span>
                 <div class="w3-row w3-padding">
-                   <table class="w3-table-all w3-small">
+                	<button class="w3-button w3-red w3-right" style="margin-top:-5px">삭제</button>
+                	<button class="w3-button w3-teal w3-right" style="margin-top:-5px;margin-right:10px">수정</button>
+                	<br><br>
+                   <table class="w3-table-all">
                     <tr>
-                      <th style="width:15%" class="w3-sand w3-center">제 목 :</th>
-                      <th>이번주 토요일 작업있습니다. (6)</th>
+                      <td style="width:15%" class="w3-sand w3-center">제 목 :</td>
+                      <td>이번주 토요일 작업있습니다. (6)</td>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center">작 성 자 : </td>
@@ -397,10 +429,10 @@
                     </form>
                         </div>
                         <div class="w3-col w3-padding" style="width:5px">
-                            <button class="w3-button w3-card-4 w3-teal">댓글</button>
+                            <button class="w3-button w3-card-4 w3-black">댓글</button>
                         </div>
                   </div>
-                    <table class="w3-table w3-small w3-border" >
+                    <table class="w3-table w3-border" >
                         <tr class="w3-border">
                             <th colspan="2" class="w3-center" style="padding-top:8px;padding-bottom: 8px">
                             [댓글목록] (6)
@@ -484,7 +516,6 @@
 </div>
 </div>
 
-</div>
 <script>
 	function startAnim() {
 	    var y =document.getElementsByClassName('borderAnim');
@@ -498,7 +529,11 @@
 	}
 	
 	function boardWriteForm() {
-		document.getElementById('borderList').style.display = 'block';
+		document.getElementById('borderReg').style.display = 'block';
+	}
+	
+	function boardDetail() {
+		document.getElementById('borderDetail').style.display = 'block';
 	}
 
 </script>
