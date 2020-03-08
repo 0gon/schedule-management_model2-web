@@ -53,6 +53,11 @@ public class BoardVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	@Override
+	public String toString() {
+		return "BoardVO [Id=" + Id + ", memberId=" + memberId + ", memberNm=" + memberNm + ", title=" + title
+				+ ", content=" + content + ", regDate=" + regDate + ", formatDate=" + formatDate + "]";
+	}
 	
 	
 }

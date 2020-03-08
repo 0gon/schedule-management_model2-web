@@ -99,8 +99,8 @@
 		<div class="w3-container" style="padding-top: 10px">
 		
 		<div class="w3-row">
-			<div class="w3-col" style="width:600px;height:88px">
-				<font size="6">파트원 현황</font> <i
+			<div class="w3-col" style="width:550px;height:88px">
+				<font size="6">일정현황</font> <i
 					class="fa fa-arrow-circle-o-left w3-button"
 					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
 				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
@@ -114,7 +114,7 @@
 				</button>
 				<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
 					onclick="startAnim()">
-				<font size="4" id="noticeBoard">공지사항
+				<font size="4" id="noticeBoard">공지
 				</font>
 				</button>
 				<!-- 새 글이 있는 경우  NEW 이미지 -->
@@ -124,40 +124,10 @@
 
 			</div> 
 			
-			<!-- 공지사항 영역-->
-			<div class="w3-col borderAnim w3-border w3-border-black" style="display:none;width:760px">
-				<div class="w3-row">
-					<div class="w3-col w3-center" style="width:80px;margin-top:5px;padding-bottom:5px" >
-						<div class="w3-tag w3-round" style="padding:3px">
-						  <div onclick="boardWriteForm()" class="w3-tag w3-round w3-border w3-border-white w3-hover-opacity w3-hover-white">
-						  <i class="fa fa-pencil"></i>
-						     쓰 기
-						  </div>
-						</div>
-						
-						<div class="w3-center"> 
-							<font size="5px" class="w3-button" style="padding:2px">◀</font>
-							<font size="5px" class="w3-button" style="padding:2px">▶</font>
-						</div>
-					</div>
-					<div class="w3-col" style="width:660px;margin-left:5px">
-						<table style="border-collapse: collapse;width:660px; margin-top:5px">
-						 <c:forEach var="board" items="${boards}">
-							<tr class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow"  >
-								<td><font color="grey">[${number}]</font> </td>
-								<c:set var="number" value="${number-1}"/>
-								<td class="w3-text-indigo" style="width:50px">${board.memberNm }</td>
-								<td style="width:450px" >: ${board.content }
-								</td>
-								<td style="width:140px">&nbsp;${board.formatDate }</td> 
-							</tr>
-						 </c:forEach>
-						</table>
-					</div>				
-				</div>
+			<!-- 공지사항 영역  onload 방식-->
+			<div class="w3-col borderAnim w3-border w3-border-black" id="boardContent" style="display:none;width:780px;">
 			</div>
 		</div>
-		<!-- 공지사항 end -->
 		
 		
 		<!-- 게시판 작성 작성하기 Form -->
@@ -169,29 +139,32 @@
 		        <div class="w3-container w3-padding" >
 		        <span onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</span>
 		                <div class="w3-row w3-padding">
+		                <form action="${ pageContext.servletContext.contextPath }/page/board/boardReg" method="post">
 		                   <table class="w3-table-all">
 		                    <tr>
 		                      <td class="w3-sand w3-center" style="width: 200px">제 목 :</td>
-		                      <td><input class="w3-input" placeholder="35자 이내로 작성해주세요." style="padding: 2px;width: 90%"/></td>
+		                      <td><input name="title" maxlength="35" id="boardTitle" class="w3-input" required="required" placeholder="35자 이내로 작성해주세요." style="padding: 2px;width: 90%"/></td>
 		                    </tr>
 		                    <tr>
 		                      <td class="w3-sand w3-center">작 성 자 :</td>
-		                      <td > 송영곤</td>
+		                      <td > ${userVO.memberNm}</td>
 		                    </tr>
 		                    <tr>
 		                      <td class="w3-sand w3-center" style="padding-top:80px;padding-bottom: 80px">내 용 : </td>
-		                      <td> <textarea cols="60" rows="10" style="resize: none;"></textarea></td>
+		                      <td> <textarea name="content" id="boardArea"cols="60" rows="10" style="resize: none;"></textarea></td>
 		                    </tr>
-		                   
 		                  </table>
 		                  <div class="w3-container w3-padding w3-row">
 		                        <div class="w3-padding w3-center">
-		                            <button class="w3-button  w3-black">등록</button>
+		                            <button type="submit" class="w3-button  w3-black">등록</button>
 		                            <button class="w3-button  w3-red"
 		                                    onclick="document.getElementById('borderReg').style.display='none';" 
 		                                    >취소</button>
 		                        </div>
 		                  </div>
+		                  <input type="hidden" name="memberId" value="${userVO.id }">
+		                  <input type="hidden" name="memberNm" value="${userVO.memberNm }">
+		                </form>
 		                </div>
 		        </div>
 		    </div>
@@ -418,8 +391,7 @@
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center" style="padding-top:70px;padding-bottom: 70px">내 용 : </td>
-                      <td> 자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용</td>
-                    </tr>
+                      <td>자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의미없는 내용 많은 내용세한 내용 의미 내용자세한 내용 의미없는 내용 많은 내용자세한 내용 의 많은 내용세한 내용 의미 내용자세한 내용 의미없는가나다라마바ㅏ사두가ㅜ다구다구ㅏㅁㄴ아라가</tr>
                    
                   </table>
                     <div class="w3-container w3-padding w3-row">
@@ -521,9 +493,10 @@
 	    var y =document.getElementsByClassName('borderAnim');
 	    if(y[0].style.display == "none"){
 		    y[0].style.display = "block";  
-		    $("#noticeBoard").text("공지닫기")
+		    $('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList')
+		    $("#noticeBoard").text("닫기")
 	    }else{
-		    $("#noticeBoard").text("공지사항")
+		    $("#noticeBoard").text("공지")
 		    y[0].style.display = "none";  
 	    }
 	}
@@ -535,5 +508,19 @@
 	function boardDetail() {
 		document.getElementById('borderDetail').style.display = 'block';
 	}
+	
+	$('#boardTitle').on('keyup', function() {
+		if($(this).val().length > 35) {
+			alert("글자수는 35자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 35));
+		}
+	});
+	
+	$('#boardArea').on('keyup', function() {
+		if($(this).val().length > 500) {
+			alert("글자수는 500자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 500));
+		}
+	});
 
 </script>
