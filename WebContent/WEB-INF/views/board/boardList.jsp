@@ -50,7 +50,7 @@
 					<td><font color="grey">[${number}]</font></td>
 					<c:set var="number" value="${number-1}" />
 					<td class="w3-text-indigo" style="width: 50px">${board.memberNm }</td>
-					<td onclick="boardDetail()" style="width: 450px">: ${board.title }</td>
+					<td onclick="boardDetail(${board.id})" style="width: 450px">: ${board.title }</td>
 					<td style="width: 140px">&nbsp;${board.formatDate }</td>
 				</tr>
 			</c:forEach>

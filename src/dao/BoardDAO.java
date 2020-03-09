@@ -92,12 +92,12 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	
-	public ScheduleVO selectScheduleInfoBySCHPK(int scheduleId) {
+	public BoardVO selectBoardInfoByPK(String boardId) {
 		sqlSession = sqlSession();
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("scheduleId", scheduleId);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
 		try {
-			return sqlSession.selectOne(namespace + ".selectScheduleInfoBySCHPK", map);
+			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK", map);
 		} finally {
 			sqlSession.close();
 		}
