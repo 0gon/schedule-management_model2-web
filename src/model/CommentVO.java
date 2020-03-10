@@ -8,6 +8,14 @@ public class CommentVO {
 	private String memberNm;
 	private String content;
 	private String regDate;
+	private String formatDate;
+	
+	public String getFormatDate() {
+		return formatDate;
+	}
+	public void setFormatDate(String formatDate) {
+		this.formatDate = formatDate;
+	}
 	public int getId() {
 		return Id;
 	}

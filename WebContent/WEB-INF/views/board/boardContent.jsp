@@ -30,14 +30,17 @@
                    
                   </table>
                     <div class="w3-container w3-padding w3-row">
+                    <form action="${ pageContext.servletContext.contextPath }/page/board/commentReg" method="post">
                         <div class="w3-col" style="width:520px">
-                    <form>
-                        <input class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
-                    </form>
+                        <input id="commentInput"  name="content" class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
+                        <input type="hidden" name="memberId" value="${userVO.id}"/>
+                        <input type="hidden" name="memberNm" value="${userVO.memberNm}"/>
+                        <input type="hidden" name="boardId" value="${boardVO.id}"/>
                         </div>
                         <div class="w3-col w3-padding" style="width:5px">
-                            <button class="w3-button w3-card-4 w3-black">댓글</button>
+                            <button type="submit" class="w3-button w3-card-4 w3-black">댓글</button>
                         </div>
+                    </form>
                   </div>
                     <table class="w3-table w3-border" >
                         <tr class="w3-border">
@@ -73,7 +76,7 @@
                             <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="w3-white"> > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
+                            <td colspan="3" class="w3-white"> > 가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오</td>
                         </tr>
                       
                     
@@ -91,3 +94,12 @@
                 </div>
         </div>
     </div>
+    
+    <script>
+	$('#commentInput').on('keyup', function() {
+		if($(this).val().length > 50) {
+			alert("댓글은 50자로 이내로 제한됩니다.");
+			$(this).val($(this).val().substring(0, 50));
+		}
+	});
+    </script>
