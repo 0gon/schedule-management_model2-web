@@ -27,7 +27,6 @@ public class BoardReg implements CommandHandler {
 		//DB board insert 
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.insertBoard(boardVO);
-		
 		res.sendRedirect(req.getContextPath()+"/page/schedule");
 		return null;
 	}

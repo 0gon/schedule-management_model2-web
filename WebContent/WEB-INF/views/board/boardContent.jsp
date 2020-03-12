@@ -30,67 +30,18 @@
                    
                   </table>
                     <div class="w3-container w3-padding w3-row">
-                    <form action="${ pageContext.servletContext.contextPath }/page/board/commentReg" method="post">
                         <div class="w3-col" style="width:520px">
-                        <input id="commentInput"  name="content" class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
-                        <input type="hidden" name="memberId" value="${userVO.id}"/>
-                        <input type="hidden" name="memberNm" value="${userVO.memberNm}"/>
-                        <input type="hidden" name="boardId" value="${boardVO.id}"/>
+                    <form id="commentForm" method="post">
+                        <input id="commentInput"   class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
+                    </form>
                         </div>
                         <div class="w3-col w3-padding" style="width:5px">
-                            <button type="submit" class="w3-button w3-card-4 w3-black">댓글</button>
+                            <button onclick="commentAjax()" class="w3-button w3-card-4 w3-black">댓글</button>
                         </div>
-                    </form>
                   </div>
-                    <table class="w3-table w3-border" >
-                        <tr class="w3-border">
-                            <th colspan="2" class="w3-center" style="padding-top:8px;padding-bottom: 8px">
-                            [댓글목록] (6)
-                            </th>
-                            <td class="w3-button w3-center" style="padding-top:8px;">▼</td>
-                        </tr>
-                        <!-- 댓글 영역-->
-                        <tr>
-                            <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">송영곤
-                            </th>
-                            <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
-                            <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="w3-white"> > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
-                            <td class="w3-white"><i class="fa fa-close w3-button w3-white" style="padding:3px"></i></td>
-                        </tr>
-                        <tr>
-                            <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">성연진
-                            </th>
-                            <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
-                            <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="w3-white"> > 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
-                        </tr>
-                        <tr>
-                            <th style="width:10%; padding: 4px " class="w3-pale-blue w3-center">송영곤
-                            </th>
-                            <td style="padding:4px" class="w3-pale-blue">2020.03.15 토요일 15:12</td>
-                            <td style="padding:4px;width: 5%" class="w3-pale-blue"> </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="w3-white"> > 가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오가나다라오</td>
-                        </tr>
-                      
-                    
-                        
-                    </table>
-			 <div class="w3-center">
-                <div class="w3-bar">
-                    <a class="w3-bar-item w3-button w3-hover-black">«</a>
-                    <a class="w3-bar-item w3-button w3-hover-black ">1</a>
-                    <a class="w3-bar-item w3-button w3-hover-black">2</a>
-				    <a class="w3-bar-item w3-button w3-hover-black">»</a>
-			    </div>
-            </div>
-                
+                  <!--  댓글 영역, ajax로 load-->
+                  <div id = "commentDiv">
+                  </div>
                 </div>
         </div>
     </div>
@@ -102,4 +53,34 @@
 			$(this).val($(this).val().substring(0, 50));
 		}
 	});
+	// action="${ pageContext.servletContext.contextPath }/page/board/commentReg"
+	function commentAjax(){
+		event.preventDefault();
+		var memberNm = '<c:out value="${userVO.memberNm}"/>'
+		var memberId = '<c:out value="${userVO.id}"/>'
+		var boardId = '<c:out value="${boardVO.id}"/>'
+		var content = $('#commentInput').val();
+		
+		$.ajax({
+			 url : "${ pageContext.servletContext.contextPath }/page/board/commentReg", 
+	    	 method : "GET",  
+	    	 dataType:"text",
+	    	 data:{
+	    			"memberNm":memberNm,
+	    			"memberId":memberId,
+	    			"boardId":boardId,
+	    			"content":content,
+	    			}, 
+              success: function(data){
+            	  console.log("succ")
+            	  console.log(data)
+            	  $('#commentDiv').html(data);
+			},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+		
+		
+	}
     </script>
