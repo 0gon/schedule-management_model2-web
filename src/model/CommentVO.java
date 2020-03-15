@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 
 public class CommentVO {
 	private int Id;
@@ -7,7 +8,7 @@ public class CommentVO {
 	private String boardId;
 	private String memberNm;
 	private String content;
-	private String regDate;
+	private Date regDate;
 	private String formatDate;
 	
 	public String getFormatDate() {
@@ -46,11 +47,16 @@ public class CommentVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	@Override
+	public String toString() {
+		return "CommentVO [Id=" + Id + ", memberId=" + memberId + ", boardId=" + boardId + ", memberNm=" + memberNm
+				+ ", content=" + content + ", regDate=" + regDate + ", formatDate=" + formatDate + "]";
 	}
 	
 }

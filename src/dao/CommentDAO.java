@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -18,12 +19,14 @@ public class CommentDAO extends MybatisConnector {
 		return instance;
 	}
 	
-	public int selectBoardCount() {
-		int boardAllCount = 0;
+	public int selectCommentCount(String boardId) {
+		int commentAllCount = 0;
 		sqlSession = sqlSession();
-		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount");
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("boardId", boardId); 
+		commentAllCount = sqlSession.selectOne(namespace + ".selectCommentCount", map);
 		sqlSession.close();
-		return boardAllCount;
+		return commentAllCount;
 	}
 	
 	public void insertComment(CommentVO commentVO) {
@@ -35,6 +38,21 @@ public class CommentDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	
+	public List<CommentVO> selectCommentList(int startRow, int endRow, String boardId) {
+		sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		map.put("boardId", Integer.parseInt(boardId));  
+		try {
+			return sqlSession.selectList(namespace + ".selectCommentList", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	
 	
 	public BoardVO selectBoardInfoByPK(String boardId) {
 		sqlSession = sqlSession();
