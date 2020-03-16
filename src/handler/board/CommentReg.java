@@ -23,7 +23,7 @@ public class CommentReg implements CommandHandler {
 		String memberNm = req.getParameter("memberNm");
 		String content = req.getParameter("content");
 		String boardId = req.getParameter("boardId");
-		//boardVO °´Ã¼ set
+		
 		CommentVO commentVO = new CommentVO();
 		commentVO.setBoardId(boardId);
 		commentVO.setContent(content);

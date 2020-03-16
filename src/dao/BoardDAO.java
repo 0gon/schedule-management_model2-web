@@ -49,48 +49,6 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public void insertScheduleALL(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
-			String content,String startWorkTime,String endWorkTime) {
-		sqlSession = sqlSession();
-		HashMap map = new HashMap();
-		map.put("dutyId", dutyId); 
-		map.put("transStartDate", transStartDate);
-		map.put("transEndDate", transEndDate);
-		map.put("content", content);
-		map.put("startWorkTime", startWorkTime);
-		map.put("endWorkTime", endWorkTime);
-		try {
-			for(int i=0;i<members.size();i++) {
-				UserVO userVO= (UserVO)members.get(i);
-				map.put("memberId", userVO.getId());
-				sqlSession.insert(namespace + ".insertScheduleALL", map);
-				sqlSession.commit();
-			}
-		} finally {
-			sqlSession.close();
-		}
-	}
-	public List<?> selectScheduleInfo(String memberId) {
-		sqlSession = sqlSession();
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("memberId", memberId);
-		try {
-			return sqlSession.selectList(namespace + ".selectScheduleInfo", map);
-		} finally {
-			sqlSession.close();
-		}
-	}
-	
-	public List<?>  selectScheduleInfoByPK(int Id) {
-		sqlSession = sqlSession();
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Id", Id);
-		try {
-			return sqlSession.selectList(namespace + ".selectScheduleInfoByPK", map);
-		} finally {
-			sqlSession.close();
-		}
-	}
 	
 	public BoardVO selectBoardInfoByPK(String boardId) {
 		sqlSession = sqlSession();
@@ -119,10 +77,10 @@ public class BoardDAO extends MybatisConnector {
 		
 	}
 	
-	public void updateSchedule(ScheduleVO scheduleVO) {
+	public void updateBoard(BoardVO boardVO) {
 		sqlSession = sqlSession();
 		try {
-			sqlSession.update(namespace + ".updateSchedule", scheduleVO);
+			sqlSession.update(namespace + ".updateBoard", boardVO);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

@@ -9,7 +9,7 @@
         <span onclick="document.getElementById('borderDetail').style.display='none';" class="w3-button w3-display-topright">&times;</span>
                 <div class="w3-row w3-padding">
                 	<button class="w3-button w3-red w3-right" style="margin-top:-5px">삭제</button>
-                	<button class="w3-button w3-teal w3-right" style="margin-top:-5px;margin-right:10px">수정</button>
+                	<button class="w3-button w3-teal w3-right" onclick="boardUpdate(${boardVO.id})" style="margin-top:-5px;margin-right:10px">수정</button>
                 	<br><br>
                    <table class="w3-table-all">
                     <tr>
@@ -63,6 +63,7 @@
 								style="padding: 3px"></i></td>
 						</tr>
 					 -->
+					 <!--  댓글 영역 -->
 		<c:forEach var="comment" items="${comments}">
 			<tr>
 				<th style="width: 10%; padding: 4px" class="w3-pale-blue w3-center">${comment.memberNm }
@@ -76,15 +77,11 @@
 			</tr>
 		</c:forEach>
 </table>
+<!--  페이징 처리 -->
 	<c:if test="${count>0 }">
 			<div class="w3-center" style="margin-top:3px">
 				<div class="w3-bar">
 					<c:if test="${startPage>bottomLine }">
-					
-					<!-- 
-	
-	"/page/board/boardContent?bid="+boardId);
-	 -->
 						<a	onclick="$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardContent?bid='+${boardId}+'&pageNum=${startPage-bottomLine}');"
 							class="w3-bar-item w3-button w3-hover-black" style="padding:9px">«</a>
 					</c:if>
@@ -109,7 +106,7 @@
 				</div>
 			</div>
 		</c:if>
-                  
+                <!--  페이징 end -->  
                   </div>
                 </div>
         </div>
@@ -122,6 +119,10 @@
 			$(this).val($(this).val().substring(0, 50));
 		}
 	});
+	
+	function boardUpdate(boardId){
+		$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardUpdate?bid='+boardId);
+	}
 	function commentAjax(){
 		event.preventDefault();
 		var memberNm = '<c:out value="${userVO.memberNm}"/>'
@@ -146,7 +147,5 @@
 			alert(error);
 		}
 	});
-		
-		
 	}
     </script>
