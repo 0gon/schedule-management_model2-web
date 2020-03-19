@@ -40,6 +40,7 @@
                         </div>
                  </div>
                  <input type="hidden" name="boardId" value="${boardVO.id }"/>
+                 <input type="hidden" name="pageNum" value="${pageNum}"/>
                   </form>
                 </div>
         </div>
