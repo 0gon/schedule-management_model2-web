@@ -65,13 +65,13 @@ public class CommentDAO extends MybatisConnector {
 		}
 	}
 	
-	public void deleteSchedule(int scheduleId) {
+	public void deleteComment(String commentId) {
 		
 		sqlSession = sqlSession();
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("scheduleId", scheduleId);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("commentId", commentId);
 		try {
-			sqlSession.delete(namespace + ".deleteSchedule", map);
+			sqlSession.delete(namespace + ".deleteComment", map);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

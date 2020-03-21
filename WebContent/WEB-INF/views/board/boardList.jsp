@@ -16,18 +16,18 @@
 				<div class="w3-bar">
 					<c:if test="${startPage>bottomLine }">
 						<a	onclick="$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList?pageNum=${startPage-bottomLine}');"
-							class="w3-bar-item w3-button w3-hover-black" style="padding:9px">«</a>
+							class="w3-bar-item  w3-button w3-hover-black" style="padding:9px">«</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage }" end="${endPage}">
 						<c:if test="${i!=currentPage }">
 							<a
 								onclick="$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList?pageNum=${i }');"
-								class="w3-bar-item w3-button w3-hover-black" style="padding:9px">${i }</a>
+								class="w3-bar-item w3-round-xlarge w3-button w3-hover-black" style="padding:9px">${i }</a>
 						</c:if>
 						<c:if test="${i==currentPage }">
 							<a
 								onclick="$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList?pageNum=${i }');"
-								class="w3-bar-item w3-grey w3-button" style="padding:9px">${i }</a>
+								class="w3-bar-item w3-round-xlarge w3-grey w3-button" style="padding:9px">${i }</a>
 						</c:if>
 					</c:forEach>
 					<c:if test="${endPage<pageCount }">
@@ -42,18 +42,32 @@
 		<!-- 페이지 이동 bar end -->
 	</div>
 	<!-- board list 영역 -->
-	<div class="w3-col" style="width: 590px; margin-left: 5px">
-		<table
-			style="border-collapse: collapse; width: 625px; margin-top: 7px">
+	<div class="w3-rest">
+		<table class="w3-white "
+			style="border-collapse: collapse; width:99%; margin-top:7px">
 			<c:forEach var="board" items="${boards}">
-				<tr onclick="boardDetail(${board.id})" class="w3-pale-yellow w3-hover-opacity w3-hover-pale-yellow">
-					<td><font color="grey">[${number}]</font></td>
+				<tr onclick="boardDetail(${board.id},${pageNum})" class="w3-hover-opacity w3-hover-pale-yellow">
+					<td style="width:23px"><font color="grey">[${number}]</font></td>
 					<c:set var="number" value="${number-1}" />
 					<td class="w3-text-indigo" style="width: 50px">${board.memberNm }</td>
-					<td style="width: 450px">: ${board.title }</td>
-					<td style="width: 140px">&nbsp;${board.formatDate }</td>
+					<!-- 댓글이 있는 경우 표시 -->
+					<c:if test="${board.cmtCnt!=0 }">
+					<td style="width: 60%">: ${board.title } <font color="red">(${board.cmtCnt })</font> </td>
+					</c:if>
+					<!-- 댓글이 없는 경우 -->
+					<c:if test="${board.cmtCnt==0 }"> 
+					<td style="width: 60%">: ${board.title }</td>
+					</c:if>
+					<td style="width: 22%">&nbsp;${board.formatDate }</td>
 				</tr>
 			</c:forEach>
+		<c:if test="${count==0 }">
+			<tr>
+					<td >*** 작성된 글이 없습니다. ***</td>
+			</tr>
+		</c:if>
 		</table>
+	
+	
 	</div>
 </div>

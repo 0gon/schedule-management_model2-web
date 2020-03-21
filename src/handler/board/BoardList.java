@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.CommandHandler;
 import dao.BoardDAO;
+import dao.CommentDAO;
 import dao.ScheduleDAO;
 import model.BoardVO;
 
@@ -23,7 +24,7 @@ public class BoardList implements CommandHandler {
 		
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		
+	
 		
 		//게시판 페이지 로직
 		int pageSize = 3;
@@ -35,11 +36,16 @@ public class BoardList implements CommandHandler {
 		
 		List<?> boards = null;
 		count = boardDAO.selectBoardCount();
+		/*
+		*/
 		
 		if (count > 0) {
+			CommentDAO commentDAO = CommentDAO.getInstance();
 			boards = boardDAO.selectBoardList(startRow, endRow);
 			for(Object board:boards) {
 				BoardVO tmp=(BoardVO)board;
+				int commentCount = commentDAO.selectCommentCount(Integer.toString(tmp.getId()));
+				tmp.setCmtCnt(commentCount);
 				tmp.setFormatDate(sdf.format(tmp.getRegDate()));
 			}
 		}
@@ -62,6 +68,7 @@ public class BoardList implements CommandHandler {
 		req.setAttribute("bottomLine", bottomLine);
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("currentPage", currentPage);
+		req.setAttribute("pageNum", pageNum);
 		
 		req.setAttribute("schedules", schedules);
 		req.setAttribute("boards", boards);

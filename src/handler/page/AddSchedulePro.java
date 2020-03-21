@@ -5,13 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.ScheduleDAO;
 import dao.UserDAO;
 import model.ScheduleVO;
-import model.UserVO;
 
 public class AddSchedulePro implements CommandHandler {
 	@Override
@@ -67,6 +65,8 @@ public class AddSchedulePro implements CommandHandler {
 			content ="주말근무" ;
 		}else if(dutyId.equals("5") && working.equals("2")) {
 			content ="책임당직" ;
+		}else if(dutyId.equals("5") && working.equals("3")) {
+			content ="재택근무" ;
 		}else if(dutyId.equals("7") && Realetc!=null) {
 			content =Realetc ;
 		}

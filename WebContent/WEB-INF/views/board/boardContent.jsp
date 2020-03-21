@@ -6,15 +6,26 @@
             <div style="margin-top:2px"><font size=5>상 세 보 기</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <span onclick="document.getElementById('borderDetail').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+        <span onclick="exitDoit()" class="w3-button w3-display-topright">&times;</span>
                 <div class="w3-row w3-padding">
-                	<button class="w3-button w3-red w3-right" style="margin-top:-5px">삭제</button>
+                <!-- 세션아이디와 작성자 동일할 경우 update, delete  memberId-->
+                <c:if test="${boardVO.memberId == userVO.id }">
+                	<button class="w3-button w3-red w3-right" onclick="boardDelete(${boardVO.id})" style="margin-top:-5px">삭제</button>
                 	<button class="w3-button w3-teal w3-right" onclick="boardUpdate(${boardVO.id})" style="margin-top:-5px;margin-right:10px">수정</button>
-                	<br><br>
+                	<br>
+                </c:if>
+                	<br>
+                <!--  update,delete end-->	
                    <table class="w3-table-all">
                     <tr>
                       <td style="width:15%" class="w3-sand w3-center">제 목 :</td>
-                      <td>${boardVO.title} (6)</td>
+                      <!-- 댓글 갯수 표시 -->
+                       <c:if test="${count==0}">
+	                      <td>${boardVO.title} </td>
+                       </c:if>
+                       <c:if test="${count>0}">
+	                      <td>${boardVO.title} <font color="red">(${count})</font></td>
+                       </c:if>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center">작 성 자 : </td>
@@ -32,7 +43,7 @@
                     <div class="w3-container w3-padding w3-row">
                         <div class="w3-col" style="width:90%">
                     <form id="commentForm" method="post">
-                        <input id="commentInput" class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
+                        <input id="commentInput" maxlength="50" class="w3-input w3-right-grey w3-card-2" style="margin-top:8px;"/>
                     </form>
                         </div>
                         <div class="w3-col w3-padding" style="width:5px">
@@ -40,30 +51,28 @@
                         </div>
                   </div>
                   <!--  댓글 영역, ajax로 load-->
-                
                   <div id = "commentDiv">
                   <table class="w3-table w3-border">
 					<tr class="w3-border">
 						<th></th>
-						<td style="padding-top: 8px;"><label style="margin-left: 200px">[댓글목록] (6)</label></td>
-						<td class="w3-button w3-center" style="padding-top: 8px;">▼</td>
+						<c:if test="${count==0 }">
+						<td style="padding-top: 8px;"><label style="margin-left: -40px">[댓글목록]</label></td>
+						</c:if>
+						<c:if test="${count>0 }">
+						<td style="padding-top: 8px;"><label style="margin-left: 200px">[댓글목록] <font color="red">(${count })</font></label></td>
+							<td class="w3-button w3-center" style="padding-top: 8px;"></td>
+						</c:if>
 					</tr>
-					
-					<!--  자기자신 댓글인 경우
-	                  	<tr>
-							<th style="width: 10%; padding: 4px" class="w3-pale-blue w3-center">송영곤
-							</th>
-							<td style="padding: 4px" class="w3-pale-blue">2020.03.15 토요일
-								15:12</td>
-							<td style="padding: 4px; width: 5%" class="w3-pale-blue"></td>
-						</tr>
-						<tr>
-							<td colspan="2" class="w3-white">> 댓글내용입니다. 몇글자로 제한할지 미정입니다.</td>
-							<td class="w3-white"><i class="fa fa-close w3-button w3-white"
-								style="padding: 3px"></i></td>
-						</tr>
-					 -->
 					 <!--  댓글 영역 -->
+					 
+					 	<c:if test="${count==0 }">
+			<tr>
+				<td colspan="2" style="width: 10%; padding: 4px" class="w3-center">
+				 *** 등록된 댓글이 없습니다. ***
+				</td>
+			</tr>
+						</c:if>
+					 
 		<c:forEach var="comment" items="${comments}">
 			<tr>
 				<th style="width: 10%; padding: 4px" class="w3-pale-blue w3-center">${comment.memberNm }
@@ -72,9 +81,20 @@
 				</td>
 				<td style="padding: 4px; width: 5%" class="w3-pale-blue"></td>
 			</tr>
-			<tr>
-				<td colspan="3" class="w3-white">> ${comment.content }</td>
-			</tr>
+			<!-- 자신댓글인 경우 삭제 아이콘 -->
+			 <c:if test="${comment.memberId == userVO.id }">
+				<tr>
+					<td colspan="2" class="w3-white">> ${comment.content }</td>
+					<td class="w3-white" onclick="commentDelete(${comment.id})"><i class="fa fa-close w3-button w3-white"
+						style="padding: 3px"></i></td>
+				</tr>
+			 </c:if>
+			<!-- 자신의 댓글이 아닌 경우  -->
+			 <c:if test="${comment.memberId != userVO.id }">
+				<tr>
+					<td colspan="3" class="w3-white">> ${comment.content }</td>
+				</tr>
+			 </c:if>
 		</c:forEach>
 </table>
 <!--  페이징 처리 -->
@@ -119,9 +139,51 @@
 			$(this).val($(this).val().substring(0, 50));
 		}
 	});
-	
+	function commentDelete(commentId){
+		event.preventDefault();
+		var boardId = '<c:out value="${boardVO.id}"/>'
+		if(confirm("삭제하시겠습니까?")){
+			$.ajax({
+				 url : "${ pageContext.servletContext.contextPath }/page/board/commentDelete", 
+		    	 method : "GET",  
+		    	 dataType:"text",
+		    	 data:{ 
+		    			"cid":commentId,
+		    			"boardId":boardId,
+		    			}, 
+	              success: function(data){
+	            	  
+	            	  $('#borderDetail').html(data);
+					},
+			error: function(request, status, error) {
+				alert(error);
+			}
+			});	
+		}
+	}
 	function boardUpdate(boardId){
 		$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardUpdate?bid='+boardId);
+	}
+	function boardDelete(boardId){
+		if(confirm("정말로 삭제하시겠습니까?\n\n***삭제 시 등록된 댓글도 함께 삭제됩니다.***")){
+			var boardPageNum = '<c:out value="${boardPageNum}"/>'
+			document.getElementById('borderDetail').style.display='none';
+			$.ajax({
+				 url : "${ pageContext.servletContext.contextPath }/page/board/boardDelete", 
+		    	 method : "GET",  
+		    	 dataType:"text",
+		    	 data:{ 
+		    			"bid":boardId,
+		    			"bpnum":boardPageNum,
+		    			}, 
+	              success: function(data){
+	            	  $('#boardContent').html(data);
+					},
+			error: function(request, status, error) {
+				alert(error);
+			}
+			});	
+		}	
 	}
 	function commentAjax(){
 		event.preventDefault();
@@ -129,23 +191,31 @@
 		var memberId = '<c:out value="${userVO.id}"/>'
 		var boardId = '<c:out value="${boardVO.id}"/>'
 		var content = $('#commentInput').val();
-		
-		$.ajax({
-			 url : "${ pageContext.servletContext.contextPath }/page/board/commentReg", 
-	    	 method : "GET",  
-	    	 dataType:"text",
-	    	 data:{
-	    			"memberNm":memberNm,
-	    			"memberId":memberId,
-	    			"boardId":boardId,
-	    			"content":content,
-	    			}, 
-              success: function(data){
-            	  $('#borderDetail').html(data);
-			},
-		error: function(request, status, error) {
-			alert(error);
+		if(content==""){
+			alert("내용을 입력해주세요.")
+		}else{
+			$.ajax({
+				 url : "${ pageContext.servletContext.contextPath }/page/board/commentReg", 
+		    	 method : "GET",  
+		    	 dataType:"text",
+		    	 data:{
+		    			"memberNm":memberNm,
+		    			"memberId":memberId,
+		    			"boardId":boardId,
+		    			"content":content,
+		    			}, 
+	              success: function(data){
+	            	  $('#borderDetail').html(data);
+				},
+			error: function(request, status, error) {
+				alert(error);
+			}
+		});
 		}
-	});
+	}
+	function exitDoit(){
+		var boardPageNum = '<c:out value="${boardPageNum}"/>'
+		document.getElementById('borderDetail').style.display='none';
+	    $('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList?pageNum='+boardPageNum)
 	}
     </script>

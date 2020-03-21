@@ -71,12 +71,15 @@
                
                     </div>
                     <!-- 근무 -->
-                    <div class="w3-padding" id="duty5" style="display: none">
+                    <div  id="duty5" style="display: none">
                         <span class="w3-margin">
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
+                        </span>
+                        <span>
+                            재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
                     </div>
                      <!--  기타일정 추가-->

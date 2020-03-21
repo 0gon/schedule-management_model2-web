@@ -33,6 +33,8 @@ function viewScheduleList(scheduleList){
 	    		}else if(scheduleList[i].dutyId==5){ //근무
 	    			if(scheduleList[i].content=='주말근무'){
 	    				viewSchedule('brown','근무',scheduleList,i,j,'');	
+	    			}else if(scheduleList[i].content=='재택근무'){
+	    				viewSchedule('brown','재택',scheduleList,i,j,'');	
 	    			}else{
 	    				viewSchedule('brown','책당',scheduleList,i,j,'');	
 	    			}

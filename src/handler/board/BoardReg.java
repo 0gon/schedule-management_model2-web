@@ -23,11 +23,10 @@ public class BoardReg implements CommandHandler {
 		boardVO.setMemberId(memberId);
 		boardVO.setTitle(title);
 		boardVO.setMemberNm(memberNm);
-		
 		//DB board insert 
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.insertBoard(boardVO);
-		res.sendRedirect(req.getContextPath()+"/page/schedule");
+		res.sendRedirect(req.getContextPath()+"/page/board/boardList");
 		return null;
 	}
 }

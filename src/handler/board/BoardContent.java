@@ -22,6 +22,7 @@ public class BoardContent implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String boardId = req.getParameter("bid");
+		String boardPageNum = req.getParameter("pnum");
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		UserDAO userDAO = UserDAO.getInstance();
 
@@ -78,6 +79,7 @@ public class BoardContent implements CommandHandler {
 		req.setAttribute("currentPage", currentPage);
 		req.setAttribute("comments", comments);
 		req.setAttribute("boardId", boardId);
+		req.setAttribute("boardPageNum", boardPageNum);
 
 		req.setAttribute("boardVO", boardVO);
 		req.setAttribute("userVO", userVO);

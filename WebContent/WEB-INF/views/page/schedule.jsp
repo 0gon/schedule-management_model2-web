@@ -38,7 +38,6 @@
 <script type="text/javascript">
 	var today = new Date();
 	
-
 	// DB저장되어 있는 유저정보 List
 	function memberDBtoJS() {
 		var memberList = new Array();
@@ -99,7 +98,7 @@
 		<div class="w3-container" style="padding-top: 10px">
 		
 		<div class="w3-row">
-			<div class="w3-col" style="width:550px;height:88px">
+			<div class="w3-col" style="width:580px;height:88px">
 				<font size="6">일정현황</font> <i
 					class="fa fa-arrow-circle-o-left w3-button"
 					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
@@ -112,21 +111,24 @@
 					<i class="	fa fa-plus" style="font-size: 10px;"
 						></i> <font size="4">일정등록</font>
 				</button>
-				<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
-					onclick="startAnim()">
-				<font size="4" id="noticeBoard">공지
-				</font>
-				</button>
-				<!-- 새 글이 있는 경우  NEW 이미지 -->
-				<div style="display:inline;">
-				<img src="${ pageContext.servletContext.contextPath }/imgs/new_y.png" style="width:35px;margin-top:-50px;margin-left:-10px" >
-				</div>
-
-			</div> 
-			
-			<!-- 공지사항 영역  onload 방식-->
-			<div class="w3-col borderAnim w3-border w3-border-black" id="boardContent" style="display:none;width:780px;">
+				
+				<!-- 현황에 있는사람이거나, 관리자일 경우 공지사항 볼 수 있도록 -->
+				 <c:if test="${userVO.grade==1 || userVO.useyn==1}">
+					<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
+						onclick="startAnim()">
+					<font size="4" id="noticeBoard">공지사항
+					</font>
+					</button>
+					<!-- 새 글이 있는 경우  NEW 이미지 -->
+					<div style="display:inline;">
+					<img src='${ pageContext.servletContext.contextPath }/imgs/new_y.png'  style="width:35px;margin-top:-50px;margin-left:-10px">
+					</div>
+				 </c:if>
 			</div>
+			
+			<div class="w3-rest borderAnim w3-border w3-border-black " id="boardContent" style="display:none;">
+			</div>
+			
 		</div>
 		
 		
@@ -139,7 +141,7 @@
 		        <div class="w3-container w3-padding" >
 		        <span onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</span>
 		                <div class="w3-row w3-padding">
-		                <form action="${ pageContext.servletContext.contextPath }/page/board/boardReg" method="post">
+		                <form method="post">
 		                   <table class="w3-table-all">
 		                    <tr>
 		                      <td class="w3-sand w3-center" style="width: 200px">제 목 :</td>
@@ -151,19 +153,17 @@
 		                    </tr>
 		                    <tr>
 		                      <td class="w3-sand w3-center" style="padding-top:80px;padding-bottom: 80px">내 용 : </td>
-		                      <td> <textarea name="content" id="boardArea"cols="60" rows="10" style="resize: none;"></textarea></td>
+		                      <td> <textarea name="content" maxlength="500" id="boardArea"cols="60" rows="10" style="resize: none;"></textarea></td>
 		                    </tr>
 		                  </table>
 		                  <div class="w3-container w3-padding w3-row">
 		                        <div class="w3-padding w3-center">
-		                            <button type="submit" class="w3-button  w3-black">등록</button>
+		                            <button onclick="boardReg()" class="w3-button  w3-black">등록</button>
 		                            <button class="w3-button  w3-red"
 		                                    onclick="document.getElementById('borderReg').style.display='none';" 
 		                                    >취소</button>
 		                        </div>
 		                  </div>
-		                  <input type="hidden" name="memberId" value="${userVO.id }">
-		                  <input type="hidden" name="memberNm" value="${userVO.memberNm }">
 		                </form>
 		                </div>
 		        </div>
@@ -203,7 +203,7 @@
 							<div style="display: inline;"
 								class="w3-marign w3-padding-small w3-border w3-border-black w3-brown">&nbsp;</div>
 							<span style="margin-left: 5px; margin-right: 10px">:
-								근무(주말/책임당직)</span>
+								근무(주말/책임당직/재택)</span>
 						</td>
 						<td>
 							<div style="display: inline;"
@@ -326,12 +326,15 @@
                     </div>
                     </div>
                     <!-- 근무 -->
-                    <div class="w3-padding" id="duty5" style="display: none">
+                    <div  id="duty5" style="display: none">
                         <span class="w3-margin">
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
+                        </span>
+                        <span>
+               재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
                     </div>
                     <!--  기타일정 추가-->
@@ -376,9 +379,9 @@
 	    if(y[0].style.display == "none"){
 		    y[0].style.display = "block";  
 		    $('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList')
-		    $("#noticeBoard").text("닫기")
+		    $("#noticeBoard").text("공지닫기")
 	    }else{
-		    $("#noticeBoard").text("공지")
+		    $("#noticeBoard").text("공지사항")
 		    y[0].style.display = "none";  
 	    }
 	}
@@ -387,9 +390,9 @@
 		document.getElementById('borderReg').style.display = 'block';
 	}
 	
-	function boardDetail(boardId) {
+	function boardDetail(boardId,pageNum) {
 		document.getElementById('borderDetail').style.display = 'block';
-		$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardContent?bid='+boardId)
+		$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardContent?bid='+boardId+'&pnum='+pageNum)
 	}
 	
 	$('#boardTitle').on('keyup', function() {
@@ -405,5 +408,31 @@
 			$(this).val($(this).val().substring(0, 500));
 		}
 	});
+	
+	function boardReg(){
+		event.preventDefault();
+		document.getElementById('borderReg').style.display = 'none';
+ 		var memberId = '<c:out value="${userVO.id }"/>'
+ 		var memberNm = '<c:out value="${userVO.memberNm }"/>'
+		var content = $('#boardArea').val();
+		var title = $('#boardTitle').val();
+		$.ajax({
+			 url : "${ pageContext.servletContext.contextPath }/page/board/boardReg", 
+	    	 method : "GET",  
+	    	 dataType:"text",
+	    	 data:{
+	    			"memberId":memberId,
+	    			"title":title,
+	    			"memberNm":memberNm,
+	    			"content":content,
+	    			}, 
+              success: function(data){
+            	  $('#boardContent').html(data);
+			},
+		error: function(request, status, error) {
+			alert(error);
+		}
+	});
+	}
 
 </script>

@@ -1,17 +1,12 @@
 package handler.board;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.CommandHandler;
 import dao.CommentDAO;
-import model.BoardVO;
 import model.CommentVO;
 
 public class CommentReg implements CommandHandler {

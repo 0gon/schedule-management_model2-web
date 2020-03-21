@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class BoardVO {
 	private int Id;
+	private int cmtCnt;
 	private String memberId;
 	private String memberNm;
 	private String title;
@@ -11,6 +12,14 @@ public class BoardVO {
 	private Date regDate;
 	private String formatDate;
 	
+	
+	
+	public int getCmtCnt() {
+		return cmtCnt;
+	}
+	public void setCmtCnt(int cmtCnt) {
+		this.cmtCnt = cmtCnt;
+	}
 	public String getFormatDate() {
 		return formatDate;
 	}

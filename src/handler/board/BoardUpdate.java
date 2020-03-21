@@ -3,7 +3,6 @@ package handler.board;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.BoardDAO;
-import dao.CommentDAO;
 import dao.UserDAO;
 import model.BoardVO;
-import model.CommentVO;
 import model.UserVO;
 
 public class BoardUpdate implements CommandHandler {

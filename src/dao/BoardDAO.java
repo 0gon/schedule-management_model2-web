@@ -61,13 +61,13 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	
-	public void deleteSchedule(int scheduleId) {
+	public void deleteBoard(String boardId ) {
 		
 		sqlSession = sqlSession();
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("scheduleId", scheduleId);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
 		try {
-			sqlSession.delete(namespace + ".deleteSchedule", map);
+			sqlSession.delete(namespace + ".deleteBoard", map);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

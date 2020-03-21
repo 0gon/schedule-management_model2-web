@@ -62,6 +62,8 @@ public class UpdateProDuty implements CommandHandler {
 			content ="주말근무" ;
 		}else if(dutyId.equals("5") && working.equals("2")) {
 			content ="책임당직" ;
+		}else if(dutyId.equals("5") && working.equals("3")) {
+			content ="재택근무" ;
 		}else if(dutyId.equals("7") && Realetc!=null) {
 			content =Realetc ;
 		}
