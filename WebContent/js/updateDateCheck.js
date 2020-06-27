@@ -1,20 +1,20 @@
 function checkUpdateValue(){
  	var input=eval("document.updateinput");
  	var thisform=document.updateinput;
- 	if(!updateinput.startdate.value){
+ 	if(!updateinput.startdate_u.value){
  		alert("시작일을 입력하세요");
  		event.preventDefault(); 
- 		return updateinput.startdate.focus();
+ 		return updateinput.startdate_u.focus();
  	}else
- 	if(!updateinput.enddate.value){
+ 	if(!updateinput.enddate_u.value){
  		alert("종료일을 입력하세요");
  		event.preventDefault(); 
- 		return updateinput.enddate.focus();
+ 		return updateinput.enddate_u.focus();
  	}else
- 	if(updateinput.startdate.value>updateinput.enddate.value){
+ 	if(updateinput.startdate_u.value>updateinput.enddate_u.value){
  		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
  		event.preventDefault(); 
- 		return updateinput.enddate.focus();
+ 		return updateinput.enddate_u.focus();
  	}else{ 
  		$('#updateinput').submit(function(event){
  		 

@@ -1,1 +1,6 @@
 /build/
+
+#SQL file
+WebContent/WEB-INF/sql/*.sql
+
+src/*.xml

@@ -15,7 +15,7 @@ function buildCalendar(){
     var week = new Array("일", "월", "화", "수", "목", "금", "토");
     var lastDay = lastDate[month];
     
-    var dateStr ="<td class='w3-border w3-center' >"+year+"."+pad((Number(month)+1),2)+"</td>";
+    var dateStr ="<td class='w3-border w3-center' sytle='width:74px' >"+year+"."+pad((Number(month)+1),2)+"</td>";
     var yoilStr ='<td class="w3-center w3-border" style="padding-left: 8px">'+
     '<i class="fa fa-caret-square-o-left " style="margin-right:10px" onclick="prevCalendar()"></i>'+ 
     '<i class="fa fa-caret-square-o-right" onclick="nextCalendar()"></i></td>';
@@ -29,7 +29,7 @@ function buildCalendar(){
     month = month < 9 ? month = '0'+(month+1).toString() : month + 1; 
     
     for(var i=1;i<=lastDay;i++){
-         dateStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+i+"</td>"
+         dateStr+= "<td class='w3-border w3-center "+year+month+i+"' style='width:50px'>"+i+"</td>"
     }
     for(var i=1;i<=lastDay;i++){
     	yoilStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+week[yoil%7]+"</td>"

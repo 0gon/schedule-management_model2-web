@@ -216,8 +216,8 @@
 		</div>
 	</header>
 	<!-- 일정 -->
-	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1400px;margin-left:10px;margin-top:10px">
-    <table id="scheduleTable" class="w3-table" >
+	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1410px;margin-left:10px;margin-top:10px">
+    <table id="scheduleTable" class="w3-table" style="width:100%" >
         <tr id ='date'>
         </tr>
         <tr id='yoil'></tr>
@@ -294,12 +294,6 @@
                     <div class="w3-padding">
                           교육명 : <input type="text" id="eduSubject" name="eduSubject" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
-                    <div>
-                        <span>근무시간 등록여부 :</span>
-                        <span >
-                         <input type="checkbox" name="chkBox" id="eduTime" class="w3-radio"  onchange="eduCheck(1)" > (체크시 등록)
-                        </span>
-                    </div>
                     </div>
 
                     <!-- 휴가 huga로 보내서 1 or 2로 받음-->
@@ -317,12 +311,6 @@
                     <div id="duty4" style="display: none">
                     <div class="w3-padding">
                           내용 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
-                    </div>
-                    <div>
-                        <span>근무시간 등록여부 :</span>
-                        <span >
-                         <input type="checkbox" name="chkBox" id="etcTime"  class="w3-radio" onclick="eduCheck(2)"> (체크시 등록)
-                        </span>
                     </div>
                     </div>
                     <!-- 근무 -->
