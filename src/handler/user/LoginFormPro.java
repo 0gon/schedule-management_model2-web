@@ -57,7 +57,7 @@ public class LoginFormPro implements CommandHandler {
 			}
 
 			List<?> duties = dutyDAO.selectDutyInfo();
-			List<?> members = userDAO.selectUserAllInfo();
+			List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 			session.setAttribute("memberId", memberId);
 			req.setAttribute("schedules",schedulesLi);
 			req.setAttribute("members",members);

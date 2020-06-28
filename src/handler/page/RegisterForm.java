@@ -41,7 +41,7 @@ public class RegisterForm implements CommandHandler {
 				schedulesLi.add(scheduleVO);
 			} while (it.hasNext());
 		}
-		List<?> members = userDAO.selectUserAllInfo();
+		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 		List<?> duties = dutyDAO.selectDutyInfo();
 		req.setAttribute("schedules", schedulesLi);
 		req.setAttribute("members", members);

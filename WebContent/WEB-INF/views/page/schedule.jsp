@@ -86,11 +86,12 @@
 		
 		buildCalendar();
 		datePicker();
+		$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList')
 	});
 	
 </script>
 <div class="w3-main"
-	style="overflow: scroll; height: 830px; margin-left: 100px">
+	style="overflow: scroll; height: 830px; margin-left: 50px">
 	<!-- Header -->
 	<header id="portfolio">
 		<a href="#"><img src="../imgs/avatar_g2.jpg" style="width: 65px;"
@@ -116,7 +117,7 @@
 				 <c:if test="${userVO.grade==1 || userVO.useyn==1}">
 					<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
 						onclick="startAnim()">
-					<font size="4" id="noticeBoard">공지사항
+					<font size="4" id="noticeBoard">공지닫기
 					</font>
 					</button>
 					<!-- 새 글이 있는 경우  NEW 이미지 -->
@@ -126,7 +127,7 @@
 				 </c:if>
 			</div>
 			
-			<div class="w3-rest borderAnim w3-border w3-border-black " id="boardContent" style="display:none;">
+			<div class="w3-rest borderAnim w3-border w3-border-black " id="boardContent" >
 			</div>
 			
 		</div>
@@ -216,8 +217,8 @@
 		</div>
 	</header>
 	<!-- 일정 -->
-	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1410px;margin-left:10px;margin-top:10px">
-    <table id="scheduleTable" class="w3-table" style="width:100%" >
+	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1450px;margin-left:10px;margin-top:10px">
+    <table id="scheduleTable" class="w3-table" style="width:1400px" >
         <tr id ='date'>
         </tr>
         <tr id='yoil'></tr>

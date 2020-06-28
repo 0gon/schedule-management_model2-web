@@ -10,6 +10,7 @@ import controller.CommandHandler;
 import dao.ScheduleDAO;
 import dao.UserDAO;
 import model.ScheduleVO;
+import model.UserVO;
 
 public class AddSchedulePro implements CommandHandler {
 	@Override
@@ -91,9 +92,10 @@ public class AddSchedulePro implements CommandHandler {
 		scheduleVO.setEndDate(sqlDate);
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		UserDAO userDAO = UserDAO.getInstance();
+		UserVO userVO = userDAO.selectUserInfo(memberId);
 		//전체등록
 		if(memberId.equals("0")) {
-			List<?> members = userDAO.selectUserAllInfo();
+			List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
 		}else {
 			scheduleDAO.insertSchedule(scheduleVO);

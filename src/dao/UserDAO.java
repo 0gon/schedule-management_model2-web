@@ -18,10 +18,12 @@ public class UserDAO extends MybatisConnector {
 		return instance;
 	}
 	
-	public List<UserVO> selectUserAllInfo() {
+	public List<UserVO> selectUserAllInfoByDpt(int dptNo) {
 		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("dptNo", dptNo);
 		try {
-			return sqlSession.selectList(namespace + ".selectUserAllInfo");
+			return sqlSession.selectList(namespace + ".selectUserAllInfoByDpt",map);
 		} finally {
 			sqlSession.close();
 		}
