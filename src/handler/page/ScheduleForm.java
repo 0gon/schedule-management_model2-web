@@ -27,11 +27,11 @@ public class ScheduleForm implements CommandHandler {
 		      pageNum = "1";
 		   }
 		
-		UserDAO userDAO = UserDAO.getInstance();
 		DutyDAO dutyDAO = DutyDAO.getInstance();
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		
+		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
 		//게시판 페이지 로직
@@ -43,10 +43,10 @@ public class ScheduleForm implements CommandHandler {
 		int number = 0;
 		
 		List<?> boards = null;
-		count = boardDAO.selectBoardCount();
+		count = boardDAO.selectBoardCount(userVO.getDptNo());
 		
 		if (count > 0) {
-			boards = boardDAO.selectBoardList(startRow, endRow);
+			boards = boardDAO.selectBoardList(startRow, endRow,userVO.getDptNo());
 			for(Object board:boards) {
 				BoardVO tmp=(BoardVO)board;
 				tmp.setFormatDate(sdf.format(tmp.getRegDate()));
@@ -60,11 +60,9 @@ public class ScheduleForm implements CommandHandler {
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-		System.out.println(userVO.getDptNo());
 		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 		List<?> schedules = scheduleDAO.selectScheduleAll();
 		List<?> duties = dutyDAO.selectDutyInfo();
-		System.out.println(members);
 		//게시판 변수들
 		req.setAttribute("count", count);
 		req.setAttribute("number", number);

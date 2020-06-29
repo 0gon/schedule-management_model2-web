@@ -11,9 +11,15 @@ public class BoardVO {
 	private String content;
 	private Date regDate;
 	private String formatDate;
+	private int dptNo;	
 	
 	
-	
+	public int getDptNo() {
+		return dptNo;
+	}
+	public void setDptNo(int dptNo) {
+		this.dptNo = dptNo;
+	}
 	public int getCmtCnt() {
 		return cmtCnt;
 	}

@@ -11,12 +11,14 @@ function viewCommonList(memberList, year, month, lastDay, week, weekend) {
       schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td class="w3-border w3-center">'+memberList[i].memberNm+'</td>';
       for(var j=0;j<lastDay;j++){
     	  //토요일 일요일마다 회색 음영
-    	  var clickSid = memberList[i].memberId+year+month+(j+1);
+    	  // memberId 가 10보다 작은 경우 0 붙여주기 ex) 5 -> 05
+    	  var memberId = Number(memberList[i].memberId) < 10 ? '0'+memberList[i].memberId : memberList[i].memberId;
+    	  var clickSid = memberId+year+month+(j+1);
     	  if(week[(weekend+j)%7]=='토'||week[(weekend+j)%7]=='일'){  
-    	     schedule +='<td class="w3-light-grey w3-border " onclick="dayClick('+clickSid+')" id="sdid'+
+    	     schedule +='<td class="w3-light-grey w3-border " onclick="dayClick('+"'"+clickSid+"'"+')" id="sdid'+
     	     clickSid+'"></td>'
     	  }else{
-    	     schedule +='<td class="w3-border " onclick="dayClick('+clickSid+')" style="text-align:center" id="sdid'+
+    	     schedule +='<td class="w3-border " onclick="dayClick('+"'"+clickSid+"'"+')" style="text-align:center" id="sdid'+
     	     clickSid+'"></td>'
     	  }
       }

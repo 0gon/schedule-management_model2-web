@@ -30,9 +30,9 @@ public class BoardContent implements CommandHandler {
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
-
+		String dptNo = userVO.getDptNo()+"";
 		// boardID 값으로 해당 board VO객체 호출
-		BoardVO boardVO = boardDAO.selectBoardInfoByPK(boardId);
+		BoardVO boardVO = boardDAO.selectBoardInfoByPK(boardId, dptNo);
 		String formatDate = getDayOfweek(boardVO.getRegDate());
 		boardVO.setFormatDate(formatDate);
 

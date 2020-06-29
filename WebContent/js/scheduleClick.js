@@ -6,10 +6,10 @@ var grade = sessionStorage.getItem("grade"); // 현재 회원 등급 -> userVO�
 // 일정없는 날 클릭시 발생 함수
 function dayClick(clickSid){
 	// 사용자가 클릭한 아이디, 현재 접속아이디: currentId
-	var clickId = String(clickSid).charAt(0)==1?String(clickSid).substring(0,2):String(clickSid).charAt(0); 
+	var clickId = String(clickSid).substring(0,2)
 	var subDate = String(clickSid).substring(1,clickSid.length); //2020011
 	var clickDate = dateFormat(subDate);
-	if(currentId==clickId){
+	if(currentId==Number(clickId)){
 		document.getElementById('startdate').value=clickDate;
 		document.getElementById('enddate').value=clickDate;
         document.getElementById('addDay').style.display='block';

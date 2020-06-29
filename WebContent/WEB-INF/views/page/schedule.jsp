@@ -403,6 +403,7 @@
 		document.getElementById('borderReg').style.display = 'none';
  		var memberId = '<c:out value="${userVO.id }"/>'
  		var memberNm = '<c:out value="${userVO.memberNm }"/>'
+ 		var dptNo = '<c:out value="${userVO.dptNo }"/>'
 		var content = $('#boardArea').val();
 		var title = $('#boardTitle').val();
 		$.ajax({
@@ -414,6 +415,7 @@
 	    			"title":title,
 	    			"memberNm":memberNm,
 	    			"content":content,
+	    			"dptNo":dptNo
 	    			}, 
               success: function(data){
             	  $('#boardContent').html(data);

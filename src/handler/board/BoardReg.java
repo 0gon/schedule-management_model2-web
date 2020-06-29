@@ -16,6 +16,7 @@ public class BoardReg implements CommandHandler {
 		String memberId = req.getParameter("memberId");
 		String content = req.getParameter("content");
 		String memberNm = req.getParameter("memberNm");
+		String dptNo = req.getParameter("dptNo");
 		
 		//boardVO °´Ã¼ set
 		BoardVO boardVO = new BoardVO();
@@ -23,6 +24,7 @@ public class BoardReg implements CommandHandler {
 		boardVO.setMemberId(memberId);
 		boardVO.setTitle(title);
 		boardVO.setMemberNm(memberNm);
+		boardVO.setDptNo(Integer.parseInt(dptNo));
 		//DB board insert 
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.insertBoard(boardVO);

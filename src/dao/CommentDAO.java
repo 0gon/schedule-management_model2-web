@@ -54,10 +54,11 @@ public class CommentDAO extends MybatisConnector {
 	
 	
 	
-	public BoardVO selectBoardInfoByPK(String boardId) {
+	public BoardVO selectBoardInfoByPK(String boardId,String dptNo) {
 		sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
+		map.put("dptNo", dptNo);
 		try {
 			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK", map);
 		} finally {

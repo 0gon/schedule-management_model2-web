@@ -20,19 +20,22 @@ public class BoardDAO extends MybatisConnector {
 		return instance;
 	}
 	
-	public int selectBoardCount() {
+	public int selectBoardCount(int dptNo) {
 		int boardAllCount = 0;
 		sqlSession = sqlSession();
-		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount");
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("dptNo", dptNo); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount", map);
 		sqlSession.close();
 		return boardAllCount;
 	}
 	
-	public List<ScheduleVO> selectBoardList(int startRow, int endRow) {
+	public List<ScheduleVO> selectBoardList(int startRow, int endRow, int dptNo) {
 		sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
 		map.put("endRow", endRow);  
+		map.put("dptNo", dptNo);  
 		try {
 			return sqlSession.selectList(namespace + ".selectBoardList", map);
 		} finally {
@@ -50,10 +53,11 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	
-	public BoardVO selectBoardInfoByPK(String boardId) {
+	public BoardVO selectBoardInfoByPK(String boardId,String dptNo) {
 		sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
+		map.put("dptNo", dptNo);
 		try {
 			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK", map);
 		} finally {
