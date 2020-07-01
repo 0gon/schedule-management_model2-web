@@ -58,9 +58,12 @@ function viewScheduleList(scheduleList){
 }
 // dutyid 1,3,5 해당 schedule view 
 function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
-	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
+	var memberId = Number(scheduleList[i].memberId) < 10 ? '0'+scheduleList[i].memberId : scheduleList[i].memberId;
+	  
+	
+	$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
 		'class' :'w3-'+scheduleColor+' w3-dropdown-hover w3-border',
-		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+scheduleList[i].memberId+')'
+		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+memberId+')'
 		});
 	var hoverContent = 
         scheduleName+'<div class="w3-dropdown-content w3-bar-block w3-border" >'+  
@@ -69,5 +72,5 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
         	hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
         }    
             hoverContent+=term;
-	$('#sdid'+scheduleList[i].memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+	$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
 }
