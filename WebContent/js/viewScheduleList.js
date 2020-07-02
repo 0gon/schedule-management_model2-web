@@ -63,7 +63,8 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
 	
 	$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
 		'class' :'w3-'+scheduleColor+' w3-dropdown-hover w3-border',
-		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+memberId+')'
+		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+memberId+')',
+		'style' : 'width:3%'
 		});
 	var hoverContent = 
         scheduleName+'<div class="w3-dropdown-content w3-bar-block w3-border" >'+  

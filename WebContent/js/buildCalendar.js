@@ -29,12 +29,13 @@ function buildCalendar(){
     month = month < 9 ? month = '0'+(month+1).toString() : month + 1; 
     
     for(var i=1;i<=lastDay;i++){
-         dateStr+= "<td class='w3-border w3-center "+year+month+i+"' style='width:50px'>"+i+"</td>"
+         dateStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+i+"</td>"
     }
     for(var i=1;i<=lastDay;i++){
     	yoilStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+week[yoil%7]+"</td>"
         yoil++;
     }
+    
     $('#date').html(dateStr);
     $('#yoil').html(yoilStr);
     $('#buttonDate').text(month);

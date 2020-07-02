@@ -86,7 +86,8 @@
 		
 		buildCalendar();
 		datePicker();
-		$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList')
+		$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList');
+		
 	});
 	
 </script>
@@ -217,8 +218,8 @@
 		</div>
 	</header>
 	<!-- 일정 -->
-	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:90%;margin-left:10px;margin-top:10px">
-    <table id="scheduleTable" class="w3-table" style="width:100%" >
+	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1500px;margin-left:10px;margin-top:10px">
+    <table id="scheduleTable" class="w3-table" style="width:1400px" >
         <tr id ='date'>
         </tr>
         <tr id='yoil'></tr>
