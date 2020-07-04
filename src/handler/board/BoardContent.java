@@ -89,7 +89,7 @@ public class BoardContent implements CommandHandler {
 
 	public static String getDayOfweek(Date date) {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddhh:mm");
+		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
 		String time = dateForTime.substring(8); // 시간구하기

@@ -100,7 +100,7 @@
 		<div class="w3-container" style="padding-top: 10px">
 		
 		<div class="w3-row">
-			<div class="w3-col" style="width:580px;height:88px">
+			<div class="w3-col" style="width:460px;height:88px"> 
 				<font size="6">일정현황</font> <i
 					class="fa fa-arrow-circle-o-left w3-button"
 					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
@@ -114,28 +114,28 @@
 						></i> <font size="4">일정등록</font>
 				</button>
 				
-				<!-- 현황에 있는사람이거나, 관리자일 경우 공지사항 볼 수 있도록 -->
+				<!-- 현황에 있는사람이거나, 관리자일 경우 공지사항 볼 수 있도록 
 				 <c:if test="${userVO.grade==1 || userVO.useyn==1}">
 					<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
 						onclick="startAnim()">
 					<font size="4" id="noticeBoard">공지닫기
 					</font>
 					</button>
-					<!-- 새 글이 있는 경우  NEW 이미지 -->
 					<div style="display:inline;">
 					<img src='${ pageContext.servletContext.contextPath }/imgs/new_y.png'  style="width:35px;margin-top:-50px;margin-left:-10px">
 					</div>
 				 </c:if>
+				 -->
 			</div>
 			
-			<div class="w3-rest borderAnim w3-border w3-border-black " id="boardContent" >
+			<div class="w3-col borderAnim w3-border w3-border-black " style="width:900px" id="boardContent" >
 			</div>
 			
 		</div>
 		
 		
 		<!-- 게시판 작성 작성하기 Form -->
-		<div id="borderReg" class="w3-modal" >
+		<div id="borderReg" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
 		    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
 		        <div class="w3-container w3-center w3-teal" style="height:38px">
 		            <div style="margin-top:2px"><font size=5>작 성 하 기</font></div>
@@ -218,7 +218,7 @@
 		</div>
 	</header>
 	<!-- 일정 -->
-	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1500px;margin-left:10px;margin-top:10px">
+	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1450px;margin-left:10px;margin-top:10px">
     <table id="scheduleTable" class="w3-table" style="width:1400px" >
         <tr id ='date'>
         </tr>
@@ -227,15 +227,15 @@
   </div>
 
     <!-- 메시지 모달 -->
-<div id="message" class="w3-modal" >
+<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);">
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
 <input type="hidden" value="${memberid }" id="memberidCal">
 
     <!-- 일정 등록 모달 -->
-<div id="addDay" class="w3-modal" >
-    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 400px;">
+<div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
+    <div class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 400px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
@@ -358,7 +358,7 @@
 
 
   <!-- 게시판 모달 상세보기-->
-<div id="borderDetail" class="w3-modal"  >
+<div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
 </div>
 
 </div>
@@ -385,12 +385,18 @@
 		$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardContent?bid='+boardId+'&pnum='+pageNum)
 	}
 	
+	$('#addDay').draggable();
+	$('#message').draggable();
+	$('#borderDetail').draggable();
+	$('#borderReg').draggable();
+	
 	$('#boardTitle').on('keyup', function() {
 		if($(this).val().length > 30) {
 			alert("글자수는 30자로 이내로 제한됩니다.");
 			$(this).val($(this).val().substring(0, 30));
 		}
 	});
+	
 	
 	$('#boardArea').on('keyup', function() {
 		if($(this).val().length > 500) {
@@ -401,30 +407,33 @@
 	
 	function boardReg(){
 		event.preventDefault();
-		document.getElementById('borderReg').style.display = 'none';
  		var memberId = '<c:out value="${userVO.id }"/>'
  		var memberNm = '<c:out value="${userVO.memberNm }"/>'
  		var dptNo = '<c:out value="${userVO.dptNo }"/>'
 		var content = $('#boardArea').val();
 		var title = $('#boardTitle').val();
-		$.ajax({
-			 url : "${ pageContext.servletContext.contextPath }/page/board/boardReg", 
-	    	 method : "GET",  
-	    	 dataType:"text",
-	    	 data:{
-	    			"memberId":memberId,
-	    			"title":title,
-	    			"memberNm":memberNm,
-	    			"content":content,
-	    			"dptNo":dptNo
-	    			}, 
-              success: function(data){
-            	  $('#boardContent').html(data);
-			},
-		error: function(request, status, error) {
-			alert(error);
+		if(title==""){
+			alert("제목을 입력해주세요.");
+		}else{
+			document.getElementById('borderReg').style.display = 'none';
+			$.ajax({
+				 url : "${ pageContext.servletContext.contextPath }/page/board/boardReg", 
+		    	 method : "GET",  
+		    	 dataType:"text",
+		    	 data:{
+		    			"memberId":memberId,
+		    			"title":title,
+		    			"memberNm":memberNm,
+		    			"content":content,
+		    			"dptNo":dptNo
+		    			}, 
+	              success: function(data){
+	            	  $('#boardContent').html(data);
+				},
+			error: function(request, status, error) {
+				alert(error);
+			}
+			});
 		}
-	});
 	}
-
 </script>

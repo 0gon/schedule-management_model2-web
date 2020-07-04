@@ -18,7 +18,7 @@ function viewCommonList(memberList, year, month, lastDay, week, weekend) {
     	     schedule +='<td class="w3-light-grey w3-border " style="width:3%" onclick="dayClick('+"'"+clickSid+"'"+')" id="sdid'+
     	     clickSid+'"></td>'
     	  }else{ 
-    	     schedule +='<td class="w3-border " onclick="dayClick('+"'"+clickSid+"'"+')" style="width:3%" id="sdid'+
+    	     schedule +='<td class="w3-border "  onclick="dayClick('+"'"+clickSid+"'"+')" style="width:3%" id="sdid'+
     	     clickSid+'"></td>'
     	  }
       }
