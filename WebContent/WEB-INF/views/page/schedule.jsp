@@ -136,7 +136,7 @@
 		
 		<!-- 게시판 작성 작성하기 Form -->
 		<div id="borderReg" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
-		    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
+		    <div id="borderRegDrag" class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
 		        <div class="w3-container w3-center w3-teal" style="height:38px">
 		            <div style="margin-top:2px"><font size=5>작 성 하 기</font></div>
 		        </div>
@@ -227,7 +227,7 @@
   </div>
 
     <!-- 메시지 모달 -->
-<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);">
+<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:450px;margin-left:35%">
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
@@ -235,7 +235,7 @@
 
     <!-- 일정 등록 모달 -->
 <div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
-    <div class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 400px;">
+    <div id="addDayDrag" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 400px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
@@ -358,7 +358,7 @@
 
 
   <!-- 게시판 모달 상세보기-->
-<div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
+<div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding:5px;width:700px;margin-left:27%" >
 </div>
 
 </div>
@@ -385,10 +385,11 @@
 		$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardContent?bid='+boardId+'&pnum='+pageNum)
 	}
 	
-	$('#addDay').draggable();
+	$('#addDayDrag').draggable();
+	$('#borderRegDrag').draggable();
 	$('#message').draggable();
 	$('#borderDetail').draggable();
-	$('#borderReg').draggable();
+	
 	
 	$('#boardTitle').on('keyup', function() {
 		if($(this).val().length > 30) {

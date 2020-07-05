@@ -93,12 +93,14 @@ var dataset = [
             , eventDragStop: function(event,jsEvent) {
 
             } 
-            , select: function(startDate, endDate) {
+            , select: function(startDate) {
         	   //document.getElementById('title').value='';
                document.getElementById('startdate').value=startDate.format();
+               /*
                var parseEnddate = new Date(endDate);
                parseEnddate.setDate(parseEnddate.getDate()-1)
            	   document.getElementById('enddate').value=parseEnddate.toISOString().substring(0, 10);
+               */
                document.getElementById('addDay').style.display='block';
            }
 

@@ -1,6 +1,167 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- !PAGE CONTENT! -->
+<script>
+	function memberDBtoPOS() {
+		var memberList_POS = new Array();
+		<c:forEach var="member" items="${POSmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_POS.push(memberVO);
+		</c:forEach>
+		return memberList_POS;
+	}
+	function memberDBtoMD() {
+		var memberList_MD = new Array();
+		<c:forEach var="member" items="${MDmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_MD.push(memberVO);
+		</c:forEach>
+		return memberList_MD;
+	}
+	function memberDBtoMKT() {
+		var memberList_MKT = new Array();
+		<c:forEach var="member" items="${MKTmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_MKT.push(memberVO);
+		</c:forEach>
+		return memberList_MKT;
+	}
+	function memberDBtoSPT() {
+		var memberList_SPT = new Array();
+		<c:forEach var="member" items="${SPTmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_SPT.push(memberVO);
+		</c:forEach>
+		return memberList_SPT;
+	}
+	function memberDBtoINF() {
+		var memberList_INF = new Array();
+		<c:forEach var="member" items="${INFmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_INF.push(memberVO);
+		</c:forEach>
+		return memberList_INF;
+	}
+	function memberDBtoGFT() {
+		var memberList_GFT = new Array();
+		<c:forEach var="member" items="${GFTmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_GFT.push(memberVO);
+		</c:forEach>
+		return memberList_GFT;
+	}
+	function memberDBtoFIN() {
+		var memberList_FIN = new Array();
+		<c:forEach var="member" items="${FINmembers}">
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList_FIN.push(memberVO);
+		</c:forEach>
+		return memberList_FIN;
+	}
+	
+	$(function() {
+		var memberList_POS = memberDBtoPOS();
+		var memberList_MD = memberDBtoMD();
+		var memberList_MKT = memberDBtoMKT();
+		var memberList_SPT = memberDBtoSPT();
+		var memberList_INF = memberDBtoINF();
+		var memberList_GFT = memberDBtoGFT();
+		var memberList_FIN = memberDBtoFIN();
+		
+	    var POSlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_POS.length;j++){
+	    	if(j!=0 && j%7==0){
+		    	POSlist +='</tr><tr><td class="w3-center w3-border">'+memberList_POS[j].memberNm+'</td>'
+	    	}else{
+		    	POSlist +='<td class="w3-center w3-border">'+memberList_POS[j].memberNm+'</td>'
+	    	}
+	    }
+	    POSlist += '</tr>';
+	    var MDlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_MD.length;j++){
+	    	if(j!=0 &&j%7==0){
+	    		MDlist +='</tr><tr><td class="w3-center w3-border">'+memberList_MD[j].memberNm+'</td>'
+	    	}else{
+	    		MDlist +='<td class="w3-center w3-border">'+memberList_MD[j].memberNm+'</td>'
+	    	}
+	    }
+	    MDlist += '</tr>';
+	    var MKTlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_MKT.length;j++){
+	    	if(j!=0 &&j%7==0){
+	    		MKTlist +='</tr><tr><td class="w3-center w3-border">'+memberList_MKT[j].memberNm+'</td>'
+	    	}else{
+	    		MKTlist +='<td class="w3-center w3-border">'+memberList_MKT[j].memberNm+'</td>'
+	    	}
+	    }
+	    MKTlist += '</tr>';
+	    var SPTlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_SPT.length;j++){
+	    	if(j!=0 &&j%7==0){
+	    		SPTlist +='</tr><tr><td class="w3-center w3-border">'+memberList_SPT[j].memberNm+'</td>'
+	    	}else{
+	    		SPTlist +='<td class="w3-center w3-border">'+memberList_SPT[j].memberNm+'</td>'
+	    	}
+	    }
+	    SPTlist += '</tr>';
+	    var INFlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_INF.length;j++){
+	    	if(j!=0 && j%7==0){
+	    		INFlist +='</tr><tr><td class="w3-center w3-border">'+memberList_INF[j].memberNm+'</td>'
+	    	}else{
+	    		INFlist +='<td class="w3-center w3-border">'+memberList_INF[j].memberNm+'</td>'
+	    	}
+	    }
+	    INFlist += '</tr>';
+	    var GFTlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_GFT.length;j++){
+	    	if(j!=0 &&j%7==0){
+	    		GFTlist +='</tr><tr><td class="w3-center w3-border">'+memberList_GFT[j].memberNm+'</td>'
+	    	}else{
+	    		GFTlist +='<td class="w3-center w3-border">'+memberList_GFT[j].memberNm+'</td>'
+	    	}
+	    }
+	    GFTlist += '</tr>';
+	    var FINlist ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberList_FIN.length;j++){
+	    	if(j!=0 &&j%7==0){
+	    		FINlist +='</tr><tr><td class="w3-center w3-border">'+memberList_FIN[j].memberNm+'</td>'
+	    	}else{
+	    		FINlist +='<td class="w3-center w3-border">'+memberList_FIN[j].memberNm+'</td>'
+	    	}
+	    }
+	    FINlist += '</tr>';
+	    $('#POSmembers').append(POSlist);
+	    $('#MDmembers').append(MDlist);
+	    $('#MKTmembers').append(MKTlist);
+	    $('#SPTmembers').append(SPTlist);
+	    $('#INFmembers').append(INFlist);
+	    $('#GFTmembers').append(GFTlist);
+	    $('#FINmembers').append(FINlist);
+	});
+</script>
+
 <div class="w3-main" style="margin-left:100px">
   <!-- Header -->
   <header id="portfolio">
@@ -68,147 +229,183 @@
 <input type="hidden" value="${memberid }" id="memberidCal">
     
     <!-- 일정 등록 모달 -->
-<div id="addDay" class="w3-modal" >
-    <div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 400px;">
+    
+<div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0); padding-top:10px;" >
+    <div id="addDayDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 500px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
-            <div style="margin-top:2px"><font size=5>일정 등록</font></div>
+            <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
-        <div class="w3-container w3-padding" >
-        <span onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</span>
-       
-        <div class="calendarForm w3-center  w3-container w3-padding" id="modal">
+        <div class="w3-container " >
+        <span onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value='';" class="w3-button w3-display-topright">&times;</span>
+        <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" >
-             <c:if test="${userVO.grade==0}">
-             	<input type="hidden" name="memberId" value="${userVO.id}">
-		     </c:if>
                 <ul class="w3-ul w3-light-grey">
-             <c:if test="${userVO.grade==1}">
-			    <li><label>등록시킬 사람</label>
-			    <select  name="memberId" class="w3-select" >
-			   		 <c:forEach var="member" items="${members}">
-                        <option value="${member.id}">${member.memberNm}</option>
-                     </c:forEach>
-                     <option value="0">전체등록</option>
-                 </select>
-			    </li>
-             </c:if>
-                <li><label>일정구분</label>
-                  <select id="dutyCode" onchange="dutyChange(this)" name="dutyId" class="w3-select" >
-                     <c:forEach var="duty" items="${duties}">
-                        <option value="${duty.id}">${duty.title}</option>
-                     </c:forEach>
-                   </select>
-                   <!--휴무  humu로 보내서 1 or 2로 받음--> 
-                    <div class="w3-padding" id="duty1">
-                        <span class="">
-                            연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
+                <li><label>사용구분</label>
+                    <div style="margin-left: 25px; padding-bottom: 5px;width: 350px" >
+                        <select id="" onchange="useChange(this)" class="w3-select"  >
+                            <option value="1">교통비</option>
+                            <option value="2">야근식대</option>
+                       </select>
+                        <p></p>
+                        <label>내 용 : </label>
+                        <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 260px;height: 35" placeholder=" 10자 이내">
+                    </div>
+                    </li>
+                    <!--교통비 내용--> 
+                    <li>
+                    <div id="taxi_content">
+                        <div style="padding-top:5px" >
+                              출발지 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
+                              <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px"title="자주가는 출발지 등록" ></i>
+                        </div>
+                              <i class="fa fa-refresh w3-button" style="padding:8px"></i>
+                        <div style="padding-bottom:5px" >
+                              도착지 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
+                             <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px" title="자주가는 도착지 등록" ></i>
+                        </div>     
+                    </div>    
+                    <!--교통비 end-->
+                    
+                    <!-- 야근식대 -->
+                    <div id="overtime_content" style="display:none">
+                    <div style='padding-bottom: 10px'>
+                        <span >
+                            영업1담당: <input type="radio" name="area" onclick="areaChange(1)" class="w3-radio" checked>
                         </span>
                         <span>
-                            대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
+                            영업2담당: <input type="radio" name="area" onclick="areaChange(2)" class="w3-radio" >
                         </span>
                         <span>
-                            공가: <input type="radio" name="humu" value="3" class="w3-radio" >
+                            지원담당: <input type="radio" name="area" onclick="areaChange(3)" class="w3-radio" >
                         </span>
-                        <span class="">
-                             보상: <input type="radio" name="humu" value="4" class="w3-radio" >
-                        </span>
-                        <c:if test="${userVO.grade==1}">
-                        <span>
-                            정기휴무: <input type="radio" name="humu" value="5" class="w3-radio" >
-                        </span>
-                        <span>
-                            의무연차: <input type="radio" name="humu" value="6" class="w3-radio" >
-                        </span>
-                            <span>
-                            공휴일: <input type="radio" name="humu" value="7" class="w3-radio" >
-                        </span> 
-                        </c:if>
+                    </div>
                         
-                    </div>
-                   <!--교육 eduSubject로 보냄-->
-                    <div id="duty2" style="display: none">
-                    <div class="w3-padding">
-                          교육명 : <input type="text" id="eduSubject" name="eduSubject" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
-                    </div>
-                    <div>
-                        <span>근무시간 등록여부 :</span>
-                        <span >
-                         <input type="checkbox" name="chkBox" id="eduTime" class="w3-radio"  onchange="eduCheck(1)" > (체크시 등록)
-                        </span>
-                    </div>
-                    </div>
-                    
-                    <!-- 휴가 huga로 보내서 1 or 2로 받음-->
-                    <div class="w3-padding" id="duty3" style="display: none">
-                        <span class="w3-margin">
-                            Refresh 휴가: <input type="radio" name="huga" value="1" class="w3-radio" checked>
-                        </span>
-                        <span>
-                            하계휴가: <input type="radio" name="huga" value="2" class="w3-radio">
-                        </span>
-                    </div>
-                    
-                    <!-- 기타일정 etc로 보냄-->
-                    <!-- 기타일정 출장으로 변경-->
-                    <div id="duty4" style="display: none">
-                    <div class="w3-padding">
-                          내용 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
-                    </div>
-                    <div>
-                        <span>근무시간 등록여부 :</span>
-                        <span >
-                         <input type="checkbox" name="chkBox" id="etcTime"  class="w3-radio" onclick="eduCheck(2)"> (체크시 등록)
-                        </span>
-                    </div>
-                    </div>
-                    <!-- 근무 -->
-                    <div  id="duty5" style="display: none">
-                        <span class="w3-margin">
-                            주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
-                        </span>
-                        <span>
-                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-                        </span>
-                        <span>
-                            재택근무: <input type="radio" name="working" value="3" class="w3-radio">
-                        </span>
-                    </div>
-                    <!--  기타일정 추가-->
-                    <div id="duty6" style="display: none">
-                    <div class="w3-padding">
-                          내용 : <input type="text" id="Realetc" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
-                    </div>
-                    </div>
-                    
-                    <!--근무 시간 등록-->
+                         <div class="w3-padding ">
+                        <div class="w3-border w3-padding w3-margin" id="hwang" onclick="memberClick('hwang');" style="display: inline">
+                         황영민
+                        </div>
+                        <div class="w3-border w3-padding" id="yoon" onclick="memberClick('yoon');" style="display: inline">
+                         윤재웅
+                        </div>
+                        <div class="w3-border-top w3-border-bottom w3-padding" id="choi" onclick="memberClick('choi');" style="display: inline">
+                         최광명
+                        </div>
+                        <div class="w3-border w3-padding" id="you" onclick="memberClick('you');" style="display: inline">
+                         유승록
+                        </div>
+                        </div>
+                        <!-- **영업1담당** -->
+                        <div id="business1">
+	                        <!-- MD -->
+	                        <div id="MDmembers" style='padding-top: 10px; padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_MD Part ]</label>
+	                        </div>
+	                        <!-- 마케팅 -->
+	                        <div id="MKTmembers" style='padding-top: 10px; padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_마케팅 Part ]</label>
+	                        </div>
+                        </div>
+                        <!-- **영업2담당** -->
+                        <div id="business2" style="display:none">
+	                        <!-- POS -->
+	                        <div id="POSmembers" style='padding-top: 10px; padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_POS Part ]</label>
+	                        </div>
+	                        <!-- 상품권 -->
+	                        <div id="GFTmembers"style='padding-top: 10px; padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_상품권 Part ]</label>
+	                        </div>
+                        </div>
+                        
+                        <!-- **지원담당** -->
+                        <div id="support" style="display:none">
+	                        <!-- 경영지원 -->
+	                        <div id="SPTmembers" style='padding-top: 10px; padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_경영지원 Part ]</label>
+	                        </div>
+	                        <!-- 인프라 -->
+	                        <div id="INFmembers" style='padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_인프라 Part ]</label>
+	                        </div> 
+	                        <!-- 재무  -->   
+	                        <div id="FINmembers" style='padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_재무 Part ]</label>
+	                        </div>
+                        </div>  
+                </div>    
                 </li>
-       <li><label>시작일</label>
+                <!--  
+                md : 엄재상 정수경 권혜진 김형열 김혜진 남지훈 박민준 설수연 신학춘 유은주 임채은 전미경 황명헌 
+                마케팅: 서윤미 허창녕 김남수 김지연 김철웅 서종덕 송영곤 안소현 안지흔 유예근 최윤선
+                경영지원: 곽미숙 김진우 이은경 이재민 장우현 김시아
+                인프라: 최승원 김재우 남궁우진 공정훈 김재범 방효진 안무혁 장영현 전상영 정채린 진성호 홍윤표 황종하
+                상품권: 김영준 김나라 김진성
+                재무 : 김상국 강민승 김연준 소유니 송병준 이한주 
+                
+                -->
+        <!--교통비 등록시간-->     
+        <li id="taxi_reg">
+            <div style="padding-top: 10px;" >
+                  출발시간 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">&nbsp;&nbsp;&nbsp;
+                  도착시간 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35" >
+            </div>    
+       </li>        
+        <!--야근식대 금액등록-->         
+      <li id="overtime_price" style="display: none">
+            <div style="padding-top: 10px;" >
+               선택인원 : <font size="5" color='grey'>13</font> 명
+               <i class="fa fa-search w3-large" ></i>
+               &nbsp;&nbsp;
+               금액입력 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">
+            </div>    
+
+        </li>
+                    
+                    
+       <li><label>사용일</label>
        <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
        </li>
-       <li><label>종료일</label>
-       <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
-       </li>
-       
-       <li><button class="w3-button w3-black" id="commitbtn" onclick="checkValue();"
-       >등록</button>
-       
+	   
+       <li>
+       <button class="w3-button w3-black" id="commitbtn" onclick="">등록</button>
        <span class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
                 취소</span>
-                
-                </li>
-                
+       </li>
+       
                 </ul>
-               
             </form>
         </div>
         </div>
     </div>
 </div>
-  
-</div>
+    </div>
 
   
 <script >
+$('#addDayDrag').draggable();
+
+function areaChange(areaCode){
+	//영업1담당
+	if(areaCode == 1){
+		$('#business1').show(); 
+		$('#business2').hide(); 
+		$('#support').hide(); 
+	}
+	//영업2담당
+	else if(areaCode ==2 ){
+		$('#business1').hide(); 
+		$('#business2').show(); 
+		$('#support').hide(); 
+	}
+	//지원담당
+	else{
+		$('#business1').hide(); 
+		$('#business2').hide(); 
+		$('#support').show(); 
+		
+	}
+	
+}
 function checkValue(){
 	
 	var input=eval("document.userinput");
@@ -356,6 +553,22 @@ function toUpdatePage(data){
 		sendRequest("<%=request.getContextPath()%>/page/updateForm",data1,fromServer,"POST");	
 		event.preventDefault(); 	
 }
+function useChange(useCode){
+	//value 1 : 교통비, else : 야근식대
+	if(useCode.value==1){
+		$('#taxi_content').show(); 
+		$('#taxi_reg').show(); 
+		$('#overtime_content').hide(); 
+		$('#overtime_price').hide(); 
+	}else{
+		$('#taxi_content').hide(); 
+		$('#taxi_reg').hide(); 
+		$('#overtime_content').show(); 
+		$('#overtime_price').show(); 
+		}
+}
+
+
 function dutyChange(dutyCode){
     if(dutyCode.value==1){
     	$('#eduSubject').val(null);
@@ -441,6 +654,9 @@ function startAnim(animName) {
        y[i].style.display = "block";  
     }
     
+}
+function memberClick(memberId) {
+	document.getElementById(memberId).classList.toggle('w3-blue')    
 }
 </script>
 

@@ -9,12 +9,12 @@
         <span onclick="exitDoit()" class="w3-button w3-display-topright">&times;</span>
                 <div class="w3-row w3-padding">
                 <!-- 세션아이디와 작성자 동일할 경우 update, delete  memberId-->
+                	<button class="w3-button w3-black w3-right" onclick="exitDoit()" style="margin-top:-5px;">닫기</button>
                 <c:if test="${boardVO.memberId == userVO.id }">
-                	<button class="w3-button w3-red w3-right" onclick="boardDelete(${boardVO.id})" style="margin-top:-5px">삭제</button>
+                	<button class="w3-button w3-red w3-right" onclick="boardDelete(${boardVO.id})" style="margin-top:-5px;margin-right:10px">삭제</button>
                 	<button class="w3-button w3-teal w3-right" onclick="boardUpdate(${boardVO.id})" style="margin-top:-5px;margin-right:10px">수정</button>
-                	<br>
                 </c:if>
-                	<br>
+                	<br><br>
                 <!--  update,delete end-->	
                    <table class="w3-table-all">
                     <tr>

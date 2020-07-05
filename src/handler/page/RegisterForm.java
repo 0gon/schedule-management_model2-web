@@ -42,9 +42,26 @@ public class RegisterForm implements CommandHandler {
 			} while (it.hasNext());
 		}
 		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
+		//전체 인원수  변수는 만들었으나 미사용 -> 화면넘어가기전에 dptNo로 분류
+		List<?> Allmembers = userDAO.selectUserAllInfo();
+		List<?> MDmembers = userDAO.selectUserAllInfoMD();
+		List<?> POSmembers= userDAO.selectUserAllInfoPOS();
+		List<?> MKTmembers = userDAO.selectUserAllInfoMKT();
+		List<?> SPTmembers = userDAO.selectUserAllInfoSPT();
+		List<?> INFmembers = userDAO.selectUserAllInfoINF();
+		List<?> GFTmembers = userDAO.selectUserAllInfoGFT();
+		List<?> FINmembers = userDAO.selectUserAllInfoFIN();
 		List<?> duties = dutyDAO.selectDutyInfo();
 		req.setAttribute("schedules", schedulesLi);
 		req.setAttribute("members", members);
+		req.setAttribute("Allmembers", Allmembers);
+		req.setAttribute("POSmembers", POSmembers);
+		req.setAttribute("MDmembers", MDmembers);
+		req.setAttribute("MKTmembers", MKTmembers);
+		req.setAttribute("SPTmembers", SPTmembers);
+		req.setAttribute("INFmembers", INFmembers);
+		req.setAttribute("GFTmembers", GFTmembers);
+		req.setAttribute("FINmembers", FINmembers);
 		req.setAttribute("duties", duties);
 		req.setAttribute("userVO", userVO);
 

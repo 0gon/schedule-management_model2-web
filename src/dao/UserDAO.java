@@ -28,6 +28,70 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<UserVO> selectUserAllInfoMD() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoMD");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfoPOS() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoPOS");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfoMKT() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoMKT");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfoSPT() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoSPT");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfoINF() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoINF");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfoGFT() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoGFT");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfoFIN() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoFIN");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserAllInfo() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfo");
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
 	public UserVO selectUserInfo(String memberId) {
 		sqlSession = sqlSession();
