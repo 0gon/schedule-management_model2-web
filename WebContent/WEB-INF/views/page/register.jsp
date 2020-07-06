@@ -79,6 +79,21 @@
 		</c:forEach>
 		return memberList_FIN;
 	}
+	 
+	function buildMemberList (memberListType) {
+		var memberList ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberListType.length;j++){
+	    	if(j!=0 && j%7==0){
+	    		memberList +='</tr><tr><td class="memberSelector w3-center w3-border " id="'+memberListType[j].memberId
+	    		+'" onclick="memberClick('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
+	    	}else{
+	    		memberList +='<td class="memberSelector w3-center w3-border" id="'+memberListType[j].memberId
+	    		+'" onclick="memberClick('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
+	    	}
+	    }
+	    memberList += '</tr>';
+	    return memberList
+	}
 	
 	$(function() {
 		var memberList_POS = memberDBtoPOS();
@@ -89,69 +104,14 @@
 		var memberList_GFT = memberDBtoGFT();
 		var memberList_FIN = memberDBtoFIN();
 		
-	    var POSlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_POS.length;j++){
-	    	if(j!=0 && j%7==0){
-		    	POSlist +='</tr><tr><td class="w3-center w3-border">'+memberList_POS[j].memberNm+'</td>'
-	    	}else{
-		    	POSlist +='<td class="w3-center w3-border">'+memberList_POS[j].memberNm+'</td>'
-	    	}
-	    }
-	    POSlist += '</tr>';
-	    var MDlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_MD.length;j++){
-	    	if(j!=0 &&j%7==0){
-	    		MDlist +='</tr><tr><td class="w3-center w3-border">'+memberList_MD[j].memberNm+'</td>'
-	    	}else{
-	    		MDlist +='<td class="w3-center w3-border">'+memberList_MD[j].memberNm+'</td>'
-	    	}
-	    }
-	    MDlist += '</tr>';
-	    var MKTlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_MKT.length;j++){
-	    	if(j!=0 &&j%7==0){
-	    		MKTlist +='</tr><tr><td class="w3-center w3-border">'+memberList_MKT[j].memberNm+'</td>'
-	    	}else{
-	    		MKTlist +='<td class="w3-center w3-border">'+memberList_MKT[j].memberNm+'</td>'
-	    	}
-	    }
-	    MKTlist += '</tr>';
-	    var SPTlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_SPT.length;j++){
-	    	if(j!=0 &&j%7==0){
-	    		SPTlist +='</tr><tr><td class="w3-center w3-border">'+memberList_SPT[j].memberNm+'</td>'
-	    	}else{
-	    		SPTlist +='<td class="w3-center w3-border">'+memberList_SPT[j].memberNm+'</td>'
-	    	}
-	    }
-	    SPTlist += '</tr>';
-	    var INFlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_INF.length;j++){
-	    	if(j!=0 && j%7==0){
-	    		INFlist +='</tr><tr><td class="w3-center w3-border">'+memberList_INF[j].memberNm+'</td>'
-	    	}else{
-	    		INFlist +='<td class="w3-center w3-border">'+memberList_INF[j].memberNm+'</td>'
-	    	}
-	    }
-	    INFlist += '</tr>';
-	    var GFTlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_GFT.length;j++){
-	    	if(j!=0 &&j%7==0){
-	    		GFTlist +='</tr><tr><td class="w3-center w3-border">'+memberList_GFT[j].memberNm+'</td>'
-	    	}else{
-	    		GFTlist +='<td class="w3-center w3-border">'+memberList_GFT[j].memberNm+'</td>'
-	    	}
-	    }
-	    GFTlist += '</tr>';
-	    var FINlist ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberList_FIN.length;j++){
-	    	if(j!=0 &&j%7==0){
-	    		FINlist +='</tr><tr><td class="w3-center w3-border">'+memberList_FIN[j].memberNm+'</td>'
-	    	}else{
-	    		FINlist +='<td class="w3-center w3-border">'+memberList_FIN[j].memberNm+'</td>'
-	    	}
-	    }
-	    FINlist += '</tr>';
+	    var POSlist =buildMemberList(memberList_POS);
+	    var MDlist =buildMemberList(memberList_MD);
+	    var MKTlist =buildMemberList(memberList_MKT);
+	    var SPTlist =buildMemberList(memberList_SPT);
+	    var INFlist =buildMemberList(memberList_INF);
+	    var GFTlist =buildMemberList(memberList_GFT);
+	    var FINlist =buildMemberList(memberList_FIN);
+	    
 	    $('#POSmembers').append(POSlist);
 	    $('#MDmembers').append(MDlist);
 	    $('#MKTmembers').append(MKTlist);
@@ -229,7 +189,6 @@
 <input type="hidden" value="${memberid }" id="memberidCal">
     
     <!-- 일정 등록 모달 -->
-    
 <div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0); padding-top:10px;" >
     <div id="addDayDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 500px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
@@ -281,16 +240,16 @@
                     </div>
                         
                          <div class="w3-padding ">
-                        <div class="w3-border w3-padding w3-margin" id="hwang" onclick="memberClick('hwang');" style="display: inline">
+                        <div class="memberSelector w3-border w3-padding w3-margin" id="hwang" onclick="memberClick('hwang');" style="display: inline">
                          황영민
                         </div>
-                        <div class="w3-border w3-padding" id="yoon" onclick="memberClick('yoon');" style="display: inline">
+                        <div class="memberSelector w3-border w3-padding" id="yoon" onclick="memberClick('yoon');" style="display: inline">
                          윤재웅
                         </div>
-                        <div class="w3-border-top w3-border-bottom w3-padding" id="choi" onclick="memberClick('choi');" style="display: inline">
+                        <div class="memberSelector w3-border-top w3-border-bottom w3-padding" id="choi" onclick="memberClick('choi');" style="display: inline">
                          최광명
                         </div>
-                        <div class="w3-border w3-padding" id="you" onclick="memberClick('you');" style="display: inline">
+                        <div class="memberSelector w3-border w3-padding" id="you" onclick="memberClick('you');" style="display: inline">
                          유승록
                         </div>
                         </div>
@@ -351,15 +310,15 @@
             </div>    
        </li>        
         <!--야근식대 금액등록-->         
-      <li id="overtime_price" style="display: none">
+      <li id="overtime_price" style="display: none; padding: 8px">
             <div style="padding-top: 10px;" >
-               선택인원 : <font size="5" color='grey'>13</font> 명
+               선택인원 : <font size="5" id="selectMemberCount" color='grey'>0</font> 명
                <i class="fa fa-search w3-large" ></i>
                &nbsp;&nbsp;
-               금액입력 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">
-            </div>    
-
-        </li>
+               금액입력 : <input type="text" id="price" name="price" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">
+            <button class="w3-button w3-black w3-border w3-border-white w3-round" onclick="memberSelectorDel()" style="margin-left:3px;padding:3px">전체 선택해제</button>
+            </div>
+        </li> 
                     
                     
        <li><label>사용일</label>
@@ -569,80 +528,6 @@ function useChange(useCode){
 }
 
 
-function dutyChange(dutyCode){
-    if(dutyCode.value==1){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide(); 
-        $('#duty1').show();$('#duty2').hide();
-        $('#duty3').hide();$('#duty4').hide();$('#duty5').hide(); $('#duty6').hide(); 
-        
-    }else if(dutyCode.value==2){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        var tmp = $('#eduTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-        $('#duty1').hide();$('#duty2').show();
-        $('#duty3').hide();$('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==3){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').show();
-        $('#duty4').hide();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==4){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-         var tmp = $('#etcTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-        $('#duty1').hide();$('#duty2').hide();
-        $('#duty3').hide();$('#duty4').show();$('#duty5').hide();$('#duty6').hide(); 
-    }else if(dutyCode.value==5){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').hide();$('#duty4').hide();$('#duty6').hide();  
-        $('#duty5').show();
-    }else if(dutyCode.value==6){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#duty1').hide();$('#duty2').hide();$('#duty3').hide(); 
-        $('#duty4').hide();$('#duty5').hide();$('#duty6').hide();  
-        $('#registerWork').hide(); 
-    }else if(dutyCode.value==7){
-    	$('#eduSubject').val(null);
-    	$('#etc').val(null);
-        $('#registerWork').hide();$('#duty1').hide();
-        $('#duty2').hide();$('#duty3').hide();$('#duty4').hide();$('#duty5').hide();  
-        $('#duty6').show();
-    }
-}
-function eduCheck(chk){
-    if(chk==1){
-        var tmp = $('#eduTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-    }else if(chk==2){
-         var tmp = $('#etcTime').is(':checked')
-        if(tmp){
-            $('#registerWork').show();
-        }else{
-            $('#registerWork').hide(); 
-        }
-    }
-}
-
 function startAnim(animName) {
     var i;
     var x = document.getElementsByClassName("animTest");
@@ -655,8 +540,30 @@ function startAnim(animName) {
     }
     
 }
+var selectMemberCount = 0;
+var selectPrice = 0;
+var fixedPrice = 8000;
 function memberClick(memberId) {
-	document.getElementById(memberId).classList.toggle('w3-blue')    
+	//True 시 w3-blue 클래스 추가
+	var isTrue = document.getElementById(memberId).classList.toggle('w3-blue');
+	if(isTrue){
+		selectMemberCount += 1
+		selectPrice = fixedPrice * selectMemberCount;
+	}else{
+		selectMemberCount -= 1
+		selectPrice = fixedPrice * selectMemberCount;
+	}
+	$('#price').attr('value',selectPrice); 
+	$('#selectMemberCount').text(selectMemberCount); 
+}
+
+function memberSelectorDel() {
+	event.preventDefault();
+	selectMemberCount = 0;
+	selectPrice = 0;
+	$('#price').attr('value',selectPrice); 
+	$('#selectMemberCount').text(selectMemberCount); 
+	$('.memberSelector').removeClass('w3-blue'); 
 }
 </script>
 

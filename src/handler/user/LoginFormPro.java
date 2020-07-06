@@ -63,7 +63,10 @@ public class LoginFormPro implements CommandHandler {
 			req.setAttribute("members",members);
 			req.setAttribute("duties",duties);
 			req.setAttribute("userVO",userVO);
-			return "/WEB-INF/views/page/register.jsp";
+			res.sendRedirect(req.getContextPath() + "/page/schedule");
+			return null;
+			
+			
 		}
 	}
 }
