@@ -10,8 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-    <!--달력 api-->  
+   <!--달력 api-->  
 <link href="${ pageContext.servletContext.contextPath }/api/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/> 
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/api/fullcalendar-3.9.0/lib/moment.min.js"></script>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/api/fullcalendar-3.9.0/lib/jquery.min.js"></script>

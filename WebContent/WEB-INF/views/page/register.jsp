@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- !PAGE CONTENT! -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+ 
 <script>
+	function memberDBtoALL() {
+		var memberList_ALL = new Array();
+		<c:forEach var="member" items="${Allmembers}">
+			memberList_ALL.push("${member.memberNm}");
+		</c:forEach>
+		return memberList_ALL;
+	}
 	function memberDBtoPOS() {
 		var memberList_POS = new Array();
 		<c:forEach var="member" items="${POSmembers}">
@@ -119,6 +129,18 @@
 	    $('#INFmembers').append(INFlist);
 	    $('#GFTmembers').append(GFTlist);
 	    $('#FINmembers').append(FINlist);
+	    
+	    $('#timepicker').timepicker({
+	        timeFormat: 'h:mm p',
+	        interval: 60,
+	        minTime: '10',
+	        maxTime: '6:00pm',
+	        defaultTime: '11',
+	        startTime: '10:00',
+	        dynamic: false,
+	        dropdown: true,
+	        scrollbar: true
+	    });
 	});
 </script>
 
@@ -305,7 +327,7 @@
         <!--교통비 등록시간-->     
         <li id="taxi_reg">
             <div style="padding-top: 10px;" >
-                  출발시간 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">&nbsp;&nbsp;&nbsp;
+                  출발시간 : <input type="text" id="timepicker" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">&nbsp;&nbsp;&nbsp;
                   도착시간 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35" >
             </div>    
        </li>        
@@ -315,14 +337,24 @@
                선택인원 : <font size="5" id="selectMemberCount" color='grey'>0</font> 명
                <i class="fa fa-search w3-large" ></i>
                &nbsp;&nbsp;
-               금액입력 : <input type="text" id="price" name="price" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">
-            <button class="w3-button w3-black w3-border w3-border-white w3-round" onclick="memberSelectorDel()" style="margin-left:3px;padding:3px">전체 선택해제</button>
+               금액입력 : <input type="text" id="price" name="price" class=" w3-input w3-round" 
+               style="display: inline;width: 80px;height: 35">
+	            <button class="w3-button w3-black w3-border w3-border-white w3-round" onclick="memberSelectorDel()" style="margin-left:3px;padding:3px">전체 선택해제</button>
             </div>
         </li> 
                     
                     
-       <li><label>사용일</label>
-       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
+       <li>
+       <div style="display:inline;width:110px">
+	       <label>사용일 : </label>
+	       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border"
+	       style="display: inline;width: 100px;">
+       </div>
+       <div id="card_owner"style="display:none;width:110px;">
+	       <label>카드소지자: </label>
+	       <input type="text" id="cardInput" type="text" name="cardOwner" class="w3-input w3-border"
+	       style="display: inline;width: 100px;">
+       </div>
        </li>
 	   
        <li>
@@ -338,7 +370,77 @@
     </div>
 </div>
     </div>
+<script>
+function autocomplete(inp, arr) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
 
+var memberAll = memberDBtoALL();
+autocomplete(document.getElementById("cardInput"), memberAll);
+
+</script>
   
 <script >
 $('#addDayDrag').draggable();
@@ -364,99 +466,6 @@ function areaChange(areaCode){
 		
 	}
 	
-}
-function checkValue(){
-	
-	var input=eval("document.userinput");
-	var thisform=document.userinput;
-	if(!userinput.startdate.value){
-		alert("시작일을 입력하세요");
-		event.preventDefault(); 
-		return userinput.startdate.focus();
-	}else
-	if(!userinput.enddate.value){
-		alert("종료일을 입력하세요");
-		event.preventDefault(); 
-		return userinput.enddate.focus();
-	}else
-
-	if(userinput.startdate.value>userinput.enddate.value){
-		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-		event.preventDefault(); 
-		return userinput.enddate.focus();
-	}else{ 
-		$('#userinput').submit(function(event){
-		  var data=$(this).serialize();
-		  addSchedule(data);
-		  document.getElementById('addDay').style.display='none';
-		  document.getElementById('message').style.display='block';
-          event.preventDefault(); } 
-		); 
-
-	};
-		
-}
-function checkReg(){
-    	
-    	var input=eval("document.regForm");
-    	var thisform=document.regForm;
-    	if(!regForm.sDate.value){
-    		alert("시작일을 입력하세요");
-    		event.preventDefault(); 
-    		return regForm.sDate.focus();
-    	}else
-    	if(!regForm.eDate.value){
-    		alert("종료일을 입력하세요");
-    		event.preventDefault(); 
-    		return regForm.eDate.focus();
-    	}else
-
-    	if(regForm.sDate.value>regForm.eDate.value){
-    		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-    		event.preventDefault(); 
-    		return regForm.eDate.focus();
-    	}else{ 
-    		$('#regForm').submit(function(event){
-    		  var data=$(this).serialize();
-    		  addSchedule(data);
-    		  document.getElementById('addDay').style.display='none';
-    		  document.getElementById('message').style.display='block';
-              event.preventDefault(); } //기본 폼의 submit이 발생되지 않게 막기
-    		); 
-
-    	};
-    		
-    }
-function checkUpdateValue(){
-	
-	var input=eval("document.updateinput");
-	var thisform=document.updateinput;
-	if(!updateinput.startdate.value){
-		alert("시작일을 입력하세요");
-		event.preventDefault(); 
-		return updateinput.startdate.focus();
-	}else
-	if(!updateinput.enddate.value){
-		alert("종료일을 입력하세요");
-		event.preventDefault(); 
-		return updateinput.enddate.focus();
-	}else
-	if(updateinput.startdate.value>updateinput.enddate.value){
-		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-		event.preventDefault(); 
-		return updateinput.enddate.focus();
-	}else{ 
-		$('#updateinput').submit(function(event){
-		 
-		  var data=$(this).serialize();
-		  updateInclueDuty(data);
-		   document.getElementById('addDay').style.display='none';
-		   document.getElementById('message').style.display='block';
-			  
-			  event.preventDefault(); } //기본 폼의 submit이 발생되지 않게 막기
-		); 
-	};
-		
 }
 function contentView(data){
 	var id="id="+data;
@@ -519,11 +528,13 @@ function useChange(useCode){
 		$('#taxi_reg').show(); 
 		$('#overtime_content').hide(); 
 		$('#overtime_price').hide(); 
+		$('#card_owner').hide(); 
 	}else{
 		$('#taxi_content').hide(); 
 		$('#taxi_reg').hide(); 
 		$('#overtime_content').show(); 
 		$('#overtime_price').show(); 
+		$('#card_owner').attr('style','display:inline;'); 
 		}
 }
 
