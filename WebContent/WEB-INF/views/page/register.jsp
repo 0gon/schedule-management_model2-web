@@ -3,7 +3,12 @@
 <!-- !PAGE CONTENT! -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
- 
+ <style>
+	 .ui-timepicker-container{ 
+	 	 position: fixed;
+	     z-index:1151 !important; 
+	}
+ </style>
 <script>
 	function memberDBtoALL() {
 		var memberList_ALL = new Array();
@@ -130,14 +135,19 @@
 	    $('#GFTmembers').append(GFTlist);
 	    $('#FINmembers').append(FINlist);
 	    
-	    $('#timepicker').timepicker({
-	        timeFormat: 'h:mm p',
-	        interval: 60,
-	        minTime: '10',
-	        maxTime: '6:00pm',
-	        defaultTime: '11',
-	        startTime: '10:00',
-	        dynamic: false,
+	    $('#startTime').timepicker({
+	        timeFormat: 'H:mm p',
+	        interval: 30,
+	        defaultTime: '23',
+	        dynamic: true,
+	        dropdown: true,
+	        scrollbar: true
+	    });
+	    $('#endTime').timepicker({
+	        timeFormat: 'H:mm p',
+	        interval: 30,
+	        defaultTime: '23',
+	        dynamic: true,
 	        dropdown: true,
 	        scrollbar: true
 	    });
@@ -236,12 +246,12 @@
                     <li>
                     <div id="taxi_content">
                         <div style="padding-top:5px" >
-                              출발지 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
+                              출발지 : <input type="text" id="departure" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
                               <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px"title="자주가는 출발지 등록" ></i>
                         </div>
-                              <i class="fa fa-refresh w3-button" style="padding:8px"></i>
+                              <i class="fa fa-refresh w3-button" onclick="placeChange()" style="padding:8px"></i>
                         <div style="padding-bottom:5px" >
-                              도착지 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
+                              도착지 : <input type="text" id="destination" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
                              <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px" title="자주가는 도착지 등록" ></i>
                         </div>     
                     </div>    
@@ -327,8 +337,8 @@
         <!--교통비 등록시간-->     
         <li id="taxi_reg">
             <div style="padding-top: 10px;" >
-                  출발시간 : <input type="text" id="timepicker" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35">&nbsp;&nbsp;&nbsp;
-                  도착시간 : <input type="text" id="etc" name="etc" class=" w3-input w3-round" style="display: inline;width: 110px;height: 35" >
+                  출발시간 : <input type="text" id="startTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 120px;height: 35;">&nbsp;&nbsp;&nbsp;
+                  도착시간 : <input type="text" id="endTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 120px;height: 35" >
             </div>    
        </li>        
         <!--야근식대 금액등록-->         
@@ -444,6 +454,7 @@ autocomplete(document.getElementById("cardInput"), memberAll);
   
 <script >
 $('#addDayDrag').draggable();
+$('.ui-timepicker-container').draggable();
 
 function areaChange(areaCode){
 	//영업1담당
@@ -575,6 +586,12 @@ function memberSelectorDel() {
 	$('#price').attr('value',selectPrice); 
 	$('#selectMemberCount').text(selectMemberCount); 
 	$('.memberSelector').removeClass('w3-blue'); 
+}
+
+function placeChange(){
+	var tmp = $('#departure').val();
+	$('#departure').val($('#destination').val());
+	$('#destination').val(tmp);
 }
 </script>
 
