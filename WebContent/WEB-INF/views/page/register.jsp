@@ -3,6 +3,11 @@
 <!-- !PAGE CONTENT! -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
+
+<script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+
+
  <style>
 	 .ui-timepicker-container{ 
 	 	 position: fixed;
@@ -135,22 +140,14 @@
 	    $('#GFTmembers').append(GFTlist);
 	    $('#FINmembers').append(FINlist);
 	    
-	    $('#startTime').timepicker({
-	        timeFormat: 'H:mm p',
-	        interval: 30,
-	        defaultTime: '23',
-	        dynamic: true,
-	        dropdown: true,
-	        scrollbar: true
-	    });
-	    $('#endTime').timepicker({
-	        timeFormat: 'H:mm p',
-	        interval: 30,
-	        defaultTime: '23',
-	        dynamic: true,
-	        dropdown: true,
-	        scrollbar: true
-	    });
+	    $('#startTime, #endTime').appendDtpicker({
+		    'locale' : 'ko', // 한글화
+		    'autodateOnStart' : false, // 초기값 x
+		    'timelistScroll' : false, // 시간 자동 스크롤 x
+		    'closeOnSelected' : true, // 선택하면 선택창 x
+		    'minuteInterval' : 30 // 시간 간격 조절 (m)
+    	});
+
 	});
 </script>
 
@@ -232,14 +229,15 @@
             <form id="userinput" method="post" >
                 <ul class="w3-ul w3-light-grey">
                 <li><label>사용구분</label>
+                
                     <div style="margin-left: 25px; padding-bottom: 5px;width: 350px" >
-                        <select id="" onchange="useChange(this)" class="w3-select"  >
+                        <select id="useCode" onchange="useChange(this)" class="w3-select"  >
                             <option value="1">교통비</option>
                             <option value="2">야근식대</option>
                        </select>
                         <p></p>
                         <label>내 용 : </label>
-                        <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 260px;height: 35" placeholder=" 10자 이내">
+                        <input type="text" id="content" name="content" class="w3-input w3-round" style="display: inline;width: 260px;height: 35" placeholder=" 12자 이내">
                     </div>
                     </li>
                     <!--교통비 내용--> 
@@ -325,27 +323,18 @@
                         </div>  
                 </div>    
                 </li>
-                <!--  
-                md : 엄재상 정수경 권혜진 김형열 김혜진 남지훈 박민준 설수연 신학춘 유은주 임채은 전미경 황명헌 
-                마케팅: 서윤미 허창녕 김남수 김지연 김철웅 서종덕 송영곤 안소현 안지흔 유예근 최윤선
-                경영지원: 곽미숙 김진우 이은경 이재민 장우현 김시아
-                인프라: 최승원 김재우 남궁우진 공정훈 김재범 방효진 안무혁 장영현 전상영 정채린 진성호 홍윤표 황종하
-                상품권: 김영준 김나라 김진성
-                재무 : 김상국 강민승 김연준 소유니 송병준 이한주 
-                
-                -->
         <!--교통비 등록시간-->     
         <li id="taxi_reg">
-            <div style="padding-top: 10px;" >
-                  출발시간 : <input type="text" id="startTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 120px;height: 35;">&nbsp;&nbsp;&nbsp;
-                  도착시간 : <input type="text" id="endTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 120px;height: 35" >
+            <div style="padding-top: 5px;" >
+                  출발일시 : <input type="text" id="startTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35;">&nbsp;
+                  도착일시 : <input type="text" id="endTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35" >
             </div>    
        </li>        
         <!--야근식대 금액등록-->         
       <li id="overtime_price" style="display: none; padding: 8px">
             <div style="padding-top: 10px;" >
                선택인원 : <font size="5" id="selectMemberCount" color='grey'>0</font> 명
-               <i class="fa fa-search w3-large" ></i>
+               <!--  <i class="fa fa-search w3-large" ></i>-->
                &nbsp;&nbsp;
                금액입력 : <input type="text" id="price" name="price" class=" w3-input w3-round" 
                style="display: inline;width: 80px;height: 35">
@@ -357,18 +346,19 @@
        <li>
        <div style="display:inline;width:110px">
 	       <label>사용일 : </label>
-	       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border"
+	       <input type="text" id="startdate" readonly="readonly"  name="startDate"  class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
        <div id="card_owner"style="display:none;width:110px;">
 	       <label>카드소지자: </label>
-	       <input type="text" id="cardInput" type="text" name="cardOwner" class="w3-input w3-border"
+	       <input type="text" id="cardInput" type="text" name="cardOwner" placeholder="ex) 황영민" class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
        </li>
 	   
        <li>
-       <button class="w3-button w3-black" id="commitbtn" onclick="">등록</button>
+       <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()">등록</button>
+       
        <span class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
                 취소</span>
        </li>
@@ -381,6 +371,15 @@
 </div>
     </div>
 <script>
+
+$('#content, #departure, #destination').on('keyup', function() {
+	if($(this).val().length > 12) {
+		alert("12자로 이내로 제한됩니다.");
+		$(this).val($(this).val().substring(0, 12));
+	}
+});
+
+
 function autocomplete(inp, arr) {
   var currentFocus;
   inp.addEventListener("input", function(e) {
@@ -453,28 +452,109 @@ autocomplete(document.getElementById("cardInput"), memberAll);
 </script>
   
 <script >
+$.datepicker.setDefaults({
+	dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		,showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		,stepMonths: 1 //월 넘어가는 수 
+		,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		,changeYear: false //콤보박스에서 년 선택 가능
+		,changeMonth: false //콤보박스에서 월 선택 가능                
+		,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+			,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+				,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+});
+
+function checkValue(){
+	var input=eval("document.userinput");
+	var thisform=document.userinput;
+	var useCode = userinput.useCode.value;
+	event.preventDefault();
+	
+	// 교통비인경우 else 야근식대
+	if(useCode == 1){
+		if(!userinput.content.value){
+			alert("내용을 입력하세요");
+			event.preventDefault(); 
+			return userinput.content.focus();
+		}else if(!userinput.departure.value){
+			alert("출발지를 입력하세요");
+			event.preventDefault(); 
+			return userinput.departure.focus();
+		}else if(!userinput.destination.value){
+			alert("도착지를 입력하세요");
+			event.preventDefault(); 
+			return userinput.destination.focus();
+		}else if(!userinput.startTime.value){
+			alert("출발일시를 선택하세요");
+			event.preventDefault(); 
+			return userinput.startTime.focus();
+		}else if(!userinput.endTime.value){
+			alert("도착일시를 선택하세요");
+			event.preventDefault(); 
+			return userinput.endTime.focus();
+		}else{
+			if(userinput.startTime.value>userinput.endTime.value){
+				alert("종료일시를 시작일시보다 이전으로 선택할 수 없습니다.");
+				event.preventDefault(); 
+				return userinput.endTime.focus();
+			//정상적으로 입력이 완료된 경우
+			}else{
+				
+			}
+		}
+	}else {
+		
+	}
+	/*
+	if(!userinput.startdate.value){
+		alert("시작일을 입력하세요");
+		event.preventDefault(); 
+		return userinput.startdate.focus();
+	}else
+	if(!userinput.enddate.value){
+		alert("종료일을 입력하세요");
+		event.preventDefault(); 
+		return userinput.enddate.focus();
+	}else
+	if(userinput.startdate.value>userinput.enddate.value){
+		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
+		event.preventDefault(); 
+		return userinput.enddate.focus();
+	}else{ 
+		$('#userinput').submit(function(event){
+		  var data=$(this).serialize();
+		  addSchedule(data);
+		  document.getElementById('addDay').style.display='none';
+		  document.getElementById('message').style.display='block';
+          event.preventDefault(); } 
+		); 
+	};
+	*/
+}
+
+
 $('#addDayDrag').draggable();
+$('#startdate').datepicker();
 $('.ui-timepicker-container').draggable();
 
 function areaChange(areaCode){
 	//영업1담당
 	if(areaCode == 1){
 		$('#business1').show(); 
-		$('#business2').hide(); 
-		$('#support').hide(); 
+		$('#business2, #support').hide(); 
 	}
 	//영업2담당
 	else if(areaCode ==2 ){
-		$('#business1').hide(); 
 		$('#business2').show(); 
-		$('#support').hide(); 
+		$('#business1, #support').hide(); 
 	}
 	//지원담당
 	else{
-		$('#business1').hide(); 
-		$('#business2').hide(); 
+		$('#business1, #business2').hide(); 
 		$('#support').show(); 
-		
 	}
 	
 }
@@ -535,16 +615,11 @@ function toUpdatePage(data){
 function useChange(useCode){
 	//value 1 : 교통비, else : 야근식대
 	if(useCode.value==1){
-		$('#taxi_content').show(); 
-		$('#taxi_reg').show(); 
-		$('#overtime_content').hide(); 
-		$('#overtime_price').hide(); 
-		$('#card_owner').hide(); 
+		$('#taxi_content, #taxi_reg').show(); 
+		$('#overtime_content, #overtime_price, #card_owner').hide(); 
 	}else{
-		$('#taxi_content').hide(); 
-		$('#taxi_reg').hide(); 
-		$('#overtime_content').show(); 
-		$('#overtime_price').show(); 
+		$('#taxi_content, #taxi_reg').hide(); 
+		$('#overtime_content, #overtime_price').show(); 
 		$('#card_owner').attr('style','display:inline;'); 
 		}
 }
