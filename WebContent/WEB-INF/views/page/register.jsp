@@ -227,7 +227,7 @@
         <span onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</span>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
-            	<input type="hidden" name="memberId" value="${userVO.memberId }" >
+            	<input type="hidden" name="memberId" value="${userVO.id }" >
             	<input type="hidden" name="memberNm" value="${userVO.memberNm }" >
                 <ul class="w3-ul w3-light-grey">
                 <li><label>사용구분</label>
@@ -272,18 +272,15 @@
                     </div>
                         
                          <div class="w3-padding ">
-                        <div class="memberSelector w3-border w3-padding w3-margin" id="hwang" onclick="memberClick('hwang');" style="display: inline">
-                         황영민
-                        </div>
-                        <div class="memberSelector w3-border w3-padding" id="yoon" onclick="memberClick('yoon');" style="display: inline">
-                         윤재웅
-                        </div>
-                        <div class="memberSelector w3-border-top w3-border-bottom w3-padding" id="choi" onclick="memberClick('choi');" style="display: inline">
-                         최광명
-                        </div>
-                        <div class="memberSelector w3-border w3-padding" id="you" onclick="memberClick('you');" style="display: inline">
-                         유승록
-                        </div>
+                         <!-- zerogon id값을 실제 회원id값으로 변경필요 -->
+                        <div class="memberSelector w3-border w3-padding w3-margin" 
+                        id="75" onclick="memberClick('75');" style="display: inline">황영민</div>
+                        <div class="memberSelector w3-border w3-padding" 
+                        id="76" onclick="memberClick('76');" style="display: inline">윤재웅</div>
+                        <div class="memberSelector w3-border w3-padding" 
+                        id="77" onclick="memberClick('77');" style="display: inline">최광명</div>
+                        <div class="memberSelector w3-border w3-padding" 
+                        id="78" onclick="memberClick('78');" style="display: inline">유승록</div>
                         </div>
                         <!-- **영업1담당** -->
                         <div id="business1">
@@ -353,7 +350,7 @@
        </div>
        <div id="card_owner"style="display:none;width:110px;">
 	       <label>카드소지자: </label>
-	       <input type="text" id="cardInput" type="text" name="cardOwner" placeholder="ex) 황영민" class="w3-input w3-border"
+	       <input type="text" id="cardInput" type="text" name="cardHolder" placeholder="ex) 황영민" class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
        </li>
@@ -479,45 +476,61 @@ function checkValue(){
 	if(useCode == 1){
 		if(!userinput.content.value){
 			alert("내용을 입력하세요");
-			event.preventDefault(); 
 			return userinput.content.focus();
 		}else if(!userinput.departure.value){
 			alert("출발지를 입력하세요");
-			event.preventDefault(); 
 			return userinput.departure.focus();
 		}else if(!userinput.destination.value){
 			alert("도착지를 입력하세요");
-			event.preventDefault(); 
 			return userinput.destination.focus();
 		}else if(!userinput.startTime.value){
 			alert("출발일시를 선택하세요");
-			event.preventDefault(); 
 			return userinput.startTime.focus();
 		}else if(!userinput.endTime.value){
 			alert("도착일시를 선택하세요");
-			event.preventDefault(); 
 			return userinput.endTime.focus();
 		}else{
 			if(userinput.startTime.value>userinput.endTime.value){
 				alert("종료일시를 시작일시보다 이전으로 선택할 수 없습니다.");
-				event.preventDefault(); 
 				return userinput.endTime.focus();
 			//정상적으로 입력이 완료된 경우
 			}else{
 				$('#userinput').submit();
 				$('#content, #departure, #destination').val('');
-				event.preventDefault(); 
 			}
 		}
 	}else {
 	    var replaceNotInt = /[^0-9]/gi;
 	    var price = $("#price").val();
-	    if(price == 0 || price == ''){
-	    	alert('금액을 입력하세요.')
+	    if(!userinput.content.value){
+			alert("내용을 입력하세요");
+			return userinput.content.focus();
+		}
+	    else if(!userinput.cardHolder.value){
+			alert("카드소지자를  입력하세요");
+			return userinput.cardHolder.focus();
+		}
+	    else if(price == 0 || price == ''){
+	    	alert('금액을 입력하세요.');
 	    	$("#price").focus();
 	    }else{
 		    if(!replaceNotInt.test(price)){
-		    	
+		    	var selectList = document.getElementsByClassName("w3-blue");
+		    	var selectIdList = new Array();
+		    	//선택대상 이름 List로 전송, server 구분자 ','
+		    	for(var i = 0 ; i < selectList.length ; i++){
+		    		selectIdList.push(selectList[i].id);
+		    	}
+				//선택대상 hidden으로 form에 append
+				var form = document.getElementById("userinput");
+				var hiddenField = document.createElement("input");
+				hiddenField.setAttribute("type", "hidden");
+				hiddenField.setAttribute("name", "selectIdList");
+				hiddenField.setAttribute("value", selectIdList);
+				form.appendChild(hiddenField);
+				
+				$('#userinput').submit();
+				$('#content, #cardHolder').val('');
 		    	memberSelectorDel();
 		    }else{
 		    	alert("숫자값만 입력하세요.")
