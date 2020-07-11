@@ -25,7 +25,7 @@ var dataset = [
     <c:forEach var="list" items="${schedules}" varStatus="status">
             {"id":'<c:out value="${list.id}" />'
             ,"title":'<c:out value="${list.dutyVO.title}" />'
-            ,"start":'<c:out value="${list.startDate}" />'
+          // ,"start":'<c:out value="${list.startDate}" />'
             ,"end":'<c:out value="${list.endDate}" />'
             } 
             <c:if test="${!status.last}">,</c:if>
@@ -67,7 +67,7 @@ var dataset = [
                 if (!confirm(event.title+"의 종료일을 "+parseEnddate.toISOString().substring(0, 10)+"로 변경합니다.")) {
                   revertFunc();
                 }else{
-                  var data='id='+event.id+"&startDate="+event.start.format()+"&endDate="+event.end.format();
+                  var data='id='+event.id+"&useDate="+event.start.format()+"&endDate="+event.end.format();
                   update(data);};
                 }
             , eventLimit : true
@@ -82,7 +82,7 @@ var dataset = [
                 if (!confirm(event.title + "을(를) " + event.start.format() + "로 이동합니다.")) {	
                      revertFunc(); 
                 }else{
-                  var data='id='+event.id+"&startDate="+event.start.format()+"&endDate="+event.end.format()
+                  var data='id='+event.id+"&useDate="+event.start.format()+"&endDate="+event.end.format()
                   "&dutyId="+event.dutyId;
           		  update(data);};
             }
@@ -92,9 +92,9 @@ var dataset = [
             , eventDragStop: function(event,jsEvent) {
 
             } 
-            , select: function(startDate) {
+            , select: function(useDate) {
         	   //document.getElementById('title').value='';
-               document.getElementById('startdate').value=startDate.format();
+               document.getElementById('useDate').value=useDate.format();
                /*
                var parseEnddate = new Date(endDate);
                parseEnddate.setDate(parseEnddate.getDate()-1)

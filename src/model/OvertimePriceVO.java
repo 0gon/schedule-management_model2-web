@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Date;
 
-public class OverTimePriceVO {
+public class OvertimePriceVO {
 	private int Id;
 	private String memberId;
 	private String memberNm;

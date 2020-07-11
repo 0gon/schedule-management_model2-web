@@ -147,6 +147,7 @@
 		    'closeOnSelected' : true, // 선택하면 선택창 x
 		    'minuteInterval' : 30 // 시간 간격 조절 (m)
     	});
+	    
 
 	});
 </script>
@@ -215,8 +216,7 @@
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
-<input type="hidden" value="${memberid }" id="memberidCal">
-    
+
     <!-- 일정 등록 모달 -->
 <div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0); padding-top:10px;" >
     <div id="addDayDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 500px;">
@@ -224,14 +224,16 @@
             <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
         <div class="w3-container " >
-        <span onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value='';" class="w3-button w3-display-topright">&times;</span>
+        <span onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</span>
         <div class="calendarForm w3-center  w3-container" id="modal">
-            <form id="userinput" method="post" >
+            <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
+            	<input type="hidden" name="memberId" value="${userVO.memberId }" >
+            	<input type="hidden" name="memberNm" value="${userVO.memberNm }" >
                 <ul class="w3-ul w3-light-grey">
                 <li><label>사용구분</label>
                 
                     <div style="margin-left: 25px; padding-bottom: 5px;width: 350px" >
-                        <select id="useCode" onchange="useChange(this)" class="w3-select"  >
+                        <select id="useCode" name="useCode" onchange="useChange(this)" class="w3-select"  >
                             <option value="1">교통비</option>
                             <option value="2">야근식대</option>
                        </select>
@@ -244,12 +246,12 @@
                     <li>
                     <div id="taxi_content">
                         <div style="padding-top:5px" >
-                              출발지 : <input type="text" id="departure" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
+                              출발지 : <input type="text" id="departure" name="departure" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
                               <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px"title="자주가는 출발지 등록" ></i>
                         </div>
                               <i class="fa fa-refresh w3-button" onclick="placeChange()" style="padding:8px"></i>
                         <div style="padding-bottom:5px" >
-                              도착지 : <input type="text" id="destination" name="etc" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
+                              도착지 : <input type="text" id="destination" name="destination" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
                              <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px" title="자주가는 도착지 등록" ></i>
                         </div>     
                     </div>    
@@ -326,8 +328,8 @@
         <!--교통비 등록시간-->     
         <li id="taxi_reg">
             <div style="padding-top: 5px;" >
-                  출발일시 : <input type="text" id="startTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35;">&nbsp;
-                  도착일시 : <input type="text" id="endTime" name="etc" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35" >
+                  출발일시 : <input type="text" readonly="readonly" id="startTime" placeholder="연도-월-일 시간" name="departureTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35;">&nbsp;
+                  도착일시 : <input type="text" readonly="readonly" id="endTime" placeholder="연도-월-일 시간" name="destinationTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35" >
             </div>    
        </li>        
         <!--야근식대 금액등록-->         
@@ -346,7 +348,7 @@
        <li>
        <div style="display:inline;width:110px">
 	       <label>사용일 : </label>
-	       <input type="text" id="startdate" readonly="readonly"  name="startDate"  class="w3-input w3-border"
+	       <input type="text" id="useDate" readonly="readonly"  name="useDate"  class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
        <div id="card_owner"style="display:none;width:110px;">
@@ -502,42 +504,32 @@ function checkValue(){
 				return userinput.endTime.focus();
 			//정상적으로 입력이 완료된 경우
 			}else{
-				
+				$('#userinput').submit();
+				$('#content, #departure, #destination').val('');
+				event.preventDefault(); 
 			}
 		}
 	}else {
-		
+	    var replaceNotInt = /[^0-9]/gi;
+	    var price = $("#price").val();
+	    if(price == 0 || price == ''){
+	    	alert('금액을 입력하세요.')
+	    	$("#price").focus();
+	    }else{
+		    if(!replaceNotInt.test(price)){
+		    	
+		    	memberSelectorDel();
+		    }else{
+		    	alert("숫자값만 입력하세요.")
+		    }
+	    }
+		event.preventDefault(); 
 	}
-	/*
-	if(!userinput.startdate.value){
-		alert("시작일을 입력하세요");
-		event.preventDefault(); 
-		return userinput.startdate.focus();
-	}else
-	if(!userinput.enddate.value){
-		alert("종료일을 입력하세요");
-		event.preventDefault(); 
-		return userinput.enddate.focus();
-	}else
-	if(userinput.startdate.value>userinput.enddate.value){
-		alert("종료일을 시작일보다 이전으로 선택할 수 없습니다.");
-		event.preventDefault(); 
-		return userinput.enddate.focus();
-	}else{ 
-		$('#userinput').submit(function(event){
-		  var data=$(this).serialize();
-		  addSchedule(data);
-		  document.getElementById('addDay').style.display='none';
-		  document.getElementById('message').style.display='block';
-          event.preventDefault(); } 
-		); 
-	};
-	*/
 }
 
 
 $('#addDayDrag').draggable();
-$('#startdate').datepicker();
+$('#useDate').datepicker();
 $('.ui-timepicker-container').draggable();
 
 function areaChange(areaCode){
