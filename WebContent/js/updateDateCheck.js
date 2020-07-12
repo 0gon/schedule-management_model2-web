@@ -17,7 +17,8 @@ function checkUpdateValue(){
  		return updateinput.enddate_u.focus();
  	}else{ 
  		$('#updateinput').submit(function(event){
- 		 
+		  $('#commitbtn_u, #cancelbtn_u, #xbutton_u').attr('disabled',true); 
+		  $('#commitbtn_u').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
  		  var data=$(this).serialize();
  		  updateInclueDuty(data);
  		   document.getElementById('addDay').style.display='none';

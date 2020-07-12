@@ -141,7 +141,7 @@
 		            <div style="margin-top:2px"><font size=5>작 성 하 기</font></div>
 		        </div>
 		        <div class="w3-container w3-padding" >
-		        <span onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+		        <button id="xbutton_b" onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</button>
 		                <div class="w3-row w3-padding">
 		                <form method="post">
 		                   <table class="w3-table-all">
@@ -158,10 +158,10 @@
 		                      <td> <textarea name="content" maxlength="500" id="boardArea"cols="60" rows="10" style="resize: none;"></textarea></td>
 		                    </tr>
 		                  </table>
-		                  <div class="w3-container w3-padding w3-row">
+		                  <div class="w3-container w3-padding w3-row"> 
 		                        <div class="w3-padding w3-center">
-		                            <button onclick="boardReg()" class="w3-button  w3-black">등록</button>
-		                            <button class="w3-button  w3-red"
+		                            <button id="commitbtn_b" onclick="boardReg()" class="w3-button  w3-black">등록</button>
+		                            <button id="cancelbtn_b" class="w3-button  w3-red"
 		                                    onclick="document.getElementById('borderReg').style.display='none';" 
 		                                    >취소</button>
 		                        </div>
@@ -240,7 +240,7 @@
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <span onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</span>
+        <button id="xbutton" onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</button>
 
         <div class="calendarForm w3-center  w3-container w3-padding" id="modal">
             <form id="userinput" method="post" >
@@ -341,12 +341,11 @@
        <li><label>종료일</label>
        <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
-
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
 
-       <span class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
-                취소</span>
+       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
+                취소</button>
                 </li>
                 </ul>
             </form>
@@ -416,7 +415,9 @@
 		if(title==""){
 			alert("제목을 입력해주세요.");
 		}else{
-			document.getElementById('borderReg').style.display = 'none';
+		    $('#commitbtn_b, #cancelbtn_b, #xbutton_b').attr('disabled',true); 
+		    $('#commitbtn_b').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
+		 	document.getElementById('borderReg').style.display = 'none';
 			$.ajax({
 				 url : "${ pageContext.servletContext.contextPath }/page/board/boardReg", 
 		    	 method : "GET",  

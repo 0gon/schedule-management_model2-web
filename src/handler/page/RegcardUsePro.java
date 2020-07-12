@@ -27,7 +27,7 @@ public class RegcardUsePro implements CommandHandler {
 		//야근식대
 		String price = req.getParameter("price");
 		String cardHolder = req.getParameter("cardHolder");
-		String selectIdList = req.getParameter("selectIdList");
+		String selectNmList = req.getParameter("selectNmList");
 		
 		
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
@@ -51,7 +51,7 @@ public class RegcardUsePro implements CommandHandler {
 		//야근식대로 들어온경우 useCode 2
 		}else {
 			//선택한 인원 수 만큼 반복 insert 수행
-			String[] targetIdList = selectIdList.split(",");
+			String[] targetNmList = selectNmList.split(",");
 			OvertimePriceVO overtimeVO = new OvertimePriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
 			overtimeVO.setCardHolder(cardHolder);
@@ -61,7 +61,7 @@ public class RegcardUsePro implements CommandHandler {
 			overtimeVO.setPrice(Integer.parseInt(price));
 			overtimeVO.setUseDate(transUseDate);
 			
-			overtimeDAO.insertOvertime(targetIdList,overtimeVO);
+			overtimeDAO.insertOvertime(targetNmList,overtimeVO);
 		}
 
 		res.sendRedirect(req.getContextPath() + "/page/register");

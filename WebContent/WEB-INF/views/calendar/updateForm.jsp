@@ -9,9 +9,9 @@
 	</div>
 	</div>
 	<div class="w3-container w3-padding">
-		<span
+		<button id="xbutton_u"
 			onclick="document.getElementById('message').style.display='none'; document.getElementById('startdate_u').value=''; document.getElementById('enddate_u').value=''; "
-			class="w3-button w3-display-topright">&times;</span>
+			class="w3-button w3-display-topright">&times;</button>
 
 		<div class="calendarForm w3-center  w3-container w3-padding"
 			id="modal_u">
@@ -101,11 +101,10 @@
        <li><label>종료일</label>
        <input type="text" value="${schedule.endDate }" id="enddate_u" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
-               		 
 					<li><button class="w3-button w3-black" id="commitbtn_u"
 							onclick="checkUpdateValue();">수정하기</button>
-					 <span class="w3-button w3-red" onclick="document.getElementById('message').style.display='none';">
-                취소</span>	
+					 <button id="cancelbtn_u" class="w3-button w3-red" onclick="document.getElementById('message').style.display='none';">
+                취소</button>	
 					</li>
 				</ul>
 				<input type="hidden" name="id" value="${schedule.id }"> 

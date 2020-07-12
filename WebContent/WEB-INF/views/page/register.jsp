@@ -224,7 +224,7 @@
             <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
         <div class="w3-container " >
-        <span onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+        <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
             	<input type="hidden" name="memberId" value="${userVO.id }" >
@@ -356,10 +356,12 @@
        </li>
 	   
        <li>
-       <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()">등록</button>
+       <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
+             등록
+       </button>
        
-       <span class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
-                취소</span>
+       <button class="w3-button w3-red" id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';">
+                취소</button>
        </li>
        
                 </ul>
@@ -494,7 +496,9 @@ function checkValue(){
 				alert("종료일시를 시작일시보다 이전으로 선택할 수 없습니다.");
 				return userinput.endTime.focus();
 			//정상적으로 입력이 완료된 경우
-			}else{
+			}else{ 
+				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
+				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
 				$('#userinput').submit();
 				$('#content, #departure, #destination').val('');
 			}
@@ -516,20 +520,26 @@ function checkValue(){
 	    }else{
 		    if(!replaceNotInt.test(price)){
 		    	var selectList = document.getElementsByClassName("w3-blue");
-		    	var selectIdList = new Array();
+		    	var selectNmList = new Array();
 		    	//선택대상 이름 List로 전송, server 구분자 ','
 		    	for(var i = 0 ; i < selectList.length ; i++){
-		    		selectIdList.push(selectList[i].id);
+		    		selectNmList.push(selectList[i].innerText);
 		    	}
 				//선택대상 hidden으로 form에 append
 				var form = document.getElementById("userinput");
 				var hiddenField = document.createElement("input");
 				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", "selectIdList");
-				hiddenField.setAttribute("value", selectIdList);
+				hiddenField.setAttribute("name", "selectNmList");
+				hiddenField.setAttribute("value", selectNmList);
 				form.appendChild(hiddenField);
 				
+				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
+				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>'); 
+				
 				$('#userinput').submit();
+				
+				
+				
 				$('#content, #cardHolder').val('');
 		    	memberSelectorDel();
 		    }else{
