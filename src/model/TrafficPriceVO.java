@@ -13,11 +13,18 @@ public class TrafficPriceVO {
 	private String destination;
 	private String departureTime;
 	private String destinationTime;
+	private int price;
 	private Date useDate;
 	private Date updateDate;
 	
 	
 	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getCardType() {
 		return cardType;
 	}
@@ -88,8 +95,8 @@ public class TrafficPriceVO {
 	public String toString() {
 		return "TrafficPriceVO [Id=" + Id + ", memberId=" + memberId + ", cardType=" + cardType + ", memberNm="
 				+ memberNm + ", content=" + content + ", departure=" + departure + ", destination=" + destination
-				+ ", departureTime=" + departureTime + ", destinationTime=" + destinationTime + ", useDate=" + useDate
-				+ ", updateDate=" + updateDate + "]";
+				+ ", departureTime=" + departureTime + ", destinationTime=" + destinationTime + ", price=" + price
+				+ ", useDate=" + useDate + ", updateDate=" + updateDate + "]";
 	}
 	
 }

@@ -24,6 +24,7 @@ public class RegcardUsePro implements CommandHandler {
 		String destination = req.getParameter("destination");
 		String departureTime = req.getParameter("departureTime");
 		String destinationTime = req.getParameter("destinationTime");
+		String taxiPrice = req.getParameter("taxiPrice");
 		//야근식대
 		String price = req.getParameter("price");
 		String cardHolder = req.getParameter("cardHolder");
@@ -39,6 +40,7 @@ public class RegcardUsePro implements CommandHandler {
 			//traffic Bean 생성
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
+			trafficVO.setPrice(Integer.parseInt(taxiPrice));
 			trafficVO.setContent(content);
 			trafficVO.setDeparture(departure);
 			trafficVO.setDepartureTime(departureTime);

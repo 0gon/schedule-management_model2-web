@@ -39,5 +39,16 @@ public class TrafficDAO extends MybatisConnector {
 		}
 	}
 	
+	public TrafficPriceVO selectTrafficInfoByTFPK(int trafficId) {
+		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("trafficId", trafficId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectTrafficInfoByTFPK", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
 
 }

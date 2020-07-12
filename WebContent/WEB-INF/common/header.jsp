@@ -23,7 +23,7 @@
 
 var dataset = [
     <c:forEach var="list" items="${trafficsLi}" varStatus="status">
-            {"id":'<c:out value="${list.id}" />'
+            {"id":'t<c:out value="${list.id}" />'
             ,"title":'<c:out value="${list.cardType}" />'
             ,"start":'<c:out value="${list.useDate}" />'
             ,"end":'<c:out value="${list.useDate}" />'
@@ -31,7 +31,8 @@ var dataset = [
             <c:if test="${!status.last}">,</c:if>
     </c:forEach>
     <c:forEach var="list" items="${overtimesLi}" varStatus="status">
-            {"id":'<c:out value="${list.id}" />'
+  		    <c:if test="${status.first}">,</c:if>
+            {"id":'o<c:out value="${list.id}" />'
             ,"title":'<c:out value="${list.cardType}" />'
             ,"start":'<c:out value="${list.useDate}" />'
             ,"end":'<c:out value="${list.useDate}" />'
@@ -45,9 +46,6 @@ var dataset = [
         	    addButton: {
         	      text: '사용등록',
         	      click: function() {
-        	    	  /*document.getElementById('title').value='';
-        	    	  document.getElementById('place').value='';
-        	    	  document.getElementById('description').value='';*/
         	    	  document.getElementById('addDay').style.display='block';
         	      }
         	    }
@@ -81,7 +79,7 @@ var dataset = [
             , events: dataset
             , eventClick: 
                 function(calEvent, jsEvent, view) {
-                   contentView(calEvent.id);
+            	contentViewForCal(calEvent.id);
                    document.getElementById('addDay').style.display='none';
                    document.getElementById('message').style.display='block';
             }

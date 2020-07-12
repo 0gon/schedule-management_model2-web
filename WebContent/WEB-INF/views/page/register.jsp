@@ -148,7 +148,7 @@
 		    'minuteInterval' : 30 // 시간 간격 조절 (m)
     	});
 	    
-
+	    $('#message').draggable();
 	});
 </script>
 
@@ -157,7 +157,7 @@
   <header id="portfolio">
     <a href="#"><img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
     <div class="w3-container" style="padding-top:  10px">
-        <font size="6">일정관리 </font>
+        <font size="6">법인카드 사용관리 </font>
     <div class="w3-padding w3-bottombar">
      <c:if test="${userVO.grade==0}">
      <table>
@@ -212,7 +212,7 @@
 </div>
 
      <!-- 메시지 모달 -->
-<div id="message" class="w3-modal" >
+<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:600px;margin-left:30%;padding-top:10px;">
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
@@ -224,6 +224,7 @@
             <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
         <div class="w3-container " >
+    	<font size="3" color="grey"> * 등록한 내역은 드래그시 다른날짜로 이동가능합니다.</font>
         <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
@@ -336,21 +337,24 @@
                <!--  <i class="fa fa-search w3-large" ></i>-->
                &nbsp;&nbsp;
                금액입력 : <input type="text" id="price" name="price" class=" w3-input w3-round" 
-               style="display: inline;width: 80px;height: 35">
+               style="display: inline;width: 80px;height: 35"> 원
 	            <button class="w3-button w3-black w3-border w3-border-white w3-round" onclick="memberSelectorDel()" style="margin-left:3px;padding:3px">전체 선택해제</button>
             </div>
         </li> 
-                    
-                    
        <li>
        <div style="display:inline;width:110px">
 	       <label>사용일 : </label>
 	       <input type="text" id="useDate" readonly="readonly"  name="useDate"  class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
+       <div id="taxi_price"style="display:inline;width:110px;">
+	       <label> 금액: </label>
+	       <input type="text" id="taxiPrice" name="taxiPrice" class="w3-input w3-border"
+	       style="display: inline;width: 100px;"> 원
+       </div>
        <div id="card_owner"style="display:none;width:110px;">
 	       <label>카드소지자: </label>
-	       <input type="text" id="cardInput" type="text" name="cardHolder" placeholder="ex) 황영민" class="w3-input w3-border"
+	       <input type="text" id="cardInput" name="cardHolder" placeholder="ex) 황영민" class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
        </li>
@@ -474,6 +478,8 @@ function checkValue(){
 	
 	// 교통비인경우 else 야근식대 
 	if(useCode == 1){
+		var replaceNotInt = /[^0-9]/gi;
+	    var taxiPrice = $("#taxiPrice").val();
 		if(!userinput.content.value){
 			alert("내용을 입력하세요");
 			return userinput.content.focus();
@@ -489,19 +495,27 @@ function checkValue(){
 		}else if(!userinput.endTime.value){
 			alert("도착일시를 선택하세요");
 			return userinput.endTime.focus();
-		}else if(!userinput.useDate.value){
+		}else if(!userinput.useDate.value){ 
 			alert("사용일을 선택하세요");
 			return userinput.useDate.focus();
+		}else if(taxiPrice == 0 || taxiPrice == ''){ 
+			alert("금액을 입력하세요");
+			$("#taxiPrice").focus();
 		}else{
-			if(userinput.startTime.value>userinput.endTime.value){
-				alert("종료일시를 시작일시보다 이전으로 선택할 수 없습니다.");
+			if(userinput.startTime.value>=userinput.endTime.value){
+				alert("도착일시를 출발일시보다 이전으로 선택할 수 없습니다.");
 				return userinput.endTime.focus();
 			//정상적으로 입력이 완료된 경우
-			}else{ 
+			}else if(!replaceNotInt.test(taxiPrice)){
 				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
 				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
 				$('#userinput').submit();
 				$('#content, #departure, #destination').val('');
+			}
+			else{
+		    	alert("금액을 확인하세요.");
+		    	$("#taxiPrice").val("");
+		    	$("#taxiPrice").focus();
 			}
 		}
 	}else {
@@ -537,18 +551,15 @@ function checkValue(){
 				hiddenField.setAttribute("name", "selectIdList");
 				hiddenField.setAttribute("value", selectIdList);
 				form.appendChild(hiddenField);
-				
 				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
 				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>'); 
-				
 				$('#userinput').submit();
-				
-				
-				
 				$('#content, #cardHolder').val('');
 		    	memberSelectorDel();
 		    }else{
 		    	alert("숫자값만 입력하세요.")
+		    	$("#price").val("");
+		    	$("#price").focus();
 		    }
 	    }
 		event.preventDefault(); 
@@ -578,22 +589,48 @@ function areaChange(areaCode){
 	}
 	
 }
-function contentView(data){
-	var id="id="+data;
-	sendRequest("<%=request.getContextPath()%>/page/contentsView",id,fromServer,"POST");
+function contentViewForCal(data) {
+	var id = "id=" + data;
+	sendRequest("<%=request.getContextPath()%>/page/contentsViewForCal", id, fromServer, "POST");
 }
-
+//zerogon
+function toUpdatePageForCal(data) {
+	var data1 = "id=" + data;
+	sendRequest("<%=request.getContextPath()%>/page/updateFormForCal", data1, fromServerForUpdate, "POST");
+	event.preventDefault();
+}
+function fromServerForUpdate() {
+	if (httpRequest.readyState == 4) {
+		if (httpRequest.status == 200) {
+			document.getElementById("messageContent").innerHTML =  httpRequest.responseText ;
+			function datePicker_u(){
+				//jQuery datepicker 기본설정
+				$.datepicker.setDefaults({
+					dateFormat: 'yy-mm-dd' //Input Display Format 변경
+						,showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+						,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+						,stepMonths: 0 // 월 넘어가는 수 
+						,changeYear: false //콤보박스에서 년 선택 가능
+						,changeMonth: false //콤보박스에서 월 선택 가능                
+						,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+							,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+								,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+				,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+				,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+				,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+				});
+				$("#useDate_u").datepicker();
+			}
+			datePicker_u();
+		}
+	}
+}
 function fromServer(){
 	if(httpRequest.readyState==4){
 		if(httpRequest.status==200){
 			document.getElementById("messageContent").innerHTML=httpRequest.responseText;
 		}
 	}	
-}
-
-function deleteSchedule(data){
-	var id="id="+data;
-	sendRequest("<%=request.getContextPath()%>/page/deleteSchedule",id,fromServer,"POST");
 }
 
 var menuClick = function(url){
@@ -616,29 +653,14 @@ var menuClick = function(url){
 	});
 };
 
-
-function addSchedule(data){
- 	sendRequest("<%=request.getContextPath()%>/page/addSchedule",data,fromServer,"POST"); 
-}
-
-function update(data){
-	sendRequest("<%=request.getContextPath()%>/page/updatePro",data,fromServer,"POST");
-}
-function updateInclueDuty(data){
-	sendRequest("<%=request.getContextPath()%>/page/updateProDuty",data,fromServer,"POST");
-}
-function toUpdatePage(data){
-	var data1="id="+data;
-		sendRequest("<%=request.getContextPath()%>/page/updateForm",data1,fromServer,"POST");	
-		event.preventDefault(); 	
-}
 function useChange(useCode){
 	//value 1 : 교통비, else : 야근식대
 	if(useCode.value==1){
-		$('#taxi_content, #taxi_reg').show(); 
+		$('#taxi_content, #taxi_reg, #taxi_price').show(); 
 		$('#overtime_content, #overtime_price, #card_owner').hide(); 
+		$('#taxi_price').attr('style','display:inline;'); 
 	}else{
-		$('#taxi_content, #taxi_reg').hide(); 
+		$('#taxi_content, #taxi_reg, #taxi_price').hide(); 
 		$('#overtime_content, #overtime_price').show(); 
 		$('#card_owner').attr('style','display:inline;'); 
 		}

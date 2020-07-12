@@ -39,7 +39,6 @@ function contentView(data) {
 	var id = "id=" + data;
 	sendRequest(ctx + "/page/contentsView", id, fromServer, "POST");
 }
-
 function deleteSchedule(data) {
 	var id = "id=" + data;
 	sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");

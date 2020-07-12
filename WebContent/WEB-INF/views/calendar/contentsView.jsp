@@ -34,9 +34,13 @@
 					</tr>
 
 				</table>
-				<button class="w3-button" onclick="toUpdatePage(${schedule.id});">수정</button>
-				<input type="reset" class="w3-button"
+				<div style="margin-top:10px">
+				
+				<button class="w3-button w3-black" onclick="toUpdatePage(${schedule.id});">수정</button>
+				<input type="reset" class="w3-button w3-red"
 					onclick="deleteSchedule(${schedule.id});" value="삭제">
+				
+				</div>
 
 			</form>
 		</div>

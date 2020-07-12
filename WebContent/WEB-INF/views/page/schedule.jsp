@@ -141,6 +141,7 @@
 		            <div style="margin-top:2px"><font size=5>작 성 하 기</font></div>
 		        </div>
 		        <div class="w3-container w3-padding" >
+		        <font color ='grey'>* 해당 글은 파트원끼리 공유됩니다. 전체 게시글은 좌측탭이용.</font>
 		        <button id="xbutton_b" onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</button>
 		                <div class="w3-row w3-padding">
 		                <form method="post">
@@ -385,8 +386,8 @@
 	}
 	
 	$('#addDayDrag').draggable();
-	$('#borderRegDrag').draggable();
 	$('#message').draggable();
+	$('#borderRegDrag').draggable();
 	$('#borderDetail').draggable();
 	
 	
