@@ -6,6 +6,7 @@ import java.sql.Date;
 public class TrafficPriceVO {
 	private int Id;
 	private String memberId;
+	private String cardType;
 	private String memberNm;
 	private String content;
 	private String departure;
@@ -15,6 +16,14 @@ public class TrafficPriceVO {
 	private Date useDate;
 	private Date updateDate;
 	
+	
+	
+	public String getCardType() {
+		return cardType;
+	}
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -77,9 +86,10 @@ public class TrafficPriceVO {
 	}
 	@Override
 	public String toString() {
-		return "TrafficPriceVO [Id=" + Id + ", memberId=" + memberId + ", memberNm=" + memberNm + ", content=" + content
-				+ ", departure=" + departure + ", destination=" + destination + ", departureTime=" + departureTime
-				+ ", destinationTime=" + destinationTime + ", useDate=" + useDate + ", updateDate=" + updateDate + "]";
+		return "TrafficPriceVO [Id=" + Id + ", memberId=" + memberId + ", cardType=" + cardType + ", memberNm="
+				+ memberNm + ", content=" + content + ", departure=" + departure + ", destination=" + destination
+				+ ", departureTime=" + departureTime + ", destinationTime=" + destinationTime + ", useDate=" + useDate
+				+ ", updateDate=" + updateDate + "]";
 	}
 	
 }

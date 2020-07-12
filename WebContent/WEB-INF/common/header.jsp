@@ -22,20 +22,28 @@
 <script type="text/javascript">
 
 var dataset = [
-    <c:forEach var="list" items="${schedules}" varStatus="status">
+    <c:forEach var="list" items="${trafficsLi}" varStatus="status">
             {"id":'<c:out value="${list.id}" />'
-            ,"title":'<c:out value="${list.dutyVO.title}" />'
-          // ,"start":'<c:out value="${list.startDate}" />'
-            ,"end":'<c:out value="${list.endDate}" />'
+            ,"title":'<c:out value="${list.cardType}" />'
+            ,"start":'<c:out value="${list.useDate}" />'
+            ,"end":'<c:out value="${list.useDate}" />'
             } 
             <c:if test="${!status.last}">,</c:if>
-    </c:forEach> 
+    </c:forEach>
+    <c:forEach var="list" items="${overtimesLi}" varStatus="status">
+            {"id":'<c:out value="${list.id}" />'
+            ,"title":'<c:out value="${list.cardType}" />'
+            ,"start":'<c:out value="${list.useDate}" />'
+            ,"end":'<c:out value="${list.useDate}" />'
+            } 
+            <c:if test="${!status.last}">,</c:if>
+    </c:forEach>
 ];
     $().ready(function(){
         jQuery("#calendar").fullCalendar({
         	customButtons: {
         	    addButton: {
-        	      text: '일정등록',
+        	      text: '사용등록',
         	      click: function() {
         	    	  /*document.getElementById('title').value='';
         	    	  document.getElementById('place').value='';
@@ -59,16 +67,15 @@ var dataset = [
             , locale : 'ko'
             , editable : true
             , eventResize: function(event, delta, revertFunc) {
+            	revertFunc();
+            	/*
             	 var parseEnddate = new Date(event.end);
                  parseEnddate.setDate(parseEnddate.getDate()-1)
-             	 
-            	
-            	
                 if (!confirm(event.title+"의 종료일을 "+parseEnddate.toISOString().substring(0, 10)+"로 변경합니다.")) {
                   revertFunc();
                 }else{
                   var data='id='+event.id+"&useDate="+event.start.format()+"&endDate="+event.end.format();
-                  update(data);};
+                  update(data);};*/
                 }
             , eventLimit : true
             , events: dataset

@@ -359,9 +359,7 @@
        <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
              등록
        </button>
-       
-       <button class="w3-button w3-red" id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';">
-                취소</button>
+               <button onclick="document.getElementById('addDay').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
        </li>
        
                 </ul>
@@ -474,7 +472,7 @@ function checkValue(){
 	var useCode = userinput.useCode.value;
 	event.preventDefault();
 	
-	// 교통비인경우 else 야근식대
+	// 교통비인경우 else 야근식대 
 	if(useCode == 1){
 		if(!userinput.content.value){
 			alert("내용을 입력하세요");
@@ -491,6 +489,9 @@ function checkValue(){
 		}else if(!userinput.endTime.value){
 			alert("도착일시를 선택하세요");
 			return userinput.endTime.focus();
+		}else if(!userinput.useDate.value){
+			alert("사용일을 선택하세요");
+			return userinput.useDate.focus();
 		}else{
 			if(userinput.startTime.value>userinput.endTime.value){
 				alert("종료일시를 시작일시보다 이전으로 선택할 수 없습니다.");
@@ -517,20 +518,24 @@ function checkValue(){
 	    else if(price == 0 || price == ''){
 	    	alert('금액을 입력하세요.');
 	    	$("#price").focus();
-	    }else{
+	    }else if(!userinput.useDate.value){
+			alert("사용일을 선택하세요");
+			return userinput.useDate.focus();
+		}
+	    else{
 		    if(!replaceNotInt.test(price)){
 		    	var selectList = document.getElementsByClassName("w3-blue");
-		    	var selectNmList = new Array();
+		    	var selectIdList = new Array();
 		    	//선택대상 이름 List로 전송, server 구분자 ','
 		    	for(var i = 0 ; i < selectList.length ; i++){
-		    		selectNmList.push(selectList[i].innerText);
+		    		selectIdList.push(selectList[i].id);
 		    	}
 				//선택대상 hidden으로 form에 append
 				var form = document.getElementById("userinput");
 				var hiddenField = document.createElement("input");
 				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", "selectNmList");
-				hiddenField.setAttribute("value", selectNmList);
+				hiddenField.setAttribute("name", "selectIdList");
+				hiddenField.setAttribute("value", selectIdList);
 				form.appendChild(hiddenField);
 				
 				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 

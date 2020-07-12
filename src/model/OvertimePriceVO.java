@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class OvertimePriceVO {
 	private int Id;
+	private String cardType;
 	private String memberId;
 	private String memberNm;
 	private String content;
@@ -13,6 +14,14 @@ public class OvertimePriceVO {
 	private String cardHolder;
 	private Date useDate;
 	private Date updateDate;
+	
+	
+	public String getCardType() {
+		return cardType;
+	}
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -75,9 +84,10 @@ public class OvertimePriceVO {
 	}
 	@Override
 	public String toString() {
-		return "OverTimePriceVO [Id=" + Id + ", memberId=" + memberId + ", memberNm=" + memberNm + ", content="
-				+ content + ", targetMbrId=" + targetMbrId + ", targetMbrNm=" + targetMbrNm + ", price=" + price
-				+ ", cardHolder=" + cardHolder + ", useDate=" + useDate + ", updateDate=" + updateDate + "]";
+		return "OvertimePriceVO [Id=" + Id + ", cardType=" + cardType + ", memberId=" + memberId + ", memberNm="
+				+ memberNm + ", content=" + content + ", targetMbrId=" + targetMbrId + ", targetMbrNm=" + targetMbrNm
+				+ ", price=" + price + ", cardHolder=" + cardHolder + ", useDate=" + useDate + ", updateDate="
+				+ updateDate + "]";
 	}
    
 	

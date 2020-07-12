@@ -1,6 +1,9 @@
 package dao;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import model.OvertimePriceVO;
@@ -16,26 +19,31 @@ public class OvertimeDAO extends MybatisConnector {
 		return instance;
 	}
 	
-	public void insertOvertime(String[] targetNmList, OvertimePriceVO overtimeVO) {
+	public void insertOvertime(String[] targetIdList, OvertimePriceVO overtimeVO) {
 		sqlSession = sqlSession();
 		UserDAO userDao = UserDAO.getInstance();
 		try {
-			for(int i = 0; i< targetNmList.length ; i++) {
+			for(int i = 0; i< targetIdList.length ; i++) {
 				//잘려진 taget list id기준으로 유저정보 
-				/* 
-				 성능때문에 id값 default 1로 설정
 				UserVO targetVO = userDao.selectUserInfoByPK(Integer.parseInt(targetIdList[i]));
 				overtimeVO.setTargetMbrId(targetIdList[i]);
-				*/
-				overtimeVO.setTargetMbrNm(targetNmList[i]);
+				overtimeVO.setTargetMbrNm(targetVO.getMemberNm());
 				sqlSession.insert(namespace + ".insertOvertime", overtimeVO);
 			}
-			
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();
 		}
 	}
-	
+	public List<?> selectOvertimeInfoByPK(int Id) {
+		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Id", Id);
+		try {
+			return sqlSession.selectList(namespace + ".selectOvertimeInfoByPK", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 
 }

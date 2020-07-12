@@ -79,6 +79,17 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	
+	public List<?>  selectCarduseInfoByNM(String memberNm) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memberNm", memberNm);
+		try {
+			return sqlSession.selectList(namespace + ".selectCarduseInfoByNM", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
 	public ScheduleVO selectScheduleInfoBySCHPK(int scheduleId) {
 		sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();

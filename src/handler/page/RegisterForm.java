@@ -10,39 +10,53 @@ import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.DutyDAO;
+import dao.OvertimeDAO;
 import dao.ScheduleDAO;
+import dao.TrafficDAO;
 import dao.UserDAO;
 import model.DutyVO;
+import model.OvertimePriceVO;
 import model.ScheduleVO;
+import model.TrafficPriceVO;
 import model.UserVO;
 
 public class RegisterForm implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		//DAO 객체 생성
 		UserDAO userDAO = UserDAO.getInstance();
+		TrafficDAO trafficDAO = TrafficDAO.getInstance();
+		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
+		DutyDAO dutyDAO = DutyDAO.getInstance();
+		//session id에 따른 유저정보
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
-
 		UserVO userVO = userDAO.selectUserInfo(memberId);
-		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
-		List<?> schedules = scheduleDAO.selectScheduleInfoByPK(userVO.getId());
-		List schedulesLi = null;
-		Iterator<?> it = schedules.iterator();
-		DutyDAO dutyDAO = DutyDAO.getInstance();
+		
+		//교통비 내역 List 생성
+		List<?> traffics = trafficDAO.selectTrafficInfoByPK(userVO.getId());
+		List trafficsLi = null;
+		Iterator<?> it = traffics.iterator();
 		if (it.hasNext()) {
-			schedulesLi = new ArrayList<ScheduleVO>();
+			trafficsLi = new ArrayList<ScheduleVO>();
 			do {
-				ScheduleVO scheduleVO = (ScheduleVO) it.next();
-				DutyVO dutyVO = dutyDAO.selectDutyInfoById(scheduleVO.getDutyId());
-				UserVO uVO = userDAO.selectUserInfoByPK(scheduleVO.getMemberId());
-				scheduleVO.setDutyVO(dutyVO);
-				scheduleVO.setUserVO(uVO);
-				schedulesLi.add(scheduleVO);
+				TrafficPriceVO trafficVO = (TrafficPriceVO) it.next();
+				trafficsLi.add(trafficVO);
 			} while (it.hasNext());
 		}
+		//야근식대 내역 List 생성
+		List<?> overtimes = overtimeDAO.selectOvertimeInfoByPK(userVO.getId());
+		List overtimesLi = null;
+		Iterator<?> it2 = overtimes.iterator();
+		if (it2.hasNext()) {
+			overtimesLi = new ArrayList<OvertimePriceVO>();
+			do {
+				OvertimePriceVO overtimeVO = (OvertimePriceVO) it2.next();
+				overtimesLi.add(overtimeVO);
+			} while (it2.hasNext());
+		}
 		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
-		//전체 인원수  변수는 만들었으나 미사용 -> 화면넘어가기전에 dptNo로 분류
 		List<?> Allmembers = userDAO.selectUserAllInfo();
 		List<?> MDmembers = userDAO.selectUserAllInfoMD();
 		List<?> POSmembers= userDAO.selectUserAllInfoPOS();
@@ -52,7 +66,8 @@ public class RegisterForm implements CommandHandler {
 		List<?> GFTmembers = userDAO.selectUserAllInfoGFT();
 		List<?> FINmembers = userDAO.selectUserAllInfoFIN();
 		List<?> duties = dutyDAO.selectDutyInfo();
-		req.setAttribute("schedules", schedulesLi);
+		req.setAttribute("trafficsLi", trafficsLi);
+		req.setAttribute("overtimesLi", overtimesLi);
 		req.setAttribute("members", members);
 		req.setAttribute("Allmembers", Allmembers);
 		req.setAttribute("POSmembers", POSmembers);

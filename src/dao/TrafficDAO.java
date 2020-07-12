@@ -1,6 +1,9 @@
 package dao;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import model.TrafficPriceVO;
@@ -20,6 +23,17 @@ public class TrafficDAO extends MybatisConnector {
 		try {
 			sqlSession.insert(namespace + ".insertTraffic", traffic);
 			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<?>  selectTrafficInfoByPK(int Id) {
+		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("Id", Id);
+		try {
+			return sqlSession.selectList(namespace + ".selectTrafficInfoByPK", map);
 		} finally {
 			sqlSession.close();
 		}
