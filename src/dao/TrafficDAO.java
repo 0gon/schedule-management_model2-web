@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import model.ScheduleVO;
 import model.TrafficPriceVO;
 
 public class TrafficDAO extends MybatisConnector {
@@ -50,5 +51,14 @@ public class TrafficDAO extends MybatisConnector {
 		}
 	}
 	
+	public void updateTrafficPrice(TrafficPriceVO trafficVO) {
+		sqlSession = sqlSession();
+		try {
+			sqlSession.update(namespace + ".updateTrafficPrice", trafficVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 
 }

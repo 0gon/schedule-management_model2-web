@@ -6,12 +6,15 @@
             <div style=""><font size=5>교통비내역 수정</font></div>
         </div>
         <div class="w3-container" >
-        <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</button>
+        <button id='xbutton' onclick="document.getElementById('message').style.display='none';" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
-            <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
+            <form id="userinput_u" method="post" action="${ pageContext.servletContext.contextPath }/page/updateProForCal" >
+                <input type="hidden" name="id" value="t${trafficVO.id }" >
+                <input type="hidden" name="memberId" value="${userVO.id }" >
+            	<input type="hidden" name="memberNm" value="${userVO.memberNm }" >
             	<div class="w3-padding">
                      <label>내 용 : </label>
-                     <input type="text" id="content" value="${trafficVO.content}" name="content" class="w3-input w3-round" style="display: inline;width: 260px;height: 35" placeholder=" 12자 이내">
+                     <input type="text" id="content_u" value="${trafficVO.content}" name="content" class="w3-input w3-round" style="display: inline;width: 260px;height: 35" placeholder=" 12자 이내">
             	</div>
                 	<ul class="w3-ul w3-light-grey">
                     <!--교통비 내용--> 
@@ -30,8 +33,8 @@
         <!--교통비 등록시간-->     
         <li id="taxi_reg">
             <div style="padding-top: 5px;" >
-                  출발일시 : <input type="text" readonly="readonly" value="${trafficVO.departureTime}" id="startTime" placeholder="연도-월-일 시간" name="departureTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35;">&nbsp;
-                  도착일시 : <input type="text" readonly="readonly" value="${trafficVO.destinationTime}" id="endTime" placeholder="연도-월-일 시간" name="destinationTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35" >
+                  출발일시 : <input type="text" readonly="readonly" value="${trafficVO.departureTime}" id="startTime_u" placeholder="연도-월-일 시간" name="departureTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35;">&nbsp;
+                  도착일시 : <input type="text" readonly="readonly" value="${trafficVO.destinationTime}" id="endTime_u" placeholder="연도-월-일 시간" name="destinationTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35" >
             </div>    
        </li>        
                     
@@ -41,20 +44,19 @@
 	       <input type="text" id="useDate_u" value="${trafficVO.useDate}" readonly="readonly"  name="useDate"  class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
 	       <label>금액 : </label>
-	       <input type="text" id="taxiPrice" value="${trafficVO.price}"  name="useDate"  class="w3-input w3-border"
+	       <input type="text" id="taxiPrice_u" value="${trafficVO.price}"  name="taxiPrice"  class="w3-input w3-border"
 	       style="display: inline;width: 100px;"> 원
        </div>
        </li>
 	   
        <li>
-       <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
+       <button class="w3-button w3-black" id="commitbtn" onclick="checkValue_u()" >
              등록
        </button>
-               <button onclick="document.getElementById('addDay').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
+               <button id="cancelbtn" onclick="document.getElementById('message').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
        </li>
                 </ul>
             </form>
         </div>
         </div>
     </div>
-

@@ -2,12 +2,15 @@ package handler.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.OvertimeDAO;
 import dao.TrafficDAO;
+import dao.UserDAO;
 import model.OvertimePriceVO;
 import model.TrafficPriceVO;
+import model.UserVO;
 
 public class UpdateFormForCal implements CommandHandler {
 
@@ -22,6 +25,13 @@ public class UpdateFormForCal implements CommandHandler {
 		//DAO 생성
 		TrafficDAO trafficDAO = TrafficDAO.getInstance(); 
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance(); 
+		UserDAO userDAO = UserDAO.getInstance();
+		
+		//session id에 따른 유저정보
+		HttpSession session = req.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		UserVO userVO = userDAO.selectUserInfo(memberId);
+		req.setAttribute("userVO",userVO);
 		
 		//traffic인 경우
 		if(cardType == 't') {

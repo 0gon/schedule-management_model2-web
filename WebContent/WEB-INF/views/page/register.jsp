@@ -224,7 +224,7 @@
             <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
         <div class="w3-container " >
-    	<font size="3" color="grey"> * 등록한 내역은 드래그시 다른날짜로 이동가능합니다.</font>
+    	<font size="3" color="grey"> * 등록한 내용은 드래그시 다른날짜로 이동가능합니다.</font>
         <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
@@ -363,7 +363,7 @@
        <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
              등록
        </button>
-               <button onclick="document.getElementById('addDay').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
+               <button id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
        </li>
        
                 </ul>
@@ -567,6 +567,7 @@ function checkValue(){
 }
 
 
+
 $('#addDayDrag').draggable();
 $('#useDate').datepicker();
 $('.ui-timepicker-container').draggable();
@@ -622,8 +623,69 @@ function fromServerForUpdate() {
 				$("#useDate_u").datepicker();
 			}
 			datePicker_u();
+			$('#startTime_u, #endTime_u').appendDtpicker({
+			    'locale' : 'ko', // 한글화
+			    'autodateOnStart' : false, // 초기값 x
+			    'timelistScroll' : false, // 시간 자동 스크롤 x
+			    'closeOnSelected' : true, // 선택하면 선택창 x
+			    'minuteInterval' : 30 // 시간 간격 조절 (m)
+			});
+
+			$('#content_u, #departure, #destination').on('keyup', function() {
+				if($(this).val().length > 12) {
+					alert("12자로 이내로 제한됩니다.");
+					$(this).val($(this).val().substring(0, 12));
+				}
+			});
 		}
 	}
+}
+
+function checkValue_u(){
+	var input=eval("document.userinput_u");
+	var thisform=document.userinput_u;
+	event.preventDefault();
+	// 교통비인경우 else 야근식대 
+		var replaceNotInt = /[^0-9]/gi;
+	    var taxiPrice = $("#taxiPrice_u").val();
+		if(!userinput_u.content_u.value){
+			alert("내용을 입력하세요");
+			return userinput_u.content_u.focus();
+		}else if(!userinput_u.departure.value){
+			alert("출발지를 입력하세요");
+			return userinput_u.departure.focus();
+		}else if(!userinput_u.destination.value){
+			alert("도착지를 입력하세요");
+			return userinput_u.destination.focus();
+		}else if(!userinput_u.startTime_u.value){
+			alert("출발일시를 선택하세요");
+			return userinput_u.startTime.focus();
+		}else if(!userinput_u.endTime_u.value){
+			alert("도착일시를 선택하세요");
+			return userinput_u.endTime.focus();
+		}else if(!userinput_u.useDate_u.value){ 
+			alert("사용일을 선택하세요");
+			return userinput_u.useDate_u.focus();
+		}else if(taxiPrice == 0 || taxiPrice == ''){ 
+			alert("금액을 입력하세요");
+			$("#taxiPrice_u").focus();
+		}else{
+			if(userinput_u.startTime_u.value>=userinput_u.endTime_u.value){
+				alert("도착일시를 출발일시보다 이전으로 선택할 수 없습니다.");
+				return userinput_u.endTime_u.focus();
+			//정상적으로 입력이 완료된 경우
+			}else if(!replaceNotInt.test(taxiPrice)){
+				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
+				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
+				$('#userinput_u').submit();
+				$('#content, #departure, #destination').val('');
+			}
+			else{
+		    	alert("금액을 확인하세요.");
+		    	$("#taxiPrice_u").val("");
+		    	$("#taxiPrice_u").focus();
+			}
+		}
 }
 function fromServer(){
 	if(httpRequest.readyState==4){
