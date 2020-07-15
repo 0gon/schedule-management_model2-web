@@ -14,6 +14,7 @@
 		<div class="calendarForm w3-center  w3-container w3-padding"
 			id="modal" style="width:520px">
 			<form id="userinput">
+			   <input type="hidden" name="id" value="t${trafficVO.id }" >
 				<table class="w3-table w3-bordered">
 					<tr>
 						<td><font color="grey">내용 :</font></td>

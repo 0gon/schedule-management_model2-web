@@ -57,5 +57,16 @@ public class OvertimeDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void deleteOvertime(int cardId) {
+		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("cardId", cardId);
+		try {
+			sqlSession.delete(namespace + ".deleteOvertime", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 
 }

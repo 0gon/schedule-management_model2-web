@@ -157,7 +157,7 @@
   <header id="portfolio">
     <a href="#"><img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
     <div class="w3-container" style="padding-top:  10px">
-        <font size="6">법인카드 사용관리 </font>
+        <font size="6">법인카드 사용내역 </font>
     <div class="w3-padding w3-bottombar">
      <c:if test="${userVO.grade==0}">
      <table>
@@ -363,7 +363,8 @@
        <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
              등록
        </button>
-               <button id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
+               <button id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();"
+               class="w3-button w3-red">취소</button>
        </li>
        
                 </ul>
@@ -599,6 +600,10 @@ function toUpdatePageForCal(data) {
 	var data1 = "id=" + data;
 	sendRequest("<%=request.getContextPath()%>/page/updateFormForCal", data1, fromServerForUpdate, "POST");
 	event.preventDefault();
+}
+function deleteCardForCal(data) {
+	var id = "id=" + data;
+	sendRequest("<%=request.getContextPath()%>/page/deleteCardForCal", id, fromServer, "POST");
 }
 function fromServerForUpdate() {
 	if (httpRequest.readyState == 4) {

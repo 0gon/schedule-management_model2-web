@@ -60,5 +60,15 @@ public class TrafficDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-
+	public void deleteTraffic(int cardId) {
+		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("cardId", cardId);
+		try {
+			sqlSession.delete(namespace + ".deleteTraffic", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 }
