@@ -6,7 +6,7 @@
             <div style=""><font size=5>교통비내역 수정</font></div>
         </div>
         <div class="w3-container" >
-        <button id='xbutton' onclick="document.getElementById('message').style.display='none';" class="w3-button w3-display-topright">&times;</button>
+        <button id='xbutton' onclick="document.getElementById('message').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput_u" method="post" action="${ pageContext.servletContext.contextPath }/page/updateProForCal" >
                 <input type="hidden" name="id" value="t${trafficVO.id }" >
@@ -53,7 +53,7 @@
        <button class="w3-button w3-black" id="commitbtn" onclick="checkValue_u()" >
              등록
        </button>
-               <button id="cancelbtn" onclick="document.getElementById('message').style.display='none';event.preventDefault();" class="w3-button w3-red">취소</button>
+               <button id="cancelbtn" onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();" class="w3-button w3-red">취소</button>
        </li>
                 </ul>
             </form>

@@ -37,9 +37,9 @@
 					<button onclick="event.preventDefault();"class="w3-button w3-black w3-span w3-border w3-border-white" style="padding:5px">홍길동</button>
 				</div>
 				<div class="w3-margin">
-				<button class="w3-button " onclick="toUpdatePageForCal(o${overtimeVO.id});">수정</button>
+				<button class="w3-button " onclick="toUpdatePageForCal('o${overtimeVO.id}');">수정</button>
 				<input type="reset" class="w3-button "
-					onclick="deleteCardForCal(o${overtimeVO.id});" value="삭제">
+					onclick="deleteCardForCal('o${overtimeVO.id}');" value="삭제">
 				</div>
 			</form>
 		</div>

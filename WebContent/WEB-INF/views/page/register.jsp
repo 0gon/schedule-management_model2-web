@@ -114,8 +114,38 @@
 	    memberList += '</tr>';
 	    return memberList
 	}
+	function buildMemberList_u (memberListType) {
+		var memberList ='<table class="w3-table"><tr>';
+	    for(var j=0;j<memberListType.length;j++){
+	    	if(j!=0 && j%7==0){
+	    		memberList +='</tr><tr><td class="memberSelector w3-center w3-border " id="'+memberListType[j].memberId
+	    		+'" onclick="memberClick_u('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
+	    	}else{
+	    		memberList +='<td class="memberSelector w3-center w3-border" id="'+memberListType[j].memberId
+	    		+'" onclick="memberClick_u('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
+	    	}
+	    }
+	    memberList += '</tr>';
+	    return memberList
+	}
 	
-	$(function() {
+	$(function() { 
+		//dptNo에 따라 select 담당선택
+		var userDpt = "${userVO.dptNo}";
+		var userId = "${userVO.id}";
+		//영업1담당인 경우
+		if(userDpt == 1 || userDpt == 2){
+			 areaChange(1);
+			 $('#dptchk1').attr("checked", true); 
+		}
+		//영업2담당인 경우
+		else if(userDpt == 0 || userDpt == 5 ){
+			 areaChange(2);
+			 $('#dptchk2').attr("checked", true); 
+		}else {
+			areaChange(3);	
+			 $('#dptchk3').attr("checked", true); 
+		};
 		var memberList_POS = memberDBtoPOS();
 		var memberList_MD = memberDBtoMD();
 		var memberList_MKT = memberDBtoMKT();
@@ -131,7 +161,8 @@
 	    var INFlist =buildMemberList(memberList_INF);
 	    var GFTlist =buildMemberList(memberList_GFT);
 	    var FINlist =buildMemberList(memberList_FIN);
-	    
+		
+		
 	    $('#POSmembers').append(POSlist);
 	    $('#MDmembers').append(MDlist);
 	    $('#MKTmembers').append(MKTlist);
@@ -139,6 +170,9 @@
 	    $('#INFmembers').append(INFlist);
 	    $('#GFTmembers').append(GFTlist);
 	    $('#FINmembers').append(FINlist);
+	    document.getElementById(userId).classList.add('w3-blue');
+		$('#selectMemberCount').text("1"); 
+		$('#price').val(8000);
 	    
 	    $('#startTime, #endTime').appendDtpicker({
 		    'locale' : 'ko', // 한글화
@@ -149,6 +183,7 @@
     	});
 	    
 	    $('#message').draggable();
+	    
 	});
 </script>
 
@@ -225,7 +260,7 @@
         </div>
         <div class="w3-container " >
     	<font size="3" color="grey"> * 등록한 내용은 드래그시 다른날짜로 이동가능합니다.</font>
-        <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</button>
+        <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
             	<input type="hidden" name="memberId" value="${userVO.id }" >
@@ -262,13 +297,13 @@
                     <div id="overtime_content" style="display:none">
                     <div style='padding-bottom: 10px'>
                         <span >
-                            영업1담당: <input type="radio" name="area" onclick="areaChange(1)" class="w3-radio" checked>
+                            영업1담당: <input type="radio" id="dptchk1" name="area" onclick="areaChange(1)" class="w3-radio" >
                         </span>
                         <span>
-                            영업2담당: <input type="radio" name="area" onclick="areaChange(2)" class="w3-radio" >
+                            영업2담당: <input type="radio" id="dptchk2" name="area" onclick="areaChange(2)" class="w3-radio" >
                         </span>
                         <span>
-                            지원담당: <input type="radio" name="area" onclick="areaChange(3)" class="w3-radio" >
+                            지원담당: <input type="radio" id="dptchk3" name="area" onclick="areaChange(3)" class="w3-radio" >
                         </span>
                     </div>
                         
@@ -333,7 +368,7 @@
         <!--야근식대 금액등록-->         
       <li id="overtime_price" style="display: none; padding: 8px">
             <div style="padding-top: 10px;" >
-               선택인원 : <font size="5" id="selectMemberCount" color='grey'>0</font> 명
+               선택인원 : <font size="5" id="selectMemberCount" color='grey'></font> 명
                <!--  <i class="fa fa-search w3-large" ></i>-->
                &nbsp;&nbsp;
                금액입력 : <input type="text" id="price" name="price" class=" w3-input w3-round" 
@@ -363,7 +398,7 @@
        <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
              등록
        </button>
-               <button id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();"
+               <button id="cancelbtn" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();location.reload();"
                class="w3-button w3-red">취소</button>
        </li>
        
@@ -591,6 +626,24 @@ function areaChange(areaCode){
 	}
 	
 }
+function areaChange_u(areaCode){
+	//영업1담당
+	if(areaCode == 1){
+		$('#business1_u').show(); 
+		$('#business2_u, #support_u').hide(); 
+	}
+	//영업2담당
+	else if(areaCode ==2 ){
+		$('#business2_u').show(); 
+		$('#business1_u, #support_u').hide(); 
+	}
+	//지원담당
+	else{
+		$('#business1_u, #business2_u').hide(); 
+		$('#support_u').show(); 
+	}
+	
+}
 function contentViewForCal(data) {
 	var id = "id=" + data;
 	sendRequest("<%=request.getContextPath()%>/page/contentsViewForCal", id, fromServer, "POST");
@@ -642,6 +695,51 @@ function fromServerForUpdate() {
 					$(this).val($(this).val().substring(0, 12));
 				}
 			});
+			//dptNo에 따라 select 담당선택
+			var userDpt = "${userVO.dptNo}";
+			var userId = "${userVO.id}";
+			//영업1담당인 경우
+			debugger;
+			if(userDpt == 1 || userDpt == 2){
+				 areaChange_u(1);
+				 $('#dptchk1_u').attr("checked", true); 
+			}
+			//영업2담당인 경우
+			else if(userDpt == 0 || userDpt == 5 ){
+				 areaChange_u(2);
+				 $('#dptchk2_u').attr("checked", true); 
+			}else {
+				areaChange_u(3);	
+				 $('#dptchk3_u').attr("checked", true); 
+			};
+			var memberList_POS = memberDBtoPOS();
+			var memberList_MD = memberDBtoMD();
+			var memberList_MKT = memberDBtoMKT();
+			var memberList_SPT = memberDBtoSPT();
+			var memberList_INF = memberDBtoINF();
+			var memberList_GFT = memberDBtoGFT();
+			var memberList_FIN = memberDBtoFIN();
+			
+		    var POSlist =buildMemberList_u(memberList_POS);
+		    var MDlist =buildMemberList_u(memberList_MD);
+		    var MKTlist =buildMemberList_u(memberList_MKT);
+		    var SPTlist =buildMemberList_u(memberList_SPT);
+		    var INFlist =buildMemberList_u(memberList_INF);
+		    var GFTlist =buildMemberList_u(memberList_GFT);
+		    var FINlist =buildMemberList_u(memberList_FIN);
+			
+		    $('#POSmembers_u').append(POSlist);
+		    $('#MDmembers_u').append(MDlist);
+		    $('#MKTmembers_u').append(MKTlist);
+		    $('#SPTmembers_u').append(SPTlist);
+		    $('#INFmembers_u').append(INFlist);
+		    $('#GFTmembers_u').append(GFTlist);
+		    $('#FINmembers_u').append(FINlist);
+		    document.getElementById(userId).classList.add('w3-blue');
+			$('#selectMemberCount_u').text("1"); 
+			$('#price_u').val(8000);
+		    
+			
 		}
 	}
 }
@@ -746,10 +844,13 @@ function startAnim(animName) {
     }
     
 }
-var selectMemberCount = 0;
-var selectPrice = 0;
-var fixedPrice = 8000;
+
+
+
 function memberClick(memberId) {
+	var selectMemberCount = Number($('#selectMemberCount').text());
+	var selectPrice = 	Number($('#price').val()); 
+	var fixedPrice = 8000;
 	//True 시 w3-blue 클래스 추가
 	var isTrue = document.getElementById(memberId).classList.toggle('w3-blue');
 	if(isTrue){
@@ -759,16 +860,36 @@ function memberClick(memberId) {
 		selectMemberCount -= 1
 		selectPrice = fixedPrice * selectMemberCount;
 	}
-	$('#price').attr('value',selectPrice); 
 	$('#selectMemberCount').text(selectMemberCount); 
+	$('#price').val(selectPrice)
+}
+function memberClick_u(memberId) {
+	var selectMemberCount = Number($('#selectMemberCount_u').text());
+	var selectPrice = 	Number($('#price_u').val()); 
+	var fixedPrice = 8000;
+	//True 시 w3-blue 클래스 추가
+	var isTrue = document.getElementById(memberId).classList.toggle('w3-blue');
+	if(isTrue){
+		selectMemberCount += 1
+		selectPrice = fixedPrice * selectMemberCount;
+	}else{
+		selectMemberCount -= 1
+		selectPrice = fixedPrice * selectMemberCount;
+	}
+	$('#selectMemberCount_u').text(selectMemberCount); 
+	$('#price_u').val(selectPrice)
 }
 
 function memberSelectorDel() {
 	event.preventDefault();
-	selectMemberCount = 0;
-	selectPrice = 0;
-	$('#price').attr('value',selectPrice); 
-	$('#selectMemberCount').text(selectMemberCount); 
+	$('#price').val(0)
+	$('#selectMemberCount').text(0); 
+	$('.memberSelector').removeClass('w3-blue'); 
+}
+function memberSelectorDel_u() {
+	event.preventDefault();
+	$('#price_u').val(0)
+	$('#selectMemberCount_u').text(0); 
 	$('.memberSelector').removeClass('w3-blue'); 
 }
 

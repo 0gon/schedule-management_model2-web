@@ -28,10 +28,9 @@ var dataset = [
             ,"start":'<c:out value="${list.useDate}" />'
             ,"end":'<c:out value="${list.useDate}" />'
             } 
-            <c:if test="${!status.last}">,</c:if>
+            ,
     </c:forEach>
     <c:forEach var="list" items="${overtimesLi}" varStatus="status">
-  		    <c:if test="${status.first}">,</c:if>
             {"id":'o<c:out value="${list.id}" />'
             ,"title":'<c:out value="${list.cardType}" />'
             ,"start":'<c:out value="${list.useDate}" />'
