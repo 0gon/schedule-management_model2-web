@@ -9,7 +9,7 @@
 	</div>
 	<div class="w3-container">
 		<span
-			onclick="document.getElementById('message').style.display='none';"
+			onclick="document.getElementById('message').style.display='none';location.reload();"
 			class="w3-button w3-display-topright">&times;</span>
 		<div class="calendarForm w3-center  w3-container w3-padding"
 			id="modal" style="width:520px">
@@ -17,7 +17,9 @@
 				<table class="w3-table w3-bordered">
 					<tr>
 						<td><font color="grey">내용 :</font></td>
-					 	<td colspan='3' class ="w3-large">${overtimeVO.content}</td> 
+					 	<td class ="w3-large">${overtimeVO.content}</td> 
+						<td><font color="grey">음식점 :</font></td>
+					 	<td class ="w3-large">${overtimeVO.shopName}</td> 
 					</tr>
 					<tr>
 						<td><font color="grey">금액 :</font></td>
@@ -31,15 +33,18 @@
 					</tr>
 				</table>
 				<div class="w3-padding">
-					<font color="grey" size="4">[등록인]</font>
+					<font color="grey" size="4">[등록인] : 이름클릭 시 제외가능</font>
 				</div>
 				<div>
 					<button onclick="event.preventDefault();"class="w3-button w3-black w3-span w3-border w3-border-white" style="padding:5px">홍길동</button>
 				</div>
 				<div class="w3-margin">
-				<button class="w3-button " onclick="toUpdatePageForCal('o${overtimeVO.id}');">수정</button>
-				<input type="reset" class="w3-button "
+				<button class="w3-button w3-border " onclick="toUpdatePageForCal('o${overtimeVO.id}');">수정</button>
+				<input type="reset" class="w3-button w3-red "
 					onclick="deleteCardForCal('o${overtimeVO.id}');" value="삭제">
+				<button id="cancelbtn" onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();"
+               class="w3-button w3-border">취소</button>		
+					
 				</div>
 			</form>
 		</div>

@@ -261,20 +261,24 @@
                        </select>
                         <p></p>
                         <label>내 용 : </label>
-                        <input type="text" id="content" name="content" class="w3-input w3-round" style="display: inline;width: 260px;height: 35" placeholder=" 12자 이내">
+                        <input type="text" id="content" name="content" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder=" 12자 이내">
+                        <div id="shopDIV" style="margin-top:5px;display:none">
+                        <label>음식점 : </label>
+                        <input type="text" id="shopName" name="shopName" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder=" 12자 이내">
+                        </div>
                     </div>
                     </li>
                     <!--교통비 내용--> 
-                    <li>
+                    <li> 
                     <div id="taxi_content">
                         <div style="padding-top:5px" >
-                              출발지 : <input type="text" id="departure" name="departure" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
-                              <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px"title="자주가는 출발지 등록" ></i>
+                              출발지 : <input type="text" id="departure" name="departure" value="${userVO.likedDpr }" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
+                              <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},1)" style="padding:8px"title="자주가는 출발지 등록" ></i>
                         </div>
                               <i class="fa fa-refresh w3-button" onclick="placeChange()" style="padding:8px"></i>
                         <div style="padding-bottom:5px" >
-                              도착지 : <input type="text" id="destination" name="destination" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
-                             <i class="fa fa-star w3-center w3-large w3-button" style="padding:8px" title="자주가는 도착지 등록" ></i>
+                              도착지 : <input type="text" id="destination" name="destination" value="${userVO.likedDest }" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
+                             <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},2)" style="padding:8px" title="자주가는 도착지 등록" ></i>
                         </div>     
                     </div>    
                     <!--교통비 end-->
@@ -397,7 +401,7 @@
     </div>
 <script>
 
-$('#content, #departure, #destination').on('keyup', function() {
+$('#content, #departure, #destination, #shopName').on('keyup', function() {
 	if($(this).val().length > 12) {
 		alert("12자로 이내로 제한됩니다.");
 		$(this).val($(this).val().substring(0, 12));
@@ -547,6 +551,10 @@ function checkValue(){
 			alert("내용을 입력하세요");
 			return userinput.content.focus();
 		}
+	    else if(!userinput.shopName.value){
+			alert("음식점을  입력하세요");
+			return userinput.shopName.focus();
+		}
 	    else if(!userinput.cardHolder.value){
 			alert("카드소지자를  입력하세요");
 			return userinput.cardHolder.focus();
@@ -630,11 +638,13 @@ function areaChange_u(areaCode){
 	}
 	
 }
+function updateForCal(data) {
+	sendRequest("<%=request.getContextPath()%>/page/updateProForCal", data, fromServer, "POST");
+}
 function contentViewForCal(data) {
 	var id = "id=" + data;
 	sendRequest("<%=request.getContextPath()%>/page/contentsViewForCal", id, fromServer, "POST");
 }
-//zerogon
 function toUpdatePageForCal(data) {
 	var data1 = "id=" + data;
 	sendRequest("<%=request.getContextPath()%>/page/updateFormForCal", data1, fromServerForUpdate, "POST");
@@ -798,13 +808,60 @@ function useChange(useCode){
 	//value 1 : 교통비, else : 야근식대
 	if(useCode.value==1){
 		$('#taxi_content, #taxi_reg, #taxi_price').show(); 
-		$('#overtime_content, #overtime_price, #card_owner').hide(); 
+		$('#overtime_content, #overtime_price, #card_owner, #shopDIV').hide(); 
 		$('#taxi_price').attr('style','display:inline;'); 
 	}else{
 		$('#taxi_content, #taxi_reg, #taxi_price').hide(); 
-		$('#overtime_content, #overtime_price').show(); 
+		$('#overtime_content, #overtime_price,  #shopDIV').show(); 
 		$('#card_owner').attr('style','display:inline;'); 
 		}
+}
+//자주가는 출발지, 도착지 등록
+function likedReg(userId, type){
+	//type 1: 출발지 등록 , 2: 등록지 등록
+	event.preventDefault();
+	var departure = $("#departure").val();
+	var destination = $("#destination").val();
+	
+	if(type == 1){
+		if(confirm("자주가는 출발지로 등록하시겠습니까?")){
+			$.ajax({
+				 url : "${ pageContext.servletContext.contextPath }/page/user/likedReg", 
+		    	 method : "POST",  
+		    	 dataType:"text",
+		    	 data:{ 
+		    			"type":type,
+		    			"userId":userId,
+		    			"departure":departure,
+		    			}, 
+	              success: function(data){
+	            	  alert("등록이 완료됐습니다.\n\n **삭제원할 시 빈칸 입력 후 재등록해주세요.")
+					},
+			error: function(request, status, error) {
+				alert(error);
+			}
+			});	
+		}
+	}else{
+		if(confirm("자주가는 도착지로 등록하시겠습니까?")){
+			$.ajax({
+				 url : "${ pageContext.servletContext.contextPath }/page/user/likedReg", 
+		    	 method : "POST",  
+		    	 dataType:"text",
+		    	 data:{ 
+		    			"type":type,
+		    			"userId":userId,
+		    			"destination":destination,
+		    			}, 
+	              success: function(data){
+	            	  alert("등록이 완료됐습니다.\n\n **삭제원할 시 빈칸 입력 후 재등록해주세요.")
+					},
+			error: function(request, status, error) {
+				alert(error);
+			}
+			});	
+		}
+	}
 }
 
 

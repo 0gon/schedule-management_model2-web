@@ -10,7 +10,7 @@
 	</div>
 	<div class="w3-container w3-padding">
 		<button id="xbutton_u"
-			onclick="document.getElementById('message').style.display='none'; document.getElementById('startdate_u').value=''; document.getElementById('enddate_u').value=''; "
+			onclick="document.getElementById('message').style.display='none'; document.getElementById('startdate_u').value=''; document.getElementById('enddate_u').value='';location.reload(); "
 			class="w3-button w3-display-topright">&times;</button>
 
 		<div class="calendarForm w3-center  w3-container w3-padding"
@@ -103,7 +103,7 @@
        </li>
 					<li><button class="w3-button w3-black" id="commitbtn_u"
 							onclick="checkUpdateValue();">수정하기</button>
-					 <button id="cancelbtn_u" class="w3-button w3-red" onclick="document.getElementById('message').style.display='none';">
+					 <button id="cancelbtn_u" class="w3-button w3-red" onclick="document.getElementById('message').style.display='none';location.reload();">
                 취소</button>	
 					</li>
 				</ul>

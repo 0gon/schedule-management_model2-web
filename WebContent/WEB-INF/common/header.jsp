@@ -35,6 +35,7 @@ var dataset = [
             ,"title":'<c:out value="${list.cardType}" />'
             ,"start":'<c:out value="${list.useDate}" />'
             ,"end":'<c:out value="${list.useDate}" />'
+            ,"groupId":'<c:out value="${list.groupId}" />'
             } 
             <c:if test="${!status.last}">,</c:if>
     </c:forEach>
@@ -83,12 +84,13 @@ var dataset = [
                    document.getElementById('message').style.display='block';
             }
             , eventDrop: function(event, delta, revertFunc) {
-                if (!confirm(event.title + "을(를) " + event.start.format() + "로 이동합니다.")) {	
+                if (!confirm(event.title + "등록일을 " + event.start.format() + "로 이동합니다.")) {	
                      revertFunc(); 
                 }else{
-                  var data='id='+event.id+"&useDate="+event.start.format()+"&endDate="+event.end.format()
-                  "&dutyId="+event.dutyId;
-          		  update(data);};
+                  var data='id='+event.id+"&useDate="+event.start.format()+"&groupId="+event.groupId;
+          		  updateForCal(data);
+          		location.reload();
+          		  };
             }
             , navLinks: true
             , navLinkDayClick: function(date, jsEvent) {

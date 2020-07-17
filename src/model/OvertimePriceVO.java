@@ -15,13 +15,20 @@ public class OvertimePriceVO {
 	private Date useDate;
 	private Date updateDate;
 	private Date createDate;
-	private int groupId;
+	private String groupId;
+	private String shopName;
 	
 	
-	public int getGroupId() {
+	public String getShopName() {
+		return shopName;
+	}
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+	public String getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(int groupId) {
+	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
 	public Date getCreateDate() {
@@ -101,7 +108,7 @@ public class OvertimePriceVO {
 		return "OvertimePriceVO [Id=" + Id + ", cardType=" + cardType + ", memberId=" + memberId + ", memberNm="
 				+ memberNm + ", content=" + content + ", targetMbrId=" + targetMbrId + ", targetMbrNm=" + targetMbrNm
 				+ ", price=" + price + ", cardHolder=" + cardHolder + ", useDate=" + useDate + ", updateDate="
-				+ updateDate + ", createDate=" + createDate + ", groupId=" + groupId + "]";
+				+ updateDate + ", createDate=" + createDate + ", groupId=" + groupId + ", shopName=" + shopName + "]";
 	}
 	
 	

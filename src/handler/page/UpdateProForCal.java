@@ -21,9 +21,9 @@ public class UpdateProForCal implements CommandHandler {
 		String cardId = inputId.substring(1);
 		
 		//공통
-		String memberId = req.getParameter("memberId");
 		String content = req.getParameter("content");
 		String useDate = req.getParameter("useDate");
+		java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
 		
 		
 		//DAO 생성
@@ -32,38 +32,45 @@ public class UpdateProForCal implements CommandHandler {
 		
 		//traffic인 경우
 		if(cardType == 't') {
-			String departure = req.getParameter("departure");
-			String destination = req.getParameter("destination");
-			String departureTime = req.getParameter("departureTime");
-			String destinationTime = req.getParameter("destinationTime");
 			String taxiPrice = req.getParameter("taxiPrice");
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
-			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
 			trafficVO.setId(Integer.parseInt(cardId));
-			trafficVO.setContent(content);
-			trafficVO.setDeparture(departure);
-			trafficVO.setDepartureTime(departureTime);
-			trafficVO.setDestination(destination);
-			trafficVO.setDestinationTime(destinationTime);
-			trafficVO.setPrice(Integer.parseInt(taxiPrice));
-			trafficVO.setUseDate(transUseDate);
-			trafficDAO.updateTrafficPrice(trafficVO);
+			if(taxiPrice != null) {
+				String departure = req.getParameter("departure");
+				String destination = req.getParameter("destination");
+				String departureTime = req.getParameter("departureTime");
+				String destinationTime = req.getParameter("destinationTime");
+				trafficVO.setContent(content);
+				trafficVO.setDeparture(departure);
+				trafficVO.setDepartureTime(departureTime);
+				trafficVO.setDestination(destination);
+				trafficVO.setDestinationTime(destinationTime);
+				trafficVO.setUseDate(transUseDate);
+				trafficVO.setPrice(Integer.parseInt(taxiPrice));
+				trafficDAO.updateTrafficPrice(trafficVO);
+			// 달력 컨탠츠 이동을 통한 수정
+			}else{
+				trafficVO.setUseDate(transUseDate);
+				trafficDAO.updateTrafficPriceForCal(trafficVO);
+			};
 		}else {
-			//야근식대 식별값 memberId, createDate 
-			String createDate = req.getParameter("createDate");
+			String groupId = req.getParameter("groupId");
+			String shopName = req.getParameter("shopName");
 			String price = req.getParameter("price");
 			String cardHolder = req.getParameter("cardHolder");
 			OvertimePriceVO overtimeVO = new OvertimePriceVO();
-			System.out.println(createDate);
-			/*
-			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
-			overtimeVO.setCardHolder(cardHolder);
-			overtimeVO.setContent(content);
-			overtimeVO.setPrice(Integer.parseInt(price));
-			overtimeVO.setUseDate(transUseDate);
-			overtimeVO.setCreteDate(creteDate);
-			
-			overtimeDAO.updateOvertimePrice(targetIdList, overtimeVO);*/
+			overtimeVO.setGroupId(groupId);
+			if(price != null ) {
+				overtimeVO.setCardHolder(cardHolder);
+				overtimeVO.setContent(content);
+				overtimeVO.setShopName(shopName);
+				overtimeVO.setPrice(Integer.parseInt(price));
+				overtimeVO.setUseDate(transUseDate);
+				overtimeDAO.updateOvertimePrice(overtimeVO);
+			}else {
+				overtimeVO.setUseDate(transUseDate);
+				overtimeDAO.updateOvertimePriceForCal(overtimeVO);
+			}
 		}
 		res.sendRedirect(req.getContextPath() + "/page/register");
 		return null;

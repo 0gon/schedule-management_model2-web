@@ -19,13 +19,12 @@ public class OvertimeDAO extends MybatisConnector {
 	public static OvertimeDAO getInstance() {
 		return instance;
 	}
-	public int selectLastGroupId() {
-		String gid = null;
+	public String selectLastGroupId() {
 		sqlSession = sqlSession();
-		gid = sqlSession.selectOne(namespace + ".selectLastGroupId");
-		System.out.println("gidch:"+gid);
+		String 	gid = sqlSession.selectOne(namespace + ".selectLastGroupId"); 
+		if(gid == null) gid = "0";
 		sqlSession.close();
-		return 0;
+		return gid;
 	}
 	
 	public void insertOvertime(String[] targetIdList, OvertimePriceVO overtimeVO) {
@@ -76,18 +75,19 @@ public class OvertimeDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public void updateOvertimePrice(String[] targetIdList, OvertimePriceVO overtimeVO) {
+	public void updateOvertimePrice(OvertimePriceVO overtimeVO) {
 		sqlSession = sqlSession();
-		UserDAO userDao = UserDAO.getInstance();
 		try {
-			for(int i = 0; i< targetIdList.length ; i++) {
-				//잘려진 taget list id기준으로 유저정보 
-				UserVO targetVO = userDao.selectUserInfoByPK(Integer.parseInt(targetIdList[i]));
-				overtimeVO.setTargetMbrId(targetIdList[i]);
-				overtimeVO.setTargetMbrNm(targetVO.getMemberNm());
-				sqlSession.update(namespace + ".updateOvertimePrice", overtimeVO);
-			}
-			
+			sqlSession.update(namespace + ".updateOvertimePrice", overtimeVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void updateOvertimePriceForCal(OvertimePriceVO overtimeVO) {
+		sqlSession = sqlSession();
+		try {
+			sqlSession.update(namespace + ".updateOvertimePriceForCal", overtimeVO);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

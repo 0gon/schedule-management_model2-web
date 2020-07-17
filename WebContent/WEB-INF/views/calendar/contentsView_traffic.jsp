@@ -9,7 +9,7 @@
 	</div>
 	<div class="w3-container">
 		<span
-			onclick="document.getElementById('message').style.display='none';"
+			onclick="document.getElementById('message').style.display='none';location.reload();"
 			class="w3-button w3-display-topright">&times;</span>
 		<div class="calendarForm w3-center  w3-container w3-padding"
 			id="modal" style="width:520px">
@@ -44,6 +44,9 @@
 				<button class="w3-button w3-black" onclick="toUpdatePageForCal('t${trafficVO.id}');">수정</button>
 				<input type="reset" class="w3-button w3-red"
 					onclick="deleteCardForCal('t${trafficVO.id}');" value="삭제">
+				<button onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();"
+               class="w3-button w3-black">취소</button>	
+					
 				</div>
 			</form>
 		</div>

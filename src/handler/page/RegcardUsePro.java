@@ -19,24 +19,19 @@ public class RegcardUsePro implements CommandHandler {
 		String memberNm = req.getParameter("memberNm");
 		String content = req.getParameter("content");
 		String useDate = req.getParameter("useDate");
-		//교통비
-		String departure = req.getParameter("departure");
-		String destination = req.getParameter("destination");
-		String departureTime = req.getParameter("departureTime");
-		String destinationTime = req.getParameter("destinationTime");
-		String taxiPrice = req.getParameter("taxiPrice");
-		//야근식대
-		String price = req.getParameter("price");
-		String cardHolder = req.getParameter("cardHolder");
-		String selectIdList = req.getParameter("selectIdList");
-		
-		
+
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
 		
 		
 		//교통비로 들어온 경우
 		if(useCode.equals("1")) {
+			//교통비
+			String departure = req.getParameter("departure");
+			String destination = req.getParameter("destination");
+			String departureTime = req.getParameter("departureTime");
+			String destinationTime = req.getParameter("destinationTime");
+			String taxiPrice = req.getParameter("taxiPrice");
 			//traffic Bean 생성
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
@@ -52,20 +47,27 @@ public class RegcardUsePro implements CommandHandler {
 			trafficDAO.insertTraffic(trafficVO);
 		//야근식대로 들어온경우 useCode 2
 		}else {
+			//야근식대
+			String shopName = req.getParameter("shopName");
+			String price = req.getParameter("price");
+			String cardHolder = req.getParameter("cardHolder");
+			String selectIdList = req.getParameter("selectIdList");
 			//선택한 인원 수 만큼 반복 insert 수행
 			String[] targetIdList = selectIdList.split(",");
 			OvertimePriceVO overtimeVO = new OvertimePriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
 			overtimeVO.setCardHolder(cardHolder);
 			overtimeVO.setContent(content);
+			overtimeVO.setShopName(shopName);
 			overtimeVO.setMemberId(memberId);
 			overtimeVO.setMemberNm(memberNm);
 			overtimeVO.setPrice(Integer.parseInt(price));
 			overtimeVO.setUseDate(transUseDate);
-			//group ID 설정
-			int groupId = overtimeDAO.selectLastGroupId();
-			System.out.println(groupId);
-			
+			//group ID 설정 : 최대값 구해서 +1
+			String groupId = overtimeDAO.selectLastGroupId();
+			int inputGroupId = Integer.parseInt(groupId);
+			inputGroupId++;
+			overtimeVO.setGroupId(inputGroupId+"");
 			
 			overtimeDAO.insertOvertime(targetIdList,overtimeVO);
 		}

@@ -15,7 +15,37 @@ public class UserVO {
 	private int grade;
 	private int useyn;
 	private String createDate;
+	private String likedDpr;
+	private String likedDest;
+	private int holiday;
+	private int monthHoliday;
 	
+	
+	
+	public String getLikedDpr() {
+		return likedDpr;
+	}
+	public void setLikedDpr(String likedDpr) {
+		this.likedDpr = likedDpr;
+	}
+	public String getLikedDest() {
+		return likedDest;
+	}
+	public void setLikedDest(String likedDest) {
+		this.likedDest = likedDest;
+	}
+	public int getHoliday() {
+		return holiday;
+	}
+	public void setHoliday(int holiday) {
+		this.holiday = holiday;
+	}
+	public int getMonthHoliday() {
+		return monthHoliday;
+	}
+	public void setMonthHoliday(int monthHoliday) {
+		this.monthHoliday = monthHoliday;
+	}
 	public int getUseyn() {
 		return useyn;
 	}
@@ -68,7 +98,9 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [Id=" + Id + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberNm=" + memberNm
-				+ ", dptNo=" + dptNo + ", grade=" + grade + ", createDate=" + createDate + "]";
+				+ ", dptNo=" + dptNo + ", grade=" + grade + ", useyn=" + useyn + ", createDate=" + createDate
+				+ ", likedDpr=" + likedDpr + ", likedDest=" + likedDest + ", holiday=" + holiday + ", monthHoliday="
+				+ monthHoliday + "]";
 	}
 	
 }

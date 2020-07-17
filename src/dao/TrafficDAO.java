@@ -60,6 +60,15 @@ public class TrafficDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void updateTrafficPriceForCal(TrafficPriceVO trafficVO) {
+		sqlSession = sqlSession();
+		try {
+			sqlSession.update(namespace + ".updateTrafficPriceForCal", trafficVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public void deleteTraffic(int cardId) {
 		sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();

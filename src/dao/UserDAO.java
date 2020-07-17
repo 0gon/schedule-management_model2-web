@@ -113,4 +113,28 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void updateUserLikedDpr(String userId, String departure) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("Id", userId);
+		map.put("departure", departure);
+		try {
+			sqlSession.update(namespace + ".updateUserLikedDpr", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void updateUserLikedDest(String userId, String destination) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("Id", userId);
+		map.put("destination", destination);
+		try {
+			sqlSession.update(namespace + ".updateUserLikedDest", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 }
