@@ -114,20 +114,6 @@
 	    memberList += '</tr>';
 	    return memberList
 	}
-	function buildMemberList_u (memberListType) {
-		var memberList ='<table class="w3-table"><tr>';
-	    for(var j=0;j<memberListType.length;j++){
-	    	if(j!=0 && j%7==0){
-	    		memberList +='</tr><tr><td class="memberSelector w3-center w3-border " id="'+memberListType[j].memberId
-	    		+'" onclick="memberClick_u('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
-	    	}else{
-	    		memberList +='<td class="memberSelector w3-center w3-border" id="'+memberListType[j].memberId
-	    		+'" onclick="memberClick_u('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
-	    	}
-	    }
-	    memberList += '</tr>';
-	    return memberList
-	}
 	
 	$(function() { 
 		//dptNo에 따라 select 담당선택
@@ -695,51 +681,6 @@ function fromServerForUpdate() {
 					$(this).val($(this).val().substring(0, 12));
 				}
 			});
-			//dptNo에 따라 select 담당선택
-			var userDpt = "${userVO.dptNo}";
-			var userId = "${userVO.id}";
-			//영업1담당인 경우
-			debugger;
-			if(userDpt == 1 || userDpt == 2){
-				 areaChange_u(1);
-				 $('#dptchk1_u').attr("checked", true); 
-			}
-			//영업2담당인 경우
-			else if(userDpt == 0 || userDpt == 5 ){
-				 areaChange_u(2);
-				 $('#dptchk2_u').attr("checked", true); 
-			}else {
-				areaChange_u(3);	
-				 $('#dptchk3_u').attr("checked", true); 
-			};
-			var memberList_POS = memberDBtoPOS();
-			var memberList_MD = memberDBtoMD();
-			var memberList_MKT = memberDBtoMKT();
-			var memberList_SPT = memberDBtoSPT();
-			var memberList_INF = memberDBtoINF();
-			var memberList_GFT = memberDBtoGFT();
-			var memberList_FIN = memberDBtoFIN();
-			
-		    var POSlist =buildMemberList_u(memberList_POS);
-		    var MDlist =buildMemberList_u(memberList_MD);
-		    var MKTlist =buildMemberList_u(memberList_MKT);
-		    var SPTlist =buildMemberList_u(memberList_SPT);
-		    var INFlist =buildMemberList_u(memberList_INF);
-		    var GFTlist =buildMemberList_u(memberList_GFT);
-		    var FINlist =buildMemberList_u(memberList_FIN);
-			
-		    $('#POSmembers_u').append(POSlist);
-		    $('#MDmembers_u').append(MDlist);
-		    $('#MKTmembers_u').append(MKTlist);
-		    $('#SPTmembers_u').append(SPTlist);
-		    $('#INFmembers_u').append(INFlist);
-		    $('#GFTmembers_u').append(GFTlist);
-		    $('#FINmembers_u').append(FINlist);
-		    document.getElementById(userId).classList.add('w3-blue');
-			$('#selectMemberCount_u').text("1"); 
-			$('#price_u').val(8000);
-		    
-			
 		}
 	}
 }
@@ -781,7 +722,7 @@ function checkValue_u(){
 				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
 				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
 				$('#userinput_u').submit();
-				$('#content, #departure, #destination').val('');
+				$('#content_u, #departure, #destination').val('');
 			}
 			else{
 		    	alert("금액을 확인하세요.");
@@ -789,6 +730,41 @@ function checkValue_u(){
 		    	$("#taxiPrice_u").focus();
 			}
 		}
+}
+function checkValue_u_o(){
+	 var replaceNotInt = /[^0-9]/gi;
+	    var price_u = $("#price_u").val();
+	    if(!userinput_u.content_u.value){
+			alert("내용을 입력하세요");
+			return userinput_u.content_u.focus();
+		}
+	    else if(!userinput_u.cardHolder_u.value){
+			alert("카드소지자를  입력하세요");
+			return userinput_u.cardHolder_u.focus();
+		}
+	    else if(price_u == 0 || price_u == ''){
+	    	alert('금액을 입력하세요.');
+	    	$("#price_u").focus();
+	    }else if(!userinput_u.useDate_u.value){
+			alert("사용일을 선택하세요");
+			return userinput_u.useDate_u.focus();
+		}
+	    else{
+		    if(!replaceNotInt.test(price_u)){
+		    	var selectList = document.getElementsByClassName("w3-blue");
+		    	var selectIdList = new Array();
+				$('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
+				$('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>'); 
+				$('#userinput_u').submit();
+				$('#content_u, #cardHolder_u').val('');
+		    	memberSelectorDel();
+		    }else{
+		    	alert("숫자값만 입력하세요.")
+		    	$("#price_u").val("");
+		    	$("#price_u").focus();
+		    }
+	    }
+		event.preventDefault(); 
 }
 function fromServer(){
 	if(httpRequest.readyState==4){

@@ -19,6 +19,14 @@ public class OvertimeDAO extends MybatisConnector {
 	public static OvertimeDAO getInstance() {
 		return instance;
 	}
+	public int selectLastGroupId() {
+		String gid = null;
+		sqlSession = sqlSession();
+		gid = sqlSession.selectOne(namespace + ".selectLastGroupId");
+		System.out.println("gidch:"+gid);
+		sqlSession.close();
+		return 0;
+	}
 	
 	public void insertOvertime(String[] targetIdList, OvertimePriceVO overtimeVO) {
 		sqlSession = sqlSession();
@@ -68,5 +76,21 @@ public class OvertimeDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-
+	public void updateOvertimePrice(String[] targetIdList, OvertimePriceVO overtimeVO) {
+		sqlSession = sqlSession();
+		UserDAO userDao = UserDAO.getInstance();
+		try {
+			for(int i = 0; i< targetIdList.length ; i++) {
+				//잘려진 taget list id기준으로 유저정보 
+				UserVO targetVO = userDao.selectUserInfoByPK(Integer.parseInt(targetIdList[i]));
+				overtimeVO.setTargetMbrId(targetIdList[i]);
+				overtimeVO.setTargetMbrNm(targetVO.getMemberNm());
+				sqlSession.update(namespace + ".updateOvertimePrice", overtimeVO);
+			}
+			
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 }

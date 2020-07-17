@@ -14,8 +14,22 @@ public class OvertimePriceVO {
 	private String cardHolder;
 	private Date useDate;
 	private Date updateDate;
+	private Date createDate;
+	private int groupId;
 	
 	
+	public int getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 	public String getCardType() {
 		return cardType;
 	}
@@ -87,9 +101,8 @@ public class OvertimePriceVO {
 		return "OvertimePriceVO [Id=" + Id + ", cardType=" + cardType + ", memberId=" + memberId + ", memberNm="
 				+ memberNm + ", content=" + content + ", targetMbrId=" + targetMbrId + ", targetMbrNm=" + targetMbrNm
 				+ ", price=" + price + ", cardHolder=" + cardHolder + ", useDate=" + useDate + ", updateDate="
-				+ updateDate + "]";
+				+ updateDate + ", createDate=" + createDate + ", groupId=" + groupId + "]";
 	}
-   
 	
 	
 }

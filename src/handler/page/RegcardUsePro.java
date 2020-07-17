@@ -62,6 +62,10 @@ public class RegcardUsePro implements CommandHandler {
 			overtimeVO.setMemberNm(memberNm);
 			overtimeVO.setPrice(Integer.parseInt(price));
 			overtimeVO.setUseDate(transUseDate);
+			//group ID ¼³Á¤
+			int groupId = overtimeDAO.selectLastGroupId();
+			System.out.println(groupId);
+			
 			
 			overtimeDAO.insertOvertime(targetIdList,overtimeVO);
 		}
