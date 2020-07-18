@@ -15,10 +15,10 @@ function viewCommonList(memberList, year, month, lastDay, week, weekend) {
     	  var memberId = Number(memberList[i].memberId) < 10 ? '0'+memberList[i].memberId : memberList[i].memberId;
     	  var clickSid = memberId+year+month+(j+1);
     	  if(week[(weekend+j)%7]=='토'||week[(weekend+j)%7]=='일'){  
-    	     schedule +='<td class="w3-light-grey w3-border " style="width:3%" onclick="dayClick('+"'"+clickSid+"'"+')" id="sdid'+
+    	     schedule +='<td class="w3-light-grey w3-border w3-button" style="width:3%" onclick="dayClick('+"'"+clickSid+"'"+')" id="sdid'+
     	     clickSid+'"></td>'
     	  }else{ 
-    	     schedule +='<td class="w3-border "  onclick="dayClick('+"'"+clickSid+"'"+')" style="width:3%" id="sdid'+
+    	     schedule +='<td class="w3-border w3-button "  onclick="dayClick('+"'"+clickSid+"'"+')" style="width:3%" id="sdid'+
     	     clickSid+'"></td>'
     	  }
       }

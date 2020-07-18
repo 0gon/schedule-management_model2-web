@@ -2,18 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="w3-modal-content w3-light-grey w3-card-4"
-	style="max-width: 400px;">
+	style="max-width: 480px;">
 	<div class="w3-container w3-center w3-teal" style="height: 38px">
 	<div style="margin-top:4px">
 	<font size=5>일정 수정</font>
 	</div>
 	</div>
-	<div class="w3-container w3-padding">
+	<div class="w3-container ">
 		<button id="xbutton_u"
 			onclick="document.getElementById('message').style.display='none'; document.getElementById('startdate_u').value=''; document.getElementById('enddate_u').value='';location.reload(); "
 			class="w3-button w3-display-topright">&times;</button>
 
-		<div class="calendarForm w3-center  w3-container w3-padding"
+		<div class="calendarForm w3-center  "
 			id="modal_u">
 			<form id="updateinput">
 				<input type="hidden" name="memberId" value="${userVO.id}" >
@@ -29,23 +29,28 @@
                      <div class="w3-padding" id="duty1_u">
                         <span class="">
                             연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
-                        </span>
+                        </span>&nbsp;
+                        <span>
+                           반차: <input type="radio" name="humu" value="0" class="w3-radio" >
+                        </span>&nbsp;
                         <span>
                             대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
                         <span>
                             공가: <input type="radio" name="humu" value="3" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
                         <span class="">
                              보상: <input type="radio" name="humu" value="4" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
                         <c:if test="${userVO.grade==1}">
+                        <!--  
                         <span>
                             정기휴무: <input type="radio" name="humu" value="5" class="w3-radio" >
                         </span>
                         <span>
                             의무연차: <input type="radio" name="humu" value="6" class="w3-radio" >
                         </span>
+                        -->
                             <span>
                             공휴일: <input type="radio" name="humu" value="7" class="w3-radio" >
                         </span> 
@@ -78,15 +83,15 @@
                     </div>
                     <!-- 근무 -->
                     <div  id="duty5_u" style="display: none">
-                        <span class="w3-margin">
+                        <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
-                        </span>
+                        </span>&nbsp;
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-                        </span>
+                        </span>&nbsp;
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
-                        </span>
+                        </span>&nbsp;
                     </div>
                     <!--  기타일정 추가-->
                     <div id="duty6_u" style="display: none">

@@ -7,7 +7,10 @@ function viewScheduleList(scheduleList){
 		    			var term = viewTerm(scheduleList,i);
 		    			if(scheduleList[i].content=='대체휴무'){
 		    				viewSchedule('red','대휴',scheduleList,i,j,term);	
-		    			}else if(scheduleList[i].content=='공가'){
+		    			}else if(scheduleList[i].content=='반차'){
+		    				viewSchedule('red','반차',scheduleList,i,j,term);	
+		    			}
+		    			else if(scheduleList[i].content=='공가'){
 		    				viewSchedule('red','공가',scheduleList,i,j,term);	
 		    			}else if(scheduleList[i].content=='정기휴무'){
 		    				viewSchedule('red','정휴',scheduleList,i,j,term);

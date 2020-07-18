@@ -177,13 +177,18 @@
 
 
 			<div class="w3-padding w3-bottombar">
-				<table>
+				<table style="width:1100px">
 					<tr>
-						<td class="w3-border " width="230px;padding:5px">
+						<td class="w3-border " width="350px;padding:5px">
 							<font color="grey">&nbsp;남은연차 :</font> 
-							<font size="4">${userVO.monthHoliday } 개</font>
+							<font color="blue" size="4">${userVO.monthHoliday } </font>
+							<font color="grey">&nbsp;개</font> 
+							<font color="grey">&nbsp;&nbsp;남은대휴 :</font> 
+							<font color="blue" size="4">${userVO.alterHoliday } </font>
+							<font color="grey">&nbsp;개</font> 
 							<font color="grey">&nbsp;&nbsp;남은휴가 :</font> 
-							<font size="4">${userVO.holiday } 개</font>
+							<font color="blue" size="4">${userVO.holiday } </font>
+							<font color="grey">&nbsp;일</font> 
 						</td>
 						<td>
 						&nbsp;
@@ -235,7 +240,7 @@
   </div>
 
     <!-- 메시지 모달 -->
-<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:450px;margin-left:35%">
+<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:490px;margin-left:35%">
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>

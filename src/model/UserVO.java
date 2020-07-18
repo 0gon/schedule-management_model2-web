@@ -19,8 +19,15 @@ public class UserVO {
 	private String likedDest;
 	private int holiday;
 	private float monthHoliday;
+	private float alterHoliday;
 	
 	
+	public float getAlterHoliday() {
+		return alterHoliday;
+	}
+	public void setAlterHoliday(float alterHoliday) {
+		this.alterHoliday = alterHoliday;
+	}
 	public float getMonthHoliday() {
 		return monthHoliday;
 	}
@@ -98,7 +105,7 @@ public class UserVO {
 		return "UserVO [Id=" + Id + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberNm=" + memberNm
 				+ ", dptNo=" + dptNo + ", grade=" + grade + ", useyn=" + useyn + ", createDate=" + createDate
 				+ ", likedDpr=" + likedDpr + ", likedDest=" + likedDest + ", holiday=" + holiday + ", monthHoliday="
-				+ monthHoliday + "]";
+				+ monthHoliday + ", alterHoliday=" + alterHoliday + "]";
 	}
 	
 	
