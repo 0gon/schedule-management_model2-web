@@ -36,10 +36,11 @@
 				</table>
 				<div style="margin-top:10px">
 				
-				<button class="w3-button w3-black" onclick="toUpdatePage(${schedule.id});">수정</button>
+				<button class="w3-button w3-border" onclick="toUpdatePage(${schedule.id});">수정</button>
 				<input type="reset" class="w3-button w3-red"
-					onclick="deleteSchedule(${schedule.id});" value="삭제">
-				
+					onclick="deleteScheduleIncludeHoli(${schedule.id},${userVO.id});" value="삭제">
+				<button onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();"
+               class="w3-button w3-border">취소</button>	
 				</div>
 
 			</form>

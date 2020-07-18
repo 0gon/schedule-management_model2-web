@@ -495,7 +495,7 @@ autocomplete(document.getElementById("cardInput"), memberAll);
 $.datepicker.setDefaults({
 	dateFormat: 'yy-mm-dd' //Input Display Format 변경
 		,showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-		,stepMonths: 1 //월 넘어가는 수 
+		,stepMonths: 0 //월 넘어가는 수 
 		,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
 		,changeYear: false //콤보박스에서 년 선택 가능
 		,changeMonth: false //콤보박스에서 월 선택 가능                

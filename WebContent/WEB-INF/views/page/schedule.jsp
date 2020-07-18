@@ -179,7 +179,14 @@
 			<div class="w3-padding w3-bottombar">
 				<table>
 					<tr>
+						<td class="w3-border " width="230px;padding:5px">
+							<font color="grey">&nbsp;남은연차 :</font> 
+							<font size="4">${userVO.monthHoliday } 개</font>
+							<font color="grey">&nbsp;&nbsp;남은휴가 :</font> 
+							<font size="4">${userVO.holiday } 개</font>
+						</td>
 						<td>
+						&nbsp;
 							<div style="display: inline;"
 								class="w3-marign w3-padding-small w3-border w3-border-black w3-red">&nbsp;</div>
 							<span style="margin-left: 5px; margin-right: 10px">:
@@ -236,14 +243,14 @@
 
     <!-- 일정 등록 모달 -->
 <div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
-    <div id="addDayDrag" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 400px;">
+    <div id="addDayDrag" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 450px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
         <div class="w3-container w3-padding" >
         <button id="xbutton" onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</button>
 
-        <div class="calendarForm w3-center  w3-container w3-padding" id="modal">
+        <div class="calendarForm w3-center  " id="modal">
             <form id="userinput" method="post" >
              <c:if test="${userVO.grade==0}">
              	<input type="hidden" name="memberId" value="${userVO.id}">
@@ -266,30 +273,36 @@
                      </c:forEach>
                    </select>
                    <!--휴무  humu로 보내서 1 or 2로 받음--> 
-                    <div class="w3-padding" id="duty1">
-                        <span class="">
+                    <div id="duty1" style="padding-top:5px;padding-bottom:5px">
+                        <span>
                             연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
-                        </span>
+                        </span>&nbsp;
+                        <span>
+                            반차: <input type="radio" name="humu" value="0" class="w3-radio" >
+                        </span>&nbsp;
                         <span>
                             대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
                         <span>
                             공가: <input type="radio" name="humu" value="3" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
                         <span class="">
                              보상: <input type="radio" name="humu" value="4" class="w3-radio" >
-                        </span>
-                        <c:if test="${userVO.grade==1}">
+                        </span>&nbsp;
+                        <!-- 관리자인 경우 -->
+               <c:if test="${userVO.grade==1}">
+                        <!--  
                         <span>
                             정기휴무: <input type="radio" name="humu" value="5" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
                         <span>
                             의무연차: <input type="radio" name="humu" value="6" class="w3-radio" >
-                        </span>
+                        </span>&nbsp;
+                        -->
                             <span>
                             공휴일: <input type="radio" name="humu" value="7" class="w3-radio" >
                         </span> 
-                        </c:if>
+               </c:if>
 
                     </div>
                    <!--교육 eduSubject로 보냄-->
@@ -318,12 +331,12 @@
                     </div>
                     <!-- 근무 -->
                     <div  id="duty5" style="display: none">
-                        <span class="w3-margin">
+                        <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
-                        </span>
+                        </span>&nbsp;
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-                        </span>
+                        </span>&nbsp;
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
@@ -438,5 +451,9 @@
 			}
 			});
 		}
+	}
+	function deleteScheduleIncludeHoli (scheduleId, memberId){
+		var id = "id=" + scheduleId + "&memberId=" + memberId;
+		sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
 	}
 </script>

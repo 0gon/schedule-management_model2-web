@@ -137,4 +137,28 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void updateUserMonthHoliday(String pkId, long dateDiff) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Id", pkId);
+		map.put("dateDiff", dateDiff);
+		try {
+			sqlSession.update(namespace + ".updateUserMonthHoliday", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void updateUserMonthHoliday_plus(String pkId, long dateDiff) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Id", pkId);
+		map.put("dateDiff", dateDiff);
+		try {
+			sqlSession.update(namespace + ".updateUserMonthHoliday_plus", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 }

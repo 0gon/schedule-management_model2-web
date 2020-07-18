@@ -18,41 +18,15 @@ public class UserVO {
 	private String likedDpr;
 	private String likedDest;
 	private int holiday;
-	private int monthHoliday;
+	private float monthHoliday;
 	
 	
-	
-	public String getLikedDpr() {
-		return likedDpr;
-	}
-	public void setLikedDpr(String likedDpr) {
-		this.likedDpr = likedDpr;
-	}
-	public String getLikedDest() {
-		return likedDest;
-	}
-	public void setLikedDest(String likedDest) {
-		this.likedDest = likedDest;
-	}
-	public int getHoliday() {
-		return holiday;
-	}
-	public void setHoliday(int holiday) {
-		this.holiday = holiday;
-	}
-	public int getMonthHoliday() {
+	public float getMonthHoliday() {
 		return monthHoliday;
 	}
-	public void setMonthHoliday(int monthHoliday) {
+	public void setMonthHoliday(float monthHoliday) {
 		this.monthHoliday = monthHoliday;
 	}
-	public int getUseyn() {
-		return useyn;
-	}
-	public void setUseyn(int useyn) {
-		this.useyn = useyn;
-	}
-	
 	public int getId() {
 		return Id;
 	}
@@ -89,11 +63,35 @@ public class UserVO {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
+	public int getUseyn() {
+		return useyn;
+	}
+	public void setUseyn(int useyn) {
+		this.useyn = useyn;
+	}
 	public String getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
+	}
+	public String getLikedDpr() {
+		return likedDpr;
+	}
+	public void setLikedDpr(String likedDpr) {
+		this.likedDpr = likedDpr;
+	}
+	public String getLikedDest() {
+		return likedDest;
+	}
+	public void setLikedDest(String likedDest) {
+		this.likedDest = likedDest;
+	}
+	public int getHoliday() {
+		return holiday;
+	}
+	public void setHoliday(int holiday) {
+		this.holiday = holiday;
 	}
 	@Override
 	public String toString() {
@@ -102,5 +100,7 @@ public class UserVO {
 				+ ", likedDpr=" + likedDpr + ", likedDest=" + likedDest + ", holiday=" + holiday + ", monthHoliday="
 				+ monthHoliday + "]";
 	}
+	
+	
 	
 }

@@ -16,6 +16,7 @@
 		<div class="calendarForm w3-center  w3-container w3-padding"
 			id="modal_u">
 			<form id="updateinput">
+				<input type="hidden" name="memberId" value="${userVO.id}" >
 				<ul class="w3-ul w3-light-grey">
 				                <li><label>일정구분</label>
                 
