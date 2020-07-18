@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import model.OvertimePriceVO;
-import model.TrafficPriceVO;
 import model.UserVO;
 
 public class OvertimeDAO extends MybatisConnector {
@@ -23,6 +22,14 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession = sqlSession();
 		String 	gid = sqlSession.selectOne(namespace + ".selectLastGroupId"); 
 		if(gid == null) gid = "0";
+		sqlSession.close();
+		return gid;
+	}
+	public String selectTargetGroupId(String cardId) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("cardId", cardId);
+		String gid = sqlSession.selectOne(namespace + ".selectTargetGroupId",map); 
 		sqlSession.close();
 		return gid;
 	}
@@ -49,6 +56,16 @@ public class OvertimeDAO extends MybatisConnector {
 		map.put("Id", Id);
 		try {
 			return sqlSession.selectList(namespace + ".selectOvertimeInfoByPK", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<?> selectOvertimeUserInfoByPK(String Id) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("Id", Id);
+		try {
+			return sqlSession.selectList(namespace + ".selectOvertimeUserInfoByPK", map);
 		} finally {
 			sqlSession.close();
 		}

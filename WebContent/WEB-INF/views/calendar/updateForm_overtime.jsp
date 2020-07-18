@@ -21,7 +21,8 @@
 				<input type="hidden" name="groupId" value="${overtimeVO.groupId }">
 				<ul class="w3-ul w3-light-grey">
 				<li>
-					<div class="w3-padding">
+				<font size="3" color="grey"> * 등록인 수정은 삭제 후 재등록 바랍니다.</font>
+					<div  style="margin-top:10px">
 						<label>내 용 : </label> <input type="text" id="content_u"
 							value="${overtimeVO.content}" name="content"
 							class="w3-input w3-round"
@@ -58,11 +59,13 @@
 					</li>
 
 					<li>
-						<button class="w3-button w3-black" id="commitbtn"
+						<button class="w3-button w3-border" id="commitbtn"
 							onclick="checkValue_u_o()">수정</button>
+						<input type="reset" class="w3-button w3-red"
+				    	onclick="deleteCardForCal('o${overtimeVO.id}');" value="삭제">	
 						<button id="cancelbtn"
 							onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();"
-							class="w3-button w3-red">취소</button>
+							class="w3-button w3-border">취소</button>
 					</li>
 				</ul>
 			</form>

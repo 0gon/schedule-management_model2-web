@@ -84,7 +84,7 @@ var dataset = [
                    document.getElementById('message').style.display='block';
             }
             , eventDrop: function(event, delta, revertFunc) {
-                if (!confirm(event.title + "등록일을 " + event.start.format() + "로 이동합니다.")) {	
+                if (!confirm(event.title + " 등록일을 " + event.start.format() + "로 이동합니다.")) {	
                      revertFunc(); 
                 }else{
                   var data='id='+event.id+"&useDate="+event.start.format()+"&groupId="+event.groupId;
@@ -154,11 +154,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     <p class="w3-text-grey">POS part_휴무관리시스템</p>
   </div>
   <div class="w3-bar-block">
-    <a href="${ pageContext.servletContext.contextPath }/page/register" 
-    onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>일정등록</a> 
     <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
-    onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
-    <i class="fa fa-users fa-fw w3-margin-right"></i>일정현황</a> 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal">
+    <i class="fa fa-users fa-fw w3-margin-right"></i>일정현황</a>
+     
+    <a href="${ pageContext.servletContext.contextPath }/page/register" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa-th-large fa-fw w3-margin-right"></i>법인카드 사용등록</a> 
+    
+    
     <a href="${ pageContext.servletContext.contextPath }/page/user/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
     <i class="fa fa-sign-out fa-fw w3-margin-right "></i>로그아웃</a> 
  

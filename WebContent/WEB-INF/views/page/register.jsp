@@ -103,11 +103,12 @@
 	function buildMemberList (memberListType) {
 		var memberList ='<table class="w3-table"><tr>';
 	    for(var j=0;j<memberListType.length;j++){
+	    	// UI 맞추기 위한 반복문, 한줄에 7명
 	    	if(j!=0 && j%7==0){
-	    		memberList +='</tr><tr><td class="memberSelector w3-center w3-border " id="'+memberListType[j].memberId
+	    		memberList +='</tr><tr><td class="memberSelector w3-center w3-border w3-button" id="'+memberListType[j].memberId
 	    		+'" onclick="memberClick('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
 	    	}else{
-	    		memberList +='<td class="memberSelector w3-center w3-border" id="'+memberListType[j].memberId
+	    		memberList +='<td class="memberSelector w3-center w3-border w3-button" id="'+memberListType[j].memberId
 	    		+'" onclick="memberClick('+memberListType[j].memberId+')">'+memberListType[j].memberNm+'</td>'
 	    	}
 	    }
@@ -177,8 +178,16 @@
   <!-- Header -->
   <header id="portfolio">
     <a href="#"><img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-    <div class="w3-container" style="padding-top:  10px">
-        <font size="6">법인카드 사용내역 </font>
+    <div class="w3-container" style="padding-top:  5px">
+        <font size="5">법인카드 사용내역 </font>
+         <div class="w3-padding w3-bottombar">
+	        <font size="4">달력에 등록된</font> 
+	        <font size="5" color="red">[교통비], [야근식대]</font>
+	        <font size="4">를 드래그하여 다른 날짜로 이동가능합니다.</font>
+         </div>
+        
+    <!-- 일정관리에서 법인카드 사용으로 변경_2020.07 -->
+    <!-- 
     <div class="w3-padding w3-bottombar">
      <c:if test="${userVO.grade==0}">
      <table>
@@ -221,7 +230,9 @@
      </div>
      </c:if>	
     </div>
+     -->
     </div>
+    <hr>
   </header>
   
 <div class="w3-container w3-padding-large" style="margin-bottom:32px">
@@ -233,7 +244,7 @@
 </div>
 
      <!-- 메시지 모달 -->
-<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:600px;margin-left:30%;padding-top:10px;">
+<div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:700px;margin-left:30%;">
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
@@ -245,7 +256,6 @@
             <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
         <div class="w3-container " >
-    	<font size="3" color="grey"> * 등록한 내용은 드래그시 다른날짜로 이동가능합니다.</font>
         <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
@@ -261,10 +271,10 @@
                        </select>
                         <p></p>
                         <label>내 용 : </label>
-                        <input type="text" id="content" name="content" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder=" 12자 이내">
+                        <input type="text" id="content" name="content" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder=" 20자 이내">
                         <div id="shopDIV" style="margin-top:5px;display:none">
                         <label>음식점 : </label>
-                        <input type="text" id="shopName" name="shopName" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder=" 12자 이내">
+                        <input type="text" id="shopName" name="shopName" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder="20자 이내">
                         </div>
                     </div>
                     </li>
@@ -273,12 +283,12 @@
                     <div id="taxi_content">
                         <div style="padding-top:5px" >
                               출발지 : <input type="text" id="departure" name="departure" value="${userVO.likedDpr }" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
-                              <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},1)" style="padding:8px"title="자주가는 출발지 등록" ></i>
+                            <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},1)" style="padding:8px"title="자주가는 출발지 등록" ></i>
                         </div>
                               <i class="fa fa-refresh w3-button" onclick="placeChange()" style="padding:8px"></i>
                         <div style="padding-bottom:5px" >
                               도착지 : <input type="text" id="destination" name="destination" value="${userVO.likedDest }" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 경기도 대화동">
-                             <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},2)" style="padding:8px" title="자주가는 도착지 등록" ></i>
+                           <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},2)" style="padding:8px" title="자주가는 도착지 등록" ></i>
                         </div>     
                     </div>    
                     <!--교통비 end-->
@@ -299,13 +309,13 @@
                         
                          <div class="w3-padding ">
                          <!-- zerogon id값을 실제 회원id값으로 변경필요 -->
-                        <div class="memberSelector w3-border w3-padding w3-margin" 
+                        <div class="memberSelector w3-border w3-padding w3-margin w3-button" 
                         id="75" onclick="memberClick('75');" style="display: inline">황영민</div>
-                        <div class="memberSelector w3-border w3-padding" 
+                        <div class="memberSelector w3-border w3-padding w3-button" 
                         id="76" onclick="memberClick('76');" style="display: inline">윤재웅</div>
-                        <div class="memberSelector w3-border w3-padding" 
+                        <div class="memberSelector w3-border w3-padding w3-button" 
                         id="77" onclick="memberClick('77');" style="display: inline">최광명</div>
-                        <div class="memberSelector w3-border w3-padding" 
+                        <div class="memberSelector w3-border w3-padding w3-button" 
                         id="78" onclick="memberClick('78');" style="display: inline">유승록</div>
                         </div>
                         <!-- **영업1담당** -->
@@ -394,6 +404,7 @@
        
                 </ul>
             </form>
+       <!--  <font size="3" color="grey"> * 등록한 내용은 드래그시 다른날짜로 이동가능합니다.</font> -->
         </div>
         </div>
     </div>
@@ -402,9 +413,9 @@
 <script>
 
 $('#content, #departure, #destination, #shopName').on('keyup', function() {
-	if($(this).val().length > 12) {
-		alert("12자로 이내로 제한됩니다.");
-		$(this).val($(this).val().substring(0, 12));
+	if($(this).val().length > 20) {
+		alert("20자로 이내로 제한됩니다.");
+		$(this).val($(this).val().substring(0, 20));
 	}
 });
 
@@ -686,9 +697,9 @@ function fromServerForUpdate() {
 			});
 
 			$('#content_u, #departure, #destination').on('keyup', function() {
-				if($(this).val().length > 12) {
-					alert("12자로 이내로 제한됩니다.");
-					$(this).val($(this).val().substring(0, 12));
+				if($(this).val().length > 20) {
+					alert("20자로 이내로 제한됩니다.");
+					$(this).val($(this).val().substring(0, 20));
 				}
 			});
 		}

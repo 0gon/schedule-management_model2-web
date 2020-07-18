@@ -28,7 +28,8 @@ public class DeleteCardForCal implements CommandHandler {
 		if(cardType == 't') {
 			trafficDAO.deleteTraffic(Integer.parseInt(cardId));
 		}else {
-			overtimeDAO.deleteOvertime(Integer.parseInt(cardId));
+			String groupId = overtimeDAO.selectTargetGroupId(cardId);
+			overtimeDAO.deleteOvertime(Integer.parseInt(groupId));
 		}
 		return "/WEB-INF/views/calendar/deleteSuccessMessageForCal.jsp";
 	}

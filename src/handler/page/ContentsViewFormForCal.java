@@ -1,18 +1,17 @@
 package handler.page;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.CommandHandler;
-import dao.DutyDAO;
 import dao.OvertimeDAO;
-import dao.ScheduleDAO;
 import dao.TrafficDAO;
-import model.DutyVO;
 import model.OvertimePriceVO;
-import model.ScheduleVO;
 import model.TrafficPriceVO;
 
 public class ContentsViewFormForCal implements CommandHandler {
@@ -35,6 +34,19 @@ public class ContentsViewFormForCal implements CommandHandler {
 			return "/WEB-INF/views/calendar/contentsView_traffic.jsp";
 		}else {
 			OvertimePriceVO overtimeVO = overtimeDAO.selectOvertimeInfoByOVTPK(Integer.parseInt(cardId));
+			//groupId를 가지고와서 그룹으로 등록된 정보(targetNm, targetId) 가져오기 
+			String groupId = overtimeDAO.selectTargetGroupId(cardId);
+			List<?> overtimes = overtimeDAO.selectOvertimeUserInfoByPK(groupId);
+			List overtimesLi = null;
+			Iterator<?> it2 = overtimes.iterator();
+			if (it2.hasNext()) {
+				overtimesLi = new ArrayList<OvertimePriceVO>();
+				do {
+					OvertimePriceVO overtimeVO_user = (OvertimePriceVO) it2.next();
+					overtimesLi.add(overtimeVO_user);
+				} while (it2.hasNext());
+			}
+			req.setAttribute("overtimesLi",overtimesLi);
 			req.setAttribute("overtimeVO",overtimeVO);
 			return "/WEB-INF/views/calendar/contentsView_overtime.jsp";
 		}
