@@ -184,10 +184,10 @@
 							<font color="blue" size="4">${userVO.monthHoliday } </font>
 							<font color="grey">&nbsp;개</font> 
 							<font color="grey">&nbsp;&nbsp;남은대휴 :</font> 
-							<font color="blue" size="4">${userVO.alterHoliday } </font>
+							<font color="red" size="4">${userVO.alterHoliday } </font>
 							<font color="grey">&nbsp;개</font> 
 							<font color="grey">&nbsp;&nbsp;남은휴가 :</font> 
-							<font color="blue" size="4">${userVO.holiday } </font>
+							<font color="red" size="4">${userVO.holiday } </font>
 							<font color="grey">&nbsp;일</font> 
 						</td>
 						<td>
@@ -282,9 +282,11 @@
                         <span>
                             연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
                         </span>&nbsp;
+                        <!-- 
                         <span>
                             반차: <input type="radio" name="humu" value="0" class="w3-radio" >
                         </span>&nbsp;
+                         -->
                         <span>
                             대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
                         </span>&nbsp;
