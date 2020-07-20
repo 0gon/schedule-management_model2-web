@@ -17,7 +17,7 @@ function fromServerForUpdate() {
 					dateFormat: 'yy-mm-dd' //Input Display Format 변경
 						,showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
 						,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-						,stepMonths: 0 // 월 넘어가는 수 
+						,stepMonths: 1 // 월 넘어가는 수 
 						,changeYear: false //콤보박스에서 년 선택 가능
 						,changeMonth: false //콤보박스에서 월 선택 가능                
 						,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                

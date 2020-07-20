@@ -130,16 +130,16 @@ public class UpdateProDuty implements CommandHandler {
 			}
 		//스케줄 아이디에 해당하는 스케줄의 content값이 연차가 아닌경우 ex) 점검이였다가 연차로 바뀌는 경우
 		} else {
-				if((monthHoliCnt-dateDiff)<0) {
-					req.setAttribute("userVO",userVO);
-					req.setAttribute("dateDiff",dateDiff);
-					return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
-				}
-				else{
-					// dateDiff 만큼 member DB에 연차갯수 업데이트
-					userDAO.updateUserMonthHoliday(memberId, dateDiff);
-					content ="연차" ;
-				};
+			if((monthHoliCnt-dateDiff)<0) {
+				req.setAttribute("userVO",userVO);
+				req.setAttribute("dateDiff",dateDiff);
+				return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
+			}
+			else{
+				// dateDiff 만큼 member DB에 연차갯수 업데이트
+				userDAO.updateUserMonthHoliday(memberId, dateDiff);
+				content ="연차" ;
+			};
 		}	
 		//반차에서 
 		scheduleVO.setDutyId(Integer.parseInt(dutyId));
