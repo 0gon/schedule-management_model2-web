@@ -137,7 +137,7 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public void updateUserMonthHoliday(String pkId, long dateDiff) {
+	public void updateUserMonthHoliday(String pkId, float dateDiff) {
 		sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", pkId);
@@ -150,37 +150,13 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	
-	public void updateUserMonthHoliday_plus(String pkId, long dateDiff) {
+	public void updateUserMonthHoliday_plus(String pkId, float dateDiff) {
 		sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", pkId);
 		map.put("dateDiff", dateDiff);
 		try {
 			sqlSession.update(namespace + ".updateUserMonthHoliday_plus", map);
-			sqlSession.commit();
-		} finally {
-			sqlSession.close();
-		}
-	}
-	public void updateUserMonthHoliday_ban(String pkId, float dateDiff) {
-		sqlSession = sqlSession();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("Id", pkId);
-		map.put("dateDiff", dateDiff);
-		try {
-			sqlSession.update(namespace + ".updateUserMonthHoliday_ban", map);
-			sqlSession.commit();
-		} finally {
-			sqlSession.close();
-		}
-	}
-	public void updateUserMonthHoliday_plus_ban(String pkId, float dateDiff) {
-		sqlSession = sqlSession();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("Id", pkId);
-		map.put("dateDiff", dateDiff);
-		try {
-			sqlSession.update(namespace + ".updateUserMonthHoliday_plus_ban", map);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

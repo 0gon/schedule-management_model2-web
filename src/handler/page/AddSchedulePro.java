@@ -62,7 +62,7 @@ public class AddSchedulePro implements CommandHandler {
 				return "/WEB-INF/views/calendar/failMessage_banCha.jsp";
 			}else{
 				// dateDiff 만큼 member DB에 연차갯수 업데이트
-				userDAO.updateUserMonthHoliday_ban(memberId, banChaVal);
+				userDAO.updateUserMonthHoliday(memberId, banChaVal);
 				content = "반차";
 			};
 		}

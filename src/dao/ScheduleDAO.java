@@ -100,16 +100,6 @@ public class ScheduleDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public ScheduleVO selectScheduleInfoBySCHPK_humu(int scheduleId) {
-		sqlSession = sqlSession();
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("scheduleId", scheduleId);
-		try {
-			return sqlSession.selectOne(namespace + ".selectScheduleInfoBySCHPK_humu", map);
-		} finally {
-			sqlSession.close();
-		}
-	}
 	
 	public void deleteSchedule(int scheduleId) {
 		

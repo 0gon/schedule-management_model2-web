@@ -282,11 +282,9 @@
                         <span>
                             연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
                         </span>&nbsp;
-                        <!-- 
                         <span>
                             반차: <input type="radio" name="humu" value="0" class="w3-radio" >
                         </span>&nbsp;
-                         -->
                         <span>
                             대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
                         </span>&nbsp;
