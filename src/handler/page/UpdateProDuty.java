@@ -12,6 +12,65 @@ import model.ScheduleVO;
 import model.UserVO;
 
 public class UpdateProDuty implements CommandHandler {
+	/*
+	  banType  0 : 보유+수정
+	  banType  1 : 보유+(등록된-수정)
+	  banType  2 : 보유+(등록된-수정*0.5)
+	  banType  3 : 보유+(등록된*0.5-수정)
+	  banType  4 : 보유+0.5등록된	
+	 */
+	
+	public long humuPlusValue(int banVal, int banType, long registedDiff, long updateDiff) {
+		long plusValue = 0;
+		switch(banType) {
+		    case 0: 
+		    	 plusValue = updateDiff;
+		         break;
+		    case 1: 
+		    	 plusValue = registedDiff-updateDiff;
+		    	 break;
+		    case 2:
+		    	 plusValue = (long) (registedDiff-updateDiff*0.5);
+		    	 break;
+		    case 3: 
+		    	 plusValue = (long) (registedDiff*0.5 - updateDiff);
+		         break;
+		    case 4: 
+		    	 plusValue = (long) (0.5*registedDiff);
+		    	 break;
+		}
+		return plusValue;
+	}
+	/*
+	  banType  0 : 보유-수정
+	  banType  1 : 보유-(수정-등록된)
+	  banType  2 : 보유-(등록된-수정)
+	  banType  3 : 보유-0.5*등록된
+	  banType  4 : 보유-(수정-0.5등록된)
+	 */
+	public long humuMinusValue(int banVal, int banType, long registedDiff, long updateDiff) {
+		long minusValue = 0;
+		switch(banType) {
+		case 0: 
+			minusValue = updateDiff;
+			break;
+		case 1: 
+			minusValue = updateDiff-registedDiff;
+			break;
+		case 2:
+			minusValue = (long) (registedDiff-updateDiff);
+			break;
+		case 3: 
+			minusValue = (long) (registedDiff*0.5);
+			break;
+		case 4: 
+			minusValue = (long) (updateDiff-0.5*registedDiff);
+			break;
+		}
+		return minusValue;
+	}
+	
+	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String scheduleId = req.getParameter("id");
@@ -23,10 +82,7 @@ public class UpdateProDuty implements CommandHandler {
 		String huga = req.getParameter("huga");
 		String etc = req.getParameter("etc");
 		String working = req.getParameter("working");
-		String startWorkTime = req.getParameter("startWorkTime");
-		String endWorkTime = req.getParameter("endWorkTime");
 		String Realetc = req.getParameter("Realetc");
-		String chkBox = req.getParameter("chkBox");
 		String memberId = req.getParameter("memberId");
 		ScheduleVO scheduleVO = new ScheduleVO();
 		
