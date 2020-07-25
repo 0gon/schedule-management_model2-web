@@ -111,7 +111,7 @@ public class UpdateProDuty implements CommandHandler {
 		
 		java.sql.Date transStartDate= java.sql.Date.valueOf(startDate);
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
-		
+		// update member set MONTHHOLIDAY = 3 where id = 6;
 		long updateDiff =((transEndDate.getTime()-transStartDate.getTime())/(24*60*60*1000))+1;
 		//연차, 휴무 갯수 확인 로직
 		ScheduleVO scheduleVO_db = scheduleDAO.selectScheduleInfoBySCHPK(Integer.parseInt(scheduleId));
@@ -185,13 +185,85 @@ public class UpdateProDuty implements CommandHandler {
 				}
 					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
 					userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
-					scheduleVO.setDutyId(Integer.parseInt(dutyId));scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO.setDutyId(Integer.parseInt(dutyId));
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+			//기간연차에서 수정하는 경우
 			}else {
-				
+				if(dutyId.equals("1") && humu.equals("1")) {
+					content = "연차";
+					//등록된연차보다 더 짧게 등록한 경우
+					if(registedDiff - updateDiff > 0) {
+						float dateDiffVal = humuPlusValue(1,1,registedDiff,updateDiff);
+						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
+					//등록된 연차보다 더 길게 등록한 경우
+					}else if(registedDiff - updateDiff < 0){
+						//보유보다 많이 등록한 경우
+						if(monthHoliCnt < diffVal) {
+							req.setAttribute("userVO",userVO);
+							req.setAttribute("dateDiff",diffVal);
+							return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
+						}else{
+							float dateDiffVal = humuMinusValue(1,1,registedDiff,updateDiff);
+							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
+						}
+					}
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleDAO.updateScheduleDuty(scheduleVO);
+						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+				}else if(dutyId.equals("1") && humu.equals("0")) {
+					content = "반차";
+					//등록된 연차보다 차감수가 더 적게 수정되는 경우 ex) 연차 3개, 반차 5개(2.5) : 연차 0.5 증가 
+					if(registedDiff-(0.5*updateDiff)>0) {
+						float dateDiffVal = humuPlusValue((float)0.5,2,registedDiff,updateDiff);
+						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
+					}else if(registedDiff-(0.5*updateDiff)<0){
+						//보유보다 많이 등록한 경우
+						if(monthHoliCnt < (0.5*updateDiff-registedDiff)) {
+							req.setAttribute("userVO",userVO);
+							req.setAttribute("dateDiff",(0.5*updateDiff-registedDiff));
+							return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
+						}else if((monthHoliCnt-(0.5*updateDiff-registedDiff))>=0){
+							float dateDiffVal = humuMinusValue((float)0.5,5,registedDiff,updateDiff);
+							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
+						}
+					}
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleDAO.updateScheduleDuty(scheduleVO);
+					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+				}else if(dutyId.equals("1") && humu.equals("2")) {
+					content = "대체휴무";
+				}else if(dutyId.equals("1") && humu.equals("3")) {
+					content = "공가";
+				}else if(dutyId.equals("1") && humu.equals("4")) {
+					content = "보상";
+				}else if(dutyId.equals("1") && humu.equals("5")) {
+					content = "정기휴무";
+				}else if(dutyId.equals("2") && eduSubject!=null) {
+					content=eduSubject;
+				}else if(dutyId.equals("3") && huga.equals("1")) {
+					content = "Refresh 휴가";
+				}else if(dutyId.equals("3") && huga.equals("2")) {
+					content = "하계휴가";
+				}else if(dutyId.equals("4") && etc!=null) {
+					content=etc;
+				}else if(dutyId.equals("5") && working.equals("1")) {
+					content ="주말근무" ;
+				}else if(dutyId.equals("5") && working.equals("2")) {
+					content ="책임당직" ;
+				}else if(dutyId.equals("5") && working.equals("3")) {
+					content ="재택근무" ;
+				}else if(dutyId.equals("7") && Realetc!=null) {
+					content =Realetc ;
+				}
+				float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
+				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
+				scheduleVO.setDutyId(Integer.parseInt(dutyId));
+				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+				scheduleDAO.updateScheduleDuty(scheduleVO);
+				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
-			
 		}else if(scheduleVO_db.getContent().equals("반차")) {
 			
 		}else {
