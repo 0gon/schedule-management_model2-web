@@ -39,7 +39,7 @@ public class ScheduleDAO extends MybatisConnector {
 	public void insertScheduleALL(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
 			String content,String startWorkTime,String endWorkTime) {
 		sqlSession = sqlSession();
-		HashMap map = new HashMap();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("dutyId", dutyId); 
 		map.put("transStartDate", transStartDate);
 		map.put("transEndDate", transEndDate);

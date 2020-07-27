@@ -28,6 +28,8 @@ public class DeleteSchedulePro implements CommandHandler {
 			userDAO.updateUserMonthHoliday_plus(pkId, dateDiff);
 		}else if(scheduleVO.getContent().equals("반차")) {
 			userDAO.updateUserMonthHoliday_plus(pkId, banChaVal);
+		}else if(scheduleVO.getContent().equals("주말근무")||scheduleVO.getContent().equals("책임당직")) {
+			userDAO.updateAlterHoliday_minus(pkId, dateDiff);
 		}
 		//type 관리자 구분용 
 		String type = req.getParameter("type");

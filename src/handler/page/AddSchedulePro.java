@@ -31,7 +31,8 @@ public class AddSchedulePro implements CommandHandler {
 		ScheduleVO scheduleVO = new ScheduleVO();
 		//상세내용 설정
 		String content="";
-
+		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
+		
 		java.sql.Date transStartDate= java.sql.Date.valueOf(startDate);
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
 		
@@ -102,8 +103,10 @@ public class AddSchedulePro implements CommandHandler {
 			}
 		}else if(dutyId.equals("5") && working.equals("1")) {
 			content ="주말근무" ;
+			userDAO.updateAlterHoliday(Integer.parseInt(memberId), dateDiff);
 		}else if(dutyId.equals("5") && working.equals("2")) {
 			content ="책임당직" ;
+			userDAO.updateAlterHoliday(Integer.parseInt(memberId), dateDiff);
 		}else if(dutyId.equals("5") && working.equals("3")) {
 			content ="재택근무" ;
 		}else if(dutyId.equals("7") && Realetc!=null) {
@@ -125,7 +128,7 @@ public class AddSchedulePro implements CommandHandler {
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
 		scheduleVO.setEndDate(sqlDate);
-		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
+	
 		
 		//전체등록
 		if(memberId.equals("0")) {

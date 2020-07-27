@@ -181,10 +181,20 @@
 					<tr>
 						<td class="w3-border " width="350px;padding:5px">
 							<font color="grey">&nbsp;남은연차 :</font> 
-							<font color="blue" size="4">${userVO.monthHoliday } </font>
+							 <c:if test="${userVO.monthHoliday==0}">
+								<font color="red" size="4">${userVO.monthHoliday } </font>
+							 </c:if> 
+							 <c:if test="${userVO.monthHoliday!=0}">
+								<font color="blue" size="4">${userVO.monthHoliday } </font>
+							 </c:if>
 							<font color="grey">&nbsp;개</font> 
 							<font color="grey">&nbsp;&nbsp;남은대휴 :</font> 
-							<font color="red" size="4">${userVO.alterHoliday } </font>
+							 <c:if test="${userVO.alterHoliday==0}">
+								<font color="red" size="4">${userVO.alterHoliday } </font>
+							 </c:if>
+							 <c:if test="${userVO.alterHoliday!=0}">
+								<font color="blue" size="4">${userVO.alterHoliday } </font>
+							 </c:if>
 							<font color="grey">&nbsp;개</font> 
 							<font color="grey">&nbsp;&nbsp;남은휴가 :</font> 
 							<font color="red" size="4">${userVO.holiday } </font>
