@@ -119,7 +119,7 @@ public class AddSchedulePro implements CommandHandler {
 		scheduleVO.setMemberId(Integer.parseInt(memberId));
 		scheduleVO.setContent(content);
 		scheduleVO.setEndDate(transEndDate);
-		
+		scheduleVO.setDptNo(userVO.getDptNo());
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(scheduleVO.getEndDate());
 		cal.add(Calendar.DATE, 1);
@@ -130,9 +130,9 @@ public class AddSchedulePro implements CommandHandler {
 		scheduleVO.setEndDate(sqlDate);
 	
 		
-		//전체등록
+		//팀 전체등록
 		if(memberId.equals("0")) {
-			List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
+			List<?> members = userDAO.selectUserAllInfo();
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
 		}else {
 			scheduleDAO.insertSchedule(scheduleVO);

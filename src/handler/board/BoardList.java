@@ -66,7 +66,6 @@ public class BoardList implements CommandHandler {
 		if (endPage > pageCount)
 			endPage = pageCount;
 		
-		List<?> schedules = scheduleDAO.selectScheduleAll();
 		
 		//게시판 변수들
 		req.setAttribute("count", count);
@@ -78,7 +77,6 @@ public class BoardList implements CommandHandler {
 		req.setAttribute("currentPage", currentPage);
 		req.setAttribute("pageNum", pageNum);
 		
-		req.setAttribute("schedules", schedules);
 		req.setAttribute("boards", boards);
 		return "/WEB-INF/views/board/boardList.jsp";
 	}

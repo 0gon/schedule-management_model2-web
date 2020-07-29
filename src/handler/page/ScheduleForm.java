@@ -61,7 +61,7 @@ public class ScheduleForm implements CommandHandler {
 		if (endPage > pageCount)
 			endPage = pageCount;
 		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
-		List<?> schedules = scheduleDAO.selectScheduleAll();
+		List<?> schedules = scheduleDAO.selectScheduleAllByDptNo(userVO.getDptNo());
 		List<?> duties = dutyDAO.selectDutyInfo();
 		//게시판 변수들
 		req.setAttribute("count", count);

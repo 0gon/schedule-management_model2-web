@@ -100,20 +100,20 @@
 		<div class="w3-container" style="padding-top: 10px">
 		
 		<div class="w3-row">
-			<div class="w3-col" style="width:460px;height:88px"> 
+			<div class="w3-col" style="width:350px;height:88px"> 
 				<font size="6">일정현황</font> <i
 					class="fa fa-arrow-circle-o-left w3-button"
 					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
 				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
 					class="	fa fa-arrow-circle-o-right w3-button"
 					style="font-size: 34px;" onclick="nextCalendar()"></i>
-	
+	<!--  
 				<button class='w3-button w3-black' style='margin-left: 5px'
 					onclick="scheduleModal()">
 					<i class="	fa fa-plus" style="font-size: 10px;"
 						></i> <font size="4">일정등록</font>
 				</button>
-				
+			-->	
 				<!-- 현황에 있는사람이거나, 관리자일 경우 공지사항 볼 수 있도록 
 				 <c:if test="${userVO.grade==1 || userVO.useyn==1}">
 					<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
@@ -177,9 +177,9 @@
 
 
 			<div class="w3-padding w3-bottombar">
-				<table style="width:1100px">
+				<table style="width:1200px">
 					<tr>
-						<td class="w3-border " width="350px;padding:5px">
+						<td class="w3-border " width="380px;padding:5px">
 							<font color="grey">&nbsp;남은연차 :</font> 
 							 <c:if test="${userVO.monthHoliday==0}">
 								<font color="red" size="4">${userVO.monthHoliday } </font>
@@ -197,7 +197,12 @@
 							 </c:if>
 							<font color="grey">&nbsp;개</font> 
 							<font color="grey">&nbsp;&nbsp;남은휴가 :</font> 
-							<font color="red" size="4">${userVO.holiday } </font>
+							 <c:if test="${userVO.holiday==0}">
+								<font color="red" size="4">${userVO.holiday } </font>
+							 </c:if>
+							 <c:if test="${userVO.holiday!=0}">
+								<font color="blue" size="4">${userVO.holiday } </font>
+							 </c:if>
 							<font color="grey">&nbsp;일</font> 
 						</td>
 						<td>
@@ -349,9 +354,11 @@
                         <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
+                        <!--  
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
                         </span>&nbsp;
+                        -->
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>

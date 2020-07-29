@@ -6,6 +6,7 @@ public class ScheduleVO {
 	private int Id;
 	private int memberId;
 	private int dutyId;
+	private int dptNo;
 	private Date startDate;
 	private Date endDate;
 	private String content;
@@ -14,6 +15,15 @@ public class ScheduleVO {
 	private UserVO userVO;
 	private DutyVO dutyVO;
 	
+	
+	
+	
+	public int getDptNo() {
+		return dptNo;
+	}
+	public void setDptNo(int dptNo) {
+		this.dptNo = dptNo;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -76,11 +86,10 @@ public class ScheduleVO {
 	}
 	@Override
 	public String toString() {
-		return "ScheduleVO [Id=" + Id + ", memberId=" + memberId + ", dutyId=" + dutyId + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", content=" + content + ", startWorkTime=" + startWorkTime
-				+ ", endWorkTime=" + endWorkTime + ", userVO=" + userVO + ", dutyVO=" + dutyVO + "]";
+		return "ScheduleVO [Id=" + Id + ", memberId=" + memberId + ", dutyId=" + dutyId + ", dptNo=" + dptNo
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", content=" + content + ", startWorkTime="
+				+ startWorkTime + ", endWorkTime=" + endWorkTime + ", userVO=" + userVO + ", dutyVO=" + dutyVO + "]";
 	}
-	
 	
 	
 	

@@ -27,6 +27,14 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<UserVO> selectUserAllInfoByGrade() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserAllInfoByGrade");
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<UserVO> selectUserAllInfoMD() {
 		sqlSession = sqlSession();
 		try {

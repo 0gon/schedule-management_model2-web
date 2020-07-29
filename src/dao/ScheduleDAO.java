@@ -19,10 +19,20 @@ public class ScheduleDAO extends MybatisConnector {
 		return instance;
 	}
 	
-	public List<ScheduleVO> selectScheduleAll() {
+	public List<ScheduleVO> selectScheduleAllByDptNo(int dptNo) {
+		sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("dptNo", dptNo);
+		try {
+			return sqlSession.selectList(namespace + ".selectScheduleAllByDptNo", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<ScheduleVO> selectScheduleAllByGrade() {
 		sqlSession = sqlSession();
 		try {
-			return sqlSession.selectList(namespace + ".selectScheduleAll");
+			return sqlSession.selectList(namespace + ".selectScheduleAllByGrade");
 		} finally {
 			sqlSession.close();
 		}
@@ -50,6 +60,7 @@ public class ScheduleDAO extends MybatisConnector {
 			for(int i=0;i<members.size();i++) {
 				UserVO userVO= (UserVO)members.get(i);
 				map.put("memberId", userVO.getId());
+				map.put("dptNo", userVO.getDptNo());
 				sqlSession.insert(namespace + ".insertScheduleALL", map);
 				sqlSession.commit();
 			}

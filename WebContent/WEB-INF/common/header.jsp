@@ -141,11 +141,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     
     
 <body class="w3-light-grey w3-content" style="max-width:2000px">
-  <button id="openNav" class="w3-button w3-black w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <button id="openNav" class="w3-button w3-black w3-xlarge"  onclick="w3_open()">&#9776;</button>
 <!-- Sidebar/menu -->
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;width:200px" id="mySidebar"><br>
-  <button class="w3-bar-item w3-button w3-large w3-sand w3-center"
-  onclick="w3_close()">Close &times;</button>
+  <button class="w3-bar-item w3-button w3-large w3-black w3-center"
+  onclick="w3_close()">Close <i class="fa fa-close"></i></button>
   <br>
   <div class="w3-container" >
     <img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" onclick="document.getElementById('posInfo').style.display='block'" 
@@ -155,12 +155,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
   </div>
   <div class="w3-bar-block">
     <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
-    onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal">
-    <i class="fa fa-users fa-fw w3-margin-right"></i>일정현황</a>
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa-users fa-fw w3-margin-right"></i><font color="red">휴무</font> 등록</a>
+     
+    <a href="${ pageContext.servletContext.contextPath }/page/scheduleHG" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa-th-large fa-fw w3-margin-right"></i><font color="red">책임당직</font> 등록</a>
      
     <a href="${ pageContext.servletContext.contextPath }/page/register" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
-    <i class="fa fa-th-large fa-fw w3-margin-right"></i>법인카드 사용등록</a> 
+    <i class="fa fa-th-large fa-fw w3-margin-right"></i><font color="red">법인카드</font> 사용등록</a> 
     
     
     <a href="${ pageContext.servletContext.contextPath }/page/user/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
