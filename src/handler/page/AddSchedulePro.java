@@ -32,7 +32,6 @@ public class AddSchedulePro implements CommandHandler {
 		//상세내용 설정
 		String content="";
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
-		
 		java.sql.Date transStartDate= java.sql.Date.valueOf(startDate);
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
 		

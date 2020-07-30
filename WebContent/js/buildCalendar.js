@@ -26,6 +26,16 @@ function buildCalendar(){
         }        
     }
     
+    //세션에 존재하는 내 아이디를 가지고와서 표 맨위로 올리기
+    var currentId = sessionStorage.getItem("currentId"); 
+    for(var i=0;i<memberList.length;i++){
+    	if(memberList[i].memberId==currentId){
+    		var tmp = memberList[i];
+    		memberList[i] = memberList[0];
+    		memberList[0] = tmp;
+    	}
+    }
+    
     month = month < 9 ? month = '0'+(month+1).toString() : month + 1; 
     
     for(var i=1;i<=lastDay;i++){
@@ -43,4 +53,6 @@ function buildCalendar(){
     viewCommonList(memberList, year, month, lastDay, week, weekend);
     viewScheduleList(scheduleList);
  	mouseoverEffect(memberList);
+ 	
+ 	$('#trid'+memberList[0].memberId).attr("style", "background-color:#BBDEFB");
 }

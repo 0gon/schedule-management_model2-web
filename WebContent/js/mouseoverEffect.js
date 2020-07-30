@@ -8,7 +8,7 @@ function mouseoverEffect(memberList){
 	    	// sid=10 20190912 
 	    	//접속아이디와 마우스오버된 아이디가 같은 경우 파랑색 음영 
 	    	if(currentId==Number(mouseoverId)){
-		    	$(this).attr("bgcolor", "#BBDEFB");
+		    //	$(this).attr("bgcolor", "#BBDEFB");
 	    	}else{
 		    	$(this).attr("bgcolor", "pink");
 	    	}

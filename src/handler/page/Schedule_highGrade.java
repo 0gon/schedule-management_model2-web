@@ -26,7 +26,7 @@ public class Schedule_highGrade implements CommandHandler {
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
 		List<?> members_HG = userDAO.selectUserAllInfoByGrade();
-		List<?> schedules_HG = scheduleDAO.selectScheduleAllByGrade();
+		List<?> schedules_HG = scheduleDAO.selectScheduleAllByHighGrade();
 		List<?> duties = dutyDAO.selectDutyInfo();
 		//게시판 변수들
 		req.setAttribute("duties", duties);

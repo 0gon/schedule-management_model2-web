@@ -259,7 +259,6 @@
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
-<input type="hidden" value="${memberid }" id="memberidCal">
 
     <!-- 일정 등록 모달 -->
 <div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
@@ -272,7 +271,7 @@
 
         <div class="calendarForm w3-center  " id="modal">
             <form id="userinput" method="post" >
-             <c:if test="${userVO.grade==0}">
+             <c:if test="${userVO.grade!=1}">
              	<input type="hidden" name="memberId" value="${userVO.id}">
 		     </c:if>
                 <ul class="w3-ul w3-light-grey">
@@ -354,11 +353,9 @@
                         <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
-                        <!--  
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
                         </span>&nbsp;
-                        -->
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>

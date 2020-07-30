@@ -29,10 +29,10 @@ public class ScheduleDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public List<ScheduleVO> selectScheduleAllByGrade() {
+	public List<ScheduleVO> selectScheduleAllByHighGrade() {
 		sqlSession = sqlSession();
 		try {
-			return sqlSession.selectList(namespace + ".selectScheduleAllByGrade");
+			return sqlSession.selectList(namespace + ".selectScheduleAllByHighGrade");
 		} finally {
 			sqlSession.close();
 		}
