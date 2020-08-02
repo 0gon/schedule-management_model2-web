@@ -45,7 +45,8 @@
 		if ("${member.useyn}" == 1) {
 			var memberVO = {
 				memberId : "${member.id}",
-				memberNm : "${member.memberNm}"
+				memberNm : "${member.memberNm}",
+				grade : "${member.grade}",
 			}
 			memberList.push(memberVO);
 		}
@@ -86,8 +87,6 @@
 		
 		buildCalendar();
 		datePicker();
-		$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList');
-		
 	});
 	
 </script>
@@ -179,8 +178,8 @@
         <button id="xbutton" onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</button>
 
         <div class="calendarForm w3-center  " id="modal">
-            <form id="userinput" method="post" >
-             <c:if test="${userVO.grade==0}">
+            <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/addSchedule">
+             <c:if test="${userVO.grade!=1}">
              	<input type="hidden" name="memberId" value="${userVO.id}">
 		     </c:if>
                 <ul class="w3-ul w3-light-grey">
@@ -194,13 +193,9 @@
                  </select>
 			    </li>
              </c:if>
-                <li><label><font color="red">해당날짜</font>를 직접 클릭해서 등록가능합니다.</label>
-                    <!-- 근무 -->
-                    <div  id="duty5" style="display: none">
-                        <span>
-                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-                        </span>&nbsp;
-                    </div>
+                <li><h5>등록 시 <font color="red">휴무 등록</font>에 반영됩니다.</h5> 
+                       <input type="hidden" name="dutyId" value="5" >
+                       <input type="hidden" name="working" value="2" >
                     <!--  기타일정 추가-->
                 </li>
        <li><label>시작일</label>
@@ -212,7 +207,7 @@
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
 
-       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
+       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();">
                 취소</button>
                 </li>
                 </ul>

@@ -160,7 +160,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
      
     <a href="${ pageContext.servletContext.contextPath }/page/scheduleHG" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
-    <i class="fa fa-th-large fa-fw w3-margin-right"></i><font color="red">책임당직</font> 등록</a>
+    <i class="fa fa-user fa-fw w3-margin-right"></i><font color="red">책임당직</font> 등록</a>
      
     <a href="${ pageContext.servletContext.contextPath }/page/register" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
@@ -168,8 +168,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     
     
     <a href="${ pageContext.servletContext.contextPath }/page/user/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
-    <i class="fa fa-sign-out fa-fw w3-margin-right "></i>로그아웃</a> 
- 
+    <i class="fa fa-sign-out fa-fw w3-margin-right "></i>로그아웃</a>
+    
+ <!-- 관리자 영역 -->
+ 	<hr>
+    <a href="${ pageContext.servletContext.contextPath }/page/registerList" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa-th-large fa-fw w3-margin-right"></i><font color="blue">법인카드</font> 사용내역</a>
+    <a href="${ pageContext.servletContext.contextPath }/page/userList" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa fa-user-circle fa-fw w3-margin-right"></i><font color="blue">사원</font> 관리</a> 
+    <a href="${ pageContext.servletContext.contextPath }/page/userReg" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa-user-plus fa-fw w3-margin-right"></i><font color="blue">사원</font> 등록</a> 
+ <!-- 관리자 영역 end -->
+    
   </div>
   <!-- 계정정보 모달 -->
   <div id="posInfo" class="w3-modal">

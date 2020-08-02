@@ -54,5 +54,7 @@ function buildCalendar(){
     viewScheduleList(scheduleList);
  	mouseoverEffect(memberList);
  	
- 	$('#trid'+memberList[0].memberId).attr("style", "background-color:#BBDEFB");
+ 	if(currentId == memberList[0].memberId){
+ 		$('#trid'+memberList[0].memberId).attr("style", "background-color:#BBDEFB");
+ 	}
 }

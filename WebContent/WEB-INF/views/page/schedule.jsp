@@ -45,7 +45,7 @@
 		if ("${member.useyn}" == 1) {
 			var memberVO = {
 				memberId : "${member.id}",
-				memberNm : "${member.memberNm}"
+				memberNm : "${member.memberNm}",
 			}
 			memberList.push(memberVO);
 		}
@@ -353,9 +353,11 @@
                         <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
+                        <!--  
                         <span>
                             책임당직: <input type="radio" name="working" value="2" class="w3-radio">
                         </span>&nbsp;
+                        -->
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
@@ -377,7 +379,7 @@
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
 
-       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';">
+       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();">
                 취소</button>
                 </li>
                 </ul>

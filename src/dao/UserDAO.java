@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import model.ScheduleVO;
 import model.UserVO;
 
 public class UserDAO extends MybatisConnector {
@@ -15,6 +16,25 @@ public class UserDAO extends MybatisConnector {
 
 	public static UserDAO getInstance() {
 		return instance;
+	}
+	public int selectUserCount() {
+		int userAllCount = 0;
+		sqlSession = sqlSession();
+		userAllCount = sqlSession.selectOne(namespace + ".selectUserCount");
+		sqlSession.close();
+		return userAllCount;
+	}
+	
+	public List<ScheduleVO> selectUserList(int startRow, int endRow) {
+		sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		try {
+			return sqlSession.selectList(namespace + ".selectUserList", map);
+		} finally {
+			sqlSession.close();
+		}
 	}
 	
 	public List<UserVO> selectUserAllInfoByDpt(int dptNo) {
