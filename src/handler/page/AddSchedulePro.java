@@ -41,10 +41,14 @@ public class AddSchedulePro implements CommandHandler {
 		float banChaVal = banCha * dateDiff;
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfoByPK(Integer.parseInt(memberId));
-		float monthHoliCnt = userVO.getMonthHoliday();		
+		float monthHoliCnt = userVO.getMonthHoliday();	
+		float alterHoliday = userVO.getAlterHoliday();
+		int holiday = userVO.getHoliday();
+		
 		// dutyCode (1:휴무),(2:교육 및 세미나),(3:휴가),(4:기타일정),(5:근무),(6:점검)
 		if(dutyId.equals("1") && humu.equals("1")) {
 			//가지고 있는 연차보다 더 많이 등록한 경우
+			content = "연차";
 			if((monthHoliCnt-dateDiff)<0) {
 				req.setAttribute("userVO",userVO);
 				req.setAttribute("dateDiff",dateDiff);
@@ -52,10 +56,10 @@ public class AddSchedulePro implements CommandHandler {
 			}else{
 				// dateDiff 만큼 member DB에 연차갯수 업데이트
 				userDAO.updateUserMonthHoliday(memberId, dateDiff);
-				content = "연차";
 			};
 		}
 		else if(dutyId.equals("1") && humu.equals("0")) {
+			content = "반차";
 			if((monthHoliCnt-banChaVal)<0) {
 				req.setAttribute("userVO",userVO);
 				req.setAttribute("banChaVal",banChaVal);
@@ -63,11 +67,19 @@ public class AddSchedulePro implements CommandHandler {
 			}else{
 				// dateDiff 만큼 member DB에 연차갯수 업데이트
 				userDAO.updateUserMonthHoliday(memberId, banChaVal);
-				content = "반차";
 			};
 		}
 		else if(dutyId.equals("1") && humu.equals("2")) {
 			content = "대체휴무";
+			//가지고 있는 대휴보다 더 많이 등록한 경우
+			if((alterHoliday-dateDiff)<0) {
+				req.setAttribute("userVO",userVO);
+				req.setAttribute("dateDiff",dateDiff);
+				return "/WEB-INF/views/calendar/failMessage_alterHoliday.jsp";
+			}else{
+				// dateDiff 만큼 member DB에 대휴갯수 업데이트
+				userDAO.updateUserAlterHoliday(memberId, dateDiff);
+			};
 		}
 		else if(dutyId.equals("1") && humu.equals("3")) {
 			content = "공가";
@@ -92,8 +104,19 @@ public class AddSchedulePro implements CommandHandler {
 			}
 		}else if(dutyId.equals("3") && huga.equals("1")) {
 			content = "Refresh 휴가";
+			// dateDiff 만큼 member DB에 연차갯수 업데이트 *Refesh는 마이너스 연차까지 가능
+			userDAO.updateUserMonthHoliday(memberId, dateDiff);
 		}else if(dutyId.equals("3") && huga.equals("2")) {
 			content = "하계휴가";
+			//가지고 있는 휴가보다 더 많이 등록한 경우
+			if((holiday-dateDiff)<0) {
+				req.setAttribute("userVO",userVO);
+				req.setAttribute("dateDiff",dateDiff);
+				return "/WEB-INF/views/calendar/failMessage_holiday.jsp";
+			}else{
+				// dateDiff 만큼 member DB에 휴가갯수 업데이트
+				userDAO.updateUserHoliday(memberId, dateDiff);
+			};
 		}else if(dutyId.equals("4") && etc!=null) {
 			content=etc;
 			if(chkBox!=null) {
@@ -102,10 +125,10 @@ public class AddSchedulePro implements CommandHandler {
 			}
 		}else if(dutyId.equals("5") && working.equals("1")) {
 			content ="주말근무" ;
-			userDAO.updateAlterHoliday(Integer.parseInt(memberId), dateDiff);
+			userDAO.updateUserAlterHoliday_plus(memberId, dateDiff);
 		}else if(dutyId.equals("5") && working.equals("2")) {
 			content ="책임당직" ;
-			userDAO.updateAlterHoliday(Integer.parseInt(memberId), dateDiff);
+			userDAO.updateUserAlterHoliday_plus(memberId, dateDiff);
 		}else if(dutyId.equals("5") && working.equals("3")) {
 			content ="재택근무" ;
 		}else if(dutyId.equals("7") && Realetc!=null) {

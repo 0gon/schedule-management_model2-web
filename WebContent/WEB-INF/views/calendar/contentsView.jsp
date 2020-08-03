@@ -36,7 +36,7 @@
 
 				</table>
 				<div style="margin-top:10px">
-				<c:if test="${schedule.content!='책임당직'}">
+				<c:if test="${schedule.content!='책임당직' && schedule.content!='대체휴무' && schedule.content!='Refresh 휴가' && schedule.content!='하계휴가'}">
 					<button class="w3-button w3-border" onclick="toUpdatePage(${schedule.id});">수정</button>
 				</c:if>
 				<input type="reset" class="w3-button w3-red"

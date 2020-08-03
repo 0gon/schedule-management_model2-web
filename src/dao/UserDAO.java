@@ -190,25 +190,49 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public void updateAlterHoliday(int memberPKID, long dateDiff) {
+	public void updateUserAlterHoliday_plus(String pkId, float dateDiff) {
 		sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("Id", memberPKID);
+		map.put("Id", pkId);
 		map.put("dateDiff", dateDiff);
 		try {
-			sqlSession.update(namespace + ".updateAlterHoliday", map);
+			sqlSession.update(namespace + ".updateUserAlterHoliday_plus", map);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();
 		}
 	}
-	public void updateAlterHoliday_minus(String memberPKID, long dateDiff) {
+	public void updateUserAlterHoliday(String memberPKID, float dateDiff) {
 		sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", memberPKID);
 		map.put("dateDiff", dateDiff);
 		try {
-			sqlSession.update(namespace + ".updateAlterHoliday_minus", map);
+			sqlSession.update(namespace + ".updateUserAlterHoliday", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void updateUserHoliday(String memberPKID, float dateDiff) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Id", memberPKID);
+		map.put("dateDiff", dateDiff);
+		try {
+			sqlSession.update(namespace + ".updateUserHoliday", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void updateUserHoliday_plus(String pkId, float dateDiff) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Id", pkId);
+		map.put("dateDiff", dateDiff);
+		try {
+			sqlSession.update(namespace + ".updateUserHoliday_plus", map);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

@@ -17,15 +17,15 @@
 			class="w3-button w3-display-topright">&times;</span>
 
 		<div class=" w3-center  w3-container w3-padding" id="modal">
-			<h4>남은 연차를 확인하세요.</h4>
+			<h4>남은 휴가를 확인하세요.</h4>
 			<p>
 			<div>
-				<font >&nbsp;남은연차 :</font> 
-				<font color="blue" size="5">${userVO.monthHoliday }</font>
-				<font >&nbsp;개</font><br>
-				<font >&nbsp;필요연차 :</font> 
-				<font color="red" size="5">${banChaVal }</font>
-				<font >&nbsp;개</font>  
+				<font >&nbsp;남은휴가 :</font> 
+				<font color="blue" size="5">${userVO.holiday }</font>
+				<font >&nbsp;개</font><br> 
+				<font >&nbsp;필요휴가 :</font> 
+				<font color="red" size="5">${dateDiff }</font>
+				<font >&nbsp;개</font> 
 			</div>
 				<button
 			onclick="document.getElementById('message').style.display='none'; 

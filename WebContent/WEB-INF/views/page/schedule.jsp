@@ -196,7 +196,7 @@
 								<font color="blue" size="4">${userVO.alterHoliday } </font>
 							 </c:if>
 							<font color="grey">&nbsp;개</font> 
-							<font color="grey">&nbsp;&nbsp;남은휴가 :</font> 
+							<font color="grey">&nbsp;&nbsp;하계휴가 :</font> 
 							 <c:if test="${userVO.holiday==0}">
 								<font color="red" size="4">${userVO.holiday } </font>
 							 </c:if>
@@ -334,7 +334,7 @@
                     <!-- 휴가 huga로 보내서 1 or 2로 받음-->
                     <div class="w3-padding" id="duty3" style="display: none">
                         <span class="w3-margin">
-                            Refresh 휴가: <input type="radio" name="huga" value="1" class="w3-radio" checked>
+                            Refresh 휴가 (<font color="red">연차차감</font>): <input type="radio" name="huga" value="1" class="w3-radio" checked>
                         </span>
                         <span>
                             하계휴가: <input type="radio" name="huga" value="2" class="w3-radio">
@@ -353,11 +353,11 @@
                         <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
-                        <!--  
-                        <span>
-                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-                        </span>&nbsp;
-                        -->
+                         <c:if test="${userVO.grade==2}">
+	                        <span>
+	                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
+	                        </span>&nbsp;
+                         </c:if>
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>

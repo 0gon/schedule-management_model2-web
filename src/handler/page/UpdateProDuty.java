@@ -153,9 +153,7 @@ public class UpdateProDuty implements CommandHandler {
 		UserVO userVO = userDAO.selectUserInfoByPK(Integer.parseInt(memberId));
 		float monthHoliCnt = userVO.getMonthHoliday();
 		
-		System.out.println("monthHoliCnt:"+monthHoliCnt);
-		System.out.println("updateDiff:"+updateDiff);
-		System.out.println("registedDiff:"+registedDiff);
+
 		if(scheduleVO_db.getContent().equals("연차")) {
 			//등록된 게 하루연차인 경우 
 			if(registedDiff==1) {

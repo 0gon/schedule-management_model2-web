@@ -9,7 +9,6 @@ import controller.CommandHandler;
 import dao.ScheduleDAO;
 import dao.UserDAO;
 import model.ScheduleVO;
-import model.UserVO;
 
 public class DeleteSchedulePro implements CommandHandler {
 	@Override
@@ -29,7 +28,13 @@ public class DeleteSchedulePro implements CommandHandler {
 		}else if(scheduleVO.getContent().equals("반차")) {
 			userDAO.updateUserMonthHoliday_plus(pkId, banChaVal);
 		}else if(scheduleVO.getContent().equals("주말근무")||scheduleVO.getContent().equals("책임당직")) {
-			userDAO.updateAlterHoliday_minus(pkId, dateDiff);
+			userDAO.updateUserAlterHoliday(pkId, dateDiff);
+		}else if(scheduleVO.getContent().equals("대체휴무")) {
+			userDAO.updateUserAlterHoliday_plus(pkId, dateDiff);
+		}else if(scheduleVO.getContent().equals("Refresh 휴가")) {
+			userDAO.updateUserMonthHoliday_plus(pkId, dateDiff);
+		}else if(scheduleVO.getContent().equals("하계휴가")) {
+			userDAO.updateUserHoliday_plus(pkId, dateDiff);
 		}
 		//type 관리자 구분용 
 		String type = req.getParameter("type");
