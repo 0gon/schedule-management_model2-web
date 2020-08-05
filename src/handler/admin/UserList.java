@@ -1,20 +1,20 @@
 package handler.admin;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
-import dao.BoardDAO;
-import dao.CommentDAO;
-import dao.ScheduleDAO;
+import dao.DptDAO;
 import dao.UserDAO;
-import model.BoardVO;
+import model.DptVO;
+import model.ScheduleVO;
 import model.UserVO;
 
 public class UserList implements CommandHandler {
@@ -44,10 +44,22 @@ public class UserList implements CommandHandler {
 		int number = 0;
 		
 		List<?> members = null;
+		List membersLi=null;
 		count = userDAO.selectUserCount();
 		
 		if (count > 0) {
 			members = userDAO.selectUserList(startRow, endRow);
+			Iterator<?> it = members.iterator();
+			DptDAO dptDAO = DptDAO.getInstance();
+			if(it.hasNext()) {
+				membersLi=new ArrayList<UserVO>();
+				do {
+					UserVO userVO = (UserVO) it.next();
+					DptVO dptVO = dptDAO.selectDptInfoById(userVO.getDptNo());
+					userVO.setDptVO(dptVO);
+					membersLi.add(userVO);
+				}while(it.hasNext());
+			}
 		}
 		number = count - (currentPage - 1) * pageSize;
 		
@@ -58,8 +70,8 @@ public class UserList implements CommandHandler {
 		if (endPage > pageCount)
 			endPage = pageCount;
 		
-		
 		//게시판 변수들
+		req.setAttribute("membersLi",membersLi);
 		req.setAttribute("count", count);
 		req.setAttribute("number", number);
 		req.setAttribute("startPage", startPage);

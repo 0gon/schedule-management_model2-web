@@ -20,8 +20,14 @@ public class UserVO {
 	private int holiday;
 	private float monthHoliday;
 	private float alterHoliday;
+	private DptVO dptVO;
 	
-	
+	public DptVO getDptVO() {
+		return dptVO;
+	}
+	public void setDptVO(DptVO dptVO) {
+		this.dptVO = dptVO;
+	}
 	public float getAlterHoliday() {
 		return alterHoliday;
 	}
