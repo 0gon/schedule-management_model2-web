@@ -36,6 +36,7 @@
 		      <th class="w3-center">등급</th>
 		      <th class="w3-center">사용여부</th>
 		      <th class="w3-center">등록일</th>
+		      <th class="w3-center">변경</th>
 		    </tr>
     
      <c:forEach var="member" items="${membersLi}">
@@ -48,8 +49,19 @@
       <td class="w3-center">
       	<input type="text" class="w3-input" style="width:100px;height:30px" value="${member.memberPwd}">
       </td>
-       <td>${member.memberNm}</td>
-      <td>${member.dptVO.title}</td>
+       <td>
+        <input type="text" class="w3-input" style="width:80px;height:30px" value="${member.memberNm}">
+       
+       </td>
+      <td>
+      	  	<select name="memberId" class="w3-select" style="width:100px;padding:6px;">
+      	  	<option value="0" selected="selected">${member.dptVO.title}</option>
+      	 <c:forEach var="dpt" items="${dptList}">
+	            <option value="0">${dpt.title}</option>
+      	 </c:forEach>
+	        </select>
+      
+      </td>
       <td>
       <!-- 
       	0: 일반
@@ -58,7 +70,7 @@
       	3: 슈퍼관리자
        -->
        	<c:if test="${member.grade==0}">
-	      	<select name="memberId" class="w3-select" style="width:100px">
+	      	<select name="memberId" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" selected="selected">일반</option>
 	            <option value="1" >관리자</option>
 	            <option value="2" >파트장</option>
@@ -66,7 +78,7 @@
 	        </select>
        	</c:if>
        	<c:if test="${member.grade==1}">
-	      	<select name="memberId" class="w3-select" style="width:100px">
+	      	<select name="memberId" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" >일반</option>
 	            <option value="1" selected="selected">관리자</option>
 	            <option value="2" >파트장</option>
@@ -74,7 +86,7 @@
 	        </select>
        	</c:if>
        	<c:if test="${member.grade==2}">
-	      	<select name="memberId" class="w3-select" style="width:100px">
+	      	<select name="memberId" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" >일반</option>
 	            <option value="1" >관리자</option>
 	            <option value="2" selected="selected">파트장</option>
@@ -82,7 +94,7 @@
 	        </select>
        	</c:if>
        	<c:if test="${member.grade==3}">
-	      	<select name="memberId" class="w3-select" style="width:100px">
+	      	<select name="memberId" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" >일반</option>
 	            <option value="1" >관리자</option>
 	            <option value="2" >파트장</option>
@@ -92,14 +104,25 @@
       </td>
        <td>
        <!--  0: 미사용, 1: 사용 -->
+       
        	<c:if test="${member.useyn==1}">
-       	사용
+	       <select name="memberId" class="w3-select" style="width:70px;padding:6px;">
+				<option selected="selected">사용</option>	       
+				<option>미사용</option>	       
+	       </select>
        	</c:if>
        	<c:if test="${member.useyn==0}">
-       	미사용
+	       <select name="memberId" class="w3-select" style="width:70px;padding:6px;">
+				<option>사용</option>	       
+				<option selected="selected">미사용</option>	       
+	       </select>
        	</c:if>
        </td>
        <td>${member.createDate}</td>
+       <td>
+       	<button class="w3-button w3-red">삭제</button>&nbsp;
+       	<button class="w3-button w3-teal">수정</button>
+       </td>
     </tr>
     </c:forEach>   
   </table>

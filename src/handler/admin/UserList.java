@@ -43,14 +43,15 @@ public class UserList implements CommandHandler {
 		int count = 0;
 		int number = 0;
 		
+		DptDAO dptDAO = DptDAO.getInstance();
 		List<?> members = null;
 		List membersLi=null;
 		count = userDAO.selectUserCount();
+		List dptList = dptDAO.selectDptALLInfo();
 		
 		if (count > 0) {
 			members = userDAO.selectUserList(startRow, endRow);
 			Iterator<?> it = members.iterator();
-			DptDAO dptDAO = DptDAO.getInstance();
 			if(it.hasNext()) {
 				membersLi=new ArrayList<UserVO>();
 				do {
@@ -72,6 +73,7 @@ public class UserList implements CommandHandler {
 		
 		//게시판 변수들
 		req.setAttribute("membersLi",membersLi);
+		req.setAttribute("dptList",dptList);
 		req.setAttribute("count", count);
 		req.setAttribute("number", number);
 		req.setAttribute("startPage", startPage);
