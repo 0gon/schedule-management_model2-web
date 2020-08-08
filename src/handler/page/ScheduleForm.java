@@ -60,7 +60,13 @@ public class ScheduleForm implements CommandHandler {
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
+		List<?> members = null;
+		//슈퍼관리자는 userYN =1인 모든 인원
+			if(userVO.getGrade()==3) {
+				members=userDAO.selectUserAllInfo();
+			}else {
+				members=userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
+			}
 		List<?> schedules = scheduleDAO.selectScheduleAllByDptNo(userVO.getDptNo());
 		List<?> duties = dutyDAO.selectDutyInfo();
 		//게시판 변수들

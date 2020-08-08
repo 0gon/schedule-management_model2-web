@@ -1,6 +1,9 @@
 function scheduleModal() {
 	document.getElementById('addDay').style.display = 'block';
 }
+function scheduleModal_button() {
+	document.getElementById('addDay_button').style.display = 'block';
+}
 
 function borderModal() {
 	document.getElementById('borderList').style.display = 'block';

@@ -150,15 +150,25 @@ public class AddSchedulePro implements CommandHandler {
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		
 		scheduleVO.setEndDate(sqlDate);
-	
 		
-		//팀 전체등록
-		if(memberId.equals("0")) {
+		System.out.println("memberId: "+memberId);
+		String substrId = memberId.substring(0, 1);
+		String substrDptNo = memberId.substring(1);
+		System.out.println("substrId:"+substrId);
+		System.out.println("substrDptNo:"+substrDptNo);
+		
+		//슈퍼관리자로 전체등록하는 경우
+		if(memberId.equals("T")) {
 			List<?> members = userDAO.selectUserAllInfo();
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
+		//관리자 혹은 파트장으로 파트만등록하는 경우
+		}else if (substrId.equals("P")) {
+			
+		//일반으로 등록하는 경우
 		}else {
 			scheduleDAO.insertSchedule(scheduleVO);
 		}
+		
 		return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		}
 }

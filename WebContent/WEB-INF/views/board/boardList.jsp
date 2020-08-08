@@ -56,9 +56,9 @@
 					</c:if>
 					<!-- 댓글이 없는 경우 -->
 					<c:if test="${board.cmtCnt==0 }"> 
-					<td style="width: 60%">: ${board.title }</td>
+					<td style="width: 57%">: ${board.title }</td>
 					</c:if>
-					<td style="width: 22%">&nbsp;${board.formatDate }</td>
+					<td style="width: 25%">&nbsp;${board.formatDate }</td>
 				</tr>
 			</c:forEach>
 		<c:if test="${count==0 }">

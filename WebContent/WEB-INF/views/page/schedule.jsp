@@ -107,13 +107,7 @@
 				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
 					class="	fa fa-arrow-circle-o-right w3-button"
 					style="font-size: 34px;" onclick="nextCalendar()"></i>
-	<!--  
-				<button class='w3-button w3-black' style='margin-left: 5px'
-					onclick="scheduleModal()">
-					<i class="	fa fa-plus" style="font-size: 10px;"
-						></i> <font size="4">일정등록</font>
-				</button>
-			-->	
+						
 				<!-- 현황에 있는사람이거나, 관리자일 경우 공지사항 볼 수 있도록 
 				 <c:if test="${userVO.grade==1 || userVO.useyn==1}">
 					<button class='w3-button w3-white w3-border w3-border-red' style='margin-left: 5px;'
@@ -128,7 +122,7 @@
 				 -->
 			</div>
 			
-			<div class="w3-col borderAnim w3-border w3-border-black " style="width:900px" id="boardContent" >
+			<div class="w3-col borderAnim w3-border w3-border-black " style="width:800px" id="boardContent" >
 			</div>
 			
 		</div>
@@ -177,9 +171,9 @@
 
 
 			<div class="w3-padding w3-bottombar">
-				<table style="width:1200px">
+				<table style="width:1280px">
 					<tr>
-						<td class="w3-border " width="380px;padding:5px">
+						<td class="w3-border " width="0px;padding:5px">
 							<font color="grey">&nbsp;남은연차 :</font> 
 							 <c:if test="${userVO.monthHoliday==0}">
 								<font color="red" size="4">${userVO.monthHoliday } </font>
@@ -240,6 +234,24 @@
 								class="w3-marign w3-padding-small w3-border w3-border-black w3-purple">&nbsp;</div>
 							<span style="margin-left: 5px; margin-right: 10px">: 기타일정</span>
 						</td>
+								<!--  
+						0: 일반
+						1: 관리자
+						2: 파트장
+						3: 슈퍼관리자
+					-->
+					<!-- 관리자, 파트장, 슈퍼관리자에게 일정등록창 -->
+				 <c:if test="${userVO.grade==1 || userVO.grade==2 || userVO.grade==3}">
+						<td>
+							<span style="margin-left: 5px; margin-right: 10px">
+				<button class='w3-button w3-gray w3-border w3-border-black' style='margin-left: 5px'
+					onclick="scheduleModal_button()">
+					<i class="	fa fa-plus" style="font-size: 10px;"
+						></i> <font size="4">등록(<font color="red">관리자</font>&nbsp;권한)</font>
+				</button>
+							</span>
+						</td>
+				 </c:if>
 					</tr>
 				</table>
 			</div>
@@ -275,13 +287,127 @@
              	<input type="hidden" name="memberId" value="${userVO.id}">
 		     </c:if>
                 <ul class="w3-ul w3-light-grey">
-             <c:if test="${userVO.grade==1}">
+                <li><label>일정구분</label>
+                  <select id="dutyCode" onchange="dutyChange(this)" name="dutyId" class="w3-select" >
+                     <c:forEach var="duty" items="${duties}">
+                        <option value="${duty.id}">${duty.title}</option>
+                     </c:forEach>
+                   </select>
+                   <!--휴무  humu로 보내서 1 or 2로 받음--> 
+                    <div id="duty1" style="padding-top:5px;padding-bottom:5px">
+                    <!-- 일반등급만 휴무등록할 수 있도록 -->
+	                        <span>
+	                            연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
+	                        </span>&nbsp;
+	                        <span>
+	                            반차: <input type="radio" name="humu" value="0" class="w3-radio" >
+	                        </span>&nbsp;
+	                        <span>
+	                            대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
+	                        </span>&nbsp;
+                        <span>
+                            공가: <input type="radio" name="humu" value="3" class="w3-radio" >
+                        </span>&nbsp;
+                        <span class="">
+                             보상: <input type="radio" name="humu" value="4" class="w3-radio" >
+                        </span>&nbsp;
+                    </div>
+                   <!--교육 eduSubject로 보냄-->
+                    <div id="duty2" style="display: none">
+                    <div class="w3-padding">
+                          교육명 : <input type="text" id="eduSubject" name="eduSubject" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                    </div>
+                    </div>
+
+                    <!-- 휴가 huga로 보내서 1 or 2로 받음-->
+                    <div class="w3-padding" id="duty3" style="display: none">
+                        <span class="w3-margin">
+                            Refresh 휴가 (<font color="red">연차차감</font>): <input type="radio" name="huga" value="1" class="w3-radio" checked>
+                        </span>
+                        <span>
+                            하계휴가: <input type="radio" name="huga" value="2" class="w3-radio">
+                        </span>
+                    </div>
+
+                    <!-- 기타일정 etc로 보냄-->
+                    <!-- 기타일정 출장으로 변경-->
+                    <div id="duty4" style="display: none">
+                    <div class="w3-padding">
+                          내용 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                    </div>
+                    </div>
+                    <!-- 근무 -->
+                    <div  id="duty5" style="display: none">
+                        <span >
+                            주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
+                        </span>&nbsp;
+                         <c:if test="${userVO.grade==2}">
+	                        <span>
+	                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
+	                        </span>&nbsp;
+                         </c:if>
+                        <span>
+               재택근무: <input type="radio" name="working" value="3" class="w3-radio">
+                        </span>
+                    </div>
+                    <!--  기타일정 추가-->
+                    <div id="duty6" style="display: none">
+                    <div class="w3-padding">
+                          내용 : <input type="text" id="Realetc" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                    </div>
+                    </div>
+
+                </li>
+       <li><label>시작일</label>
+       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
+       </li>
+       <li><label>종료일</label>
+       <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
+       </li>
+       <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
+       >등록</button>
+
+       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();">
+                취소</button>
+                </li>
+                </ul>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+<div id="addDay_button" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
+    <div id="addDayDrag" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 450px;">
+        <div class="w3-container w3-center w3-teal" style="height:38px">
+            <div style="margin-top:2px"><font size=5>일정 등록</font></div>
+        </div>
+        <div class="w3-container w3-padding" >
+        <button id="xbutton" onclick="document.getElementById('addDay_button').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</button>
+
+        <div class="calendarForm w3-center  " id="modal">
+            <form id="userinput" method="post" >
+             <c:if test="${userVO.grade!=1}">
+             	<input type="hidden" name="memberId" value="${userVO.id}">
+		     </c:if>
+                <ul class="w3-ul w3-light-grey">
+                <!--  
+						0: 일반
+						1: 관리자
+						2: 파트장
+						3: 슈퍼관리자
+					-->
+             <c:if test="${userVO.grade==1 || userVO.grade==2|| userVO.grade==3}">
 			    <li><label>등록시킬 사람</label>
 			    <select  name="memberId" class="w3-select" >
+			    <!-- 파트장, 관리자, 슈퍼관리자인 경우 -->
+                     <option value="P${member.dptNo}">파트 전체등록</option>
+                     <!-- 슈퍼관리자인 경우 -->
+                         <c:if test="${userVO.grade==3}">
+		                     <option value="T">팀 전체등록</option>
+                         </c:if>
 			   		 <c:forEach var="member" items="${members}">
                         <option value="${member.id}">${member.memberNm}</option>
                      </c:forEach>
-                     <option value="0">전체등록</option>
                  </select>
 			    </li>
              </c:if>
@@ -293,23 +419,26 @@
                    </select>
                    <!--휴무  humu로 보내서 1 or 2로 받음--> 
                     <div id="duty1" style="padding-top:5px;padding-bottom:5px">
-                        <span>
-                            연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
-                        </span>&nbsp;
-                        <span>
-                            반차: <input type="radio" name="humu" value="0" class="w3-radio" >
-                        </span>&nbsp;
-                        <span>
-                            대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
-                        </span>&nbsp;
+                    <!-- 일반등급만 휴무등록할 수 있도록 -->
+                <c:if test="${userVO.grade==0}">
+	                        <span>
+	                            연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
+	                        </span>&nbsp;
+	                        <span>
+	                            반차: <input type="radio" name="humu" value="0" class="w3-radio" >
+	                        </span>&nbsp;
+	                        <span>
+	                            대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
+	                        </span>&nbsp;
+                </c:if>
                         <span>
                             공가: <input type="radio" name="humu" value="3" class="w3-radio" >
                         </span>&nbsp;
                         <span class="">
                              보상: <input type="radio" name="humu" value="4" class="w3-radio" >
                         </span>&nbsp;
+               <c:if test="${userVO.grade==3}">
                         <!-- 관리자인 경우 -->
-               <c:if test="${userVO.grade==1}">
                         <!--  
                         <span>
                             정기휴무: <input type="radio" name="humu" value="5" class="w3-radio" >
@@ -379,7 +508,7 @@
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
 
-       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();">
+       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();">
                 취소</button>
                 </li>
                 </ul>
