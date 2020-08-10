@@ -377,18 +377,15 @@
     </div>
 </div>
 <div id="addDay_button" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
-    <div id="addDayDrag" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 450px;">
+    <div id="addDayDrag_b" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 450px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <button id="xbutton" onclick="document.getElementById('addDay_button').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</button>
+        <button id="xbutton_b" onclick="document.getElementById('addDay_button').style.display='none';document.getElementById('startdate_b').value=''; document.getElementById('enddate_b').value=''; " class="w3-button w3-display-topright">&times;</button>
 
         <div class="calendarForm w3-center  " id="modal">
-            <form id="userinput" method="post" >
-             <c:if test="${userVO.grade!=1}">
-             	<input type="hidden" name="memberId" value="${userVO.id}">
-		     </c:if>
+            <form id="userinput_b" method="post" >
                 <ul class="w3-ul w3-light-grey">
                 <!--  
 						0: 일반
@@ -400,7 +397,7 @@
 			    <li><label>등록시킬 사람</label>
 			    <select  name="memberId" class="w3-select" >
 			    <!-- 파트장, 관리자, 슈퍼관리자인 경우 -->
-                     <option value="P${member.dptNo}">파트 전체등록</option>
+                     <option value="P${userVO.dptNo}">파트 전체등록</option>
                      <!-- 슈퍼관리자인 경우 -->
                          <c:if test="${userVO.grade==3}">
 		                     <option value="T">팀 전체등록</option>
@@ -500,15 +497,15 @@
 
                 </li>
        <li><label>시작일</label>
-       <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
+       <input type="text" id="startdate_b" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
        </li>
        <li><label>종료일</label>
-       <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
+       <input type="text" id="enddate_b" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
-       <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
+       <li><button class="w3-button w3-black" id="commitbtn_b" onclick="dateCheck_b();"
        >등록</button>
 
-       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();">
+       <button id="cancelbtn_b" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();">
                 취소</button>
                 </li>
                 </ul>
@@ -549,6 +546,7 @@
 	}
 	
 	$('#addDayDrag').draggable();
+	$('#addDayDrag_b').draggable();
 	$('#message').draggable();
 	$('#borderRegDrag').draggable();
 	$('#borderDetail').draggable();

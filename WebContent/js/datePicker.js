@@ -16,6 +16,8 @@ function datePicker(){
 	});
 	$("#startdate").datepicker();
 	$("#enddate").datepicker();
+	$("#startdate_b").datepicker();
+	$("#enddate_b").datepicker();
 }
 
 
