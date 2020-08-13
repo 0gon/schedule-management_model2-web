@@ -397,7 +397,9 @@
 			    <li><label>등록시킬 사람</label>
 			    <select  name="memberId" class="w3-select" >
 			    <!-- 파트장, 관리자, 슈퍼관리자인 경우 -->
-                     <option value="P${userVO.dptNo}">파트 전체등록</option>
+                         <c:if test="${userVO.grade==1 || userVO.grade==2}">
+                     		<option value="P${userVO.dptNo}">파트 전체등록</option>
+                         </c:if>
                      <!-- 슈퍼관리자인 경우 -->
                          <c:if test="${userVO.grade==3}">
 		                     <option value="T">팀 전체등록</option>

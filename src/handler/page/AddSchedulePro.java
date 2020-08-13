@@ -45,7 +45,16 @@ public class AddSchedulePro implements CommandHandler {
 		//슈퍼관리자로 전체등록하는 경우
 		if(memberId.equals("T")) {
 			List<?> members = userDAO.selectUserAllInfo();
+			scheduleVO.setEndDate(transEndDate);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(scheduleVO.getEndDate());
+			cal.add(Calendar.DATE, 1);
+
+			java.util.Date utilDate = cal.getTime();
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
+
+			return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		//관리자 혹은 파트장으로 파트만등록하는 경우
 		}else if (substrId.equals("P")) {
 			
@@ -105,10 +114,6 @@ public class AddSchedulePro implements CommandHandler {
 				content = "공휴일";
 			}else if(dutyId.equals("2") && eduSubject!=null) {
 				content=eduSubject;
-				if(chkBox!=null) {
-					scheduleVO.setEndWorkTime(endWorkTime);
-					scheduleVO.setStartWorkTime(startWorkTime);
-				}
 			}else if(dutyId.equals("3") && huga.equals("1")) {
 				content = "Refresh 휴가";
 				// dateDiff 만큼 member DB에 연차갯수 업데이트 *Refesh는 마이너스 연차까지 가능

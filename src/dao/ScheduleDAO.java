@@ -19,6 +19,14 @@ public class ScheduleDAO extends MybatisConnector {
 		return instance;
 	}
 	
+	public List<ScheduleVO> selectScheduleAll() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectScheduleAll");
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<ScheduleVO> selectScheduleAllByDptNo(int dptNo) {
 		sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -54,8 +62,6 @@ public class ScheduleDAO extends MybatisConnector {
 		map.put("transStartDate", transStartDate);
 		map.put("transEndDate", transEndDate);
 		map.put("content", content);
-		map.put("startWorkTime", startWorkTime);
-		map.put("endWorkTime", endWorkTime);
 		try {
 			for(int i=0;i<members.size();i++) {
 				UserVO userVO= (UserVO)members.get(i);
