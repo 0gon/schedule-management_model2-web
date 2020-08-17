@@ -86,3 +86,42 @@ function dutyChange_u(dutyCode){
         $('#duty6_u').show();
     }
 }
+function dutyChange_b(dutyCode){
+	if(dutyCode.value==1){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);
+		$('#duty1_b').show();$('#duty2_b').hide();
+		$('#duty3_b').hide();$('#duty4_b').hide();$('#duty5_b').hide(); $('#duty6_b').hide(); 
+	}else if(dutyCode.value==2){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);
+		$('#duty1_b').hide();$('#duty2_b').show();
+		$('#duty3_b').hide();$('#duty4_b').hide();$('#duty5_b').hide();$('#duty6_b').hide(); 
+	}else if(dutyCode.value==3){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);$('#duty1_b').hide();
+		$('#duty2_b').hide();$('#duty3_b').show();
+		$('#duty4_b').hide();$('#duty5_b').hide();$('#duty6_b').hide(); 
+	}else if(dutyCode.value==4){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);
+		$('#duty1_b').hide();$('#duty2_b').hide();
+		$('#duty3_b').hide();$('#duty4_b').show();$('#duty5_b').hide();$('#duty6_b').hide(); 
+	}else if(dutyCode.value==5){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);$('#duty1_b').hide();
+		$('#duty2_b').hide();$('#duty3_b').hide();$('#duty4_b').hide();$('#duty6_b').hide();  
+		$('#duty5_b').show();
+	}else if(dutyCode.value==6){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);
+		$('#duty1_b').hide();$('#duty2_b').hide();$('#duty3_b').hide(); 
+		$('#duty4_b').hide();$('#duty5_b').hide();$('#duty6_b').hide();  
+	}else if(dutyCode.value==7){
+		$('#eduSubject_b').val(null);
+		$('#etc_b').val(null);
+		$('#duty1_b').hide();
+		$('#duty2_b').hide();$('#duty3_b').hide();$('#duty4_b').hide();$('#duty5_b').hide();  
+		$('#duty6_b').show();
+	}
+}

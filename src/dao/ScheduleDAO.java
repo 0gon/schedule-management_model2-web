@@ -119,7 +119,6 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public void deleteSchedule(int scheduleId) {
-		
 		sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("scheduleId", scheduleId);
@@ -129,9 +128,17 @@ public class ScheduleDAO extends MybatisConnector {
 		} finally {
 			sqlSession.close();
 		}
-		
-		
-		
+	}
+	public void deleteScheduleAdm(Date startDate) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startDate", startDate);
+		try {
+			sqlSession.delete(namespace + ".deleteScheduleAdm", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
 	}
 	
 	public void updateSchedule(ScheduleVO scheduleVO) {

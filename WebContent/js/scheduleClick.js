@@ -38,18 +38,15 @@ function dateFormat(date){
 // 일정 클릭시 발생 함수
 function scheduleClick(scheduleId, smemberId){
 	// 관리자 권한이 있는 경우
-	if(grade==1){
-		if(confirm("삭제하시겠습니까?")){
-		location.href=ctx+'/page/deleteSchedule?id='+scheduleId+'&type=2'
-		}else{
-			return
-		}
+	if(grade==1 || grade ==2 || grade ==3 ){
+		contentView_admin(scheduleId);
+//		location.href=ctx+'/page/deleteSchedule?id='+scheduleId+'&type=2'
 	}else{
 		// 클릭된 일정 상세보기
 		if(currentId==smemberId){
-	        contentView(scheduleId);
-	        document.getElementById('addDay').style.display='none';
-	        document.getElementById('message').style.display='block';
+			contentView(scheduleId);
 		}
 	}
+	document.getElementById('addDay').style.display='none';
+	document.getElementById('message').style.display='block';
 }

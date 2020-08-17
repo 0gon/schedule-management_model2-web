@@ -39,9 +39,21 @@ function contentView(data) {
 	var id = "id=" + data;
 	sendRequest(ctx + "/page/contentsView", id, fromServer, "POST");
 }
+function contentView_admin(data) {
+	var id = "id=" + data;
+	sendRequest(ctx + "/page/contentsViewAdm", id, fromServer, "POST");
+}
 function deleteSchedule(data) {
 	var id = "id=" + data;
 	sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
+}
+function deleteSchedule_admin(data) {
+	//요일이 id 값, 시작일 기준으로 일정있으면 삭제.
+	var id = "id=" + data;
+	if(confirm("!!!!확인 시 전체 사용자 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){
+		sendRequest(ctx + "/page/deleteScheduleAdm", id, fromServer, "POST");
+	}
+	
 }
 function addSchedule(data) {
 	sendRequest(ctx + "/page/addSchedule", data, fromServer, "POST");

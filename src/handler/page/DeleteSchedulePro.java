@@ -45,5 +45,5 @@ public class DeleteSchedulePro implements CommandHandler {
 		}else {
 			return "/WEB-INF/views/calendar/deleteSuccessMessage.jsp";
 		}
-		}
+	}
 }

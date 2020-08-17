@@ -49,7 +49,25 @@ public class AddSchedulePro implements CommandHandler {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(scheduleVO.getEndDate());
 			cal.add(Calendar.DATE, 1);
-
+			
+			
+			if(dutyId.equals("1") && humu.equals("3")) {
+				content = "공가";
+			}else if(dutyId.equals("1") && humu.equals("4")) {
+				content = "보상";
+			}
+			else if(dutyId.equals("1") && humu.equals("7")) {
+				content = "공휴일";
+			}else if(dutyId.equals("2") && eduSubject!=null) {
+				content=eduSubject;
+			}else if(dutyId.equals("4") && etc!=null) {
+				content=etc;
+			}else if(dutyId.equals("5") && working.equals("3")) {
+				content ="재택근무" ;
+			}else if(dutyId.equals("7") && Realetc!=null) {
+				content =Realetc ;
+			}
+			
 			java.util.Date utilDate = cal.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);

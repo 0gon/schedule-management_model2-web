@@ -247,7 +247,14 @@
 				<button class='w3-button w3-gray w3-border w3-border-black' style='margin-left: 5px'
 					onclick="scheduleModal_button()">
 					<i class="	fa fa-plus" style="font-size: 10px;"
-						></i> <font size="4">등록(<font color="red">관리자</font>&nbsp;권한)</font>
+						></i> <font size="4">등록(
+						 <c:if test="${userVO.grade==3}">
+							<font color="red">관리자 권한</font>
+						 </c:if>
+						 <c:if test="${userVO.grade==1 || userVO.grade==2}">
+							<font color="red">파트장 권한</font>
+						 </c:if>
+						)</font>
 				</button>
 							</span>
 						</td>
@@ -382,7 +389,7 @@
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <button id="xbutton_b" onclick="document.getElementById('addDay_button').style.display='none';document.getElementById('startdate_b').value=''; document.getElementById('enddate_b').value=''; " class="w3-button w3-display-topright">&times;</button>
+        <button id="xbutton_button" onclick="document.getElementById('addDay_button').style.display='none';document.getElementById('startdate_b').value=''; document.getElementById('enddate_b').value=''; " class="w3-button w3-display-topright">&times;</button>
 
         <div class="calendarForm w3-center  " id="modal">
             <form id="userinput_b" method="post" >
@@ -411,13 +418,13 @@
 			    </li>
              </c:if>
                 <li><label>일정구분</label>
-                  <select id="dutyCode" onchange="dutyChange(this)" name="dutyId" class="w3-select" >
+                  <select id="dutyCode_b" onchange="dutyChange_b(this)" name="dutyId" class="w3-select" >
                      <c:forEach var="duty" items="${duties}">
                         <option value="${duty.id}">${duty.title}</option>
                      </c:forEach>
                    </select>
                    <!--휴무  humu로 보내서 1 or 2로 받음--> 
-                    <div id="duty1" style="padding-top:5px;padding-bottom:5px">
+                    <div id="duty1_b" style="padding-top:5px;padding-bottom:5px">
                     <!-- 일반등급만 휴무등록할 수 있도록 -->
                 <c:if test="${userVO.grade==0}">
 	                        <span>
@@ -453,14 +460,15 @@
 
                     </div>
                    <!--교육 eduSubject로 보냄-->
-                    <div id="duty2" style="display: none">
+                    <div id="duty2_b" style="display: none">
                     <div class="w3-padding">
-                          교육명 : <input type="text" id="eduSubject" name="eduSubject" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                          교육명 : <input type="text" id="eduSubject_b" name="eduSubject" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
                     </div>
 
                     <!-- 휴가 huga로 보내서 1 or 2로 받음-->
-                    <div class="w3-padding" id="duty3" style="display: none">
+                      <c:if test="${userVO.grade==0}">
+                    <div class="w3-padding" id="duty3_b" style="display: none">
                         <span class="w3-margin">
                             Refresh 휴가 (<font color="red">연차차감</font>): <input type="radio" name="huga" value="1" class="w3-radio" checked>
                         </span>
@@ -468,32 +476,43 @@
                             하계휴가: <input type="radio" name="huga" value="2" class="w3-radio">
                         </span>
                     </div>
+                      </c:if>
+                      <c:if test="${userVO.grade!=0}">
+                    <div class="w3-padding" id="duty3_b" style="display: none">
+                        <span class="w3-margin">
+                        	<font color="red">휴가</font>는 해당 권한으로 등록시킬 수 없습니다.
+                        </span>
+                    </div>
+                      
+                      </c:if>
 
                     <!-- 기타일정 etc로 보냄-->
                     <!-- 기타일정 출장으로 변경-->
-                    <div id="duty4" style="display: none">
+                    <div id="duty4_b" style="display: none">
                     <div class="w3-padding">
-                          내용 : <input type="text" id="etc" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                          내용 : <input type="text" id="etc_b" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
                     </div>
                     <!-- 근무 -->
-                    <div  id="duty5" style="display: none">
-                        <span >
+                    <div  id="duty5_b" style="display: none">
+                          <c:if test="${userVO.grade==0}">
+                        <span>
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
-                         <c:if test="${userVO.grade==2}">
-	                        <span>
-	                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-	                        </span>&nbsp;
-                         </c:if>
+                          </c:if>
+                        <c:if test="${userVO.grade==2}">
+	                    <span>
+	                     책임당직: <input type="radio" name="working" value="2" class="w3-radio">
+	                    </span>&nbsp;
+                        </c:if>
                         <span>
-               재택근무: <input type="radio" name="working" value="3" class="w3-radio">
+                            재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
                     </div>
                     <!--  기타일정 추가-->
-                    <div id="duty6" style="display: none">
+                    <div id="duty6_b" style="display: none">
                     <div class="w3-padding">
-                          내용 : <input type="text" id="Realetc" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                          내용 : <input type="text" id="Realetc_b" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
                     </div>
 
@@ -504,10 +523,10 @@
        <li><label>종료일</label>
        <input type="text" id="enddate_b" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
-       <li><button class="w3-button w3-black" id="commitbtn_b" onclick="dateCheck_b();"
+       <li><button class="w3-button w3-black" id="commitbtn_button" onclick="dateCheck_b();"
        >등록</button>
 
-       <button id="cancelbtn_b" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();">
+       <button id="cancelbtn_button" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();">
                 취소</button>
                 </li>
                 </ul>
