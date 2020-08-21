@@ -27,7 +27,6 @@ public class AddSchedulePro implements CommandHandler {
 		String working = req.getParameter("working");
 		String startWorkTime = req.getParameter("startWorkTime");
 		String endWorkTime = req.getParameter("endWorkTime");
-		String chkBox = req.getParameter("chkBox");
 		ScheduleVO scheduleVO = new ScheduleVO();
 		//상세내용 설정
 		String content="";
@@ -75,7 +74,33 @@ public class AddSchedulePro implements CommandHandler {
 			return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		//관리자 혹은 파트장으로 파트만등록하는 경우
 		}else if (substrId.equals("P")) {
+			List<?> members = userDAO.selectUserAllInfoByDpt(Integer.parseInt(substrDptNo));
+			scheduleVO.setEndDate(transEndDate);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(scheduleVO.getEndDate());
+			cal.add(Calendar.DATE, 1);
+			if(dutyId.equals("1") && humu.equals("3")) {
+				content = "공가";
+			}else if(dutyId.equals("1") && humu.equals("4")) {
+				content = "보상";
+			}
+			else if(dutyId.equals("1") && humu.equals("7")) {
+				content = "공휴일";
+			}else if(dutyId.equals("2") && eduSubject!=null) {
+				content=eduSubject;
+			}else if(dutyId.equals("4") && etc!=null) {
+				content=etc;
+			}else if(dutyId.equals("5") && working.equals("3")) {
+				content ="재택근무" ;
+			}else if(dutyId.equals("7") && Realetc!=null) {
+				content =Realetc ;
+			}
 			
+			java.util.Date utilDate = cal.getTime();
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
+
+			return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		//일반으로 등록하는 경우
 		}else {
 			//연차, 휴무 갯수 확인 로직
