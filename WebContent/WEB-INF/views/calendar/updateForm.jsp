@@ -42,20 +42,6 @@
                         <span class="">
                              보상: <input type="radio" name="humu" value="4" class="w3-radio" >
                         </span>&nbsp;
-                        <c:if test="${userVO.grade==1}">
-                        <!--  
-                        <span>
-                            정기휴무: <input type="radio" name="humu" value="5" class="w3-radio" >
-                        </span>
-                        <span>
-                            의무연차: <input type="radio" name="humu" value="6" class="w3-radio" >
-                        </span>
-                        -->
-                            <span>
-                            공휴일: <input type="radio" name="humu" value="7" class="w3-radio" >
-                        </span> 
-                        </c:if>
-
                     </div>
                    <!--교육 eduSubject로 보냄-->
                     <div id="duty2_u" style="display: none">
@@ -67,7 +53,7 @@
                     <!-- 휴가 huga로 보내서 1 or 2로 받음-->
                     <div class="w3-padding" id="duty3_u" style="display: none">
                         <span class="w3-margin">
-                            Refresh 휴가: <input type="radio" name="huga" value="1" class="w3-radio" checked>
+                          Refresh 휴가 (<font color="red">연차차감</font>): <input type="radio" name="huga" value="1" class="w3-radio" checked>
                         </span>
                         <span>
                             하계휴가: <input type="radio" name="huga" value="2" class="w3-radio">
@@ -82,16 +68,18 @@
                     </div>
                     </div>
                     <!-- 근무 -->
-                    <div  id="duty5_u" style="display: none">
+                     <div  id="duty5" style="display: none">
                         <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
-                        <span>
-                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-                        </span>&nbsp;
+                         <c:if test="${userVO.grade==2}">
+	                        <span>
+	                            책임당직: <input type="radio" name="working" value="2" class="w3-radio">
+	                        </span>&nbsp;
+                         </c:if>
                         <span>
                재택근무: <input type="radio" name="working" value="3" class="w3-radio">
-                        </span>&nbsp;
+                        </span>
                     </div>
                     <!--  기타일정 추가-->
                     <div id="duty6_u" style="display: none">

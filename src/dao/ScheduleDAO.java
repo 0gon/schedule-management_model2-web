@@ -140,6 +140,18 @@ public class ScheduleDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void deleteSchedulePT(Date startDate, String dptNo) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startDate", startDate);
+		map.put("dptNo", dptNo);
+		try {
+			sqlSession.delete(namespace + ".deleteSchedulePT", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
 	public void updateSchedule(ScheduleVO scheduleVO) {
 		sqlSession = sqlSession();

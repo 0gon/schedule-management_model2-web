@@ -247,7 +247,7 @@
 				<button class='w3-button w3-gray w3-border w3-border-black' style='margin-left: 5px'
 					onclick="scheduleModal_button()">
 					<i class="	fa fa-plus" style="font-size: 10px;"
-						></i> <font size="4">등록(
+						></i> <font size="4">타인등록(
 						 <c:if test="${userVO.grade==3}">
 							<font color="red">관리자 권한</font>
 						 </c:if>
@@ -286,7 +286,7 @@
             <div style="margin-top:2px"><font size=5>일정 등록</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <button id="xbutton" onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</button>
+        <button id="xbutton" onclick="document.getElementById('addDay').style.display='none';location.reload(); " class="w3-button w3-display-topright">&times;</button>
 
         <div class="calendarForm w3-center  " id="modal">
             <form id="userinput" method="post" >
@@ -374,7 +374,7 @@
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
 
-       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();">
+       <button id="cancelbtn" class="w3-button w3-red" onclick="document.getElementById('addDay').style.display='none';event.preventDefault();location.reload();">
                 취소</button>
                 </li>
                 </ul>
@@ -386,10 +386,10 @@
 <div id="addDay_button" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
     <div id="addDayDrag_b" class="w3-modal-content w3-border w3-light-grey w3-card-2" style="max-width: 450px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
-            <div style="margin-top:2px"><font size=5>일정 등록</font></div>
+            <div style="margin-top:2px"><font size=5>타인일정 등록</font></div>
         </div>
         <div class="w3-container w3-padding" >
-        <button id="xbutton_button" onclick="document.getElementById('addDay_button').style.display='none';document.getElementById('startdate_b').value=''; document.getElementById('enddate_b').value=''; " class="w3-button w3-display-topright">&times;</button>
+        <button id="xbutton_button" onclick="document.getElementById('addDay_button').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
 
         <div class="calendarForm w3-center  " id="modal">
             <form id="userinput_b" method="post" >
@@ -401,6 +401,9 @@
 						3: 슈퍼관리자
 					-->
              <c:if test="${userVO.grade==1 || userVO.grade==2|| userVO.grade==3}">
+                         <c:if test="${userVO.grade==1 || userVO.grade==2}">
+                               <font color ='grey'>* 파트장 권한입니다. 본인등록은 날짜를 클릭해주세요.</font>
+                         </c:if>
 			    <li><label>등록시킬 사람</label>
 			    <select  name="memberId" class="w3-select" >
 			    <!-- 파트장, 관리자, 슈퍼관리자인 경우 -->
@@ -412,7 +415,9 @@
 		                     <option value="T">팀 전체등록</option>
                          </c:if>
 			   		 <c:forEach var="member" items="${members}">
-                        <option value="${member.id}">${member.memberNm}</option>
+                         <c:if test="${userVO.id != member.id}">
+	                        <option value="${member.id}">${member.memberNm}</option>
+                         </c:if>
                      </c:forEach>
                  </select>
 			    </li>
@@ -526,7 +531,7 @@
        <li><button class="w3-button w3-black" id="commitbtn_button" onclick="dateCheck_b();"
        >등록</button>
 
-       <button id="cancelbtn_button" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();">
+       <button id="cancelbtn_button" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();location.reload();">
                 취소</button>
                 </li>
                 </ul>

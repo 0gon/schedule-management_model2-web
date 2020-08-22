@@ -47,11 +47,27 @@ function deleteSchedule(data) {
 	var id = "id=" + data;
 	sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
 }
-function deleteSchedule_admin(data) {
+function deleteSchedule_admin(data, grade, dptNo) {
 	//요일이 id 값, 시작일 기준으로 일정있으면 삭제.
-	var id = "id=" + data;
-	if(confirm("!!!!확인 시 전체 사용자 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){
-		sendRequest(ctx + "/page/deleteScheduleAdm", id, fromServer, "POST");
+	/*
+	 0: 일반
+	1: 관리자
+	2: 파트장
+	3: 슈퍼관리자
+	 */
+	var id = null;
+	console.log("grade:"+grade);
+	console.log("dptNo:"+dptNo);
+	if(grade == 3){
+		id = "id=" + data;
+		if(confirm("!!!!확인 시 해당일, 전체 사용자 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){
+			sendRequest(ctx + "/page/deleteScheduleAdm", id, fromServer, "POST");
+		}
+	}else if(grade == 2){
+		id = "id=" + data + "&dptNo=" + dptNo;
+		if(confirm("!!!!확인 시 해당일, 파트전체 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){
+			sendRequest(ctx + "/page/deleteSchedulePT", id, fromServer, "POST");
+		}
 	}
 	
 }

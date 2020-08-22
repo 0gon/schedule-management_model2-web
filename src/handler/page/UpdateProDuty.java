@@ -152,6 +152,7 @@ public class UpdateProDuty implements CommandHandler {
 		long diffVal = updateDiff - registedDiff > 0 ? updateDiff - registedDiff : registedDiff - updateDiff;
 		UserVO userVO = userDAO.selectUserInfoByPK(Integer.parseInt(memberId));
 		float monthHoliCnt = userVO.getMonthHoliday();
+		float alterHoliCnt = userVO.getAlterHoliday();
 		
 
 		if(scheduleVO_db.getContent().equals("연차")) {
@@ -190,6 +191,29 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+					//하루연차에서 대체휴무로 수정하는 경우 
+				}else if(dutyId.equals("1") && humu.equals("2")) {
+					content = "대체휴무";
+					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
+					if(alterHoliCnt < dateDiffVal) {
+						req.setAttribute("userVO",userVO);
+						req.setAttribute("dateDiff",dateDiffVal);
+						return "/WEB-INF/views/calendar/failMessage_alterHoliday.jsp";
+					}else {
+						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
+						userDAO.updateUserAlterHoliday(memberId, dateDiffVal);
+						scheduleVO.setDutyId(Integer.parseInt(dutyId));
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleDAO.updateScheduleDuty(scheduleVO);
+						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+					}
+				}// 하루연차에서 Refresh로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("1")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
+				}
+				//하루연차에서 하기휴가로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("2")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 					content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
 					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
@@ -241,6 +265,29 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+					//기간연차에서 대체휴무로 수정하는 경우
+				}else if(dutyId.equals("1") && humu.equals("2")) {
+					content = "대체휴무";
+					float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
+					if(alterHoliCnt < dateDiffVal) {
+						req.setAttribute("userVO",userVO);
+						req.setAttribute("dateDiff",dateDiffVal);
+						return "/WEB-INF/views/calendar/failMessage_alterHoliday.jsp";
+					}else {
+						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
+						userDAO.updateUserAlterHoliday(memberId, dateDiffVal);
+						scheduleVO.setDutyId(Integer.parseInt(dutyId));
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleDAO.updateScheduleDuty(scheduleVO);
+						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+					}
+				}// 하루연차에서 Refresh로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("1")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
+				}
+				//하루연차에서 하기휴가로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("2")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
 				float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
@@ -298,6 +345,17 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+				// 반차에서 대체휴무로 수정하는 경우
+				}else if(dutyId.equals("1") && humu.equals("2")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
+				}
+				// 하루반차에서 Refresh로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("1")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
+				}
+				//하루반차에서 하기휴가로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("2")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
@@ -364,6 +422,18 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+				}
+				//기간반차에서 대체휴무
+				else if(dutyId.equals("1") && humu.equals("2")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
+				}
+				// 기간반차에서 Refresh로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("1")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
+				}
+				//기간반차에서 하기휴가로 수정하는 경우
+				else if(dutyId.equals("3") && huga.equals("2")) {
+					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				//그 외
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);

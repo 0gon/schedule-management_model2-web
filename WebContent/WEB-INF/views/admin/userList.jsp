@@ -60,7 +60,9 @@
       	  	<select name="dptNo" class="w3-select" style="width:100px;padding:6px;">
       	  	<option value="${member.dptVO.id}" selected="selected">${member.dptVO.title}</option>
       	 <c:forEach var="dpt" items="${dptList}">
-	            <option value="${dpt.id}">${dpt.title}</option>
+  	        	<c:if test="${dpt.title!='관리자'}">
+		            <option value="${dpt.id}">${dpt.title}</option>
+   	        	</c:if>
       	 </c:forEach>
 	        </select>
       
@@ -123,7 +125,7 @@
        </td>
        <td>${member.createDate}</td>
        <td>
-       	<button class="w3-button w3-red" onclick="deleteMember(${member.id})">삭제</button>&nbsp;
+       <!-- 	<button class="w3-button w3-red" onclick="deleteMember(${member.id})">삭제</button>&nbsp; -->
        	<button class="w3-button w3-teal"onclick="updateMember(${member.id})">수정</button>
        </td>
     </tr>

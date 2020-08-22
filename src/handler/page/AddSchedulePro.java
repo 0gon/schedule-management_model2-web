@@ -35,12 +35,8 @@ public class AddSchedulePro implements CommandHandler {
 		java.sql.Date transStartDate= java.sql.Date.valueOf(startDate);
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
 		
-		
-		System.out.println("memberId: "+memberId);
 		String substrId = memberId.substring(0, 1);
 		String substrDptNo = memberId.substring(1);
-		System.out.println("substrId:"+substrId);
-		System.out.println("substrDptNo:"+substrDptNo);
 		//슈퍼관리자로 전체등록하는 경우
 		if(memberId.equals("T")) {
 			List<?> members = userDAO.selectUserAllInfo();

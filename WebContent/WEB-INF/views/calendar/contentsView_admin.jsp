@@ -37,9 +37,14 @@
 				</table>
 				<div style="margin-top:10px">
 				<input type="reset" class="w3-button w3-red"
-					onclick="deleteSchedule_admin('${schedule.startDate}')" value="전체삭제">
+					onclick="deleteScheduleIncludeHoli(${schedule.id},${userVO.id});" value="삭제">
+				<c:if test="${schedule.content!='책임당직' && schedule.content!='대체휴무' && schedule.content!='Refresh 휴가' && schedule.content!='하계휴가'}">
+					<button class="w3-button w3-border w3-black" onclick="toUpdatePage(${schedule.id});">수정</button>
+				</c:if>	
 				<button onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();"
-               class="w3-button w3-border">취소</button>	
+               class="w3-button w3-border">취소</button><br>	
+				<input type="reset" class="w3-button "
+					onclick="deleteSchedule_admin('${schedule.startDate}','${userVO.grade}','${userVO.dptNo}')" value="*파트원 일정 전체삭제*">
 				</div>
 
 			</form>
