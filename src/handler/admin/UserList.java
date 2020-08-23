@@ -36,7 +36,7 @@ public class UserList implements CommandHandler {
 		  */
 		
 		//게시판 페이지 로직
-		int pageSize = 12;
+		int pageSize = 10;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;

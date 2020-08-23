@@ -20,53 +20,31 @@ public class UpdatePro implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		UserDAO userDAO = UserDAO.getInstance();
+		// memberId memberPwd memberNm dptNo(dpt.id) grade 0,1,2,3 monthHoliday alterHoliday holiday useYn
 		String memberId = req.getParameter("memberId");
 		String memberPwd = req.getParameter("memberPwd");
-		String admin = req.getParameter("admin");
-		HttpSession session = null;
-		session = req.getSession();
+		String memberNm = req.getParameter("memberNm");
+		String dptNo = req.getParameter("dptNo");
+		String grade = req.getParameter("grade");
+		String monthHoliday = req.getParameter("monthHoliday");
+		String alterHoliday = req.getParameter("alterHoliday");
+		String holiday = req.getParameter("holiday");
+		String useYn = req.getParameter("useYn");
 		
-		//default ID 
-		if(admin!=null) {
-			memberId="admin";
-			memberPwd="1234";
-		}
+		UserVO userVO = new UserVO();
+		userVO.setMemberId(memberId);
+		userVO.setMemberPwd(memberPwd);
+		userVO.setMemberNm(memberNm);
+		userVO.setDptNo(Integer.parseInt(dptNo));
+		userVO.setGrade(Integer.parseInt(grade));
+		userVO.setMonthHoliday(Float.parseFloat(monthHoliday));
+		userVO.setAlterHoliday(Float.parseFloat(alterHoliday));
+		userVO.setHoliday(Integer.parseInt(holiday));
+		userVO.setUseyn(Integer.parseInt(useYn));
+		//	boardDAO.updateBoard(boardVO);
+		userDAO.updateUserInfo(userVO);
 		
-		UserVO userVO = userDAO.selectUserInfo(memberId);
-		if(userVO==null || !memberPwd.equals(userVO.getMemberPwd())) {
-			req.setAttribute("memberId",memberId);
-			return "/WEB-INF/views/user/login.jsp";
-		}
-		else {
-			// USER PK에 따른 일정보여주는 서비스
-			ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
-			List<?> schedules = scheduleDAO.selectScheduleInfoByPK(userVO.getId());
-			List schedulesLi=null;
-			Iterator<?> it = schedules.iterator();
-			DutyDAO dutyDAO = DutyDAO.getInstance();
-			if(it.hasNext()) {
-				schedulesLi=new ArrayList<ScheduleVO>();
-				do {
-					ScheduleVO scheduleVO = (ScheduleVO) it.next();
-					DutyVO dutyVO = dutyDAO.selectDutyInfoById(scheduleVO.getDutyId());
-					UserVO uVO = userDAO.selectUserInfoByPK(scheduleVO.getMemberId());
-					scheduleVO.setDutyVO(dutyVO);
-					scheduleVO.setUserVO(uVO);
-					schedulesLi.add(scheduleVO);				
-				}while(it.hasNext());
-			}
-
-			List<?> duties = dutyDAO.selectDutyInfo();
-			List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
-			session.setAttribute("memberId", memberId);
-			req.setAttribute("schedules",schedulesLi);
-			req.setAttribute("members",members);
-			req.setAttribute("duties",duties);
-			req.setAttribute("userVO",userVO);
-			res.sendRedirect(req.getContextPath() + "/page/userList");
-			return null;
-			
-			
-		}
+		res.sendRedirect(req.getContextPath() + "/page/userList");
+		return null;
 	}
 }

@@ -36,11 +36,13 @@
 		      <th class="w3-center">이름</th>
 		      <th class="w3-center">부서명</th>
 		      <th class="w3-center">등급</th>
+		      <th class="w3-center">연차</th>
+		      <th class="w3-center">대휴</th>
+		      <th class="w3-center">휴가</th>
 		      <th class="w3-center">사용여부</th>
-		      <th class="w3-center">등록일</th>
 		      <th class="w3-center">변경</th>
 		    </tr>
-    
+
   
      <c:forEach var="member" items="${membersLi}">
      <tr id="board2_List" class="w3-hover-white" >
@@ -73,7 +75,7 @@
       	1: 관리자
       	2: 파트장
       	3: 슈퍼관리자
-       -->
+       --> 
        	<c:if test="${member.grade==0}">
 	      	<select name="grade" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" selected="selected">일반</option>
@@ -107,9 +109,22 @@
 	        </select>
        	</c:if>
       </td>
+          
+      <td>
+      	<input type="text" class="w3-input" name="monthHoliday" style="width:50px;height:30px" 
+      	value="${member.monthHoliday}">
+      </td>
+      <td>
+      	<input type="text" class="w3-input" name="alterHoliday" style="width:50px;height:30px" 
+      	value="${member.alterHoliday}">
+      </td>
+      <td>
+      	<input type="text" class="w3-input" name="holiday" style="width:50px;height:30px" 
+      	value="${member.holiday}">
+      </td>
        <td>
        <!--  0: 미사용, 1: 사용 -->
-       
+      
        	<c:if test="${member.useyn==1}">
 	       <select name="useYn" class="w3-select" style="width:70px;padding:6px;">
 				<option selected="selected">사용</option>	       
@@ -123,7 +138,6 @@
 	       </select>
        	</c:if>
        </td>
-       <td>${member.createDate}</td>
        <td>
        <!-- 	<button class="w3-button w3-red" onclick="deleteMember(${member.id})">삭제</button>&nbsp; -->
        	<button class="w3-button w3-teal"onclick="updateMember(${member.id})">수정</button>
