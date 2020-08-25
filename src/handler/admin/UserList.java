@@ -44,10 +44,10 @@ public class UserList implements CommandHandler {
 		int number = 0;
 		
 		DptDAO dptDAO = DptDAO.getInstance();
+		List dptList = dptDAO.selectDptALLInfo();
 		List<?> members = null;
 		List membersLi=null;
 		count = userDAO.selectUserCount();
-		List dptList = dptDAO.selectDptALLInfo();
 		
 		if (count > 0) {
 			members = userDAO.selectUserList(startRow, endRow);

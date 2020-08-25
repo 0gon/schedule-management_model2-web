@@ -27,7 +27,6 @@
 		</c:if>
     
        	<c:if test="${count>0}">
-       	   <form method="post" id="memberActionForm">
        	<table class="w3-table  w3-centered" style="border:black; ">
 		    <tr class="w3-black">
 		      <th class="w3-center" >No.</th>
@@ -42,24 +41,22 @@
 		      <th class="w3-center">사용여부</th>
 		      <th class="w3-center">변경</th>
 		    </tr>
-
-  
      <c:forEach var="member" items="${membersLi}">
-     <tr id="board2_List" class="w3-hover-white" >
+     <tr  class="w3-hover-white" >
       <td class="w3-center" width="50">${number}</td>
          <c:set var="number" value="${number-1}"/>
       <td class="w3-center">
-      	<input type="text" class="w3-input" name="memberId" style="width:100px;height:30px" value="${member.memberId}">
+      	<input type="text" class="w3-input" id="memberId_${member.id}"name="memberId" style="width:100px;height:30px" value="${member.memberId}">
       </td> 
       <td class="w3-center">
-      	<input type="text" class="w3-input" name="memberPwd" style="width:100px;height:30px" value="${member.memberPwd}">
+      	<input type="text" class="w3-input" id="memberPwd_${member.id}" name="memberPwd" style="width:100px;height:30px" value="${member.memberPwd}">
       </td>
        <td>
-        <input type="text" class="w3-input" name="memberNm" style="width:80px;height:30px" value="${member.memberNm}">
+        <input type="text" class="w3-input" id="memberNm_${member.id}" name="memberNm" style="width:80px;height:30px" value="${member.memberNm}">
        
        </td>
-      <td>
-      	  	<select name="dptNo" class="w3-select" style="width:100px;padding:6px;">
+      <td> 
+      	  	<select name="dptNo" id="dptNo_${member.id}"class="w3-select" style="width:100px;padding:6px;">
       	  	<option value="${member.dptVO.id}" selected="selected">${member.dptVO.title}</option>
       	 <c:forEach var="dpt" items="${dptList}">
   	        	<c:if test="${dpt.title!='관리자'}">
@@ -77,7 +74,7 @@
       	3: 슈퍼관리자
        --> 
        	<c:if test="${member.grade==0}">
-	      	<select name="grade" class="w3-select" style="width:100px;padding:6px;">
+	      	<select id="grade_${member.id}" name="grade" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" selected="selected">일반</option>
 	            <option value="1" >관리자</option>
 	            <option value="2" >파트장</option>
@@ -85,15 +82,15 @@
 	        </select>
        	</c:if>
        	<c:if test="${member.grade==1}">
-	      	<select name="grade" class="w3-select" style="width:100px;padding:6px;">
+	      	<select id="grade_${member.id}" name="grade" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" >일반</option>
 	            <option value="1" selected="selected">관리자</option>
 	            <option value="2" >파트장</option>
 	            <option value="3" >슈퍼관리자</option>
 	        </select>
-       	</c:if>
+       	</c:if> 
        	<c:if test="${member.grade==2}">
-	      	<select name="grade" class="w3-select" style="width:100px;padding:6px;">
+	      	<select id="grade_${member.id}" name="grade" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" >일반</option>
 	            <option value="1" >관리자</option>
 	            <option value="2" selected="selected">파트장</option>
@@ -101,7 +98,7 @@
 	        </select>
        	</c:if>
        	<c:if test="${member.grade==3}">
-	      	<select name="grade" class="w3-select" style="width:100px;padding:6px;">
+	      	<select id="grade_${member.id}" name="grade" class="w3-select" style="width:100px;padding:6px;">
 	            <option value="0" >일반</option>
 	            <option value="1" >관리자</option>
 	            <option value="2" >파트장</option>
@@ -111,41 +108,40 @@
       </td>
           
       <td>
-      	<input type="text" class="w3-input" name="monthHoliday" style="width:50px;height:30px" 
+      	<input type="text" id="monthHoliday_${member.id}"class="w3-input" name="monthHoliday" style="width:50px;height:30px" 
       	value="${member.monthHoliday}">
-      </td>
+      </td> 
       <td>
-      	<input type="text" class="w3-input" name="alterHoliday" style="width:50px;height:30px" 
+      	<input type="text" id="alterHoliday_${member.id}" class="w3-input" name="alterHoliday" style="width:50px;height:30px" 
       	value="${member.alterHoliday}">
       </td>
       <td>
-      	<input type="text" class="w3-input" name="holiday" style="width:50px;height:30px" 
+      	<input type="text" id="holiday_${member.id}" class="w3-input" name="holiday" style="width:50px;height:30px" 
       	value="${member.holiday}">
-      </td>
+      </td> 
        <td>
        <!--  0: 미사용, 1: 사용 -->
       
        	<c:if test="${member.useyn==1}">
-	       <select name="useYn" class="w3-select" style="width:70px;padding:6px;">
-				<option selected="selected">사용</option>	       
-				<option>미사용</option>	       
+	       <select id="useYn_${member.id}" name="useYn" class="w3-select" style="width:70px;padding:6px;">
+				<option value="1" selected="selected">사용</option>	       
+				<option value="0">미사용</option>	       
 	       </select>
        	</c:if>
        	<c:if test="${member.useyn==0}">
-	       <select name="useYn" class="w3-select" style="width:70px;padding:6px;">
-				<option>사용</option>	       
-				<option selected="selected">미사용</option>	       
+	       <select id="useYn_${member.id}" name="useYn" class="w3-select" style="width:70px;padding:6px;">
+				<option value="1">사용</option>	       
+				<option value="0" selected="selected">미사용</option>	       
 	       </select>
        	</c:if>
        </td>
        <td>
        <!-- 	<button class="w3-button w3-red" onclick="deleteMember(${member.id})">삭제</button>&nbsp; -->
-       	<button class="w3-button w3-teal"onclick="updateMember(${member.id})">수정</button>
+       	<button class="w3-button w3-teal" onclick="updateMember('${member.id}')">수정</button>
        </td>
     </tr>
     </c:forEach>   
   </table>
-    </form>
      </c:if>
       
      
@@ -188,18 +184,37 @@
     </div>
     <script>
     function deleteMember(pkId){
-    	
-    	
     	/*
 	    	/page/user/deletePro=handler.user.DeletePro
 			/page/user/updatePro=handler.user.UpdatePro
-    	
     	*/
     }	
     function updateMember(pkId){
-    	
+  		var memberId = $("#memberId_"+pkId).val();
+  		var memberPwd = $("#memberPwd_"+pkId).val();
+  		var memberNm = $("#memberNm_"+pkId).val();
+  		var dptNo = $("#dptNo_"+pkId).val();
+  		var useYn = $("#useYn_"+pkId).val();
+  		var holiday = $("#holiday_"+pkId).val();
+  		var alterHoliday = $("#alterHoliday_"+pkId).val();
+  		var monthHoliday = $("#monthHoliday_"+pkId).val();
+  		var grade = $("#grade_"+pkId).val();
+  		
+  		var data = "pkId=" + pkId + "&memberId=" + memberId +"&memberPwd=" + memberPwd +"&memberNm=" + 
+  		memberNm +"&dptNo=" + dptNo + "&useYn=" + useYn +"&holiday=" + holiday +"&alterHoliday=" 
+  		+ alterHoliday +"&monthHoliday=" + monthHoliday +"&grade=" + grade ;
+  		sendRequest("${ pageContext.servletContext.contextPath }/page/user/updatePro", data,  fromServer, "POST");
+  		event.preventDefault();
     }	
     
+
+    function fromServer() {
+    	if (httpRequest.readyState == 4) {
+    		if (httpRequest.status == 200) {
+    			alert("수정 완료");
+    		}
+    	}
+    }
     </script>
 </body>
 

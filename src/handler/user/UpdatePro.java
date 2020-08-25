@@ -21,6 +21,7 @@ public class UpdatePro implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		UserDAO userDAO = UserDAO.getInstance();
 		// memberId memberPwd memberNm dptNo(dpt.id) grade 0,1,2,3 monthHoliday alterHoliday holiday useYn
+		String pkId = req.getParameter("pkId");
 		String memberId = req.getParameter("memberId");
 		String memberPwd = req.getParameter("memberPwd");
 		String memberNm = req.getParameter("memberNm");
@@ -32,6 +33,7 @@ public class UpdatePro implements CommandHandler {
 		String useYn = req.getParameter("useYn");
 		
 		UserVO userVO = new UserVO();
+		userVO.setId(Integer.parseInt(pkId));
 		userVO.setMemberId(memberId);
 		userVO.setMemberPwd(memberPwd);
 		userVO.setMemberNm(memberNm);
@@ -43,8 +45,7 @@ public class UpdatePro implements CommandHandler {
 		userVO.setUseyn(Integer.parseInt(useYn));
 		//	boardDAO.updateBoard(boardVO);
 		userDAO.updateUserInfo(userVO);
-		
-		res.sendRedirect(req.getContextPath() + "/page/userList");
+		//res.sendRedirect(req.getContextPath() + "/page/userList");
 		return null;
 	}
 }
