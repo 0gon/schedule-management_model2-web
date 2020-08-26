@@ -119,6 +119,17 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	
+	public void createUserInfo(UserVO userVO) {
+		sqlSession = sqlSession();
+		try {
+			sqlSession.insert(namespace + ".createUserInfo", userVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
 	public List<UserVO> selectUserAllInfobyDptNo(int dptNo) {
 		sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();

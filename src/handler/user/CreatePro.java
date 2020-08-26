@@ -40,7 +40,7 @@ public class CreatePro implements CommandHandler {
 		userVO.setAlterHoliday(Float.parseFloat(alterHoliday));
 		userVO.setHoliday(Integer.parseInt(holiday));
 		//	boardDAO.updateBoard(boardVO);
-		userDAO.updateUserInfo(userVO);
+		userDAO.createUserInfo(userVO);
 		//res.sendRedirect(req.getContextPath() + "/page/userList");
 		return null;
 	}

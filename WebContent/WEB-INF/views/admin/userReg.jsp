@@ -76,7 +76,7 @@
     </div>
     <script>
     function createMember(){
-  		var data = $("#createForm").serilize();
+  		var data = $("#createForm").serialize();
     	console.log(data);
   		sendRequest("${ pageContext.servletContext.contextPath }/page/user/createPro", data,  fromServer, "POST");
   		event.preventDefault();
@@ -86,7 +86,7 @@
     function fromServer() {
     	if (httpRequest.readyState == 4) {
     		if (httpRequest.status == 200) {
-    			alert("수정 완료");
+    			alert("등록 완료");
     		}
     	}
     }
