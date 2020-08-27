@@ -115,6 +115,13 @@ var dataset = [
     
     
 <style>
+body {
+  background-image: url('${ pageContext.servletContext.contextPath }/imgs/bak3.jpeg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
 #mySidebar {
   background-image: url('${ pageContext.servletContext.contextPath }/imgs/navBack.jpeg');
   min-height: 100%;
@@ -164,7 +171,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
      
     <a href="${ pageContext.servletContext.contextPath }/page/register" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
-    <i class="fa fa-th-large fa-fw w3-margin-right"></i><font color="red">법인카드</font> 사용등록</a> 
+    <i class="fa fa-credit-card fa-fw w3-margin-right"></i><font color="red">법인카드</font> 사용등록</a> 
     
     
     <a href="${ pageContext.servletContext.contextPath }/page/user/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">

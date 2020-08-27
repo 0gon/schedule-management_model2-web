@@ -177,13 +177,12 @@
 <div class="w3-main" style="margin-left:100px">
   <!-- Header -->
   <header id="portfolio">
-    <a href="#"><img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-    <div class="w3-container" style="padding-top:  5px">
-        <font size="5">법인카드 사용내역 </font>
-         <div class="w3-padding w3-bottombar">
-	        <font size="4">달력에 등록된</font> 
-	        <font size="5" color="red">[교통비], [야근식대]</font>
-	        <font size="4">를 드래그하여 다른 날짜로 이동가능합니다.</font>
+    <div >
+        <font size="4">법인카드 사용내역 </font>
+         <div class=" w3-bottombar">
+	        <font size="3">달력에 등록된</font> 
+	        <font size="4" color="red">[교통비], [야근식대]</font>
+	        <font size="3">를 드래그하여 다른 날짜로 이동가능합니다.</font>
          </div>
         
     <!-- 일정관리에서 법인카드 사용으로 변경_2020.07 -->
@@ -230,18 +229,13 @@
      </div>
      </c:if>	
     </div>
-     -->
+     --> 
     </div>
-    <hr>
   </header>
   
-<div class="w3-container w3-padding-large" style="margin-bottom:32px">
-<div style="width: 100%; height:500px; background: rgba(241, 241, 241, 1); ">
 <!-- 달력 출력-->
-    <div class="w3-container  w3-padding w3-padding-right w3-padding-left" id="calendar" style="width:95%; z-index: 0; position: relative;">
+    <div class=" w3-pale-blue  " id="calendar" style="margin-left:50px;width:1200px; z-index: 0; position: relative;">
     </div>
-</div>
-</div>
 
      <!-- 메시지 모달 -->
 <div id="message" class="w3-modal" style="background-color: rgba(0,0,0,0.0);width:700px;margin-left:30%;">

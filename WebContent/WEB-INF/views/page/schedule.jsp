@@ -170,8 +170,9 @@
 			
 
 
-			<div class="w3-padding w3-bottombar">
-				<table style="width:1280px">
+			<div class=" w3-bottombar">
+				<div style="display: inline; width:400px">
+				<table style="display:inline ">
 					<tr>
 						<td class="w3-border " width="0px;padding:5px">
 							<font color="grey">&nbsp;남은연차 :</font> 
@@ -199,68 +200,74 @@
 							 </c:if>
 							<font color="grey">&nbsp;일</font> 
 						</td>
-						<td>
-						&nbsp;
-							<div style="display: inline;"
-								class="w3-marign w3-padding-small w3-border w3-border-black w3-red">&nbsp;</div>
-							<span style="margin-left: 5px; margin-right: 10px">:
-								휴무(연차/대휴)</span>
-						</td>
-						<td>
-							<div style="display: inline;"
-								class="w3-marign w3-padding-small w3-border w3-border-black w3-green">&nbsp;</div>
-							<span style="margin-left: 5px; margin-right: 10px">: 교육 및
-								세미나</span>
-						</td>
-						<td>
-							<div style="display: inline;"
-								class="w3-marign w3-padding-small w3-border w3-border-black w3-orange">&nbsp;</div>
-							<span style="margin-left: 5px; margin-right: 10px">: 휴가</span>
-						</td>
-						<td>
-							<div style="display: inline;"
-								class="w3-marign w3-padding-small w3-border w3-border-black w3-blue">&nbsp;</div>
-							<span style="margin-left: 5px; margin-right: 10px">: 출장</span>
-						</td>
-
-						<td>
-							<div style="display: inline;"
-								class="w3-marign w3-padding-small w3-border w3-border-black w3-brown">&nbsp;</div>
-							<span style="margin-left: 5px; margin-right: 10px">:
-								근무(주말/책임당직/재택)</span>
-						</td>
-						<td>
-							<div style="display: inline;"
-								class="w3-marign w3-padding-small w3-border w3-border-black w3-purple">&nbsp;</div>
-							<span style="margin-left: 5px; margin-right: 10px">: 기타일정</span>
-						</td>
-								<!--  
-						0: 일반
-						1: 관리자
-						2: 파트장
-						3: 슈퍼관리자
-					-->
-					<!-- 관리자, 파트장, 슈퍼관리자에게 일정등록창 -->
-				 <c:if test="${userVO.grade==1 || userVO.grade==2 || userVO.grade==3}">
-						<td>
-							<span style="margin-left: 5px; margin-right: 10px">
-				<button class='w3-button w3-gray w3-border w3-border-black' style='margin-left: 5px'
-					onclick="scheduleModal_button()">
-					<i class="	fa fa-plus" style="font-size: 10px;"
-						></i> <font size="4">타인등록(
-						 <c:if test="${userVO.grade==3}">
-							<font color="red">관리자 권한</font>
-						 </c:if>
-						 <c:if test="${userVO.grade==1 || userVO.grade==2}">
-							<font color="red">파트장 권한</font>
-						 </c:if>
-						)</font>
-				</button>
-							</span>
-						</td>
-				 </c:if>
-					</tr>
-				</table>
+						</tr>
+				</table>	
+				</div>
+				<div style="display: inline;">
+					<table  style=" display: inline; ">
+						<tr>
+								
+							<td>
+							&nbsp;
+								<div style="display: inline;"
+									class="w3-marign w3-padding-small w3-border w3-border-black w3-red">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">:
+									휴무(연차/대휴)</span>
+							</td>
+							<td>
+								<div style="display: inline;"
+									class="w3-marign w3-padding-small w3-border w3-border-black w3-green">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">: 교육 및
+									세미나</span>
+							</td>
+							<td>
+								<div style="display: inline;"
+									class="w3-marign w3-padding-small w3-border w3-border-black w3-orange">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">: 휴가</span>
+							</td>
+							<td>
+								<div style="display: inline;"
+									class="w3-marign w3-padding-small w3-border w3-border-black w3-blue">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">: 출장</span>
+							</td>
+	
+							<td>
+								<div style="display: inline;"
+									class="w3-marign w3-padding-small w3-border w3-border-black w3-brown">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">:
+									근무(주말/책임당직/재택)</span>
+							</td>
+							<td>
+								<div style="display: inline;"
+									class="w3-marign w3-padding-small w3-border w3-border-black w3-purple">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">: 기타일정</span>
+							</td>
+									<!--  
+							0: 일반
+							1: 관리자
+							2: 파트장
+							3: 슈퍼관리자
+						-->
+						<!-- 관리자, 파트장, 슈퍼관리자에게 일정등록창 -->
+					
+						</tr>
+					</table>
+				
+				</div>
+					 <c:if test="${userVO.grade==1 || userVO.grade==2 || userVO.grade==3}">
+				<button class='w3-button w3-gray w3-small  w3-border w3-border-black' style='margin-left: 5px;margin-bottom:10px;padding: 3px'
+						onclick="scheduleModal_button()">
+						<i class="	fa fa-plus" style="font-size: 10px;"
+							></i> <font size="4">타인등록(
+							 <c:if test="${userVO.grade==3}">
+								<font color="red">관리자 권한</font>
+							 </c:if>
+							 <c:if test="${userVO.grade==1 || userVO.grade==2}">
+								<font color="red">파트장 권한</font>
+							 </c:if>
+							)</font>
+					</button>
+					 </c:if>
 			</div>
 		</div>
 	</header>

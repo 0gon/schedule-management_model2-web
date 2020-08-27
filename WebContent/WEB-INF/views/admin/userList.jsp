@@ -11,8 +11,8 @@
   <div class="w3-container w3-white">
        <h6>회원수  (총 : ${count })명</h6>
       </div>
-    <div class="w3-card-4 w3-padding-large">
-      <div class="w3-container " style="overflow:auto; height:600px;  background: rgba(241, 241, 241, 0.75); ">
+    <div class="w3-card-4 ">
+      <div class="w3-container " style=" height:500px;  background: rgba(241, 241, 241, 0.75); ">
 <div class="w3-container  w3-margin-top">
 
 	    <c:if test="${count==0 }">
@@ -20,7 +20,7 @@
 			<table class="w3-table table-bordered w3-center" width="100%">
 			<tr  >
 			<td class="w3-center w3-padding"><br>
-			<span class="w3-tag w3-white w3-border">저장된 글이 없습니다.</span><br><br></td>
+			<span class="w3-tag w3-white w3-border">저장된 회원이 없습니다.</span><br><br></td>
 			</tr>
 			</table>
 			</div>

@@ -11,7 +11,7 @@
   <div class="w3-container w3-white">
        <h6>회원등록</h6>
       </div>
-    <div class="w3-card-4 w3-padding-large">
+    <div class="w3-card-4 ">
       <div class="w3-container " style="overflow:auto; height:500px;  background: rgba(241, 241, 241, 0.75); ">
 <div class="w3-container  w3-margin-top">
 <form method="post"  id="createForm">
