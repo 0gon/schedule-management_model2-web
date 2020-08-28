@@ -7,79 +7,56 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
-import dao.BoardDAO;
-import dao.CommentDAO;
-import dao.ScheduleDAO;
-import dao.UserDAO;
-import model.BoardVO;
-import model.UserVO;
+import dao.OvertimeDAO;
+import dao.TrafficDAO;
 
 public class RegisterList implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String pageNum = req.getParameter("pageNum");
-		if (pageNum == null || pageNum =="") {
-		      pageNum = "1";
-		   }
 		
-		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
-		BoardDAO boardDAO = BoardDAO.getInstance();
+		//현재 월 추출
+		Calendar cal = Calendar.getInstance();
+		String format = "yyyy-MM";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		String currentMonth = sdf.format(cal.getTime());
 		
-		HttpSession session = req.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-		UserDAO userDAO = UserDAO.getInstance();
-		UserVO userVO = userDAO.selectUserInfo(memberId);
+		TrafficDAO trafficDAO = TrafficDAO.getInstance();
+		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
+
+		List<?> traffics = null;
+		List<?> overtimes = null;
 		
-		//게시판 페이지 로직
-		int pageSize = 3;
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage - 1) * pageSize + 1;
-		int endRow = currentPage * pageSize;
-		int count = 0;
-		int number = 0;
+		int count_t = 0;
+		int count_o = 0;
 		
-		List<?> boards = null;
-		count = boardDAO.selectBoardCount(userVO.getDptNo());
-		/*
-		*/
+		count_t = trafficDAO.selectTrafficCountByMonth(currentMonth); 
+		count_o = overtimeDAO.selectOvertimeCountByMonth(); 
 		
-		if (count > 0) {
-			CommentDAO commentDAO = CommentDAO.getInstance();
-			boards = boardDAO.selectBoardList(startRow, endRow,userVO.getDptNo());
-			for(Object board:boards) {
-				BoardVO tmp=(BoardVO)board;
-				int commentCount = commentDAO.selectCommentCount(Integer.toString(tmp.getId()));
-				tmp.setCmtCnt(commentCount);
-				tmp.setFormatDate(getDayOfweek(tmp.getRegDate()));
-			}
+		if (count_t > 0) {
+			traffics = trafficDAO.selectTrafficList(currentMonth);
 		}
-		number = count - (currentPage - 1) * pageSize;
-		
-		int bottomLine = 3;
-		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-		int startPage = 1 + (currentPage - 1) / bottomLine * bottomLine;
-		int endPage = startPage + bottomLine - 1;
-		if (endPage > pageCount)
-			endPage = pageCount;
-		
+		if (count_o > 0) {
+			overtimes = overtimeDAO.selectOvertimeList();
+		}
 		
 		//게시판 변수들
-		req.setAttribute("count", count);
-		req.setAttribute("number", number);
-		req.setAttribute("startPage", startPage);
-		req.setAttribute("endPage", endPage);
-		req.setAttribute("bottomLine", bottomLine);
-		req.setAttribute("pageCount", pageCount);
-		req.setAttribute("currentPage", currentPage);
-		req.setAttribute("pageNum", pageNum);
+		req.setAttribute("count_t", count_t);
+		req.setAttribute("count_o", count_o);
+		req.setAttribute("traffics", traffics);
+		req.setAttribute("overtimes", overtimes);
 		
-		req.setAttribute("boards", boards);
+		req.setAttribute("currentMonth", currentMonth);
 		return "/WEB-INF/views/admin/registerList.jsp";
 	}
+	
+	
+	public void test() {
+		
+	}
+	
 	
 	public static String getDayOfweek(Date date) {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");

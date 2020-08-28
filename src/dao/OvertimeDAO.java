@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import model.OvertimePriceVO;
+import model.ScheduleVO;
 import model.UserVO;
 
 public class OvertimeDAO extends MybatisConnector {
@@ -25,6 +26,24 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession.close();
 		return gid;
 	}
+	
+	public int selectOvertimeCountByMonth() {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonth");
+		sqlSession.close();
+		return boardAllCount;
+	}
+	
+	public List<ScheduleVO> selectOvertimeList() {
+		sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectOvertimeList");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
 	public String selectTargetGroupId(String cardId) {
 		sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();

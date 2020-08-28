@@ -18,6 +18,28 @@ public class TrafficDAO extends MybatisConnector {
 	public static TrafficDAO getInstance() {
 		return instance;
 	}
+	  
+	public int selectTrafficCountByMonth(String currentMonth) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("currentMonth", currentMonth); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectTrafficCountByMonth", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	
+	public List<ScheduleVO> selectTrafficList(String currentMonth) {
+		sqlSession = sqlSession();
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("currentMonth", currentMonth);  
+		try {
+			return sqlSession.selectList(namespace + ".selectTrafficList", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
 	
 	public void insertTraffic(TrafficPriceVO traffic) {
 		sqlSession = sqlSession();
