@@ -22,10 +22,14 @@ public class RegisterList implements CommandHandler {
 		String format = "yyyy-MM";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		String currentMonth = sdf.format(cal.getTime());
+		String currentYear = currentMonth.substring(0,4);
+		int previousOneYear = Integer.parseInt(currentYear) - 1; 
+		int previousTwoYear = Integer.parseInt(currentYear) - 2; 
+		int previousThreeYear = Integer.parseInt(currentYear) - 3; 
 		
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
-
+		
 		List<?> traffics = null;
 		List<?> overtimes = null;
 		
@@ -49,6 +53,10 @@ public class RegisterList implements CommandHandler {
 		req.setAttribute("overtimes", overtimes);
 		
 		req.setAttribute("currentMonth", currentMonth);
+		req.setAttribute("currentYear", currentYear);
+		req.setAttribute("previousOneYear", previousOneYear);
+		req.setAttribute("previousTwoYear", previousTwoYear);
+		req.setAttribute("previousThreeYear", previousThreeYear);
 		return "/WEB-INF/views/admin/registerList.jsp";
 	}
 	

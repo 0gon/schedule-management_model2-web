@@ -17,8 +17,32 @@
   </div>
   <!-- end -->
     <div class="w3-card-4 city" id="London" >
-  <div  class="w3-container w3-white">
-       <h6>${currentMonth} 월 <font color="red">교통비</font> 건수  (총 ${count_t } 건)</h6>
+  <div  class=" w3-white" style="padding:5px">
+        <div class="w3-left w3-padding" style="display:inline;"> 
+	       ${currentMonth}월<font color="red"> 교통비 </font>건수  (총 ${count_t } 건)
+       </div>
+       <div class="w3-margin-left" style="display:inline;"> 
+        <select class="w3-select " style="width:100px;padding:6px;">
+     	  	<option selected="selected">--년도--</option>
+     	  	<option >${currentYear }</option>
+     	  	<option >${previousOneYear }</option>
+     	  	<option >${previousTwoYear }</option>
+     	  	<option >${previousThreeYear }</option>
+        </select>
+        <select class="w3-select " style="width:70px;padding:6px;">
+     	  	<option selected="selected">--월--</option>
+     	  	<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+     	  	<option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+     	  	<option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+        </select>
+    	   <button class="w3-button w3-border " style="padding:5px">바로가기</button>
+       </div>
+       <div class="w3-right" style="display:inline;">
+	       <button class="w3-button w3-green w3-border" style="padding:5px">엑셀로 저장</button>
+       </div>
+       
+       
+       
       </div> 
       <div class="w3-container " style="overflow:auto; height:500px;  background: rgba(241, 241, 241, 0.75); ">
 <div class="w3-container  w3-margin-top">
@@ -80,8 +104,29 @@
 		</div>
       </div>
       <div id="Paris" class="w3-card-4 city" style="display:none">
-       <div  class="w3-container w3-white">
-       <h6>${currentMonth} 월 <font color="red">야근식대</font> 건수  (총 ${count_o } 건)</h6>
+       <div  class=" w3-white" style="padding:5px">
+       <div class="w3-left w3-padding" style="display:inline;">
+	       ${currentMonth}월<font color="red"> 야근식대 </font>건수  (총 ${count_o } 건)
+       </div>
+       <div class="w3-margin-left" style="display:inline;"> 
+        <select class="w3-select " style="width:100px;padding:6px;">
+     	  	<option selected="selected">--년도--</option>
+     	  	<option >${currentYear }</option>
+     	  	<option >${previousOneYear }</option>
+     	  	<option >${previousTwoYear }</option>
+     	  	<option >${previousThreeYear }</option>
+        </select>
+        <select class="w3-select " style="width:70px;padding:6px;">
+     	  	<option value="nv" selected="selected">--월--</option>
+     	  	<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+     	  	<option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+     	  	<option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+        </select>
+    	   <button class="w3-button w3-border " style="padding:5px">바로가기</button>
+       </div>
+       <div class="w3-right" style="display:inline;">
+	       <button class="w3-button w3-green w3-border" style="padding:5px">엑셀로 저장</button>
+       </div>
       </div> 
       <div class="w3-container " style="overflow:auto; height:500px;  background: rgba(241, 241, 241, 0.75); ">
 <div class="w3-container  w3-margin-top">

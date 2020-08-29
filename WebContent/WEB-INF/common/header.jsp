@@ -157,13 +157,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
   <div class="w3-container" >
     <img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" onclick="document.getElementById('posInfo').style.display='block'" 
     style="width:55%;margin-left:40px;" class="w3-round"><br><br>
-    <h4><b>${userVO.memberNm }</b></h4>
-    <p class="w3-text-grey">POS part_휴무관리시스템</p>
   </div>
   <div class="w3-bar-block">
     <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
-    <i class="fa fa-users fa-fw w3-margin-right"></i><font color="red">휴무</font> 등록</a>
+    <i class="fa fa-users fa-fw w3-margin-right"></i><font color="blue">팀</font> 전체현황</a>
+    
+    <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa-calendar fa-fw w3-margin-right"></i><font color="red">휴무</font> 등록</a>
      
     <a href="${ pageContext.servletContext.contextPath }/page/scheduleHG" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
@@ -173,6 +175,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
     <i class="fa fa-credit-card fa-fw w3-margin-right"></i><font color="red">법인카드</font> 사용등록</a> 
     
+    <a href="${ pageContext.servletContext.contextPath }/page/register" 
+    onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
+    <i class="fa fa fa-server fa-fw w3-margin-right"></i>전체 게시판</a> 
     
     <a href="${ pageContext.servletContext.contextPath }/page/user/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
     <i class="fa fa-sign-out fa-fw w3-margin-right "></i>로그아웃</a>
