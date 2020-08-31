@@ -159,7 +159,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     style="width:55%;margin-left:40px;" class="w3-round"><br><br>
   </div>
   <div class="w3-bar-block">
-    <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
+    <a href="${ pageContext.servletContext.contextPath }/page/teamSchedule" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
     <i class="fa fa-users fa-fw w3-margin-right"></i><font color="blue">팀</font> 전체현황</a>
     
@@ -175,7 +175,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
     <i class="fa fa-credit-card fa-fw w3-margin-right"></i><font color="red">법인카드</font> 사용등록</a> 
     
-    <a href="${ pageContext.servletContext.contextPath }/page/register" 
+    <a href="${ pageContext.servletContext.contextPath }/page/teamBoard" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
     <i class="fa fa fa-server fa-fw w3-margin-right"></i>전체 게시판</a> 
     
