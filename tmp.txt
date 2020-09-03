@@ -1,0 +1,38 @@
+    <div class="w3-border w3-light-grey " style="width: 1410px;">
+        <div class="w3-container w3-center w3-light-grey" style="height:38px">
+            <div style="margin-top:2px"><font size=5></font></div>
+        </div>
+        <div >
+            <div class="w3-border w3-center" style="float:left;width:200px">
+                &nbsp;1.
+            </div>
+            <div class="w3-border w3-center w3-sand  w3-hover-light-gray" style="float:left;width:1000px">
+                <strong>안녕하세요 글제목입니다.</strong> <i class="fa 	fa fa-mail-reply-all"></i>
+            </div>
+            <div class="w3-border w3-center" style="float:left;width:200px">
+                2020.01.20(금)
+            </div>
+        </div>
+        <div>
+            <div class="w3-border w3-center" style="float:left;width:200px">
+                &nbsp;2.
+            </div>
+            <div class="w3-border w3-center  w3-sand w3-hover-light-gray" style="float:left;width:1000px">
+                <strong> 글제목입니다.</strong> <i class="fa 	fa fa-mail-reply-all"></i>
+            </div>
+            <div class="w3-border w3-center" style="float:left;width:200px">
+                2020.01.20(금)
+            </div>
+        </div>
+       <div>
+            <div class="w3-border w3-center" style="float:left;width:200px">
+                &nbsp;2.
+            </div>
+            <div class="w3-border w3-center  w3-sand w3-hover-light-gray" style="float:left;width:1000px">
+                    <strong> 내용없습니다 없고 없습니다 없습니다.</strong> <i class="fa 	fa fa-mail-reply-all"></i>
+            </div>
+            <div class="w3-border w3-center" style="float:left;width:200px">
+                2020.01.20(금)
+            </div>
+        </div>
+    </div>
