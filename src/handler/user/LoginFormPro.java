@@ -63,7 +63,7 @@ public class LoginFormPro implements CommandHandler {
 			req.setAttribute("members",members);
 			req.setAttribute("duties",duties);
 			req.setAttribute("userVO",userVO);
-			res.sendRedirect(req.getContextPath() + "/page/userList");
+			res.sendRedirect(req.getContextPath() + "/page/teamSchedule");
 			return null;
 			
 			

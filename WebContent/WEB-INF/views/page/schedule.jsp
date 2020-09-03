@@ -1,7 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- !PAGE CONTENT! -->
+<script>
+	sessionStorage.setItem("contextpath",
+			"${ pageContext.servletContext.contextPath }")
+	sessionStorage.setItem("currentId", "${userVO.id}")
+	sessionStorage.setItem("grade", "${userVO.grade}")
+</script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/datePicker.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/hashmap.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
+<!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
+<script type="text/javascript">
+	var today = new Date();
+	
+	// DB저장되어 있는 유저정보 List
+	function memberDBtoJS() {
+		var memberList = new Array();
+		<c:forEach var="member" items="${members}">
+		if ("${member.useyn}" == 1) {
+			var memberVO = {
+				memberId : "${member.id}",
+				memberNm : "${member.memberNm}",
+			}
+			memberList.push(memberVO);
+		}
+		</c:forEach>
+		return memberList;
+	}
+	// DB저장되어 있는 일정정보 List
+	function scheduleDBtoJS() {
+		var scheduleList = new Array();
+		<c:forEach var="schedule" items="${schedules }">
+		var startDate = new Date("${schedule.startDate}");
+		var endDate = new Date("${schedule.endDate}");
+		var transTerm = endDate.getTime() - startDate.getTime()
+		var dutyTerm = transTerm / (1000 * 60 * 60 * 24);
+		var padMonth = startDate.getMonth() + 1;
+		if (startDate.getMonth() < 9)
+			padMonth = '0' + padMonth.toString();
+
+		var scheduleVO = {
+			scheduleId : "${schedule.id}",
+			dutyId : "${schedule.dutyId}",
+			memberId : "${schedule.memberId}",
+			startDay : startDate.getDate(),
+			endDay : endDate.getDate(),
+			year : startDate.getFullYear(),
+			month : padMonth,
+			dutyTerm : dutyTerm,
+			content : "${schedule.content}",
+			startWorkTime : "${schedule.startWorkTime}",
+			endWorkTime : "${schedule.endWorkTime}",
+		};
+		scheduleList.push(scheduleVO);
+		</c:forEach>
+		return scheduleList;
+	}
+	$(function() {
+		
+		buildCalendar();
+		datePicker();
+		$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList');
+		
+	});
+	
+</script>
 <div class="w3-main"
 	style="overflow: scroll; height: 830px; margin-left: 50px">
 	<!-- Header -->

@@ -1,6 +1,8 @@
 package dao;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +20,53 @@ public class ScheduleDAO extends MybatisConnector {
 	public static ScheduleDAO getInstance() {
 		return instance;
 	}
+	
+	public int selectHumuCount(String startDate, Calendar cal) {
+		int boardAllCount = 0;
+		cal.add(Calendar.DATE, 1);
+		String format = "yyyyMMdd";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		String endDate = sdf.format(cal.getTime());
+		System.out.println(endDate);
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		map.put("endDate", endDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectHumuCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectHugaCount(String startDate, String endDate) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		map.put("endDate", endDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectHugaCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectEducationCount(String startDate, String endDate) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		map.put("endDate", endDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectEducationCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectChulCount(String startDate, String endDate) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		map.put("endDate", endDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectChulCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	
 	
 	public List<ScheduleVO> selectScheduleAll() {
 		sqlSession = sqlSession();
