@@ -60,12 +60,6 @@ public class RegisterList implements CommandHandler {
 		return "/WEB-INF/views/admin/registerList.jsp";
 	}
 	
-	
-	public void test() {
-		
-	}
-	
-	
 	public static String getDayOfweek(Date date) {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");

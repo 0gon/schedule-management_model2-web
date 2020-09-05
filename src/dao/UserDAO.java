@@ -17,6 +17,74 @@ public class UserDAO extends MybatisConnector {
 	public static UserDAO getInstance() {
 		return instance;
 	}
+	public List<UserVO> selectUserWork(String startDate) {
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserWork", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserHumu(String startDate) {
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserHumu", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<UserVO> selectUserBan(String startDate) {
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserBan", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<UserVO> selectUserHuga(String startDate) {
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserHuga", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<UserVO> selectUserEdu(String startDate) {
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserEdu", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<UserVO> selectUserChul(String startDate) {
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserChul", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	
+	
+	
 	public int selectUserCount() {
 		int userAllCount = 0;
 		sqlSession = sqlSession();
@@ -25,7 +93,7 @@ public class UserDAO extends MybatisConnector {
 		return userAllCount;
 	}
 	
-	public List<ScheduleVO> selectUserList(int startRow, int endRow) {
+	public List<UserVO> selectUserList(int startRow, int endRow) {
 		sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 

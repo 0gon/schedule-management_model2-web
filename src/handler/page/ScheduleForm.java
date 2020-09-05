@@ -60,7 +60,7 @@ public class ScheduleForm implements CommandHandler {
 		int endPage = startPage + bottomLine - 1;
 		if (endPage > pageCount)
 			endPage = pageCount;
-		List<?> members = null;
+		List<?> members = null; 		
 		List<?> schedules = null;
 		//슈퍼관리자는 userYN =1인 모든 인원
 			if(userVO.getGrade()==3) {

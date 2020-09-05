@@ -5,19 +5,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.CommandHandler;
 import dao.ScheduleDAO;
+import dao.UserDAO;
 import model.WeekVO;
 
 public class TeamSchedule implements CommandHandler {
 	
+	@SuppressWarnings("null")
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
+		UserDAO userDAO = UserDAO.getInstance();
 		
 		//현재 월 추출
 		Calendar cal = Calendar.getInstance();
@@ -28,27 +32,55 @@ public class TeamSchedule implements CommandHandler {
 		String currentMonth = currentDate.substring(4,6);
 		ArrayList<String> weekList = new ArrayList<String>();
 		ArrayList<WeekVO> weekVOList = new ArrayList<WeekVO>();
-		WeekVO weekVO = new WeekVO();
+		
 		
 		for(int i = 0; i < 7; i++) {
+			WeekVO weekVO = new WeekVO();
 			//오늘날짜 기준 해당 주 일요일 구하기
 			cal.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY+i);
 			String week = sdf.format(cal.getTime());
 			String weekDay= week.substring(6,8);
 			weekList.add(weekDay);
-			
-			//일자별 휴무 인원수 VO 생성
-			int humu = scheduleDAO.selectHumuCount(week, cal);
-		//	int huga = scheduleDAO.selectHugaCount(week);
-	//		int education = scheduleDAO.selectEducationCount(week);
-		// chul = scheduleDAO.selectChulCount(week);
-	//		weekVO.setChul(chul);
-	//		weekVO.setEducation(education);
-	//		weekVO.setHuga(huga);
-			weekVO.setHumu(humu);
-			weekVOList.add(weekVO);
+			List<?> members_work = null;
+			List<?> members_humu = null;
+			List<?> members_huga= null; 
+			List<?> members_edu = null;
+			List<?> members_chul = null;
+			ArrayList<Object> memberLists = null;
+			//주말인 경우에는 근무인원만 구하기(일, 토)
+			if(i==0 || i==6) {
+				memberLists = new ArrayList<>();
+				int work = scheduleDAO.selectWorkCount(week);
+				members_work = userDAO.selectUserWork(week);
+				weekVO.setWork(work);
+				memberLists.add(members_work);
+				weekVO.setMembers(memberLists);
+				System.out.println("주말:"+memberLists);
+				weekVOList.add(weekVO);
+			}else {
+				memberLists = new ArrayList<>();
+				//일자별 휴무 인원수 VO 생성
+				int humu = scheduleDAO.selectHumuCount(week);
+				int huga = scheduleDAO.selectHugaCount(week);
+				int education = scheduleDAO.selectEducationCount(week);
+				int	 chul = scheduleDAO.selectChulCount(week);
+				members_humu = userDAO.selectUserHumu(week);
+				members_huga = userDAO.selectUserHuga(week);
+				members_edu = userDAO.selectUserEdu(week);
+				members_chul = userDAO.selectUserChul(week);
+				memberLists.add(members_humu);
+				memberLists.add(members_huga);
+				memberLists.add(members_edu);
+				memberLists.add(members_chul);
+				weekVO.setChul(chul);
+				weekVO.setEducation(education);
+				weekVO.setHuga(huga);
+				weekVO.setHumu(humu);
+				weekVO.setMembers(memberLists);
+				System.out.println("평일:"+memberLists);
+				weekVOList.add(weekVO);
+			}
 		}
-		
 		req.setAttribute("currentMonth", currentMonth);
 		req.setAttribute("currentYear", currentYear);
 		req.setAttribute("week1", weekList.get(0));
