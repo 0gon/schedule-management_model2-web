@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!--  -->
 <div class="w3-row">
 	<div class="w3-col w3-center"
 		style="width: 140px; margin-top: 5px; padding-bottom: 5px">

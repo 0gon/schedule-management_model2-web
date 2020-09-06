@@ -1,14 +1,13 @@
 package dao;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import model.BoardAllVO;
 import model.BoardVO;
 import model.ScheduleVO;
-import model.UserVO;
 
 public class BoardDAO extends MybatisConnector {
 	private final String namespace = "board";
@@ -29,8 +28,15 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	public int selectBoardAllCount() {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardAllCount");
+		sqlSession.close();
+		return boardAllCount;
+	}
 	
-	public List<ScheduleVO> selectBoardList(int startRow, int endRow, int dptNo) {
+	public List<BoardVO> selectBoardList(int startRow, int endRow, int dptNo) {
 		sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
@@ -42,11 +48,31 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<ScheduleVO> selectBoardAllList(int startRow, int endRow) {
+		sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		try {
+			return sqlSession.selectList(namespace + ".selectBoardAllList", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
 	public void insertBoard(BoardVO boardVO) {
 		sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertBoard", boardVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void insertBoardAll(BoardAllVO boardVO) {
+		sqlSession = sqlSession();
+		try {
+			sqlSession.insert(namespace + ".insertBoardAll", boardVO);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

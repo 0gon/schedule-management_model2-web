@@ -82,7 +82,6 @@ public class UserList implements CommandHandler {
 		req.setAttribute("pageCount", pageCount);
 		req.setAttribute("currentPage", currentPage);
 		req.setAttribute("pageNum", pageNum);
-		
 		req.setAttribute("members", members);
 		return "/WEB-INF/views/admin/userList.jsp";
 	}

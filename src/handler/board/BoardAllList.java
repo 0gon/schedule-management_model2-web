@@ -7,30 +7,28 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.BoardDAO;
-import dao.CommentDAO;
-import dao.UserDAO;
-import model.BoardVO;
-import model.UserVO;
+import model.BoardAllVO;
 
-public class BoardList implements CommandHandler {
+public class BoardAllList implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String pageNum = req.getParameter("pageNum");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		if (pageNum == null || pageNum =="") {
 		      pageNum = "1";
 		   }
 		
 		BoardDAO boardDAO = BoardDAO.getInstance();
-		
+		/*
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
+		*/
 		
 		//게시판 페이지 로직
 		int pageSize = 3;
@@ -41,18 +39,13 @@ public class BoardList implements CommandHandler {
 		int number = 0;
 		
 		List<?> boards = null;
-		count = boardDAO.selectBoardCount(userVO.getDptNo());
-		/*
-		*/
+		count = boardDAO.selectBoardAllCount();
 		
 		if (count > 0) {
-			CommentDAO commentDAO = CommentDAO.getInstance();
-			boards = boardDAO.selectBoardList(startRow, endRow,userVO.getDptNo());
+			boards = boardDAO.selectBoardAllList(startRow, endRow);
 			for(Object board:boards) {
-				BoardVO tmp=(BoardVO)board;
-				int commentCount = commentDAO.selectCommentCount(Integer.toString(tmp.getId()));
-				tmp.setCmtCnt(commentCount);
-				tmp.setFormatDate(getDayOfweek(tmp.getRegDate()));
+				BoardAllVO tmp=(BoardAllVO)board;
+				tmp.setFormatDate(sdf.format(tmp.getRegDate()));
 			}
 		}
 		number = count - (currentPage - 1) * pageSize;
@@ -76,7 +69,7 @@ public class BoardList implements CommandHandler {
 		req.setAttribute("pageNum", pageNum);
 		
 		req.setAttribute("boards", boards);
-		return "/WEB-INF/views/board/boardList.jsp";
+		return "/WEB-INF/views/board/boardAllList.jsp";
 	}
 	
 	public static String getDayOfweek(Date date) {
