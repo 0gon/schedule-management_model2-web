@@ -61,6 +61,10 @@ public class AddSchedulePro implements CommandHandler {
 				content ="재택근무" ;
 			}else if(dutyId.equals("7") && Realetc!=null) {
 				content =Realetc ;
+				java.util.Date utilDate = cal.getTime();
+				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+				scheduleDAO.insertScheduleALLC(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
+				return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 			}
 			
 			java.util.Date utilDate = cal.getTime();
@@ -68,7 +72,7 @@ public class AddSchedulePro implements CommandHandler {
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
 
 			return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
-		//관리자 혹은 파트장으로 파트만등록하는 경우
+		//파트장 권한으로 파트만등록하는 경우
 		}else if (substrId.equals("P")) {
 			List<?> members = userDAO.selectUserAllInfoByDpt(Integer.parseInt(substrDptNo));
 			scheduleVO.setEndDate(transEndDate);
@@ -91,7 +95,7 @@ public class AddSchedulePro implements CommandHandler {
 			}else if(dutyId.equals("7") && Realetc!=null) {
 				content =Realetc ;
 			}
-			
+		
 			java.util.Date utilDate = cal.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);

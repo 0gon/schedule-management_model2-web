@@ -17,6 +17,17 @@ public class DeleteSchedulePro implements CommandHandler {
 		UserDAO userDAO = UserDAO.getInstance();
 		String scheduleId = req.getParameter("id");
 		String pkId = req.getParameter("memberId");
+		String dutyId = req.getParameter("dutyId");
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+		
+		if(pkId.equals("12") && dutyId.equals("7") ) {
+			// 시작일 종료일을 제대로 못가지고와서 삭제시 키값을 못잡고있음
+			System.out.println("startDate:"+startDate);
+			System.out.println("endDate:"+endDate);
+			scheduleDAO.deleteScheduleC(startDate,endDate);
+			return "/WEB-INF/views/calendar/deleteSuccessMessage.jsp";
+		}
 		
 		ScheduleVO scheduleVO = scheduleDAO.selectScheduleInfoBySCHPK(Integer.parseInt(scheduleId));
 		long dateDiff =((scheduleVO.getEndDate().getTime()-scheduleVO.getStartDate().getTime())/(24*60*60*1000));

@@ -56,8 +56,6 @@ function deleteSchedule_admin(data, grade, dptNo) {
 	3: 슈퍼관리자
 	 */
 	var id = null;
-	console.log("grade:"+grade);
-	console.log("dptNo:"+dptNo);
 	if(grade == 3){
 		id = "id=" + data;
 		if(confirm("!!!!확인 시 해당일, 전체 사용자 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){

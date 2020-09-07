@@ -225,8 +225,10 @@
 	$('#borderRegDrag').draggable();
 	$('#borderDetail').draggable();
 	
-	function deleteScheduleIncludeHoli (scheduleId, memberId){
-		var id = "id=" + scheduleId + "&memberId=" + memberId;
-		sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
+	function deleteScheduleIncludeHoli (scheduleId, memberId, dutyId, startDate, endDate){
+	
+			var id = "id=" + scheduleId + "&memberId=" + memberId+ "&dutyId=" + dutyId + "&startDate=" + startDate + "&endDate=" + endDate;
+			sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
+	
 	}
 </script>

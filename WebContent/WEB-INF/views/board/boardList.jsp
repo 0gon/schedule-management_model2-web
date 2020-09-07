@@ -65,7 +65,7 @@
 			</c:forEach>
 		<c:if test="${count==0 }">
 			<tr>
-					<td >*** 작성된 글이 없습니다. ***</td>
+					<td class="w3-center">*** 작성된 글이 없습니다. ***</td>
 			</tr>
 		</c:if>
 		</table>

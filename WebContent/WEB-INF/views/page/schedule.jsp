@@ -431,7 +431,17 @@
                 <li><label>일정구분</label>
                   <select id="dutyCode_b" onchange="dutyChange_b(this)" name="dutyId" class="w3-select" >
                      <c:forEach var="duty" items="${duties}">
-                        <option value="${duty.id}">${duty.title}</option>
+                        <c:if test="${userVO.grade ==3  }">
+                        	<c:if test="${duty.id != 7 }">
+                        	<option value="${duty.id}">${duty.title}</option>
+                        	</c:if>
+                        	<c:if test="${duty.id == 7 }">
+                        	<option value="${duty.id}">공통 등록 ***(2글자 이내)***</option>
+                        	</c:if>
+                        </c:if>
+                        <c:if test="${userVO.grade !=3 && duty.id != 7 }">
+                        	<option value="${duty.id}">${duty.title}</option>
+                        </c:if>
                      </c:forEach>
                    </select>
                    <!--휴무  humu로 보내서 1 or 2로 받음--> 
@@ -625,6 +635,8 @@
 		    			}, 
 	              success: function(data){
 	            	  $('#boardContent').html(data);
+	            	  $('#commitbtn_b, #cancelbtn_b, #xbutton_b').attr('disabled',false); 
+	            	  $('#commitbtn_b').html('등록');
 				},
 			error: function(request, status, error) {
 				alert(error);
@@ -632,8 +644,12 @@
 			});
 		}
 	}
-	function deleteScheduleIncludeHoli (scheduleId, memberId){
-		var id = "id=" + scheduleId + "&memberId=" + memberId;
+	function deleteScheduleIncludeHoli (scheduleId, memberId,dutyId,startDate,endDate){
+	
+			console.log(startDate, endDate);
+		var id = "id=" + scheduleId + "&memberId=" + memberId+ "&dutyId=" + dutyId + "&startDate=" + startDate + "&endDate=" + endDate;
 		sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
+	
+	
 	}
 </script>

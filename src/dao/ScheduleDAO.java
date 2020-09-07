@@ -64,6 +64,15 @@ public class ScheduleDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	public int selectJungCheckCount(String startDate) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectJungCheckCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
 	
 	
 	public List<ScheduleVO> selectScheduleAll() {
@@ -121,6 +130,24 @@ public class ScheduleDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void insertScheduleALLC(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
+			String content,String startWorkTime,String endWorkTime) {
+		sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("dutyId", dutyId); 
+		map.put("transStartDate", transStartDate);
+		map.put("transEndDate", transEndDate);
+		map.put("content", content);
+		try {
+			for(int i=0;i<8;i++) {
+				map.put("dptNo", i);
+				sqlSession.insert(namespace + ".insertScheduleALLC", map);
+				sqlSession.commit();
+			}
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<?> selectScheduleInfo(String memberId) {
 		sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -171,6 +198,18 @@ public class ScheduleDAO extends MybatisConnector {
 		map.put("scheduleId", scheduleId);
 		try {
 			sqlSession.delete(namespace + ".deleteSchedule", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void deleteScheduleC(String startDate, String endDate) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		try {
+			sqlSession.delete(namespace + ".deleteScheduleC", map);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

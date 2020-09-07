@@ -48,7 +48,7 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
-	public List<ScheduleVO> selectBoardAllList(int startRow, int endRow) {
+	public List<BoardAllVO> selectBoardAllList(int startRow, int endRow) {
 		sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
@@ -90,6 +90,16 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public BoardAllVO selectBoardAllInfoByPK(String boardId) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectBoardAllInfoByPK", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
 	public void deleteBoard(String boardId ) {
 		
@@ -102,9 +112,18 @@ public class BoardDAO extends MybatisConnector {
 		} finally {
 			sqlSession.close();
 		}
+	}
+	public void deleteAllBoard(String boardId ) {
 		
-		
-		
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			sqlSession.delete(namespace + ".deleteAllBoard", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
 	}
 	
 	public void updateBoard(BoardVO boardVO) {

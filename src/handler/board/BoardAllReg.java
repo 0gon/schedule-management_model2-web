@@ -27,6 +27,7 @@ public class BoardAllReg implements CommandHandler {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.insertBoardAll(boardAllVO);
 		res.sendRedirect(req.getContextPath()+"/page/board/boardAllList");
+	//	res.sendRedirect(req.getContextPath()+"/page/teamSchedule");
 		return null;
 	}
 }

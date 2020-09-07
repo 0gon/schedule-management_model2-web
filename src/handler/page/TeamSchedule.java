@@ -39,6 +39,8 @@ public class TeamSchedule implements CommandHandler {
 		String currentMonth = currentDate.substring(4,6);
 		ArrayList<String> weekList = new ArrayList<String>();
 		ArrayList<WeekVO> weekVOList = new ArrayList<WeekVO>();
+		ArrayList<Integer> jungCntList = new ArrayList<Integer>();
+		
 		
 		
 		for(int i = 0; i < 7; i++) {
@@ -64,31 +66,45 @@ public class TeamSchedule implements CommandHandler {
 				weekVO.setMembers(memberLists);
 				weekVOList.add(weekVO);
 			}else {
-				//일자별 휴무 인원수 VO 생성
-				int humu = scheduleDAO.selectHumuCount(week);
-				int huga = scheduleDAO.selectHugaCount(week);
-				int education = scheduleDAO.selectEducationCount(week);
-				int	 chul = scheduleDAO.selectChulCount(week);
-				members_humu = userDAO.selectUserHumu(week);
-				members_ban = userDAO.selectUserBan(week);
-				members_huga = userDAO.selectUserHuga(week);
-				members_edu = userDAO.selectUserEdu(week);
-				members_chul = userDAO.selectUserChul(week);
-				memberLists.add(members_humu);
-				memberLists.add(members_ban);
-				memberLists.add(members_huga);
-				memberLists.add(members_edu);
-				memberLists.add(members_chul);
-				weekVO.setChul(chul);
-				weekVO.setEducation(education);
-				weekVO.setHuga(huga);
-				weekVO.setHumu(humu);
-				weekVO.setMembers(memberLists);
-				weekVOList.add(weekVO);
+				//정휴체크 카운트
+				int jungCnt = scheduleDAO.selectJungCheckCount(week);
+				jungCntList.add(jungCnt);
+				//정기휴무가 아닌경우
+				if(jungCnt == 0) {
+					//일자별 휴무 인원수 VO 생성
+					int humu = scheduleDAO.selectHumuCount(week);
+					int huga = scheduleDAO.selectHugaCount(week);
+					int education = scheduleDAO.selectEducationCount(week);
+					int	 chul = scheduleDAO.selectChulCount(week);
+					members_humu = userDAO.selectUserHumu(week);
+					members_ban = userDAO.selectUserBan(week);
+					members_huga = userDAO.selectUserHuga(week);
+					members_edu = userDAO.selectUserEdu(week);
+					members_chul = userDAO.selectUserChul(week);
+					memberLists.add(members_humu);
+					memberLists.add(members_ban);
+					memberLists.add(members_huga);
+					memberLists.add(members_edu);
+					memberLists.add(members_chul);
+					weekVO.setChul(chul);
+					weekVO.setEducation(education);
+					weekVO.setHuga(huga);
+					weekVO.setHumu(humu);
+					weekVO.setMembers(memberLists);
+					weekVOList.add(weekVO);
+					
+				//정기휴무인 경우	
+				}else {
+					int work = scheduleDAO.selectWorkCount(week);
+					members_work = userDAO.selectUserWork(week);
+					weekVO.setWork(work);
+					memberLists.add(members_work);
+					weekVO.setMembers(memberLists);
+					weekVOList.add(weekVO);
+				}
 			}
 		}
 		req.setAttribute("userVO", userVO);
-		
 		
 		req.setAttribute("currentMonth", currentMonth);
 		req.setAttribute("currentYear", currentYear);
@@ -99,6 +115,11 @@ public class TeamSchedule implements CommandHandler {
 		req.setAttribute("week5", weekList.get(4));
 		req.setAttribute("week6", weekList.get(5));
 		req.setAttribute("week7", weekList.get(6));
+		req.setAttribute("jungCnt1", jungCntList.get(0));
+		req.setAttribute("jungCnt2", jungCntList.get(1));
+		req.setAttribute("jungCnt3", jungCntList.get(2));
+		req.setAttribute("jungCnt4", jungCntList.get(3));
+		req.setAttribute("jungCnt5", jungCntList.get(4));
 		req.setAttribute("weekVO1", weekVOList.get(0));
 		req.setAttribute("weekVO2", weekVOList.get(1));
 		req.setAttribute("weekVO3", weekVOList.get(2));

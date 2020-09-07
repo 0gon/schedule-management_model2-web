@@ -304,13 +304,13 @@
                          <div class="w3-padding ">
                          <!-- zerogon id값을 실제 회원id값으로 변경필요 -->
                         <div class="memberSelector w3-border w3-padding w3-margin w3-button" 
-                        id="75" onclick="memberClick('75');" style="display: inline">황영민</div>
+                        id="1" onclick="memberClick('1');" style="display: inline">황영민</div>
                         <div class="memberSelector w3-border w3-padding w3-button" 
-                        id="76" onclick="memberClick('76');" style="display: inline">윤재웅</div>
+                        id="2" onclick="memberClick('2');" style="display: inline">윤재웅</div>
                         <div class="memberSelector w3-border w3-padding w3-button" 
-                        id="77" onclick="memberClick('77');" style="display: inline">최광명</div>
+                        id="3" onclick="memberClick('3');" style="display: inline">최광명</div>
                         <div class="memberSelector w3-border w3-padding w3-button" 
-                        id="78" onclick="memberClick('78');" style="display: inline">유승록</div>
+                        id="4" onclick="memberClick('4');" style="display: inline">유승록</div>
                         </div>
                         <!-- **영업1담당** -->
                         <div id="business1">
