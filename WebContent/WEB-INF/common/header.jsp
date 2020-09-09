@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>POS 휴무관리시스템</title>
+<title>백화점IS팀 근무관리시스템</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/api/w3css.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -115,13 +115,14 @@ var dataset = [
     
     
 <style>
+/* 배경이미지  
 body {
   background-image: url('${ pageContext.servletContext.contextPath }/imgs/bak3.jpeg');
   min-height: 100%;
   background-position: center;
   background-size: cover;
 }
-
+*/
 #mySidebar {
   background-image: url('${ pageContext.servletContext.contextPath }/imgs/navBack.jpeg');
   min-height: 100%;
@@ -157,6 +158,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
   <div class="w3-container" >
     <img src="${ pageContext.servletContext.contextPath }/imgs/avatar_g2.jpg" onclick="document.getElementById('posInfo').style.display='block'" 
     style="width:55%;margin-left:40px;" class="w3-round"><br><br>
+    <font size="4">${userVO.memberNm }</font> <font size="3" color="grey">님.</font>
+    <br>
   </div>
   <div class="w3-bar-block">
     <a href="${ pageContext.servletContext.contextPath }/page/teamSchedule" 

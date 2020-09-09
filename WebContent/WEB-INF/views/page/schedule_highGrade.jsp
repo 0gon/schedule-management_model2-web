@@ -106,12 +106,13 @@
 				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
 					class="	fa fa-arrow-circle-o-right w3-button"
 					style="font-size: 34px;" onclick="nextCalendar()"></i>
-	
-				<button class='w3-button w3-black' style='margin-left: 5px'
-					onclick="scheduleModal()">
-					<i class="	fa fa-plus" style="font-size: 10px;"
-						></i> <font size="4">책임당직 등록</font>
-				</button>
+				 <c:if test="${userVO.grade==2}">
+					<button class='w3-button w3-black' style='margin-left: 5px'
+						onclick="scheduleModal()">
+						<i class="	fa fa-plus" style="font-size: 10px;"
+							></i> <font size="4">책임당직 등록</font>
+					</button>
+				 </c:if>
 				
 			</div>
 		</div>

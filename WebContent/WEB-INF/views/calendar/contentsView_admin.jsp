@@ -46,7 +46,6 @@
 				<input type="reset" class="w3-button "
 					onclick="deleteSchedule_admin('${schedule.startDate}','${userVO.grade}','${userVO.dptNo}')" value="일정 전체삭제*">
 				</div>
-
 			</form>
 		</div>
 	</div>

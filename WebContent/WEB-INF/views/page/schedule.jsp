@@ -14,7 +14,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/datePicker.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js?v=20200909"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
 <script
@@ -91,7 +91,7 @@
 	
 </script>
 <div class="w3-main"
-	style="overflow: scroll; height: 830px; margin-left: 50px">
+	style="overflow: scroll; height: 880px; margin-left: 50px">
 	<!-- Header -->
 	<header id="portfolio">
 		<a href="#"><img src="../imgs/avatar_g2.jpg" style="width: 65px;"
@@ -261,7 +261,10 @@
 							 <c:if test="${userVO.grade==3}">
 								<font color="red">관리자 권한</font>
 							 </c:if>
-							 <c:if test="${userVO.grade==1 || userVO.grade==2}">
+							 <c:if test="${userVO.grade==1}">
+								<font color="red">일반관리자 권한</font>
+							 </c:if>
+							 <c:if test="${userVO.grade==2}">
 								<font color="red">파트장 권한</font>
 							 </c:if>
 							)</font>
@@ -296,9 +299,7 @@
 
         <div class="calendarForm w3-center  " id="modal">
             <form id="userinput" method="post" >
-             <c:if test="${userVO.grade!=1}">
              	<input type="hidden" name="memberId" value="${userVO.id}">
-		     </c:if>
                 <ul class="w3-ul w3-light-grey">
                 <li><label>일정구분</label>
                   <select id="dutyCode" onchange="dutyChange(this)" name="dutyId" class="w3-select" >
@@ -407,8 +408,11 @@
 						3: 슈퍼관리자
 					-->
              <c:if test="${userVO.grade==1 || userVO.grade==2|| userVO.grade==3}">
-                         <c:if test="${userVO.grade==1 || userVO.grade==2}">
+                         <c:if test="${ userVO.grade==2}">
                                <font color ='grey'>* 파트장 권한입니다. 본인등록은 날짜를 클릭해주세요.</font>
+                         </c:if>
+                         <c:if test="${userVO.grade==1}">
+                               <font color ='grey'>* 일반관리자 권한입니다. 본인등록은 날짜를 클릭해주세요.</font>
                          </c:if>
 			    <li><label>등록시킬 사람</label>
 			    <select  name="memberId" class="w3-select" >

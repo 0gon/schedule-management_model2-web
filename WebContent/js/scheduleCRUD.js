@@ -58,12 +58,12 @@ function deleteSchedule_admin(data, grade, dptNo) {
 	var id = null;
 	if(grade == 3){
 		id = "id=" + data;
-		if(confirm("!!!!확인 시 해당일, 전체 사용자 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){
+		if(confirm("!!!!확인 시 해당일, 전체 사용자 일정이 삭제됩니다.!!!!!")){
 			sendRequest(ctx + "/page/deleteScheduleAdm", id, fromServer, "POST");
 		}
-	}else if(grade == 2){
+	}else if(grade == 2 || grade == 1){
 		id = "id=" + data + "&dptNo=" + dptNo;
-		if(confirm("!!!!확인 시 해당일, 파트전체 일정이 삭제됩니다.!!!!!\n\n(개별 삭제는 해당계정 로그인 후 삭제해주세요.)")){
+		if(confirm("!!!!확인 시 해당일, 파트전체 일정이 삭제됩니다.!!!!!")){
 			sendRequest(ctx + "/page/deleteSchedulePT", id, fromServer, "POST");
 		}
 	}

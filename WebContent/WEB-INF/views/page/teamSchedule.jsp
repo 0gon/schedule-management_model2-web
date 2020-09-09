@@ -493,11 +493,20 @@
 	             <span class="w3-small">&nbsp;</span><br>
             </div>
         </div>
+            <c:if test="${not empty weekVO7.members[0]}">
+            	<div class="w3-sand w3-border w3-border-black">
+             		주말당직
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO7.members[0]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	            </div>
+            </c:if>
     </div>
 </div>
     <!-- 게시판 모달 상세보기-->
 <div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding:5px;width:700px;margin-left:27%" >
-dd
 </div>
   
   <script>
@@ -549,7 +558,7 @@ dd
     	//오늘 날짜에 해당하는 영역 주황색 음영
 		var today = new Date();
 	    var todayDate = today.getDate();
-	    todayDate = todayDate < 9 ? todayDate = '0'+(todayDate).toString() : today_month ; 
+	    todayDate = todayDate < 10 ? todayDate = '0'+(todayDate).toString() : todayDate ; 
 		$('#week'+todayDate).attr({
 			'class' :'w3-orange'
 		});

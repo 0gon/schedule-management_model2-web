@@ -888,7 +888,7 @@ function startAnim(animName) {
 function memberClick(memberId) {
 	var selectMemberCount = Number($('#selectMemberCount').text());
 	var selectPrice = 	Number($('#price').val()); 
-	var fixedPrice = 8000;
+	var fixedPrice = 10000;
 	//True 시 w3-blue 클래스 추가
 	var isTrue = document.getElementById(memberId).classList.toggle('w3-blue');
 	if(isTrue){

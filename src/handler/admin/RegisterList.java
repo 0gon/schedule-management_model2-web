@@ -7,10 +7,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.OvertimeDAO;
 import dao.TrafficDAO;
+import dao.UserDAO;
+import model.UserVO;
 
 public class RegisterList implements CommandHandler {
 	
@@ -45,6 +48,13 @@ public class RegisterList implements CommandHandler {
 		if (count_o > 0) {
 			overtimes = overtimeDAO.selectOvertimeList();
 		}
+		UserDAO userDAO = UserDAO.getInstance();
+		
+		HttpSession session = req.getSession();
+		String memberId = (String) session.getAttribute("memberId"); 
+		UserVO userVO = userDAO.selectUserInfo(memberId);
+		req.setAttribute("userVO", userVO);
+		
 		
 		//게시판 변수들
 		req.setAttribute("count_t", count_t);

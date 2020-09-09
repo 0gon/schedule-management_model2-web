@@ -9,12 +9,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
 import dao.DptDAO;
 import dao.UserDAO;
 import model.DptVO;
-import model.ScheduleVO;
 import model.UserVO;
 
 public class UserList implements CommandHandler {
@@ -25,15 +25,12 @@ public class UserList implements CommandHandler {
 		if (pageNum == null || pageNum =="") {
 		      pageNum = "1";
 		   }
-		
-		
 
 		UserDAO userDAO = UserDAO.getInstance();
 		
-		/*HttpSession session = req.getSession();
-		 *		String memberId = (String) session.getAttribute("memberId"); 
-		 * UserVO userVO = userDAO.selectUserInfo(memberId);
-		  */
+		HttpSession session = req.getSession();
+		String memberId = (String) session.getAttribute("memberId"); 
+		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
 		//게시판 페이지 로직
 		int pageSize = 7;
@@ -44,7 +41,7 @@ public class UserList implements CommandHandler {
 		int number = 0;
 		
 		DptDAO dptDAO = DptDAO.getInstance();
-		List dptList = dptDAO.selectDptALLInfo();
+		List<?> dptList = dptDAO.selectDptALLInfo();
 		List<?> members = null;
 		List membersLi=null;
 		count = userDAO.selectUserCount();
@@ -55,10 +52,10 @@ public class UserList implements CommandHandler {
 			if(it.hasNext()) {
 				membersLi=new ArrayList<UserVO>();
 				do {
-					UserVO userVO = (UserVO) it.next();
-					DptVO dptVO = dptDAO.selectDptInfoById(userVO.getDptNo());
-					userVO.setDptVO(dptVO);
-					membersLi.add(userVO);
+					UserVO uVO = (UserVO) it.next();
+					DptVO dptVO = dptDAO.selectDptInfoById(uVO.getDptNo());
+					uVO.setDptVO(dptVO);
+					membersLi.add(uVO);
 				}while(it.hasNext());
 			}
 		}
@@ -73,6 +70,7 @@ public class UserList implements CommandHandler {
 		
 		//게시판 변수들
 		req.setAttribute("membersLi",membersLi);
+		req.setAttribute("userVO",userVO);
 		req.setAttribute("dptList",dptList);
 		req.setAttribute("count", count);
 		req.setAttribute("number", number);
