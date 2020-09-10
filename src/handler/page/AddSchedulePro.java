@@ -50,6 +50,8 @@ public class AddSchedulePro implements CommandHandler {
 				content = "공가";
 			}else if(dutyId.equals("1") && humu.equals("4")) {
 				content = "보상";
+			}else if(dutyId.equals("1") && humu.equals("5")) {
+				content = "정기휴무";
 			}
 			else if(dutyId.equals("1") && humu.equals("7")) {
 				content = "공휴일";

@@ -492,7 +492,6 @@
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
             </div>
-        </div>
             <c:if test="${not empty weekVO7.members[0]}">
             	<div class="w3-sand w3-border w3-border-black">
              		주말당직
@@ -503,6 +502,7 @@
 	                </div>
 	            </div>
             </c:if>
+        </div>
     </div>
 </div>
     <!-- 게시판 모달 상세보기-->

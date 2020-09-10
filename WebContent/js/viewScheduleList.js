@@ -1,3 +1,5 @@
+var currentId = sessionStorage.getItem("currentId"); // 세션에 저장되어있는 현재 접속자 아이디
+var grade = sessionStorage.getItem("grade");
 
 function viewScheduleList(scheduleList){
 	 for(var i=0; i<scheduleList.length;i++){
@@ -13,7 +15,7 @@ function viewScheduleList(scheduleList){
 		    			else if(scheduleList[i].content=='공가'){
 		    				viewSchedule('red','공가',scheduleList,i,j,term);	
 		    			}else if(scheduleList[i].content=='정기휴무'){
-		    				viewSchedule('red','정휴',scheduleList,i,j,term);
+		    				viewSchedule('light-grey','정휴',scheduleList,i,j,'');
 		    			}else if(scheduleList[i].content=='보상'){
 		    				viewSchedule('red','보상',scheduleList,i,j,term);
 		    			}else{
@@ -62,19 +64,42 @@ function viewScheduleList(scheduleList){
 // dutyid 1,3,5 해당 schedule view 
 function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
 	var memberId = Number(scheduleList[i].memberId) < 10 ? '0'+scheduleList[i].memberId : scheduleList[i].memberId;
-	  
-	
-	$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
-		'class' :'w3-'+scheduleColor+' w3-dropdown-hover w3-border',
-		'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+memberId+')',
-		'style' : 'width:3%'
+	if(scheduleName == '공휴' || scheduleName == '정휴' ){
+		$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
+			'class' :'w3-'+scheduleColor+' w3-button w3-border',
+			'onclick' : 'dayClick("'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)+'",0)',
+			'style' : 'width:3%'
 		});
-	var hoverContent = 
-        scheduleName+'<div class="w3-dropdown-content w3-bar-block w3-border" >'+  
-            '<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> '+scheduleName+'</font></div>'
-        if(scheduleName!=='점검'){
-        	hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
-        }    
-            hoverContent+=term;
-	$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+	}else{
+		$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).attr({
+			'class' :'w3-'+scheduleColor+' w3-dropdown-hover w3-border',
+			'onclick' : 'scheduleClick('+scheduleList[i].scheduleId+','+memberId+')',
+			'style' : 'width:3%'
+		});
+		var hoverContent = 
+			scheduleName+'<div class="w3-dropdown-content w3-bar-block w3-border" >'+  
+			'<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> '+scheduleName+'</font></div>'
+			if(scheduleName!=='점검'){
+				hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
+			}    
+		hoverContent+=term;
+		$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
+	}
+}
+
+
+
+//일정없는 날 클릭시 발생 함수
+function dayClick(clickSid,grade){
+	// 사용자가 클릭한 아이디, 현재 접속아이디: currentId
+	var clickId = String(clickSid).substring(0,2)
+	var subDate = String(clickSid).substring(1,clickSid.length); //2020011
+	var clickDate = dateFormat(subDate);
+	if(currentId==Number(clickId)){
+		document.getElementById('startdate').value=clickDate;
+		document.getElementById('enddate').value=clickDate;
+		document.getElementById('addDay').style.display='block';
+	}else{
+		alert('자신의 일정만 조정가능합니다.')
+	}
 }

@@ -49,7 +49,6 @@ function dateCheck_b(){
 				return userinput_b.enddate_b.focus();
 			}else{
 				$('#userinput_b').submit(function(event){
-					debugger;
 					$('#commitbtn_b, #cancelbtn_b, #xbutton_b').attr('disabled',true); 
 					$('#commitbtn_b').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
 					var data=$(this).serialize();

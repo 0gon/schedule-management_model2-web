@@ -470,10 +470,10 @@
                         </span>&nbsp;
                <c:if test="${userVO.grade==3}">
                         <!-- 관리자인 경우 -->
-                        <!--  
                         <span>
                             정기휴무: <input type="radio" name="humu" value="5" class="w3-radio" >
                         </span>&nbsp;
+                        <!--  
                         <span>
                             의무연차: <input type="radio" name="humu" value="6" class="w3-radio" >
                         </span>&nbsp;
