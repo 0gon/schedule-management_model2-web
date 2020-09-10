@@ -8,7 +8,7 @@
 	sessionStorage.setItem("grade", "${userVO.grade}")
 </script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js?v=20200910"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
 <script
@@ -23,7 +23,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20200910"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
@@ -106,14 +106,6 @@
 				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
 					class="	fa fa-arrow-circle-o-right w3-button"
 					style="font-size: 34px;" onclick="nextCalendar()"></i>
-				 <c:if test="${userVO.grade==2}">
-					<button class='w3-button w3-black' style='margin-left: 5px'
-						onclick="scheduleModal()">
-						<i class="	fa fa-plus" style="font-size: 10px;"
-							></i> <font size="4">책임당직 등록</font>
-					</button>
-				 </c:if>
-				
 			</div>
 		</div>
 		

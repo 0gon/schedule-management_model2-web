@@ -8,7 +8,7 @@
 	sessionStorage.setItem("grade", "${userVO.grade}")
 </script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js?v=20200910"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
 <script
@@ -23,14 +23,14 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20200910"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20200910"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
@@ -524,15 +524,15 @@
                         <span>
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
-                          </c:if>
-                        <c:if test="${userVO.grade==2}">
-	                    <span>
-	                     책임당직: <input type="radio" name="working" value="2" class="w3-radio">
-	                    </span>&nbsp;
-                        </c:if>
                         <span>
                             재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
+                          </c:if>
+                          <c:if test="${userVO.grade!=0}">
+                        <span>
+                            재택근무: <input type="radio" name="working" value="3" class="w3-radio" checked>
+                        </span>
+                          </c:if>
                     </div>
                     <!--  기타일정 추가-->
                     <div id="duty6_b" style="display: none">

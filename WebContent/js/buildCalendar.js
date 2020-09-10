@@ -36,7 +36,7 @@ function buildCalendar(){
     	}
     }
     
-    month = month < 9 ? month = '0'+(month+1).toString() : month + 1; 
+    month = month < 10 ? month = '0'+(month+1).toString() : month + 1; 
     
     for(var i=1;i<=lastDay;i++){
          dateStr+= "<td class='w3-border w3-center "+year+month+i+"'>"+i+"</td>"
