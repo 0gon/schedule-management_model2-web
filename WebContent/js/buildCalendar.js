@@ -35,7 +35,17 @@ function buildCalendar(){
     		memberList[0] = tmp;
     	}
     }
-    
+    /*  일치하는 아이디는 삭제하고 제일 앞에 본인 계정 
+      for(var i=0;i<memberList.length;i++){
+    	if(memberList[i].memberId==currentId){
+		memberList.splice(i, 1);
+    	}
+      }
+      memberList.splice(0,0,currentId);
+    */ 
+	
+	
+	
     month = month < 10 ? month = '0'+(month+1).toString() : month + 1; 
     
     for(var i=1;i<=lastDay;i++){
