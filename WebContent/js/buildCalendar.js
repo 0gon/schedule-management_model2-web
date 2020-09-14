@@ -27,7 +27,9 @@ function buildCalendar(){
     }
     
     //세션에 존재하는 내 아이디를 가지고와서 표 맨위로 올리기
-    var currentId = sessionStorage.getItem("currentId"); 
+    
+    var currentId = sessionStorage.getItem("currentId");
+    /*
     for(var i=0;i<memberList.length;i++){
     	if(memberList[i].memberId==currentId){
     		var tmp = memberList[i];
@@ -35,15 +37,19 @@ function buildCalendar(){
     		memberList[0] = tmp;
     	}
     }
-    /*  일치하는 아이디는 삭제하고 제일 앞에 본인 계정 
-      for(var i=0;i<memberList.length;i++){
-    	if(memberList[i].memberId==currentId){
-		memberList.splice(i, 1);
-    	}
-      }
-      memberList.splice(0,0,currentId);
-    */ 
-	
+    */
+    // 일치하는 아이디는 삭제하고 제일 앞에 본인 계정 
+    var myInfo = null;
+	for(var i=0;i<memberList.length;i++){
+	 if(memberList[i].memberId==currentId){
+		 myInfo = memberList[i];
+		 memberList.splice(i, 1);
+	 }
+	}
+	if(myInfo){
+		memberList.splice(0,0,myInfo);
+	}
+
 	
 	
     month = month < 10 ? month = '0'+(month+1).toString() : month + 1; 

@@ -61,7 +61,8 @@
        	<c:if test="${count_t>0}">
        	<table class="w3-table  w3-centered" style="border:black; ">
 		    <tr class="w3-black">
-		      <th class="w3-center">일자</th>
+		      <th class="w3-center">이용일자</th>
+		      <th class="w3-center">교통편</th>
 		      <th class="w3-center">이름</th>
 		      <th class="w3-center">용무</th>
 		      <th class="w3-center">출발지</th>
@@ -73,7 +74,10 @@
      <c:forEach var="traffic" items="${traffics}">
      <tr  class="w3-hover-white" >
 	      <td>
-	      	${traffic.departureTime}
+	      	${traffic.useDate}
+	      </td>
+	      <td>
+	      	${traffic.cardType}
 	      </td>
 	      <td>
 	      	${traffic.memberNm}
@@ -145,7 +149,7 @@
        	<c:if test="${count_o>0}">
        	<table class="w3-table  w3-centered" style="border:black; ">
 		    <tr class="w3-black">
-		      <th class="w3-center">일자</th>
+		      <th class="w3-center">사용일자</th>
 		      <th class="w3-center">등록인</th>
 		      <th class="w3-center">동행인</th>
 		      <th class="w3-center">내용</th>
@@ -162,7 +166,7 @@
        	${overtime.memberNm}
       </td>
       <td>
-       	--------
+       	${overtime.targetListName} (${overtime.targetListCount} 명)
       </td>
       <td>
        	${overtime.content}

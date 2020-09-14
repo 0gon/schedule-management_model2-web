@@ -1,8 +1,10 @@
 package handler.admin;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import controller.CommandHandler;
 import dao.OvertimeDAO;
 import dao.TrafficDAO;
 import dao.UserDAO;
+import model.OvertimePriceVO;
 import model.UserVO;
 
 public class RegisterList implements CommandHandler {
@@ -30,12 +33,13 @@ public class RegisterList implements CommandHandler {
 		int previousTwoYear = Integer.parseInt(currentYear) - 2; 
 		int previousThreeYear = Integer.parseInt(currentYear) - 3; 
 		
+		UserDAO userDAO = UserDAO.getInstance();
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
 		
 		List<?> traffics = null;
 		List<?> overtimes = null;
-		
+		List overtimesLi=null;
 		int count_t = 0;
 		int count_o = 0;
 		
@@ -47,9 +51,23 @@ public class RegisterList implements CommandHandler {
 		}
 		if (count_o > 0) {
 			overtimes = overtimeDAO.selectOvertimeList();
+			//overtimeList에 동행인 삽입
+			Iterator<?> it = overtimes.iterator();
+			if(it.hasNext()) {
+				overtimesLi=new ArrayList<OvertimePriceVO>();
+				do {
+					OvertimePriceVO overtimeVO = (OvertimePriceVO) it.next();
+					String targetNameList = overtimeDAO.selectOvertimeTargetList(overtimeVO.getGroupId()
+							,overtimeVO.getMemberNm());
+					int tagetNameCount = overtimeDAO.selectOvertimeTargetListCnt(overtimeVO.getGroupId());
+					//동행인이 없는 경우 0명 처리
+					tagetNameCount = tagetNameCount < 0 ? tagetNameCount= 0 : tagetNameCount;
+					overtimeVO.setTargetListCount(tagetNameCount);
+					overtimeVO.setTargetListName(targetNameList);
+					overtimesLi.add(overtimeVO);
+				}while(it.hasNext());
+			}
 		}
-		UserDAO userDAO = UserDAO.getInstance();
-		
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId"); 
 		UserVO userVO = userDAO.selectUserInfo(memberId);
@@ -60,7 +78,7 @@ public class RegisterList implements CommandHandler {
 		req.setAttribute("count_t", count_t);
 		req.setAttribute("count_o", count_o);
 		req.setAttribute("traffics", traffics);
-		req.setAttribute("overtimes", overtimes);
+		req.setAttribute("overtimes", overtimesLi);
 		
 		req.setAttribute("currentMonth", currentMonth);
 		req.setAttribute("currentYear", currentYear);

@@ -30,7 +30,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20200910"></script>
+	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20200914"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->

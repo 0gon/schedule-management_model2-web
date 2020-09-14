@@ -105,7 +105,6 @@ public class TeamSchedule implements CommandHandler {
 			}
 		}
 		req.setAttribute("userVO", userVO);
-		
 		req.setAttribute("currentMonth", currentMonth);
 		req.setAttribute("currentYear", currentYear);
 		req.setAttribute("week1", weekList.get(0));

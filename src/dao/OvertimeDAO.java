@@ -34,8 +34,26 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
-	
-	public List<ScheduleVO> selectOvertimeList() {
+	// 
+	public int selectOvertimeTargetListCnt(String groupId) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("groupId", groupId);
+		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeTargetListCnt",map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public String selectOvertimeTargetList(String groupId,String targetNm) {
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("targetNm", targetNm);
+		map.put("groupId", groupId);
+		String targetNameList = sqlSession.selectOne(namespace + ".selectOvertimeTargetList",map); 
+		sqlSession.close();
+		return targetNameList;
+	}
+	public List<OvertimePriceVO> selectOvertimeList() {
 		sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectOvertimeList");

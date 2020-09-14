@@ -17,8 +17,22 @@ public class OvertimePriceVO {
 	private Date createDate;
 	private String groupId;
 	private String shopName;
+	private String targetListName;
+	private int targetListCount;
 	
 	
+	public int getTargetListCount() {
+		return targetListCount;
+	}
+	public void setTargetListCount(int targetListCount) {
+		this.targetListCount = targetListCount;
+	}
+	public String getTargetListName() {
+		return targetListName;
+	}
+	public void setTargetListName(String targetListName) {
+		this.targetListName = targetListName;
+	}
 	public String getShopName() {
 		return shopName;
 	}

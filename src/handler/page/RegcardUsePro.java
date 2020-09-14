@@ -32,6 +32,7 @@ public class RegcardUsePro implements CommandHandler {
 			String departureTime = req.getParameter("departureTime");
 			String destinationTime = req.getParameter("destinationTime");
 			String taxiPrice = req.getParameter("taxiPrice");
+			String trafficType = req.getParameter("trafficType");
 			//traffic Bean 생성
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
@@ -44,6 +45,16 @@ public class RegcardUsePro implements CommandHandler {
 			trafficVO.setMemberId(memberId);
 			trafficVO.setMemberNm(memberNm);
 			trafficVO.setUseDate(transUseDate);
+			//택시
+			if(trafficType.equals("1")) {
+				trafficVO.setCardType("택시");
+			//지하철
+			}else if(trafficType.equals("2")) {
+				trafficVO.setCardType("지하철");
+			//버스
+			}else {
+				trafficVO.setCardType("버스");
+			}
 			trafficDAO.insertTraffic(trafficVO);
 		//야근식대로 들어온경우 useCode 2
 		}else {

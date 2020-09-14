@@ -159,7 +159,7 @@
 	    $('#FINmembers').append(FINlist);
 	    document.getElementById(userId).classList.add('w3-blue');
 		$('#selectMemberCount').text("1"); 
-		$('#price').val(8000);
+		$('#price').val(10000);
 	    
 	    $('#startTime, #endTime').appendDtpicker({
 		    'locale' : 'ko', // 한글화
@@ -275,6 +275,20 @@
                     <!--교통비 내용--> 
                     <li> 
                     <div id="taxi_content">
+                    <div style='padding-bottom: 10px'>
+                        <span >
+                            택시: <input type="radio" value="1" name="trafficType" checked="checked" class="w3-radio" >
+                        </span>
+                        &nbsp;
+                        <span>
+                            지하철: <input type="radio" value="2" name="trafficType" class="w3-radio" >
+                        </span>
+                        &nbsp;
+                        <span>
+                            버스: <input type="radio" value="3" name="trafficType" class="w3-radio" >
+                        </span>
+                    </div>
+                    
                         <div style="padding-top:5px" >
                               출발지 : <input type="text" id="departure" name="departure" value="${userVO.likedDpr }" class="w3-input w3-round" style="display: inline;width: 170px;height: 35" placeholder="ex) 중구 장교동">
                             <i class="fa fa-star w3-center w3-large w3-button" onclick="likedReg(${userVO.id},1)" style="padding:8px"title="자주가는 출발지 등록" ></i>
@@ -904,7 +918,7 @@ function memberClick(memberId) {
 function memberClick_u(memberId) {
 	var selectMemberCount = Number($('#selectMemberCount_u').text());
 	var selectPrice = 	Number($('#price_u').val()); 
-	var fixedPrice = 8000;
+	var fixedPrice = 10000;
 	//True 시 w3-blue 클래스 추가
 	var isTrue = document.getElementById(memberId).classList.toggle('w3-blue');
 	if(isTrue){
