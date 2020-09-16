@@ -32,8 +32,9 @@ public class ScheduleForm implements CommandHandler {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		
 		UserDAO userDAO = UserDAO.getInstance();
+		System.out.println("memberId: "+memberId);
 		UserVO userVO = userDAO.selectUserInfo(memberId);
-		
+		System.out.println("userVO: "+userVO);
 		//게시판 페이지 로직
 		int pageSize = 3;
 		int currentPage = Integer.parseInt(pageNum);

@@ -179,6 +179,9 @@
   <header id="portfolio">
     <div >
         <font size="4">법인카드 사용내역 </font>
+        <button class="w3-black" style="margin-left:1050px"
+        onclick = "document.getElementById('cardList').style.display='block'"
+        >카드소지자</button>
          <div class=" w3-bottombar">
 	        <font size="3">달력에 등록된</font> 
 	        <font size="4" color="red">[교통비], [야근식대]</font>
@@ -242,6 +245,22 @@
    <div id="messageContent" class=" w3-container w3-padding">
    </div>  
 </div>
+
+<div id="cardList" class="w3-modal" style="background-color: rgba(0,0,0,0.0); padding-top:10px;" >
+    <div id="cardListDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 500px;">
+        <div class="w3-container w3-center w3-teal" style="height:38px">
+            <div style=""><font size=5>카드소지자 등록내역</font></div>
+        </div>
+        <div class="w3-container " >
+        <button id='xbutton_crd' onclick="document.getElementById('cardList').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
+	        <div class="w3-center  w3-container" id="modal">
+	        
+	        </div>
+        </div>
+    </div>
+</div>
+
+
 
     <!-- 일정 등록 모달 -->
 <div id="addDay" class="w3-modal" style="background-color: rgba(0,0,0,0.0); padding-top:10px;" >

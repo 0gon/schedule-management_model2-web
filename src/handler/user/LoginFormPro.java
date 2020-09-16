@@ -20,53 +20,24 @@ public class LoginFormPro implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		UserDAO userDAO = UserDAO.getInstance();
-		String memberId = req.getParameter("memberId");
+		String memberId = req.getParameter("memberId");;
 		String memberPwd = req.getParameter("memberPwd");
 		String admin = req.getParameter("admin");
-		HttpSession session = null;
-		session = req.getSession();
-		
-		//default ID 
-		if(admin!=null) {
+		HttpSession session = req.getSession();
+		if("1".equals(admin)) {
 			memberId="admin";
-			memberPwd="1234";
+			memberPwd="1111";
 		}
 		
-		UserVO userVO = userDAO.selectUserInfo(memberId);
-		if(userVO==null || !memberPwd.equals(userVO.getMemberPwd())) {
+		String userPwd = userDAO.selectUserPwd(memberId);
+		if(userPwd==null || !userPwd.equals(memberPwd)) {
 			req.setAttribute("memberId",memberId);
 			return "/WEB-INF/views/user/login.jsp";
 		}
 		else {
-			// USER PK에 따른 일정보여주는 서비스
-			ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
-			List<?> schedules = scheduleDAO.selectScheduleInfoByPK(userVO.getId());
-			List schedulesLi=null;
-			Iterator<?> it = schedules.iterator();
-			DutyDAO dutyDAO = DutyDAO.getInstance();
-			if(it.hasNext()) {
-				schedulesLi=new ArrayList<ScheduleVO>();
-				do {
-					ScheduleVO scheduleVO = (ScheduleVO) it.next();
-					DutyVO dutyVO = dutyDAO.selectDutyInfoById(scheduleVO.getDutyId());
-					UserVO uVO = userDAO.selectUserInfoByPK(scheduleVO.getMemberId());
-					scheduleVO.setDutyVO(dutyVO);
-					scheduleVO.setUserVO(uVO);
-					schedulesLi.add(scheduleVO);				
-				}while(it.hasNext());
-			}
-
-			List<?> duties = dutyDAO.selectDutyInfo();
-			List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 			session.setAttribute("memberId", memberId);
-			req.setAttribute("schedules",schedulesLi);
-			req.setAttribute("members",members);
-			req.setAttribute("duties",duties);
-			req.setAttribute("userVO",userVO);
 			res.sendRedirect(req.getContextPath() + "/page/teamSchedule");
 			return null;
-			
-			
 		}
 	}
 }

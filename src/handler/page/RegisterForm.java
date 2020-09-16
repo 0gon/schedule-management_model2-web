@@ -36,15 +36,6 @@ public class RegisterForm implements CommandHandler {
 		
 		//교통비 내역 List 생성
 		List<?> traffics = trafficDAO.selectTrafficInfoByPK(userVO.getId());
-		List trafficsLi = null;
-		Iterator<?> it = traffics.iterator();
-		if (it.hasNext()) {
-			trafficsLi = new ArrayList<ScheduleVO>();
-			do {
-				TrafficPriceVO trafficVO = (TrafficPriceVO) it.next();
-				trafficsLi.add(trafficVO);
-			} while (it.hasNext());
-		}
 		//야근식대 내역 List 생성
 		List<?> overtimes = overtimeDAO.selectOvertimeInfoByPK(userVO.getId());
 		List overtimesLi = null;
@@ -66,7 +57,7 @@ public class RegisterForm implements CommandHandler {
 		List<?> GFTmembers = userDAO.selectUserAllInfoGFT();
 		List<?> FINmembers = userDAO.selectUserAllInfoFIN();
 		List<?> duties = dutyDAO.selectDutyInfo();
-		req.setAttribute("trafficsLi", trafficsLi);
+		req.setAttribute("trafficsLi", traffics);
 		req.setAttribute("overtimesLi", overtimesLi);
 		req.setAttribute("members", members);
 		req.setAttribute("Allmembers", Allmembers);

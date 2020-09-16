@@ -166,7 +166,12 @@
        	${overtime.memberNm}
       </td>
       <td>
+      <c:if test="${overtime.targetListCount>0}">
        	${overtime.targetListName} (${overtime.targetListCount} 명)
+      </c:if>
+       <c:if test="${overtime.targetListCount<=0}">
+           <font color="grey">-</font>
+       </c:if>
       </td>
       <td>
        	${overtime.content}
