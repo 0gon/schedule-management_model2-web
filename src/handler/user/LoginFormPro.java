@@ -28,7 +28,6 @@ public class LoginFormPro implements CommandHandler {
 			memberId="admin";
 			memberPwd="1111";
 		}
-		
 		String userPwd = userDAO.selectUserPwd(memberId);
 		if(userPwd==null || !userPwd.equals(memberPwd)) {
 			req.setAttribute("memberId",memberId);

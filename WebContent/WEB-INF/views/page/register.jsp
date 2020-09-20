@@ -246,15 +246,70 @@
    </div>  
 </div>
 
-<div id="cardList" class="w3-modal" style="background-color: rgba(0,0,0,0.0); padding-top:10px;" >
-    <div id="cardListDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 500px;">
+<div id="cardList" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding-top:10px;" >
+    <div id="cardListDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 2000px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style=""><font size=5>카드소지자 등록내역</font></div>
         </div>
         <div class="w3-container " >
-        <button id='xbutton_crd' onclick="document.getElementById('cardList').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
+        <button id='xbutton_crd' onclick="document.getElementById('cardList').style.display='none';" class="w3-button w3-display-topright">&times;</button>
 	        <div class="w3-center  w3-container" id="modal">
-	        
+	        	
+	    <c:if test="${count_o==0 }">
+			<div class="w3-center w3-padding-top">
+			<table class="w3-table table-bordered w3-center" width="100%">
+			<tr  >
+			<td class="w3-center w3-padding"><br>
+			<span class="w3-tag w3-white w3-border">등록된 내역이 없습니다.</span><br><br></td>
+			</tr>
+			</table>
+			</div>
+		</c:if>
+	        	<!--  overtimesLiCard -->
+	        	  	<c:if test="${count_o>0}">
+       	<table class="w3-table  w3-centered" style="border:black; ">
+		    <tr class="w3-black">
+		      <th class="w3-center">사용일자</th>
+		      <th class="w3-center">등록인</th>
+		      <th class="w3-center">동행인</th>
+		      <th class="w3-center">내용</th>
+		      <th class="w3-center">음식점</th>
+		      <th class="w3-center">카드소지자</th>
+		      <th class="w3-center">금액</th>
+		    </tr>
+     <c:forEach var="overtime" items="${overtimesLiCard}">
+     <tr class="w3-hover-white">
+      <td>
+       	${overtime.useDate}
+      </td>
+      <td> 
+       	${overtime.memberNm}
+      </td>
+      <td>
+      <c:if test="${overtime.targetListCount>0}">
+       	${overtime.targetListName} (${overtime.targetListCount} 명)
+      </c:if>
+       <c:if test="${overtime.targetListCount<=0}">
+           <font color="grey">-</font>
+       </c:if>
+      </td>
+      <td>
+       	${overtime.content}
+      </td> 
+      <td>
+       	${overtime.shopName}
+      </td>
+      <td>
+       	${overtime.cardHolder}
+      </td> 
+       <td>
+       	${overtime.price} 원
+       </td>
+    </tr>
+    </c:forEach>   
+  </table>
+     </c:if>
+	        	
 	        </div>
         </div>
     </div>
@@ -279,13 +334,13 @@
                 
                     <div style="margin-left: 25px; padding-bottom: 5px;width: 350px" >
                         <select id="useCode" name="useCode" onchange="useChange(this)" class="w3-select"  >
-                            <option value="1">교통비</option>
                             <option value="2">야근식대</option>
+                            <option value="1">교통비</option>
                        </select>
                         <p></p>
                         <label>내 용 : </label>
                         <input type="text" id="content" name="content" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder=" 20자 이내">
-                        <div id="shopDIV" style="margin-top:5px;display:none">
+                        <div id="shopDIV" style="margin-top:5px;">
                         <label>음식점 : </label>
                         <input type="text" id="shopName" name="shopName" class="w3-input w3-round" style="display: inline;width: 160px;height: 35" placeholder="20자 이내">
                         </div>
@@ -293,7 +348,7 @@
                     </li>
                     <!--교통비 내용--> 
                     <li> 
-                    <div id="taxi_content">
+                    <div id="taxi_content" style="display:none">
                     <div style='padding-bottom: 10px'>
                         <span >
                             택시: <input type="radio" value="1" name="trafficType" checked="checked" class="w3-radio" >
@@ -321,7 +376,7 @@
                     <!--교통비 end-->
                     
                     <!-- 야근식대 -->
-                    <div id="overtime_content" style="display:none">
+                    <div id="overtime_content" >
                     <div style='padding-bottom: 10px'>
                         <span >
                             영업1담당: <input type="radio" id="dptchk1" name="area" onclick="areaChange(1)" class="w3-radio" >

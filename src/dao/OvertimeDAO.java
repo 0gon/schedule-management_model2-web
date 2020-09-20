@@ -34,6 +34,15 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	public int selectOvertimeCountByMonthC(String memberNm) {
+		int boardAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memberNm", memberNm);
+		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonthC",map);
+		sqlSession.close();
+		return boardAllCount;
+	}
 	// 
 	public int selectOvertimeTargetListCnt(String groupId) {
 		int boardAllCount = 0;

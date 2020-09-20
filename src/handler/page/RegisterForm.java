@@ -34,19 +34,32 @@ public class RegisterForm implements CommandHandler {
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
+		int count_o = overtimeDAO.selectOvertimeCountByMonthC(userVO.getMemberNm()); 
+		List<?> overtimesCard = null;
+		List overtimesLiCard = null;
+		//카드소지자 리스트 뽑기
+		if(count_o>0) {
+			overtimesCard = overtimeDAO.selectOvertimeCardList(userVO.getMemberNm());
+			Iterator<?> it = overtimesCard.iterator();
+			if(it.hasNext()) {
+				overtimesLiCard=new ArrayList<OvertimePriceVO>();
+				do {
+					OvertimePriceVO overtimeVO = (OvertimePriceVO) it.next();
+					String targetNameList = overtimeDAO.selectOvertimeTargetList(overtimeVO.getGroupId()
+							,overtimeVO.getMemberNm());
+					int tagetNameCount = overtimeDAO.selectOvertimeTargetListCnt(overtimeVO.getGroupId());
+					tagetNameCount = tagetNameCount < 0 ? tagetNameCount= 0 : tagetNameCount;
+					overtimeVO.setTargetListCount(tagetNameCount);
+					overtimeVO.setTargetListName(targetNameList);
+					overtimesLiCard.add(overtimeVO);
+				}while(it.hasNext());
+			}
+		}
+		
 		//교통비 내역 List 생성
 		List<?> traffics = trafficDAO.selectTrafficInfoByPK(userVO.getId());
 		//야근식대 내역 List 생성
 		List<?> overtimes = overtimeDAO.selectOvertimeInfoByPK(userVO.getId());
-		List overtimesLi = null;
-		Iterator<?> it2 = overtimes.iterator();
-		if (it2.hasNext()) {
-			overtimesLi = new ArrayList<OvertimePriceVO>();
-			do {
-				OvertimePriceVO overtimeVO = (OvertimePriceVO) it2.next();
-				overtimesLi.add(overtimeVO);
-			} while (it2.hasNext());
-		}
 		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 		List<?> Allmembers = userDAO.selectUserAllInfo();
 		List<?> MDmembers = userDAO.selectUserAllInfoMD();
@@ -58,7 +71,9 @@ public class RegisterForm implements CommandHandler {
 		List<?> FINmembers = userDAO.selectUserAllInfoFIN();
 		List<?> duties = dutyDAO.selectDutyInfo();
 		req.setAttribute("trafficsLi", traffics);
-		req.setAttribute("overtimesLi", overtimesLi);
+		req.setAttribute("count_o", count_o);
+		req.setAttribute("overtimesLi", overtimes);
+		req.setAttribute("overtimesLiCard", overtimesLiCard);
 		req.setAttribute("members", members);
 		req.setAttribute("Allmembers", Allmembers);
 		req.setAttribute("POSmembers", POSmembers);
