@@ -164,7 +164,7 @@
                     <a href="userList?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>
                </c:if>
                <c:if test="${i==currentPage }">
-                  <a href="userList?pageNum=${i }" class="w3-bar-item w3-button w3-hover-black">${i }</a>                
+                  <a href="userList?pageNum=${i }" class="w3-bar-item w3-button w3-black w3-hover-black">${i }</a>                
                </c:if>
          </c:forEach>
             

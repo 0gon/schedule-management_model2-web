@@ -149,7 +149,7 @@
          	<c:if test="${jungCnt1 > 0}">
          		<div class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
-	             <span class="w3-small"><font color="red"> 정 기 휴 무 </font></span><br>
+	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO2.work } </span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
@@ -231,7 +231,7 @@
             <c:if test="${jungCnt2 > 0}">
          		<div class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
-	             <span class="w3-small"><font color="red"> 정 기 휴 무 </font></span><br>
+	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO3.work } </span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
@@ -310,7 +310,7 @@
             <c:if test="${jungCnt3 > 0}">
          		<div class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
-	             <span class="w3-small"><font color="red"> 정 기 휴 무 </font></span><br>
+	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO4.work } </span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
@@ -389,7 +389,7 @@
             <c:if test="${jungCnt4 > 0}">
          		<div class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
-	             <span class="w3-small"><font color="red"> 정 기 휴 무 </font></span><br>
+	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO5.work } </span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
@@ -468,7 +468,7 @@
             <c:if test="${jungCnt5 > 0}">
          		<div class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
-	             <span class="w3-small"><font color="red"> 정 기 휴 무 </font></span><br>
+	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO6.work } </span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>

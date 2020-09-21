@@ -1,20 +1,11 @@
 package handler.user;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controller.CommandHandler;
-import dao.DutyDAO;
-import dao.ScheduleDAO;
 import dao.UserDAO;
-import model.DutyVO;
-import model.ScheduleVO;
-import model.UserVO;
 
 public class LoginFormPro implements CommandHandler {
 	@Override
@@ -35,6 +26,8 @@ public class LoginFormPro implements CommandHandler {
 		}
 		else {
 			session.setAttribute("memberId", memberId);
+			session.setMaxInactiveInterval(3600);
+
 			res.sendRedirect(req.getContextPath() + "/page/teamSchedule");
 			return null;
 		}
