@@ -13,16 +13,16 @@ public class TrafficPriceVO {
 	private String destination;
 	private String departureTime;
 	private String destinationTime;
-	private int price;
+	private String price;
 	private Date useDate;
 	private Date updateDate;
 	
 	
 	
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getCardType() {

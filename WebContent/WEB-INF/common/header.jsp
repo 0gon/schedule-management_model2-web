@@ -123,12 +123,14 @@ body {
   background-size: cover;
 }
 */
+/*  
 #mySidebar {
   background-image: url('${ pageContext.servletContext.contextPath }/imgs/navBack.jpeg');
   min-height: 100%;
   background-position: center;
   background-size: cover;
 }
+*/
 </style>
     <style>
 @font-face {
@@ -146,10 +148,61 @@ body {
 body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
 
 </style>
+   
+   
     
+<body class="w3-light-grey" >
+
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
     
-<body class="w3-light-grey w3-content" style="max-width:2000px">
-  <button id="openNav" class="w3-button w3-black w3-xlarge"  onclick="w3_open()">&#9776;</button>
+    <a href="${ pageContext.servletContext.contextPath }/page/teamSchedule" class="w3-bar-item ">
+ <img src="${ pageContext.servletContext.contextPath }/imgs/lotte.png" class="w3-button" style="padding:0px;height: 20px" >
+ </a>
+      <a href="${ pageContext.servletContext.contextPath }/page/teamSchedule" class="w3-bar-item w3-button">
+      	<i class="fa fa-users fa-fw "></i><font color="blue"> 팀</font> 전체현황</a>
+
+ <div class="w3-dropdown-hover w3-white">
+    <button class="w3-button" title="Notifications"><i class="fa fa-pencil-square-o"></i> 등 록 <i class="fa fa-caret-down"></i></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+      <a href="${ pageContext.servletContext.contextPath }/page/schedule" class="w3-bar-item w3-button">
+     	<i class="fa fa-calendar fa-fw "></i><font color="red"> 휴무</font> 등록</a>
+      
+      <a href="${ pageContext.servletContext.contextPath }/page/scheduleHG" class="w3-bar-item w3-button">
+      	<i class="fa fa-user fa-fw "></i><font color="red"> 책임당직</font> 등록</a>
+      	
+      <a href="${ pageContext.servletContext.contextPath }/page/register" class="w3-bar-item w3-button">
+      	<i class="fa fa-credit-card fa-fw "></i><font color="red"> 법인카드</font> 등록</a> 
+    </div>
+  </div>
+  
+      <a href="${ pageContext.servletContext.contextPath }/page/teamBoard" class="w3-bar-item w3-button">
+      	    <i class="fa fa-clone fa-fw"></i> 전체게시판</a> 
+    <!-- Right-sided navbar links -->
+    <div class="w3-right">
+   <c:if test="${userVO.grade==3}"> 
+  <div class="w3-dropdown-hover w3-white">
+    <button class="w3-button" title="Notifications">admin<i class="fa fa-caret-down"></i></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+       <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/registerList" 
+	    class="w3-bar-item w3-button w3-padding ">
+	      <i class="fa fa-th-large fa-fw "></i><font color="blue">법인카드</font> 사용내역</a>
+	    <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/userList" 
+	     class="w3-bar-item w3-button w3-padding ">
+	    <i class="fa fa fa-user-circle fa-fw "></i><font color="blue">사원</font> 관리</a> 
+	    <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/userReg" 
+	     class="w3-bar-item w3-button w3-padding ">
+	    <i class="fa fa-user-plus fa-fw "></i><font color="blue">사원</font> 등록</a> 
+    </div>
+  </div>
+  </c:if>
+	  <label class="w3-bar-item " style="padding-top:5px;padding-bottom:5px"><font size="4">${userVO.memberNm }</font> <font size="3" color="grey">님.</font></label>
+      <a href="${ pageContext.servletContext.contextPath }/page/user/logout" class="w3-bar-item w3-button">
+      	<i class="fa fa-sign-out fa-fw  "></i> 로그아웃</a>
+    </div>
+  </div>
+</div>
+
 <!-- Sidebar/menu -->
 <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none;width:200px" id="mySidebar"><br>
   <button class="w3-bar-item w3-button w3-large w3-black w3-center"
@@ -164,7 +217,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
   <div class="w3-bar-block">
     <a href="${ pageContext.servletContext.contextPath }/page/teamSchedule" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
-    <i class="fa fa-users fa-fw w3-margin-right"></i><font color="blue">팀</font> 전체현황</a>
+    <i class="fa fa-users fa-fw w3-margin-right"></i><font color="blue">팀</font> 주간현황</a>
     
     <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">

@@ -10,7 +10,7 @@ public class OvertimePriceVO {
 	private String content;
 	private String targetMbrId;
 	private String targetMbrNm;
-	private int price;
+	private String price;
 	private String cardHolder;
 	private Date useDate;
 	private Date updateDate;
@@ -93,10 +93,11 @@ public class OvertimePriceVO {
 	public void setTargetMbrNm(String targetMbrNm) {
 		this.targetMbrNm = targetMbrNm;
 	}
-	public int getPrice() {
+	
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getCardHolder() {

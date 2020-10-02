@@ -1,5 +1,6 @@
 package handler.admin;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ import dao.OvertimeDAO;
 import dao.TrafficDAO;
 import dao.UserDAO;
 import model.OvertimePriceVO;
+import model.TrafficPriceVO;
 import model.UserVO;
 
 public class RegisterList implements CommandHandler {
@@ -23,6 +25,7 @@ public class RegisterList implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
+		DecimalFormat formatter = new DecimalFormat("###,###");
 		//현재 월 추출
 		Calendar cal = Calendar.getInstance();
 		String format = "yyyy-MM";
@@ -40,6 +43,7 @@ public class RegisterList implements CommandHandler {
 		List<?> traffics = null;
 		List<?> overtimes = null;
 		List overtimesLi=null;
+		List trafficsLi=null;
 		int count_t = 0;
 		int count_o = 0;
 		
@@ -48,6 +52,17 @@ public class RegisterList implements CommandHandler {
 		
 		if (count_t > 0) {
 			traffics = trafficDAO.selectTrafficList(currentMonth);
+			Iterator<?> it = traffics.iterator();
+			if(it.hasNext()) {
+				trafficsLi=new ArrayList<TrafficPriceVO>();
+				do {
+					TrafficPriceVO trafficVO = (TrafficPriceVO) it.next();
+					// 숫자에 콤마 집어넣기 ex) 6000 > 6,000
+					String formatStr = formatter.format(Integer.parseInt(trafficVO.getPrice()));
+					trafficVO.setPrice(formatStr);
+					trafficsLi.add(trafficVO);
+				}while(it.hasNext());
+			}
 		}
 		if (count_o > 0) {
 			overtimes = overtimeDAO.selectOvertimeList();
@@ -64,6 +79,9 @@ public class RegisterList implements CommandHandler {
 					tagetNameCount = tagetNameCount < 0 ? tagetNameCount= 0 : tagetNameCount;
 					overtimeVO.setTargetListCount(tagetNameCount);
 					overtimeVO.setTargetListName(targetNameList);
+					// 숫자에 콤마 집어넣기 ex) 6000 > 6,000
+					String formatStr = formatter.format(Integer.parseInt(overtimeVO.getPrice()));
+					overtimeVO.setPrice(formatStr);
 					overtimesLi.add(overtimeVO);
 				}while(it.hasNext());
 			}
@@ -77,7 +95,7 @@ public class RegisterList implements CommandHandler {
 		//게시판 변수들
 		req.setAttribute("count_t", count_t);
 		req.setAttribute("count_o", count_o);
-		req.setAttribute("traffics", traffics);
+		req.setAttribute("traffics", trafficsLi);
 		req.setAttribute("overtimes", overtimesLi);
 		
 		req.setAttribute("currentMonth", currentMonth);

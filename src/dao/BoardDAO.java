@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import model.BoardAllVO;
+import model.BoardBookVO;
 import model.BoardVO;
 import model.ScheduleVO;
 
@@ -64,6 +65,15 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertBoard", boardVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public void insertBoardBook(BoardBookVO boardVO) {
+		sqlSession = sqlSession();
+		try {
+			sqlSession.insert(namespace + ".insertBoardBook", boardVO);
 			sqlSession.commit();
 		} finally {
 			sqlSession.close();

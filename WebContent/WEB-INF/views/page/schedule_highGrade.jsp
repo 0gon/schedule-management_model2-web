@@ -91,7 +91,7 @@
 	
 </script>
 <div class="w3-main"
-	style="overflow: scroll; height: 830px; margin-left: 50px">
+	style="overflow: scroll; height: auto;margin-left: 20px;margin-top:50px;">
 	<!-- Header -->
 	<header id="portfolio">
 		<a href="#"><img src="../imgs/avatar_g2.jpg" style="width: 65px;"
@@ -146,7 +146,7 @@
 		</div>
 	</header>
 	<!-- 일정 -->
-	<div class="w3-container w3-padding-large w3-card-4 w3-white" style="width:1450px;margin-left:10px;margin-top:10px">
+	<div class="w3-container w3-padding-large w3-card-2 w3-white" style="width:1450px;margin-left:10px;margin-top:10px">
     <table id="scheduleTable" class="w3-table" style="width:1400px" >
         <tr id ='date'>
         </tr>

@@ -1,5 +1,6 @@
 package handler.page;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +25,7 @@ public class RegisterForm implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		DecimalFormat formatter = new DecimalFormat("###,###");
 		//DAO °´Ã¼ »ý¼º
 		UserDAO userDAO = UserDAO.getInstance();
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
@@ -48,7 +50,9 @@ public class RegisterForm implements CommandHandler {
 					String targetNameList = overtimeDAO.selectOvertimeTargetList(overtimeVO.getGroupId()
 							,overtimeVO.getMemberNm());
 					int tagetNameCount = overtimeDAO.selectOvertimeTargetListCnt(overtimeVO.getGroupId());
+					String formatStr = formatter.format(Integer.parseInt(overtimeVO.getPrice()));
 					tagetNameCount = tagetNameCount < 0 ? tagetNameCount= 0 : tagetNameCount;
+					overtimeVO.setPrice(formatStr);
 					overtimeVO.setTargetListCount(tagetNameCount);
 					overtimeVO.setTargetListName(targetNameList);
 					overtimesLiCard.add(overtimeVO);

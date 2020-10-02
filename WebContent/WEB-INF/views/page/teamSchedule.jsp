@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <div class=" " style="width: 1410px; margin-left:55px "> 
+  <div style="width: 1410px; margin-left:25px;margin-top:60px"> 
         <div class=" w3-center w3-border w3-border-black w3-light-grey" style="height:38px">
             <div style="margin-top:2px"><font size=5>◆ 공 지 사 항 ◆</font>
             <!--슈퍼관리자인 경우만 공지사항 쓸 수 있게끔  -->
@@ -62,7 +62,7 @@
     </div>
   
 
-<div class="w3-container" style="margin-left:36px;">
+<div class="w3-container" style="margin-left:6px;">
     <div class="w3-border w3-light-grey " style="width: 1405px;">
         <div class="w3-container w3-border w3-border-black w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>${currentYear } 년 ${currentMonth } 월</font></div>

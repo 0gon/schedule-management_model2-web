@@ -36,7 +36,7 @@ public class RegcardUsePro implements CommandHandler {
 			//traffic Bean 생성
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
-			trafficVO.setPrice(Integer.parseInt(taxiPrice));
+			trafficVO.setPrice(taxiPrice);
 			trafficVO.setContent(content);
 			trafficVO.setDeparture(departure);
 			trafficVO.setDepartureTime(departureTime);
@@ -72,7 +72,7 @@ public class RegcardUsePro implements CommandHandler {
 			overtimeVO.setShopName(shopName);
 			overtimeVO.setMemberId(memberId);
 			overtimeVO.setMemberNm(memberNm);
-			overtimeVO.setPrice(Integer.parseInt(price));
+			overtimeVO.setPrice(price);
 			overtimeVO.setUseDate(transUseDate);
 			//group ID 설정 : 최대값 구해서 +1
 			String groupId = overtimeDAO.selectLastGroupId();

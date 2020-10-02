@@ -174,7 +174,7 @@
 	});
 </script>
 
-<div class="w3-main" style="margin-left:100px">
+<div class="w3-main" style="margin-left:100px;margin-top:50px">
   <!-- Header -->
   <header id="portfolio">
     <div >
@@ -272,6 +272,7 @@
 		      <th class="w3-center">사용일자</th>
 		      <th class="w3-center">등록인</th>
 		      <th class="w3-center">동행인</th>
+		      <th class="w3-center">총 인원</th>
 		      <th class="w3-center">내용</th>
 		      <th class="w3-center">음식점</th>
 		      <th class="w3-center">카드소지자</th>
@@ -286,12 +287,15 @@
        	${overtime.memberNm}
       </td>
       <td>
-      <c:if test="${overtime.targetListCount>0}">
-       	${overtime.targetListName} (${overtime.targetListCount} 명)
+      <c:if test="${not empty overtime.targetListName}">
+       	${overtime.targetListName} 
       </c:if>
-       <c:if test="${overtime.targetListCount<=0}">
+       <c:if test="${empty overtime.targetListName}">
            <font color="grey">-</font>
        </c:if>
+      </td>
+      <td>
+      ${overtime.targetListCount} 명
       </td>
       <td>
        	${overtime.content}
@@ -441,14 +445,14 @@
                 </div>    
                 </li>
         <!--교통비 등록시간-->     
-        <li id="taxi_reg">
+        <li id="taxi_reg" style="display: none; ">
             <div style="padding-top: 5px;" >
                   출발일시 : <input type="text" readonly="readonly" id="startTime" placeholder="연도-월-일 시간" name="departureTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35;">&nbsp;
                   도착일시 : <input type="text" readonly="readonly" id="endTime" placeholder="연도-월-일 시간" name="destinationTime" class=" w3-input w3-round" style="display: inline;width: 130px;height: 35" >
             </div>    
        </li>        
         <!--야근식대 금액등록-->         
-      <li id="overtime_price" style="display: none; padding: 8px">
+      <li id="overtime_price" style="padding: 8px">
             <div style="padding-top: 10px;" >
                선택인원 : <font size="5" id="selectMemberCount" color='grey'></font> 명
                <!--  <i class="fa fa-search w3-large" ></i>-->
@@ -464,12 +468,12 @@
 	       <input type="text" id="useDate" readonly="readonly"  name="useDate"  class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
-       <div id="taxi_price"style="display:inline;width:110px;">
+       <div id="taxi_price"style="display:none;width:110px;">
 	       <label> 금액: </label>
 	       <input type="text" id="taxiPrice" name="taxiPrice" class="w3-input w3-border"
 	       style="display: inline;width: 100px;"> 원
        </div>
-       <div id="card_owner"style="display:none;width:110px;">
+       <div id="card_owner"style="display:inline;width:110px;">
 	       <label>카드소지자: </label>
 	       <input type="text" id="cardInput" name="cardHolder" placeholder="ex) 황영민" class="w3-input w3-border"
 	       style="display: inline;width: 100px;">

@@ -61,6 +61,7 @@
 		      <th class="w3-center">사용일자</th>
 		      <th class="w3-center">등록인</th>
 		      <th class="w3-center">동행인</th>
+		      <th class="w3-center">총 인원</th>
 		      <th class="w3-center">내용</th>
 		      <th class="w3-center">음식점</th>
 		      <th class="w3-center">카드소지자</th>
@@ -72,15 +73,18 @@
        	${overtime.useDate}
       </td>
       <td> 
-       	${overtime.memberNm}
+       	${overtime.memberNm} 
       </td>
       <td>
       <c:if test="${overtime.targetListCount>0}">
-       	${overtime.targetListName} (${overtime.targetListCount} 명)
+       	${overtime.targetListName}
       </c:if>
        <c:if test="${overtime.targetListCount<=0}">
            <font color="grey">-</font>
        </c:if>
+      </td>
+      <td>
+       ${overtime.targetListCount} 명
       </td>
       <td>
        	${overtime.content}

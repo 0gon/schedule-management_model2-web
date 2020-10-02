@@ -46,7 +46,7 @@ public class UpdateProForCal implements CommandHandler {
 				trafficVO.setDestination(destination);
 				trafficVO.setDestinationTime(destinationTime);
 				trafficVO.setUseDate(transUseDate);
-				trafficVO.setPrice(Integer.parseInt(taxiPrice));
+				trafficVO.setPrice(taxiPrice);
 				trafficDAO.updateTrafficPrice(trafficVO);
 			// 달력 컨탠츠 이동을 통한 수정
 			}else{
@@ -64,7 +64,7 @@ public class UpdateProForCal implements CommandHandler {
 				overtimeVO.setCardHolder(cardHolder);
 				overtimeVO.setContent(content);
 				overtimeVO.setShopName(shopName);
-				overtimeVO.setPrice(Integer.parseInt(price));
+				overtimeVO.setPrice(price);
 				overtimeVO.setUseDate(transUseDate);
 				overtimeDAO.updateOvertimePrice(overtimeVO);
 			}else {
