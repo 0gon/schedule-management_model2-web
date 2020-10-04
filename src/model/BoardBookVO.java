@@ -66,6 +66,12 @@ public class BoardBookVO {
 	public void setFormatDate(String formatDate) {
 		this.formatDate = formatDate;
 	}
+	@Override
+	public String toString() {
+		return "BoardBookVO [Id=" + Id + ", memberId=" + memberId + ", memberNm=" + memberNm + ", title=" + title
+				+ ", bookName=" + bookName + ", price=" + price + ", pchURL=" + pchURL + ", regDate=" + regDate
+				+ ", formatDate=" + formatDate + "]";
+	}
 	
 	
 	

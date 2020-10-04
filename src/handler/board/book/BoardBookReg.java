@@ -31,7 +31,7 @@ public class BoardBookReg implements CommandHandler {
 		//DB board insert 
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.insertBoardBook(boardBookVO);
-		//res.sendRedirect(req.getContextPath()+"/page/board/boardList");
+		res.sendRedirect(req.getContextPath()+"/page/board/book/boardList");
 		return null;
 	}
 }

@@ -21,7 +21,7 @@
                     <tr>
                       <td class="w3-sand w3-center" style="width: 200px">글 제목 :</td>
                       <td class="w3-light-gray">
-                      <input name="title" value="2020년 09월 도서신청" disabled="disabled" id="bookTitle" class="w3-input" style="padding: 2px;width: 90%"/>
+                      <input name="title" disabled="disabled" id="bookTitle" class="w3-input" style="padding: 2px;width: 90%"/>
                       </td>
                     </tr>
                     <tr>
@@ -55,6 +55,11 @@
         </div>
     </div>
 </div>
+<!-- 글 눌렀을 때 나오는 content -->
+<div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" ></div>
+
+
+
  <!-- 쓰기 버튼 눌렀을 시 나오는 모달 (쓰기) -->
 <div id="borderReg2" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
     <div id="borderRegDrag2" class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
@@ -105,43 +110,16 @@
     </div>
 </div>
 
-   <div class="w3-display-middle" style="width:1150px;margin-top:-200px">
+   <div style="width:1150px;margin-top:80px;margin-left: 30px">
         <div class="w3-cell-row">
-             <div class="w3-container w3-cell">
-     
-                  <font size="5">◆ 도서 게시판 ◆</font>
-	  <span  style="margin-top:5px" onclick="boardWriteForm('')"
-						class="w3-tag w3-round w3-right w3-border w3-border-white w3-hover-opacity w3-hover-white">
-						<i class="fa fa-pencil"></i> 신청하기
-	 </span>
-	<div class="w3-border w3-border-black" >
-		<table class="w3-table w3-striped w3-bordered">
-			<tr>
-				<th width="50px"  class="w3-center">번호</th>
-				<th width="200px" class="w3-center">제목</th>
-				<th width="100px" class="w3-center">작성자</th>
-				<th width="200px" class="w3-center">작성일</th>
-			</tr>
-			<tr class="w3-white w3-hover-opacity w3-hover-sand">
-				<td class="w3-center">[1]</td>
-				<td class="w3-center">2020.09월 도서신청</td>
-				<td class="w3-center">송영곤</td>
-				<td class="w3-center">2020.09.07(화)</td>
-			</tr>
-			<tr class="w3-white">
-				<td class="w3-center">[1]</td>
-				<td class="w3-center">2020.09월 도서신청</td>
-				<td class="w3-center">송영곤</td>
-				<td class="w3-center">2020.09.07(화)</td>
-			</tr>
-             </table>
-    </div>
-        
+        <!--도서게시판 영역  -->
+             <div class="w3-container w3-cell" id="bookArea">
             </div>
-
+		<!-- 자유게시판 영역 -->
+		
               <div class="w3-container w3-cell">
                  <font size="5">◆ 자유 게시판 ◆</font>
-	  <span  style="margin-top:5px" onclick="boardWriteForm(2)"
+	  <span  style="margin-top:5px" onclick="alert('개발중입니다.')"
 						class="w3-tag w3-round w3-right w3-border w3-border-white w3-hover-opacity w3-hover-white">
 						<i class="fa fa-pencil"></i> 쓰 기
 	 </span>
@@ -162,27 +140,15 @@
               </div>
         </div>
         </div>
-			<!--  
-	<c:if test="${count>0 }">
-	
-	</c:if>
-	<c:if test="${count==0 }">
-		<tr class="w3-center">
-			<td class="w3-border w3-center" width="1400px">*** 작성된 글이 없습니다.
-				***</td>
-		</tr>
-	</c:if>
-	
-	-->
 <script>
 		function boardWriteForm(type) {
 				document.getElementById('borderReg'+type).style.display = 'block';
 		}
 		function boardDetail(boardId,pageNum) {
 			document.getElementById('borderDetail').style.display = 'block';
-			$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/boardAllContent?bid='+boardId+'&pnum='+pageNum)
+			$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/book/boardContent?bid='+boardId+'&pnum='+pageNum)
 		}
-		$('#borderDetail').draggable();
+		$('#borderReg, #borderReg2, #borderDetail, #borderDetail2').draggable();
 		
 		function boardReg(type){
 			event.preventDefault();
@@ -212,7 +178,7 @@
 			    			"price":price,
 			    			}, 
 		              success: function(data){
-		            	 // $('#boardList').html(data);
+		            	  $('#bookArea').html(data);
 		            	  $('#commitbtn_b, #cancelbtn_b, #xbutton_b').attr('disabled',false); 
 		            	  $('#commitbtn_b').html('등록');
 		      		 	
@@ -223,7 +189,18 @@
 				});
 			}
 		}
-		
+		$(document).ready(function(){
+				//공지사항 로드
+				$('#bookArea').load('${ pageContext.servletContext.contextPath }/page/board/book/boardList');
+				var today = new Date();
+			    var year = today.getFullYear();
+			    var month = today.getMonth();
+			    month = month < 9 ? month = '0'+(month+1).toString() : month + 1; 
+			    var bookTitle = year + '년 '+ month+'월 도서신청';
+			    
+				$('#bookTitle').val(bookTitle);
+				
+		});
 
 </script>
 

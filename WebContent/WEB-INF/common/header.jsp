@@ -186,13 +186,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     <div class="w3-dropdown-content w3-card-4 w3-bar-block">
        <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/registerList" 
 	    class="w3-bar-item w3-button w3-padding ">
-	      <i class="fa fa-th-large fa-fw "></i><font color="blue">법인카드</font> 사용내역</a>
+	    <i class="fa fa-th-large fa-fw "></i><font color="blue">법인카드</font> 사용내역</a>
+	      
+	    <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/bookList" 
+	     class="w3-bar-item w3-button w3-padding ">
+	    <i class="fa fa-book fa-fw "></i><font color="blue">도서</font> 등록내역</a>
+	     
 	    <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/userList" 
 	     class="w3-bar-item w3-button w3-padding ">
-	    <i class="fa fa fa-user-circle fa-fw "></i><font color="blue">사원</font> 관리</a> 
+	    <i class="fa fa fa-user-circle fa-fw "></i><font color="blue">사원</font> 관리</a>
+	    
+	     
 	    <a class="w3-bar-item w3-button" href="${ pageContext.servletContext.contextPath }/page/userReg" 
 	     class="w3-bar-item w3-button w3-padding ">
-	    <i class="fa fa-user-plus fa-fw "></i><font color="blue">사원</font> 등록</a> 
+	    <i class="fa fa-user-plus fa-fw "></i><font color="blue">사원</font> 등록</a>
+	    
+	     
     </div>
   </div>
   </c:if>
