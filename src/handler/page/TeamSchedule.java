@@ -25,6 +25,8 @@ public class TeamSchedule implements CommandHandler {
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		UserDAO userDAO = UserDAO.getInstance();
 		
+		String selectDate = req.getParameter("sdate");
+		String action = req.getParameter("action");
 		//세션 유저정보
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
@@ -34,13 +36,24 @@ public class TeamSchedule implements CommandHandler {
 		Calendar cal = Calendar.getInstance();
 		String format = "yyyyMMdd";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		if(selectDate != null) {
+			Date dateString = sdf.parse(selectDate);
+			cal.setTime(dateString);
+			if(action.equals("pre")) {
+				cal.add(Calendar.DATE, -7);
+			}else if(action.equals("nxt")) {
+				cal.add(Calendar.DATE, 7);
+			}
+		}
+		
 		String currentDate = sdf.format(cal.getTime());
 		String currentYear = currentDate.substring(0,4);
 		String currentMonth = currentDate.substring(4,6);
+		String currentDay = currentDate.substring(6);
+		int currentWeek = cal.get(Calendar.WEEK_OF_MONTH);
 		ArrayList<String> weekList = new ArrayList<String>();
 		ArrayList<WeekVO> weekVOList = new ArrayList<WeekVO>();
 		ArrayList<Integer> jungCntList = new ArrayList<Integer>();
-		
 		
 		
 		for(int i = 0; i < 7; i++) {
@@ -105,8 +118,10 @@ public class TeamSchedule implements CommandHandler {
 			}
 		}
 		req.setAttribute("userVO", userVO);
+		req.setAttribute("currentWeek", currentWeek);
 		req.setAttribute("currentMonth", currentMonth);
 		req.setAttribute("currentYear", currentYear);
+		req.setAttribute("currentDay", currentDay);
 		req.setAttribute("week1", weekList.get(0));
 		req.setAttribute("week2", weekList.get(1));
 		req.setAttribute("week3", weekList.get(2));

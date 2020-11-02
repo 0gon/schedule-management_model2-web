@@ -64,8 +64,18 @@
 
 <div class="w3-container" style="margin-left:6px;">
     <div class="w3-border w3-light-grey " style="width: 1405px;">
-        <div class="w3-container w3-border w3-border-black w3-center w3-teal" style="height:38px">
-            <div style="margin-top:2px"><font size=5>${currentYear } 년 ${currentMonth } 월</font></div>
+        <div class=" w3-border w3-border-black w3-center w3-teal" style="height:38px">
+            <div>
+            <button class="w3-button w3-hover-white" style="padding:5px"
+            onclick = "teamChangeWeek('pre')"
+            > ◀ </button>
+            <a class="w3-button w3-hover-white" style="padding:1px;font-size: 23px"
+            href='${ pageContext.servletContext.contextPath }/page/teamSchedule'> ${currentYear } 년 ${currentMonth } 월 </a>
+            <font size=4 color='black'> -${currentWeek } 주차-</font>
+            <button class="w3-button w3-hover-white" style="padding:5px"
+            onclick = "teamChangeWeek('nxt')"
+            > ▶ </button>
+            </div>
         </div> 
         <div style="float:left;width:200px" class="w3-border  w3-gray w3-center">
             <div id ="week${week1 }"><font>일(${week1 }) </font></div>
@@ -553,6 +563,10 @@
 			}
 			});
 		}
+	}
+	function teamChangeWeek(action) {
+    	var sendDate = '${currentYear }${currentMonth}${currentDay}'
+		location.href='${ pageContext.servletContext.contextPath }/page/teamSchedule?sdate='+sendDate+'&action='+action;			
 	}
     $(document).ready(function(){
     	//오늘 날짜에 해당하는 영역 주황색 음영

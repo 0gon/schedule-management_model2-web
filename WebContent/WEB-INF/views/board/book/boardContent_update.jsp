@@ -29,7 +29,7 @@
                       <td class="w3-sand w3-center">가격 : </td>
                       <td class="w3-white"> 
                       <input name="price" maxlength="30" id="price_u"  required="required" 
-                      style="padding: 2px;width: 60%" value=" ${boardVO.price }"/>
+                      style="padding: 2px;width: 60%" value="${boardVO.price }"/>
                       <font color="grey"> * 숫자만 입력해주세요.</font>
                      </td>
                     </tr>
