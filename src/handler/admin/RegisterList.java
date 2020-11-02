@@ -24,6 +24,8 @@ public class RegisterList implements CommandHandler {
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String sYear = req.getParameter("sYear");
+		String sMonth = req.getParameter("sMonth");
 		
 		DecimalFormat formatter = new DecimalFormat("###,###");
 		//현재 월 추출
@@ -32,9 +34,15 @@ public class RegisterList implements CommandHandler {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		String currentMonth = sdf.format(cal.getTime());
 		String currentYear = currentMonth.substring(0,4);
+		String onlyMonth = currentMonth.substring(5,7);
 		int previousOneYear = Integer.parseInt(currentYear) - 1; 
 		int previousTwoYear = Integer.parseInt(currentYear) - 2; 
 		int previousThreeYear = Integer.parseInt(currentYear) - 3; 
+		if(sYear !=null & sMonth != null) {
+			onlyMonth = sMonth;
+			currentMonth = sYear+"-"+sMonth;
+			currentYear = sYear;
+		}
 		
 		UserDAO userDAO = UserDAO.getInstance();
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
@@ -48,7 +56,7 @@ public class RegisterList implements CommandHandler {
 		int count_o = 0;
 		
 		count_t = trafficDAO.selectTrafficCountByMonth(currentMonth); 
-		count_o = overtimeDAO.selectOvertimeCountByMonth(); 
+		count_o = overtimeDAO.selectOvertimeCountByMonth(onlyMonth); 
 		
 		if (count_t > 0) {
 			traffics = trafficDAO.selectTrafficList(currentMonth);
@@ -65,7 +73,7 @@ public class RegisterList implements CommandHandler {
 			}
 		}
 		if (count_o > 0) {
-			overtimes = overtimeDAO.selectOvertimeList();
+			overtimes = overtimeDAO.selectOvertimeList(onlyMonth);
 			//overtimeList에 동행인 삽입
 			Iterator<?> it = overtimes.iterator();
 			if(it.hasNext()) {
@@ -99,6 +107,7 @@ public class RegisterList implements CommandHandler {
 		req.setAttribute("overtimes", overtimesLi);
 		
 		req.setAttribute("currentMonth", currentMonth);
+		req.setAttribute("onlyMonth", onlyMonth);
 		req.setAttribute("currentYear", currentYear);
 		req.setAttribute("previousOneYear", previousOneYear);
 		req.setAttribute("previousTwoYear", previousTwoYear);

@@ -8,8 +8,13 @@
 </head>
 <body>
 <div class="w3-container w3-display-middle" style="width:1200px;">
-  <div class="w3-container w3-white">
-       <h6>회원수  (총 : ${count })명</h6>
+  <div class="w3-container w3-white w3-padding">
+       <form action="${ pageContext.servletContext.contextPath }/page/userList" method="post">
+       <font size="4">회원수  (총 : ${count })명&nbsp;&nbsp;</font>
+        <input type="text" name="userName" class="w3-input w3-border" style="display:inline;width:100px;height:30px"> 
+    	   <button class="w3-button w3-border " style="padding:5px" type="submit">이름검색</button>
+       <a class="w3-button w3-border w3-black" style="padding:5px" href="${ pageContext.servletContext.contextPath }/page/userList">전체보기</a>
+       </form>
       </div>
     <div class="w3-card-4 ">
       <div class="w3-container " style=" height:500px;  background: rgba(241, 241, 241, 0.75); ">
@@ -20,7 +25,7 @@
 			<table class="w3-table table-bordered w3-center" width="100%">
 			<tr  >
 			<td class="w3-center w3-padding"><br>
-			<span class="w3-tag w3-white w3-border">저장된 회원이 없습니다.</span><br><br></td>
+			<span class="w3-tag w3-white w3-border">일치하는 회원이 없습니다.</span><br><br></td>
 			</tr>
 			</table>
 			</div>

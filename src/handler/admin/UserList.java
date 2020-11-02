@@ -22,6 +22,7 @@ public class UserList implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String pageNum = req.getParameter("pageNum");
+		String userName = req.getParameter("userName");
 		if (pageNum == null || pageNum =="") {
 		      pageNum = "1";
 		   }
@@ -44,10 +45,10 @@ public class UserList implements CommandHandler {
 		List<?> dptList = dptDAO.selectDptALLInfo();
 		List<?> members = null;
 		List membersLi=null;
-		count = userDAO.selectUserCount();
-		
+		count = userName == null ? userDAO.selectUserCount() : userDAO.selectUserCountSearch(userName);  
 		if (count > 0) {
-			members = userDAO.selectUserList(startRow, endRow);
+			members = userName == null ? userDAO.selectUserList(startRow, endRow)
+					:userDAO.selectUserListSearch(startRow, endRow, userName);
 			Iterator<?> it = members.iterator();
 			if(it.hasNext()) {
 				membersLi=new ArrayList<UserVO>();

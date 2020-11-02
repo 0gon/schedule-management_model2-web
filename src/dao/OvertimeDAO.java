@@ -27,10 +27,12 @@ public class OvertimeDAO extends MybatisConnector {
 		return gid;
 	}
 	
-	public int selectOvertimeCountByMonth() {
+	public int selectOvertimeCountByMonth(String currentMonth) {
 		int boardAllCount = 0;
 		sqlSession = sqlSession();
-		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonth");
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("currentMonth", currentMonth); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonth",map);
 		sqlSession.close();
 		return boardAllCount;
 	}
@@ -62,10 +64,12 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession.close();
 		return targetNameList;
 	}
-	public List<OvertimePriceVO> selectOvertimeList() {
+	public List<OvertimePriceVO> selectOvertimeList(String currentMonth) {
 		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("currentMonth", currentMonth); 
 		try {
-			return sqlSession.selectList(namespace + ".selectOvertimeList");
+			return sqlSession.selectList(namespace + ".selectOvertimeList",map);
 		} finally {
 			sqlSession.close();
 		}

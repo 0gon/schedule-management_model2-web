@@ -14,32 +14,30 @@
   <div class="w3-bar w3-teal">  
     <button class="w3-bar-item w3-button tablink w3-red" onclick="openCity(event,'London')">야근식대</button>
     <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Paris')">교통비</button>
+    <form action="${ pageContext.servletContext.contextPath }/page/registerList" method="post">
+    <div class="w3-margin-left" style="display:inline;"> 
+        <select name="sYear" class="w3-select " style="width:100px;padding:6px;">
+     	  	<option id="${currentYear}" value="${currentYear}" >${currentYear }</option>
+     	  	<option id="${previousOneYear}" value="${previousOneYear}">${previousOneYear }</option>
+     	  	<option id="${previousTwoYear}" value="${previousTwoYear}">${previousTwoYear }</option>
+     	  	<option id="${previousThreeYear}" value="${previousThreeYear}">${previousThreeYear }</option>
+        </select>
+        <select name="sMonth" class="w3-select " style="width:70px;padding:6px;">
+     	  	<option id="01" value="01">1월</option><option id="02" value="02">2월</option><option id="03" value="03">3월</option><option id="04" value="04">4월</option>
+     	  	<option id="05" value="05">5월</option><option id="06" value="06">6월</option><option id="07" value="07">7월</option><option id="08" value="08">8월</option>
+     	  	<option id="09" value="09">9월</option><option id="10" value="10">10월</option><option id="11" value="11">11월</option><option id="12" value="12">12월</option>
+        </select>
+    	   <button class="w3-button w3-border " style="padding:5px" type="submit">바로가기</button>
+       </div>
+    </form>
+    
+    
   </div>
   <!-- end -->
     <div class="w3-card-4 city" id="London" >
        <div  class=" w3-white" style="padding:5px">
-       <div class="w3-left w3-padding" style="display:inline;">
-	       ${currentMonth}월<font color="red"> 야근식대 </font>건수  (총 ${count_o } 건)
-       </div>
-       <div class="w3-margin-left" style="display:inline;"> 
-        <select class="w3-select " style="width:100px;padding:6px;">
-     	  	<option selected="selected">--년도--</option>
-     	  	<option >${currentYear }</option>
-     	  	<option >${previousOneYear }</option>
-     	  	<option >${previousTwoYear }</option>
-     	  	<option >${previousThreeYear }</option>
-        </select>
-        <select class="w3-select " style="width:70px;padding:6px;">
-     	  	<option value="nv" selected="selected">--월--</option>
-     	  	<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-     	  	<option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
-     	  	<option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
-        </select>
-    	   <button class="w3-button w3-border " style="padding:5px">바로가기</button>
-       </div>
-       <div class="w3-right" style="display:inline;">
+	       ${currentMonth}월<font color="red"> 야근식대 </font>건수  (총 ${count_o } 건)&nbsp;&nbsp;
 	       <button class="w3-button w3-green w3-border" style="padding:5px">엑셀로 저장</button>
-       </div>
       </div> 
       <div class="w3-container " style="overflow:auto; height:500px;  background: rgba(241, 241, 241, 0.75); ">
 <div class="w3-container  w3-margin-top">
@@ -106,37 +104,14 @@
 		</div>
       </div>
       
-      
+       
       <div id="Paris" class="w3-card-4 city" style="display:none">
 		<div  class=" w3-white" style="padding:5px">
-        <div class="w3-left w3-padding" style="display:inline;"> 
-	       ${currentMonth}월<font color="red"> 교통비 </font>건수  (총 ${count_t } 건)
-       </div>
-       <div class="w3-margin-left" style="display:inline;"> 
-        <select class="w3-select " style="width:100px;padding:6px;">
-     	  	<option selected="selected">--년도--</option>
-     	  	<option >${currentYear }</option>
-     	  	<option >${previousOneYear }</option>
-     	  	<option >${previousTwoYear }</option>
-     	  	<option >${previousThreeYear }</option>
-        </select>
-        <select class="w3-select " style="width:70px;padding:6px;">
-     	  	<option selected="selected">--월--</option>
-     	  	<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-     	  	<option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
-     	  	<option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
-        </select>
-    	   <button class="w3-button w3-border " style="padding:5px">바로가기</button>
-       </div>
-       <div class="w3-right" style="display:inline;">
+	       ${currentMonth}월<font color="red"> 교통비 </font>건수  (총 ${count_t } 건)&nbsp;&nbsp;
 	       <button class="w3-button w3-green w3-border" style="padding:5px">엑셀로 저장</button>
-       </div>
-       
-       
-       
       </div> 
       <div class="w3-container " style="overflow:auto; height:500px;  background: rgba(241, 241, 241, 0.75); ">
-<div class="w3-container  w3-margin-top">
+<div class=" w3-margin-top">
 
 	    <c:if test="${count_t==0 }">
 			<div class="w3-center w3-padding-top">
@@ -152,7 +127,7 @@
        	<c:if test="${count_t>0}">
        	<table class="w3-table  w3-centered" style="border:black; ">
 		    <tr class="w3-black">
-		      <th class="w3-center">이용일자</th>
+		      <th class="w3-center">등록일자</th>
 		      <th class="w3-center">교통편</th>
 		      <th class="w3-center">이름</th>
 		      <th class="w3-center">용무</th>
@@ -214,7 +189,13 @@ function openCity(evt, cityName) {
   }
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " w3-red";
-}
+};
+	$(document).ready(function(){
+		var currentYear = '${currentYear}';
+		var onlyMonth = '${onlyMonth}';
+		$('#'+currentYear).attr( 'selected', true );
+		$('#'+onlyMonth).attr( 'selected', true );
+	});
 </script>
 </body>
 </html>

@@ -92,6 +92,15 @@ public class UserDAO extends MybatisConnector {
 		sqlSession.close();
 		return userAllCount;
 	}
+	public int selectUserCountSearch(String userName) {
+		int userAllCount = 0;
+		sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("userName", userName); 
+		userAllCount = sqlSession.selectOne(namespace + ".selectUserCountSearch",map);
+		sqlSession.close();
+		return userAllCount;
+	}
 	
 	public List<UserVO> selectUserList(int startRow, int endRow) {
 		sqlSession = sqlSession();
@@ -100,6 +109,19 @@ public class UserDAO extends MybatisConnector {
 		map.put("endRow", endRow);  
 		try {
 			return sqlSession.selectList(namespace + ".selectUserList", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<UserVO> selectUserListSearch(int startRow, int endRow,String userName) {
+		sqlSession = sqlSession();
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		map.put("userName", userName);
+		try {
+			return sqlSession.selectList(namespace + ".selectUserListSearch", map);
 		} finally {
 			sqlSession.close();
 		}
