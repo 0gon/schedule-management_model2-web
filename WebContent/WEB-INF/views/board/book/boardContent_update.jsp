@@ -13,7 +13,7 @@
                     <tr>
                       <td style="width:15%" class="w3-sand w3-center">책 제목 :</td>
                       <td>
-                      <input name="bookName" maxlength="30" id="bookName_u" required="required" 
+                      <input name="bookName" maxlength="35" id="bookName_u" required="required" 
                       style="padding: 2px;width: 90%" value="${boardVO.bookName}"/>
                       </td>
                     </tr>

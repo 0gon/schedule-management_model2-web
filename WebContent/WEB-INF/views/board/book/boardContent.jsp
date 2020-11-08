@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
+<div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 750px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>상 세 보 기</font></div>
         </div>
@@ -18,7 +18,7 @@
                 <!--  update,delete end-->	
                    <table class="w3-table-all">
                     <tr>
-                      <td style="width:15%" class="w3-sand w3-center">글 제목 :</td>
+                      <td class="w3-sand w3-center" style="width:90px">글 제목 :</td>
                       <td><font color="grey">${boardVO.title}</font> </td>
                       <td class="w3-sand w3-center">작 성 일 : </td>
                       <td> ${boardVO.formatDate }</td>
@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center">구매URL :</td>
-                      <td colspan="3"> ${boardVO.pchURL }</td>
+                      <td colspan="3" style="word-break:break-all"> ${boardVO.pchURL }</td>
                     </tr>
                   </table>
                 </div>

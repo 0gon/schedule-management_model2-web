@@ -27,14 +27,13 @@
                     <tr>
                       <td class="w3-sand w3-center" style="width: 200px">책 제목 :</td>
                       <td>
-                      <input name="bookName"  id="bookName" class="" style="padding: 2px;width: 90%"/>
+                      <input name="bookName" placeholder=" * 35자 내로 입력해주세요." id="bookName" maxlength="35" style="padding: 2px;width: 90%"/>
                       </td>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center" style="width: 200px">가격 :</td>
                       <td  class="w3-light-gray">
-                      <input name="price"  id="price" style="padding: 2px;width: 60%"/>
-                      <font color="grey">*숫자만 입력해주세요.</font>
+                      <input name="price" placeholder=" * 숫자만 입력해주세요." id="price" style="padding: 2px;width: 60%"/>
                       </td>
                     </tr>
                     <tr>

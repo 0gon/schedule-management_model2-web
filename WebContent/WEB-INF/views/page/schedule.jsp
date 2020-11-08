@@ -564,7 +564,7 @@
 
 
   <!-- 게시판 모달 상세보기-->
-<div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding:5px;width:700px;margin-left:27%" >
+<div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding:5px;width:720px;margin-left:27%" >
 </div>
 
 </div>
