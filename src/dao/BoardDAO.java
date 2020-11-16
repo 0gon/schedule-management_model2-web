@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import model.BoardAllVO;
 import model.BoardBookVO;
+import model.BoardFreeVO;
 import model.BoardVO;
 import model.ScheduleVO;
 
@@ -22,13 +23,13 @@ public class BoardDAO extends MybatisConnector {
 	
 	public int selectBookCountByMonth() {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		boardAllCount = sqlSession.selectOne(namespace + ".selectBookCountByMonth");
 		sqlSession.close();
 		return boardAllCount;
 	}
 	public List<BoardBookVO> selectBookList() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectBookList");
 		} finally {
@@ -37,7 +38,7 @@ public class BoardDAO extends MybatisConnector {
 	}
 	public int selectBoardCount(int dptNo) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("dptNo", dptNo); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount", map);
@@ -46,21 +47,28 @@ public class BoardDAO extends MybatisConnector {
 	}
 	public int selectBoardBookCount() {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardBookCount");
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectBoardFreeCount() {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardFreeCount");
 		sqlSession.close();
 		return boardAllCount;
 	}
 	public int selectBoardAllCount() {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardAllCount");
 		sqlSession.close();
 		return boardAllCount;
 	}
 	
 	public List<BoardVO> selectBoardList(int startRow, int endRow, int dptNo) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
 		map.put("endRow", endRow);  
@@ -72,18 +80,30 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	public List<BoardBookVO> selectBoardBookList(int startRow, int endRow) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		List<BoardBookVO> test = sqlSession.selectList(namespace + ".selectBoardBookList", map);
+		try {
+			return test;
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<BoardFreeVO> selectBoardFreeList(int startRow, int endRow) {
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
 		map.put("endRow", endRow);  
 		try {
-			return sqlSession.selectList(namespace + ".selectBoardBookList", map);
+			return sqlSession.selectList(namespace + ".selectBoardFreeList", map);
 		} finally {
 			sqlSession.close();
 		}
 	}
 	public List<BoardAllVO> selectBoardAllList(int startRow, int endRow) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
 		map.put("endRow", endRow);  
@@ -95,7 +115,7 @@ public class BoardDAO extends MybatisConnector {
 	}
 	
 	public void insertBoard(BoardVO boardVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertBoard", boardVO);
 			sqlSession.commit();
@@ -104,7 +124,7 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	public void insertBoardBook(BoardBookVO boardVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertBoardBook", boardVO);
 			sqlSession.commit();
@@ -112,8 +132,17 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void insertBoardFree(BoardFreeVO boardVO) {
+		SqlSession sqlSession = sqlSession();
+		try {
+			sqlSession.insert(namespace + ".insertBoardFree", boardVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public void insertBoardAll(BoardAllVO boardVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertBoardAll", boardVO);
 			sqlSession.commit();
@@ -123,7 +152,7 @@ public class BoardDAO extends MybatisConnector {
 	}
 	
 	public BoardVO selectBoardInfoByPK(String boardId,String dptNo) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
 		map.put("dptNo", dptNo);
@@ -134,7 +163,7 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	public BoardAllVO selectBoardAllInfoByPK(String boardId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
 		try {
@@ -144,7 +173,7 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	public BoardBookVO selectBoardBookInfoByPK(String boardId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
 		try {
@@ -153,10 +182,20 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public BoardFreeVO selectBoardFreeInfoByPK(String boardId) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectBoardFreeInfoByPK", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
 	public void deleteBoard(String boardId ) {
 		
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
 		try {
@@ -167,7 +206,7 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	public void deleteBoardBook(String boardId ) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
 		try {
@@ -177,9 +216,20 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void deleteBoardFree(String boardId ) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			sqlSession.delete(namespace + ".deleteBoardFree", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public void deleteAllBoard(String boardId ) {
 		
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("boardId", boardId);
 		try {
@@ -191,7 +241,7 @@ public class BoardDAO extends MybatisConnector {
 	}
 	
 	public void updateBoard(BoardVO boardVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateBoard", boardVO);
 			sqlSession.commit();
@@ -200,7 +250,7 @@ public class BoardDAO extends MybatisConnector {
 		}
 	}
 	public void updateBoardBook(BoardBookVO boardVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateBoardBook", boardVO);
 			sqlSession.commit();
@@ -208,9 +258,18 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public void updateBoardFree(BoardFreeVO boardVO) {
+		SqlSession sqlSession = sqlSession();
+		try {
+			sqlSession.update(namespace + ".updateBoardFree", boardVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
 	
 	public void updateScheduleDuty(ScheduleVO scheduleVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateScheduleDuty", scheduleVO);
 			sqlSession.commit();

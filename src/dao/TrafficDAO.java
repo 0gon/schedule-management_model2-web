@@ -11,7 +11,6 @@ import model.TrafficPriceVO;
 
 public class TrafficDAO extends MybatisConnector {
 	private final String namespace = "traffic";
-	SqlSession sqlSession;
 
 	private static TrafficDAO instance = new TrafficDAO();
 
@@ -21,7 +20,7 @@ public class TrafficDAO extends MybatisConnector {
 	  
 	public int selectTrafficCountByMonth(String currentMonth) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("currentMonth", currentMonth); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectTrafficCountByMonth", map);
@@ -30,7 +29,7 @@ public class TrafficDAO extends MybatisConnector {
 	}
 	
 	public List<ScheduleVO> selectTrafficList(String currentMonth) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("currentMonth", currentMonth);  
 		try {
@@ -42,7 +41,7 @@ public class TrafficDAO extends MybatisConnector {
 	
 	
 	public void insertTraffic(TrafficPriceVO traffic) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertTraffic", traffic);
 			sqlSession.commit();
@@ -52,7 +51,7 @@ public class TrafficDAO extends MybatisConnector {
 	}
 	
 	public List<?>  selectTrafficInfoByPK(int Id) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Id", Id);
 		try {
@@ -63,7 +62,7 @@ public class TrafficDAO extends MybatisConnector {
 	}
 	
 	public TrafficPriceVO selectTrafficInfoByTFPK(int trafficId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("trafficId", trafficId);
 		try {
@@ -74,7 +73,7 @@ public class TrafficDAO extends MybatisConnector {
 	}
 	
 	public void updateTrafficPrice(TrafficPriceVO trafficVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateTrafficPrice", trafficVO);
 			sqlSession.commit();
@@ -83,7 +82,7 @@ public class TrafficDAO extends MybatisConnector {
 		}
 	}
 	public void updateTrafficPriceForCal(TrafficPriceVO trafficVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateTrafficPriceForCal", trafficVO);
 			sqlSession.commit();
@@ -92,7 +91,7 @@ public class TrafficDAO extends MybatisConnector {
 		}
 	}
 	public void deleteTraffic(int cardId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("cardId", cardId);
 		try {

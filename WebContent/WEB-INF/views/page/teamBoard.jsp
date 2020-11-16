@@ -54,10 +54,10 @@
         </div>
     </div>
 </div>
+
+
 <!-- 글 눌렀을 때 나오는 content -->
 <div id="borderDetail" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" ></div>
-
-
 
  <!-- 쓰기 버튼 눌렀을 시 나오는 모달 (쓰기) -->
 <div id="borderReg2" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
@@ -73,33 +73,33 @@
                     <tr>
                       <td class="w3-sand w3-center" style="width: 200px">글 제목 :</td>
                       <td class="w3-light-gray">
-                      <input name="title2" id="boardTitle2" class="w3-input" style="padding: 2px;width: 90%"/>
+                      <input name="title" id="freeTitle" class="w3-input" style="padding: 2px;width: 90%"/>
                       </td>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center" style="width: 200px">작성자 :</td>
                       <td>
-                      <input name="title" disabled="disabled" id="boardTitle" class="" style="padding: 2px;width: 90%"/>
+                      <input name="memberNm" disabled="disabled" id="memberNm" value="${userVO.memberNm }" style="padding: 2px;width: 90%"/>
                       </td>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center" style="width: 200px">공개유무 :</td>
                       <td  class="w3-light-gray">
                       
-                      공개: <input type="radio" value="1" name="trafficType" checked="checked" class="w3-radio" >
-                   비공개: <input type="radio" value="2" name="trafficType" class="w3-radio" >
+                      공개: <input type="radio" value="Y" id="openYn" onclick="openChange(1)" name="openYn" checked="checked" class="w3-radio" style="width:17px;height:17px">
+               &nbsp;&nbsp;    비공개: <input type="radio" onclick="openChange(2)" value="N" name="openYn" class="w3-radio" style="width:17px;height:17px" >
                       </td>
                     </tr>
                     <tr>
                       <td class="w3-sand w3-center" style="padding-top:30px;padding-bottom: 30px">내 용 : </td>
-                      <td> <textarea name="content" maxlength="500" id="boardArea"cols="60" rows="10" style="resize: none;"></textarea></td>
+                      <td> <textarea name="content" maxlength="500" id="freeContent"cols="60" rows="10" style="resize: none;"></textarea></td>
                     </tr>
                   </table>
                   <div class="w3-container w3-padding w3-row"> 
                         <div class="w3-padding w3-center">
-                            <button id="commitbtn_b" onclick="boardReg()" class="w3-button  w3-black">등록</button>
-                            <button id="cancelbtn_b" class="w3-button  w3-red"
-                                    onclick="document.getElementById('borderReg').style.display='none';" 
+                            <button id="commitbtn_b2" onclick="boardReg2()" class="w3-button  w3-black">등록</button>
+                            <button id="cancelbtn_b2" class="w3-button  w3-red"
+                                    onclick="document.getElementById('borderReg2').style.display='none';" 
                                     >취소</button>
                         </div>
                   </div>
@@ -115,27 +115,7 @@
              <div class="w3-container w3-cell" id="bookArea">
             </div>
 		<!-- 자유게시판 영역 -->
-		
-              <div class="w3-container w3-cell">
-                 <font size="5">◆ 자유 게시판 ◆</font>
-	  <span  style="margin-top:5px" onclick="alert('개발중입니다.')"
-						class="w3-tag w3-round w3-right w3-border w3-border-white w3-hover-opacity w3-hover-white">
-						<i class="fa fa-pencil"></i> 쓰 기
-	 </span>
-	<div class="w3-border w3-border-black" >
-		<table class="w3-table w3-striped w3-bordered">
-			<tr >
-				<th width="50px"  class="w3-center">번호</th>
-				<th width="200px" class="w3-center">제목</th>
-				<th width="100px" class="w3-center">작성자</th>
-				<th width="200px" class="w3-center">작성일</th>
-			</tr>
-			<tr class="w3-white">
-			<td colspan="4" class="w3-border w3-center" >*** 작성된 글이 없습니다. ***</td>
-			</tr>
-			
-             </table>
-    </div>
+              <div class="w3-container w3-cell" id="freeArea">
               </div>
         </div>
         </div>
@@ -143,9 +123,20 @@
 		function boardWriteForm(type) {
 				document.getElementById('borderReg'+type).style.display = 'block';
 		}
-		function boardDetail(boardId,pageNum) {
+		function openChange(type) {
+			if(type==1){
+				$('#memberNm').val('${userVO.memberNm }');
+			}else if(type==2){
+				$('#memberNm').val('비공개');
+			}
+		}
+		function boardDetail(boardId,pageNum,type) {
 			document.getElementById('borderDetail').style.display = 'block';
-			$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/book/boardContent?bid='+boardId+'&pnum='+pageNum)
+			if(type==1){
+				$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/book/boardContent?bid='+boardId+'&pnum='+pageNum)
+			}else{
+				$('#borderDetail').load('${ pageContext.servletContext.contextPath }/page/board/free/boardContent?bid='+boardId+'&pnum='+pageNum)
+			}
 		}
 		$('#borderReg, #borderReg2, #borderDetail, #borderDetail2').draggable();
 		
@@ -154,8 +145,6 @@
 			var memberId = '<c:out value="${userVO.id }"/>'
 		    var memberNm = '<c:out value="${userVO.memberNm }"/>'
 			var title = $('#bookTitle').val();
-			var bookName = $('#bookName').val();
-			var price = $('#price').val();
 			var pchURL = $('#pchURL').val();
 			if(bookName==""){
 				alert("책 제목을 입력해주세요.");
@@ -173,7 +162,6 @@
 			    			"memberNm":memberNm,
 			    			"bookName":bookName,
 			    			"pchURL":pchURL,
-			    			"memberNm":memberNm,
 			    			"price":price,
 			    			}, 
 		              success: function(data){
@@ -188,9 +176,53 @@
 				});
 			}
 		}
+		function boardReg2(type){
+			event.preventDefault();
+			var memberId = '<c:out value="${userVO.id }"/>'
+		    var memberNm = '<c:out value="${userVO.memberNm }"/>'
+			var title = $('#freeTitle').val();
+			var content = $('#freeContent').val();
+			var isOpenYn = $('#openYn').is(':checked');
+			
+			var openYn = 'Y';
+			if(!isOpenYn){
+				openYn = 'N';
+			}
+			if(title==""){
+				alert("글 제목을 입력해주세요.");
+			}else if(content==""){
+				alert("내용을 입력해주세요.");
+			}else{
+			    $('#commitbtn_b2, #cancelbtn_b2, #xbutton_b2').attr('disabled',true); 
+			    $('#commitbtn_b2').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
+			 	document.getElementById('borderReg2').style.display = 'none';
+				$.ajax({
+					 url : "${ pageContext.servletContext.contextPath }/page/board/free/boardFreeReg", 
+			    	 method : "GET",  
+			    	 dataType:"text",
+			    	 data:{
+			    			"title":title,
+			    			"memberId":memberId,
+			    			"memberNm":memberNm,
+			    			"content":content,
+			    			"openYn":openYn,
+			    			}, 
+		              success: function(data){
+		            	  $('#freeArea').html(data);
+		            	  $('#commitbtn_b2, #cancelbtn_b2, #xbutton_b2').attr('disabled',false); 
+		            	  $('#commitbtn_b2').html('등록');
+		      		 	
+					}, 
+				error: function(request, status, error) {
+					alert(error);
+				}
+				});
+			}
+		}
 		$(document).ready(function(){
 				//공지사항 로드
 				$('#bookArea').load('${ pageContext.servletContext.contextPath }/page/board/book/boardList');
+				$('#freeArea').load('${ pageContext.servletContext.contextPath }/page/board/free/boardList');
 				var today = new Date();
 			    var year = today.getFullYear();
 			    var month = today.getMonth();

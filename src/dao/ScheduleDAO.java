@@ -11,7 +11,6 @@ import model.UserVO;
 
 public class ScheduleDAO extends MybatisConnector {
 	private final String namespace = "schedule";
-	SqlSession sqlSession;
 
 	private static ScheduleDAO instance = new ScheduleDAO();
 
@@ -21,7 +20,7 @@ public class ScheduleDAO extends MybatisConnector {
 	
 	public int selectWorkCount(String startDate) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectWorkCount", map);
@@ -30,7 +29,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public int selectHumuCount(String startDate) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectHumuCount", map);
@@ -39,7 +38,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public int selectHugaCount(String startDate) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectHugaCount", map);
@@ -48,7 +47,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public int selectEducationCount(String startDate) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectEducationCount", map);
@@ -57,7 +56,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public int selectChulCount(String startDate) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectChulCount", map);
@@ -66,7 +65,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public int selectJungCheckCount(String startDate) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectJungCheckCount", map);
@@ -76,7 +75,7 @@ public class ScheduleDAO extends MybatisConnector {
 	
 	
 	public List<ScheduleVO> selectScheduleAll() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectScheduleAll");
 		} finally {
@@ -84,7 +83,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public List<ScheduleVO> selectScheduleAllByDptNo(int dptNo) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("dptNo", dptNo);
 		try {
@@ -94,7 +93,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public List<ScheduleVO> selectScheduleAllByHighGrade() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectScheduleAllByHighGrade");
 		} finally {
@@ -102,7 +101,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public void insertSchedule(ScheduleVO schedule) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".insertSchedule", schedule);
 			sqlSession.commit();
@@ -112,7 +111,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public void insertScheduleALL(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
 			String content,String startWorkTime,String endWorkTime) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("dutyId", dutyId); 
 		map.put("transStartDate", transStartDate);
@@ -132,7 +131,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	public void insertScheduleALLC(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
 			String content,String startWorkTime,String endWorkTime) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("dutyId", dutyId); 
 		map.put("transStartDate", transStartDate);
@@ -149,7 +148,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public List<?> selectScheduleInfo(String memberId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberId", memberId);
 		try {
@@ -160,7 +159,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public List<?>  selectScheduleInfoByPK(int Id) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Id", Id);
 		try {
@@ -171,7 +170,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public List<?>  selectCarduseInfoByNM(String memberNm) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberNm", memberNm);
 		try {
@@ -182,7 +181,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public ScheduleVO selectScheduleInfoBySCHPK(int scheduleId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("scheduleId", scheduleId);
 		try {
@@ -193,7 +192,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public void deleteSchedule(int scheduleId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("scheduleId", scheduleId);
 		try {
@@ -204,7 +203,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public void deleteScheduleC(String startDate, String endDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
@@ -216,7 +215,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public void deleteScheduleAdm(Date startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startDate", startDate);
 		try {
@@ -227,7 +226,7 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public void deleteSchedulePT(Date startDate, String dptNo) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startDate", startDate);
 		map.put("dptNo", dptNo);
@@ -240,7 +239,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public void updateSchedule(ScheduleVO scheduleVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateSchedule", scheduleVO);
 			sqlSession.commit();
@@ -251,7 +250,7 @@ public class ScheduleDAO extends MybatisConnector {
 	}
 	
 	public void updateScheduleDuty(ScheduleVO scheduleVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateScheduleDuty", scheduleVO);
 			sqlSession.commit();

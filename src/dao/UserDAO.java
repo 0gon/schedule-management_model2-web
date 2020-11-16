@@ -5,12 +5,10 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import model.ScheduleVO;
 import model.UserVO;
 
 public class UserDAO extends MybatisConnector {
 	private final String namespace = "user";
-	SqlSession sqlSession;
 
 	private static UserDAO instance = new UserDAO();
 
@@ -18,7 +16,7 @@ public class UserDAO extends MybatisConnector {
 		return instance;
 	}
 	public List<UserVO> selectUserWork(String startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		try {
@@ -28,7 +26,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserHumu(String startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		try {
@@ -39,7 +37,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserBan(String startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		try {
@@ -50,7 +48,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserHuga(String startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		try {
@@ -61,7 +59,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserEdu(String startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		try {
@@ -72,7 +70,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserChul(String startDate) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		try {
@@ -87,14 +85,14 @@ public class UserDAO extends MybatisConnector {
 	
 	public int selectUserCount() {
 		int userAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		userAllCount = sqlSession.selectOne(namespace + ".selectUserCount");
 		sqlSession.close();
 		return userAllCount;
 	}
 	public int selectUserCountSearch(String userName) {
 		int userAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("userName", userName); 
 		userAllCount = sqlSession.selectOne(namespace + ".selectUserCountSearch",map);
@@ -103,7 +101,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserList(int startRow, int endRow) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		map.put("startRow", startRow); 
 		map.put("endRow", endRow);  
@@ -115,7 +113,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserListSearch(int startRow, int endRow,String userName) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("startRow", startRow); 
 		map.put("endRow", endRow);  
@@ -128,7 +126,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserAllInfoByDpt(int dptNo) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("dptNo", dptNo);
 		try {
@@ -138,7 +136,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoByGrade() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoByGrade");
 		} finally {
@@ -146,7 +144,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoMD() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoMD");
 		} finally {
@@ -154,7 +152,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoPOS() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoPOS");
 		} finally {
@@ -162,7 +160,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoMKT() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoMKT");
 		} finally {
@@ -170,7 +168,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoSPT() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoSPT");
 		} finally {
@@ -178,7 +176,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoINF() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoINF");
 		} finally {
@@ -186,7 +184,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoGFT() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoGFT");
 		} finally {
@@ -194,7 +192,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfoFIN() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoFIN");
 		} finally {
@@ -202,7 +200,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public List<UserVO> selectUserAllInfo() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfo");
 		} finally {
@@ -211,7 +209,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public void createUserInfo(UserVO userVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.insert(namespace + ".createUserInfo", userVO);
 			sqlSession.commit();
@@ -221,7 +219,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public List<UserVO> selectUserAllInfobyDptNo(int dptNo) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("dptNo", dptNo);
 		try {
@@ -232,7 +230,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public UserVO selectUserInfo(String memberId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberId", memberId);
 		try {
@@ -242,7 +240,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public String selectUserPwd(String memberId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberId", memberId);
 		try {
@@ -253,7 +251,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public UserVO selectUserInfoByPK(int Id) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Id", Id);
 		try {
@@ -263,7 +261,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserInfo(UserVO userVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateUserInfo", userVO);
 			sqlSession.commit();
@@ -272,7 +270,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserLikedDpr(String userId, String departure) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("Id", userId);
 		map.put("departure", departure);
@@ -284,7 +282,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserLikedDest(String userId, String destination) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("Id", userId);
 		map.put("destination", destination);
@@ -296,7 +294,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserMonthHoliday(String pkId, float dateDiff) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", pkId);
 		map.put("dateDiff", dateDiff);
@@ -309,7 +307,7 @@ public class UserDAO extends MybatisConnector {
 	}
 	
 	public void updateUserMonthHoliday_plus(String pkId, float dateDiff) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", pkId);
 		map.put("dateDiff", dateDiff);
@@ -321,7 +319,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserAlterHoliday_plus(String pkId, float dateDiff) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", pkId);
 		map.put("dateDiff", dateDiff);
@@ -333,7 +331,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserAlterHoliday(String memberPKID, float dateDiff) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", memberPKID);
 		map.put("dateDiff", dateDiff);
@@ -345,7 +343,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserHoliday(String memberPKID, float dateDiff) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", memberPKID);
 		map.put("dateDiff", dateDiff);
@@ -357,7 +355,7 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	public void updateUserHoliday_plus(String pkId, float dateDiff) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("Id", pkId);
 		map.put("dateDiff", dateDiff);

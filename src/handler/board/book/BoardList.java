@@ -33,7 +33,6 @@ public class BoardList implements CommandHandler {
 		
 		List<?> boards = null;
 		count = boardDAO.selectBoardBookCount();
-		
 		if (count > 0) {
 			boards = boardDAO.selectBoardBookList(startRow, endRow);
 			for(Object board:boards) {

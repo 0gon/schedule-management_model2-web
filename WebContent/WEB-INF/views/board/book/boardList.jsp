@@ -17,7 +17,7 @@
 							<th width="200px" class="w3-center">작성일</th>
 						</tr>
 						<c:forEach var="board" items="${boards}">
-							<tr onclick="boardDetail(${board.id},${pageNum})" class="w3-white w3-hover-opacity w3-hover-sand">
+							<tr onclick="boardDetail(${board.id},${pageNum},'1')" class="w3-white w3-hover-opacity w3-hover-sand">
 								<td class="w3-center">[${number}]</td>
 								<c:set var="number" value="${number-1}" />
 								<td class="w3-center">${board.title }</td>

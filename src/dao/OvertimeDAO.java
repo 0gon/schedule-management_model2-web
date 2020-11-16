@@ -12,15 +12,13 @@ import model.UserVO;
 
 public class OvertimeDAO extends MybatisConnector {
 	private final String namespace = "overtime";
-	SqlSession sqlSession;
-
 	private static OvertimeDAO instance = new OvertimeDAO();
 
 	public static OvertimeDAO getInstance() {
 		return instance;
 	}
 	public String selectLastGroupId() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		String 	gid = sqlSession.selectOne(namespace + ".selectLastGroupId"); 
 		if(gid == null) gid = "0";
 		sqlSession.close();
@@ -29,7 +27,7 @@ public class OvertimeDAO extends MybatisConnector {
 	
 	public int selectOvertimeCountByMonth(String currentMonth) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("currentMonth", currentMonth); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonth",map);
@@ -38,7 +36,7 @@ public class OvertimeDAO extends MybatisConnector {
 	}
 	public int selectOvertimeCountByMonthC(String memberNm) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberNm", memberNm);
 		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonthC",map);
@@ -48,7 +46,7 @@ public class OvertimeDAO extends MybatisConnector {
 	// 
 	public int selectOvertimeTargetListCnt(String groupId) {
 		int boardAllCount = 0;
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("groupId", groupId);
 		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeTargetListCnt",map);
@@ -56,7 +54,7 @@ public class OvertimeDAO extends MybatisConnector {
 		return boardAllCount;
 	}
 	public String selectOvertimeTargetList(String groupId,String targetNm) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("targetNm", targetNm);
 		map.put("groupId", groupId);
@@ -65,7 +63,7 @@ public class OvertimeDAO extends MybatisConnector {
 		return targetNameList;
 	}
 	public List<OvertimePriceVO> selectOvertimeList(String currentMonth) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("currentMonth", currentMonth); 
 		try {
@@ -75,7 +73,7 @@ public class OvertimeDAO extends MybatisConnector {
 		}
 	}
 	public List<OvertimePriceVO> selectOvertimeCardList(String memberNm) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberNm", memberNm);
 		try {
@@ -86,7 +84,7 @@ public class OvertimeDAO extends MybatisConnector {
 	}
 	
 	public String selectTargetGroupId(String cardId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("cardId", cardId);
 		String gid = sqlSession.selectOne(namespace + ".selectTargetGroupId",map); 
@@ -95,7 +93,7 @@ public class OvertimeDAO extends MybatisConnector {
 	}
 	
 	public void insertOvertime(String[] targetIdList, OvertimePriceVO overtimeVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		UserDAO userDao = UserDAO.getInstance();
 		try {
 			for(int i = 0; i< targetIdList.length ; i++) {
@@ -111,7 +109,7 @@ public class OvertimeDAO extends MybatisConnector {
 		}
 	}
 	public List<?> selectOvertimeInfoByPK(int Id) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Id", Id);
 		try {
@@ -121,7 +119,7 @@ public class OvertimeDAO extends MybatisConnector {
 		}
 	}
 	public List<?> selectOvertimeUserInfoByPK(String Id) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("Id", Id);
 		try {
@@ -132,7 +130,7 @@ public class OvertimeDAO extends MybatisConnector {
 	}
 	
 	public OvertimePriceVO selectOvertimeInfoByOVTPK(int overtimeId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("overtimeId", overtimeId);
 		try {
@@ -142,7 +140,7 @@ public class OvertimeDAO extends MybatisConnector {
 		}
 	}
 	public void deleteOvertime(int cardId) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("cardId", cardId);
 		try {
@@ -153,7 +151,7 @@ public class OvertimeDAO extends MybatisConnector {
 		}
 	}
 	public void updateOvertimePrice(OvertimePriceVO overtimeVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateOvertimePrice", overtimeVO);
 			sqlSession.commit();
@@ -162,7 +160,7 @@ public class OvertimeDAO extends MybatisConnector {
 		}
 	}
 	public void updateOvertimePriceForCal(OvertimePriceVO overtimeVO) {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			sqlSession.update(namespace + ".updateOvertimePriceForCal", overtimeVO);
 			sqlSession.commit();

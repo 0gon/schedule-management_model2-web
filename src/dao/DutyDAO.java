@@ -9,7 +9,6 @@ import model.DutyVO;
 
 public class DutyDAO extends MybatisConnector {
 	private final String namespace = "duty";
-	SqlSession sqlSession;
 
 	private static DutyDAO instance = new DutyDAO();
 
@@ -18,7 +17,7 @@ public class DutyDAO extends MybatisConnector {
 	}
 	
 	public List selectDutyInfo() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectDutyInfo");
 		} finally {
@@ -26,7 +25,7 @@ public class DutyDAO extends MybatisConnector {
 		}
 	}
 	public DutyVO selectDutyInfoById(int Id)  {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Id", Id);
 		try {

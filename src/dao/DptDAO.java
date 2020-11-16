@@ -10,7 +10,6 @@ import model.DutyVO;
 
 public class DptDAO extends MybatisConnector {
 	private final String namespace = "dpt";
-	SqlSession sqlSession;
 
 	private static DptDAO instance = new DptDAO();
 
@@ -19,7 +18,7 @@ public class DptDAO extends MybatisConnector {
 	}
 	
 	public List selectDptALLInfo() {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		try {
 			return sqlSession.selectList(namespace + ".selectDptALLInfo");
 		} finally {
@@ -27,7 +26,7 @@ public class DptDAO extends MybatisConnector {
 		}
 	}
 	public DptVO selectDptInfoById(int Id)  {
-		sqlSession = sqlSession();
+		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Id", Id);
 		try {
