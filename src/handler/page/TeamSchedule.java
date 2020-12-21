@@ -69,13 +69,20 @@ public class TeamSchedule implements CommandHandler {
 			List<?> members_huga= null; 
 			List<?> members_edu = null;
 			List<?> members_chul = null;
+			List<?> members_homework = null;
+			List<?> members_monitor = null;
 			ArrayList<Object> memberLists = new ArrayList<>();
 			//주말인 경우에는 근무인원만 구하기(일, 토)
 			if(i==0 || i==6) {
 				int work = scheduleDAO.selectWorkCount(week);
+				int monitor = scheduleDAO.selectMonitorCount(week);
 				members_work = userDAO.selectUserWork(week);
-				weekVO.setWork(work);
+				members_monitor = userDAO.selectUserMonitor(week);
+				
 				memberLists.add(members_work);
+				memberLists.add(members_monitor);
+				weekVO.setWork(work);
+				weekVO.setMonitor(monitor);
 				weekVO.setMembers(memberLists);
 				weekVOList.add(weekVO);
 			}else {
@@ -89,21 +96,25 @@ public class TeamSchedule implements CommandHandler {
 					int huga = scheduleDAO.selectHugaCount(week);
 					int education = scheduleDAO.selectEducationCount(week);
 					int	 chul = scheduleDAO.selectChulCount(week);
+					int homework = scheduleDAO.selectHomeworkCount(week);
 					members_humu = userDAO.selectUserHumu(week);
 					members_ban = userDAO.selectUserBan(week);
 					members_huga = userDAO.selectUserHuga(week);
 					members_edu = userDAO.selectUserEdu(week);
 					members_chul = userDAO.selectUserChul(week);
+					members_homework = userDAO.selectUserHomework(week);
 					memberLists.add(members_humu);
 					memberLists.add(members_ban);
 					memberLists.add(members_huga);
 					memberLists.add(members_edu);
 					memberLists.add(members_chul);
+					memberLists.add(members_homework);
 					weekVO.setChul(chul);
 					weekVO.setEducation(education);
 					weekVO.setHuga(huga);
 					weekVO.setHumu(humu);
 					weekVO.setMembers(memberLists);
+					weekVO.setHomework(homework);
 					weekVOList.add(weekVO);
 					
 				//정기휴무인 경우	

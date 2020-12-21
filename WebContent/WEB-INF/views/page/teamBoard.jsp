@@ -9,7 +9,7 @@
 <body>
  <!-- 쓰기 버튼 눌렀을 시 나오는 모달 (신청하기) -->
 <div id="borderReg" class="w3-modal" style="background-color: rgba(0,0,0,0.0);" >
-    <div id="borderRegDrag" class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
+    <div id="borderRegDrag" class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 700px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>신 청 하 기</font></div>
         </div>
@@ -83,7 +83,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="w3-sand w3-center" style="width: 200px">공개유무 :</td>
+                      <td class="w3-sand w3-center" style="width: 200px">이름공개 :</td>
                       <td  class="w3-light-gray">
                       
                       공개: <input type="radio" value="Y" id="openYn" onclick="openChange(1)" name="openYn" checked="checked" class="w3-radio" style="width:17px;height:17px">
@@ -146,6 +146,8 @@
 		    var memberNm = '<c:out value="${userVO.memberNm }"/>'
 			var title = $('#bookTitle').val();
 			var pchURL = $('#pchURL').val();
+			var bookName = $('#bookName').val();
+			var price = $('#price').val();
 			if(bookName==""){
 				alert("책 제목을 입력해주세요.");
 			}else{

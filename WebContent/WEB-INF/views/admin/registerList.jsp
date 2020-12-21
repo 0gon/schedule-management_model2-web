@@ -9,7 +9,7 @@
 <body>
 
 
-	<div class="w3-container w3-display-middle" style="width:1200px;">
+	<div class="w3-container w3-display-middle" style="width:1400px;">
 	<!-- 상단바 -->
   <div class="w3-bar w3-teal">  
     <button class="w3-bar-item w3-button tablink w3-red" onclick="openCity(event,'London')">야근식대</button>
@@ -54,7 +54,7 @@
 		</c:if>
     
        	<c:if test="${count_o>0}">
-       	<table class="w3-table  w3-centered" style="border:black; ">
+       	<table class="w3-table  w3-centered " style="border:black; ">
 		    <tr class="w3-black">
 		      <th class="w3-center">사용일자</th>
 		      <th class="w3-center">등록인</th>
@@ -66,14 +66,14 @@
 		      <th class="w3-center">금액</th>
 		    </tr>
      <c:forEach var="overtime" items="${overtimes}">
-     <tr class="w3-hover-white">
-      <td>
+     <tr class="w3-hover-white ">
+      <td width="100px" class="w3-border">
        	${overtime.useDate}
       </td>
-      <td> 
+      <td width="80px"  class="w3-border"> 
        	${overtime.memberNm} 
       </td>
-      <td>
+      <td style="word-break:break-all"  class="w3-border">
       <c:if test="${overtime.targetListCount>0}">
        	${overtime.targetListName}
       </c:if>
@@ -81,19 +81,19 @@
            <font color="grey">-</font>
        </c:if>
       </td>
-      <td>
+      <td width="80px"  class="w3-border">
        ${overtime.targetListCount} 명
       </td>
-      <td>
+      <td  class="w3-border">
        	${overtime.content}
       </td> 
-      <td>
+      <td  class="w3-border">
        	${overtime.shopName}
       </td>
-      <td>
+      <td width="80px"  class="w3-border">
        	${overtime.cardHolder}
       </td> 
-       <td>
+       <td width="100px"  class="w3-border">
        	${overtime.price} 원
        </td>
     </tr>

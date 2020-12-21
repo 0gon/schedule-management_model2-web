@@ -27,6 +27,15 @@ public class ScheduleDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	public int selectMonitorCount(String startDate) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectMonitorCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
 	public int selectHumuCount(String startDate) {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();
@@ -51,6 +60,15 @@ public class ScheduleDAO extends MybatisConnector {
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectEducationCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectHomeworkCount(String startDate) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectHomeworkCount", map);
 		sqlSession.close();
 		return boardAllCount;
 	}

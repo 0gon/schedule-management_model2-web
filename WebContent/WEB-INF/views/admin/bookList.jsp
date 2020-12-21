@@ -9,7 +9,7 @@
 <body>
 
 
-	<div class="w3-container w3-display-middle" style="width:1200px;">
+	<div class="w3-container w3-display-middle" style="width:1400px;">
 	<!-- 상단바 -->
   <div class="w3-bar w3-teal">  
     <button class="w3-bar-item w3-button tablink w3-red" onclick="openCity(event,'London')">도서 등록내역</button>
@@ -66,19 +66,19 @@
 		    </tr>
      <c:forEach var="book" items="${books}">
      <tr class="w3-hover-white">
-      <td> 
+      <td style="width:80px;"> 
        	${book.memberNm} 
       </td>
-      <td>
+      <td >
        	${book.title}
       </td>
-      <td>
+      <td style="word-break:break-all" >
        	${book.bookName}
       </td>
       <td>
        	${book.price}
       </td> 
-      <td>
+      <td style="word-break:break-all">
        	${book.pchURL}
       </td>
     </tr>

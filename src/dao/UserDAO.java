@@ -25,6 +25,16 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<UserVO> selectUserMonitor(String startDate) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserMonitor", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<UserVO> selectUserHumu(String startDate) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
@@ -75,6 +85,17 @@ public class UserDAO extends MybatisConnector {
 		map.put("startDate", startDate); 
 		try {
 			return sqlSession.selectList(namespace + ".selectUserChul", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<UserVO> selectUserHomework(String startDate) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserHomework", map);
 		} finally {
 			sqlSession.close();
 		}

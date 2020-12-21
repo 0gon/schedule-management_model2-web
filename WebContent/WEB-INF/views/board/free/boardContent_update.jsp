@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 650px;">
+<div class="w3-modal-content w3-light-grey w3-card-4" style="max-width: 850px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style="margin-top:2px"><font size=5>수 정 하 기</font></div>
         </div>
@@ -31,7 +31,7 @@
                       <td class="w3-light-gray"> ${boardVO.formatDate }</td>
                     </tr>
                     <tr>
-                      <td class="w3-sand w3-center">공개여부 : </td>
+                      <td class="w3-sand w3-center">이름공개 : </td>
                      <td >
                           공개: <input type="radio" value="Y" onclick="openChange_u(1)" id="openYn_u" name="openYn" checked="checked" class="w3-radio" style="width:17px;height:17px">
                  &nbsp;&nbsp;  비공개: <input type="radio" onclick="openChange_u(2)" value="N" name="openYn" class="w3-radio" style="width:17px;height:17px">

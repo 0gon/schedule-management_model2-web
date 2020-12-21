@@ -79,9 +79,10 @@
         </div> 
         <div style="float:left;width:200px" class="w3-border  w3-gray w3-center">
             <div id ="week${week1 }"><font>일(${week1 }) </font></div>
-            <div class="w3-white w3- w3-padding">
+            <div id="weekD${week1 }" class="w3-white w3- w3-padding">
              <span class="w3-small">&nbsp;</span><br>
              <span class="w3-small">근무 : ${weekVO1.work } </span><br>
+             <span class="w3-small">점검 :  ${weekVO1.monitor }</span><br>
              <span class="w3-small">&nbsp;</span><br>
              <span class="w3-small">&nbsp;</span><br>
             </div>
@@ -95,14 +96,25 @@
 	                </div>
 	            </div>
             </c:if>
+              <c:if test="${not empty weekVO1.members[1]}">
+            	<div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO1.members[1]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	            </div>
+            </c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week2 }"><font>월(${week2 }) </font></div>
          	<c:if test="${jungCnt1 == 0}">
-	         	<div class="w3-white w3-padding">
+	         	<div id="weekD${week2 }" class="w3-white w3-padding">
 		             <span class="w3-small">휴무 <font color="grey">(반차포함)</font> : ${weekVO2.humu }</span><br>
 		             <span class="w3-small">휴가 <font color="grey">(Refresh + 하계)</font> : ${weekVO2.huga }</span><br>
 		             <span class="w3-small">교육 : ${weekVO2.education }</span><br>
+		             <span class="w3-small">재택근무 : ${weekVO2.homework }</span><br>
 		             <span class="w3-small">출장 : ${weekVO2.chul }</span><br>
 	            </div>
 	             <c:if test="${not empty weekVO2.members[0]}">
@@ -145,6 +157,17 @@
 		                </div>
 		            </div>
 	            </c:if>
+	            <!-- 재택 -->
+	            <c:if test="${not empty weekVO2.members[5]}">
+	            	<div class="w3-sand w3-border w3-border-black">
+	             		재택근무
+		                <div class="w3-white w3-padding">
+				          	 <c:forEach var="member" items="${weekVO2.members[5]}">
+				                 <span class="w3-small"> ${member.memberNm}</span><br>
+				          	 </c:forEach>
+		                </div>
+		            </div>
+	            </c:if>
 	            <c:if test="${not empty weekVO2.members[4]}">
 	            	<div class="w3-sand w3-border w3-border-black">
 	             		출장
@@ -157,10 +180,11 @@
 	            </c:if>
          	</c:if>
          	<c:if test="${jungCnt1 > 0}">
-         		<div class="w3-white w3-padding">
+         		<div id="weekD${week2 }" class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO2.work } </span><br>
+	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO2.members[0]}">
@@ -179,10 +203,11 @@
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week3 }"><font>화(${week3 }) </font></div>
             <c:if test="${jungCnt2 == 0}">
-             <div class="w3-white w3- w3-padding">
+             <div id="weekD${week3 }" class="w3-white w3- w3-padding">
 	             <span class="w3-small">휴무 <font color="grey">(반차포함)</font> : ${weekVO3.humu }</span><br>
 	             <span class="w3-small">휴가 <font color="grey">(Refresh + 하계)</font> : ${weekVO3.huga }</span><br>
 	             <span class="w3-small">교육 : ${weekVO3.education }</span><br>
+	             <span class="w3-small">재택근무 : ${weekVO3.homework }</span><br>
 	             <span class="w3-small">출장 : ${weekVO3.chul }</span><br>
             </div>
             <!-- 유저 List start -->
@@ -226,6 +251,17 @@
 	                </div>
 	            </div>
             </c:if>
+            <!-- 재택 -->
+            <c:if test="${not empty weekVO3.members[5]}">
+            	<div class="w3-sand w3-border w3-border-black">
+             		재택근무
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO3.members[5]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	            </div>
+            </c:if>
             <c:if test="${not empty weekVO3.members[4]}">
             	<div class="w3-sand w3-border w3-border-black">
              		출장
@@ -239,10 +275,11 @@
             </c:if>
             <!-- user 리스트 end -->
             <c:if test="${jungCnt2 > 0}">
-         		<div class="w3-white w3-padding">
+         		<div id="weekD${week3 }" class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO3.work } </span><br>
+	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO3.members[0]}">
@@ -260,10 +297,11 @@
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week4 }"><font>수(${week4 }) </font></div>
             <c:if test="${jungCnt3 == 0}">
-	            <div class="w3-white w3- w3-padding">
+	            <div id="weekD${week4 }"class="w3-white w3- w3-padding">
 		             <span class="w3-small">휴무 <font color="grey">(반차포함)</font> : ${weekVO4.humu }</span><br>
 		             <span class="w3-small">휴가 <font color="grey">(Refresh + 하계)</font> : ${weekVO4.huga }</span><br>
 		             <span class="w3-small">교육 : ${weekVO4.education }</span><br>
+		             <span class="w3-small">재택근무 : ${weekVO4.homework }</span><br>
 		             <span class="w3-small">출장 : ${weekVO4.chul }</span><br>
 	            </div>
 	             <c:if test="${not empty weekVO4.members[0]}">
@@ -306,6 +344,17 @@
 		                </div>
 		            </div>
 	            </c:if>
+	            <!-- 재택 -->
+	            <c:if test="${not empty weekVO4.members[5]}">
+	            	<div class="w3-sand w3-border w3-border-black">
+	             		재택근무
+		                <div class="w3-white w3-padding">
+				          	 <c:forEach var="member" items="${weekVO4.members[5]}">
+				                 <span class="w3-small"> ${member.memberNm}</span><br>
+				          	 </c:forEach>
+		                </div>
+		            </div>
+	            </c:if>
 	            <c:if test="${not empty weekVO4.members[4]}">
 	            	<div class="w3-sand w3-border w3-border-black">
 	             		출장
@@ -318,10 +367,11 @@
 	            </c:if>
             </c:if>
             <c:if test="${jungCnt3 > 0}">
-         		<div class="w3-white w3-padding">
+         		<div id="weekD${week4 }" class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO4.work } </span><br>
+	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO4.members[0]}">
@@ -339,10 +389,11 @@
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week5 }" ><font >목(${week5 }) </font></div>
             <c:if test="${jungCnt4 == 0}">
-	            <div class="w3-white w3- w3-padding">
+	            <div id="weekD${week5 }" class="w3-white w3- w3-padding">
 		             <span class="w3-small">휴무 <font color="grey">(반차포함)</font> : ${weekVO5.humu }</span><br>
 		             <span class="w3-small">휴가 <font color="grey">(Refresh + 하계)</font> : ${weekVO5.huga }</span><br>
 		             <span class="w3-small">교육 : ${weekVO5.education }</span><br>
+		             <span class="w3-small">재택근무 : ${weekVO5.homework }</span><br>
 		             <span class="w3-small">출장 : ${weekVO5.chul }</span><br>
 	            </div>
 	             <c:if test="${not empty weekVO5.members[0]}">
@@ -385,6 +436,17 @@
 		                </div>
 		            </div>
 	            </c:if>
+	            <!-- 재택 -->
+	            <c:if test="${not empty weekVO5.members[5]}">
+	            	<div class="w3-sand w3-border w3-border-black">
+	             		재택근무
+		                <div class="w3-white w3-padding">
+				          	 <c:forEach var="member" items="${weekVO5.members[5]}">
+				                 <span class="w3-small"> ${member.memberNm}</span><br>
+				          	 </c:forEach>
+		                </div>
+		            </div>
+	            </c:if>
 	            <c:if test="${not empty weekVO5.members[4]}">
 	            	<div class="w3-sand w3-border w3-border-black">
 	             		출장
@@ -397,10 +459,11 @@
 	            </c:if>
             </c:if>
             <c:if test="${jungCnt4 > 0}">
-         		<div class="w3-white w3-padding">
+         		<div id="weekD${week5 }" class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO5.work } </span><br>
+	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO5.members[0]}">
@@ -418,10 +481,11 @@
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week6 }" ><font>금(${week6 }) </font></div>
             <c:if test="${jungCnt5 == 0}">
-            <div class="w3-white w3- w3-padding">
+            <div id="weekD${week6 }" class="w3-white w3- w3-padding">
 	             <span class="w3-small">휴무 <font color="grey">(반차포함)</font> : ${weekVO6.humu }</span><br>
 	             <span class="w3-small">휴가 <font color="grey">(Refresh + 하계)</font> : ${weekVO6.huga }</span><br>
 	             <span class="w3-small">교육 : ${weekVO6.education }</span><br>
+	             <span class="w3-small">재택근무 : ${weekVO6.homework }</span><br>
 	             <span class="w3-small">출장 : ${weekVO6.chul }</span><br>
             </div>
              <c:if test="${not empty weekVO6.members[0]}">
@@ -464,6 +528,16 @@
 	                </div>
 	            </div>
             </c:if>
+            <c:if test="${not empty weekVO6.members[5]}">
+            	<div class="w3-sand w3-border w3-border-black">
+             		재택근무
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO6.members[5]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	            </div>
+            </c:if>
             <c:if test="${not empty weekVO6.members[4]}">
             	<div class="w3-sand w3-border w3-border-black">
              		출장
@@ -476,10 +550,11 @@
             </c:if>
             </c:if>
             <c:if test="${jungCnt5 > 0}">
-         		<div class="w3-white w3-padding">
+         		<div id="weekD${week6 }" class="w3-white w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO6.work } </span><br>
+	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO6.members[0]}">
@@ -496,9 +571,10 @@
         </div>
         <div style="float:left;width:200px" class="w3-border w3-gray w3-center">
             <div id="week${week7 }"><font>토(${week7 }) </font></div>
-            <div class="w3-white w3- w3-padding">
+            <div id="weekD${week7 }" class="w3-white w3- w3-padding">
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">근무 :  ${weekVO7.work }</span><br>
+	             <span class="w3-small">점검 :  ${weekVO7.monitor }</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
             </div>
@@ -507,6 +583,16 @@
              		주말당직
 	                <div class="w3-white w3-padding">
 			          	 <c:forEach var="member" items="${weekVO7.members[0]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	            </div>
+            </c:if>
+            <c:if test="${not empty weekVO7.members[1]}">
+            	<div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO7.members[1]}">
 			                 <span class="w3-small"> ${member.memberNm}</span><br>
 			          	 </c:forEach>
 	                </div>
@@ -575,6 +661,9 @@
 	    todayDate = todayDate < 10 ? todayDate = '0'+(todayDate).toString() : todayDate ; 
 		$('#week'+todayDate).attr({
 			'class' :'w3-orange'
+		});
+		$('#weekD'+todayDate).attr({
+			'class' :'w3-amber w3-padding'
 		});
 		$('#week'+todayDate).append("<i class='fa fa-calendar-check-o'></i>");
 		

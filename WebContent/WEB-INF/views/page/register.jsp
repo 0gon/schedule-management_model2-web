@@ -247,14 +247,14 @@
 </div>
 
 <div id="cardList" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding-top:10px;" >
-    <div id="cardListDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="max-width: 2000px;">
+    <div id="cardListDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="width: 1400px;">
         <div class="w3-container w3-center w3-teal" style="height:38px">
             <div style=""><font size=5>카드소지자 등록내역</font></div>
         </div>
         <div class="w3-container " >
         <button id='xbutton_crd' onclick="document.getElementById('cardList').style.display='none';" class="w3-button w3-display-topright">&times;</button>
 	        <div class="w3-center  w3-container" id="modal">
-	        	
+	        	<br>
 	    <c:if test="${count_o==0 }">
 			<div class="w3-center w3-padding-top">
 			<table class="w3-table table-bordered w3-center" width="100%">
@@ -280,13 +280,13 @@
 		    </tr>
      <c:forEach var="overtime" items="${overtimesLiCard}">
      <tr class="w3-hover-white">
-      <td>
+      <td width="100px" class="w3-border">
        	${overtime.useDate}
       </td>
-      <td> 
+      <td width="80px"  class="w3-border"> 
        	${overtime.memberNm}
       </td>
-      <td>
+      <td style="word-break:break-all"  class="w3-border">
       <c:if test="${not empty overtime.targetListName}">
        	${overtime.targetListName} 
       </c:if>
@@ -294,26 +294,28 @@
            <font color="grey">-</font>
        </c:if>
       </td>
-      <td>
-      ${overtime.targetListCount} 명
+        <td width="80px"  class="w3-border">
+       ${overtime.targetListCount} 명
       </td>
-      <td>
+      <td  class="w3-border">
        	${overtime.content}
       </td> 
-      <td>
+      <td  class="w3-border">
        	${overtime.shopName}
       </td>
-      <td>
+      <td width="80px"  class="w3-border">
        	${overtime.cardHolder}
       </td> 
-       <td>
+       <td width="100px"  class="w3-border">
        	${overtime.price} 원
        </td>
     </tr>
     </c:forEach>   
   </table>
      </c:if>
-	        	
+     <br>
+	        	<button class="w3-black w3-button"  onclick="document.getElementById('cardList').style.display='none';">닫기</button>
+	        	<br><br>
 	        </div>
         </div>
     </div>
@@ -393,16 +395,18 @@
                         </span>
                     </div>
                         
-                         <div class="w3-padding ">
+                         <div class=" ">
                          <!-- zerogon id값을 실제 회원id값으로 변경필요 -->
                         <div class="memberSelector w3-border w3-padding w3-margin w3-button" 
                         id="1" onclick="memberClick('1');" style="display: inline">황영민</div>
-                        <div class="memberSelector w3-border w3-padding w3-button" 
+                        <div class="memberSelector w3-border  w3-button" 
                         id="2" onclick="memberClick('2');" style="display: inline">윤재웅</div>
-                        <div class="memberSelector w3-border w3-padding w3-button" 
-                        id="3" onclick="memberClick('3');" style="display: inline">최광명</div>
-                        <div class="memberSelector w3-border w3-padding w3-button" 
-                        id="4" onclick="memberClick('4');" style="display: inline">유승록</div>
+                        <div class="memberSelector w3-border  w3-button" 
+                        id="3" onclick="memberClick('3');" style="display: inline">유승록</div>
+                        <div class="memberSelector w3-border  w3-button" 
+                        id="4" onclick="memberClick('4');" style="display: inline">김재우</div>
+                        <div class="memberSelector w3-border  w3-button" 
+                        id="4" onclick="memberClick('4');" style="display: inline">김상국</div>
                         </div>
                         <!-- **영업1담당** -->
                         <div id="business1">

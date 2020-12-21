@@ -375,9 +375,11 @@
        <li><label>시작일</label>
        <input type="text" id="startdate" readonly="readonly"  name="startDate" placeholder="연도-월-일" class="w3-input w3-border">
        </li>
-       <li><label>종료일</label>
+       <li><label style="margin-left:55px;">종료일 </label>
+       <span><font color="red" > *선택가능</font></span>
        <input type="text" id="enddate" readonly="readonly" name="endDate"  placeholder="연도-월-일" class="w3-input w3-border">
        </li>
+       
        <li><button class="w3-button w3-black" id="commitbtn" onclick="dateCheck();"
        >등록</button>
 
