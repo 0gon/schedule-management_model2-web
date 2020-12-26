@@ -156,6 +156,30 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<UserVO> selectUserSaleManage1() {
+		SqlSession sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserSaleManage1");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserSaleManage2() {
+		SqlSession sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserSaleManage2");
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<UserVO> selectUserSupManage2() {
+		SqlSession sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserSupManage2");
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<UserVO> selectUserAllInfoByGrade() {
 		SqlSession sqlSession = sqlSession();
 		try {

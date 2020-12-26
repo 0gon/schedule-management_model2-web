@@ -33,6 +33,7 @@ public class ScheduleForm implements CommandHandler {
 		
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
+		int dptNo = userVO.getDptNo(); 
 		//게시판 페이지 로직
 		int pageSize = 3;
 		int currentPage = Integer.parseInt(pageNum);
@@ -69,6 +70,19 @@ public class ScheduleForm implements CommandHandler {
 				schedules=scheduleDAO.selectScheduleAllByDptNo(userVO.getDptNo());
 				members=userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
 			}
+			//영업1담당 매니저인 경우
+			if(dptNo == 8) {
+				schedules=scheduleDAO.selectScheduleSaleManage1();
+				members=userDAO.selectUserSaleManage1();
+			//영업2담당 매니저
+			}else if(dptNo == 9) {
+				schedules=scheduleDAO.selectScheduleSaleManage2();
+				members=userDAO.selectUserSaleManage2();
+			//지원2담당 매니저
+			}else if (dptNo == 11) {
+				schedules=scheduleDAO.selectScheduleSupManage2();
+				members=userDAO.selectUserSupManage2();
+			}
 			
 		List<?> duties = dutyDAO.selectDutyInfo();
 		//게시판 변수들
@@ -87,4 +101,5 @@ public class ScheduleForm implements CommandHandler {
 		req.setAttribute("members",members);
 		return "/WEB-INF/views/page/schedule.jsp";
 	}
+	
 }

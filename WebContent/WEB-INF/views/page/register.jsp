@@ -330,7 +330,7 @@
             <div style=""><font size=5>법인카드 사용등록</font></div>
         </div>
         <div class="w3-container " >
-        <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';location.reload();" class="w3-button w3-display-topright">&times;</button>
+        <button id='xbutton' onclick="document.getElementById('addDay').style.display='none';" class="w3-button w3-display-topright">&times;</button>
         <div class="calendarForm w3-center  w3-container" id="modal">
             <form id="userinput" method="post" action="${ pageContext.servletContext.contextPath }/page/regcarduse" >
             	<input type="hidden" name="memberId" value="${userVO.id }" >
@@ -391,7 +391,10 @@
                             영업2담당: <input type="radio" id="dptchk2" name="area" onclick="areaChange(2)" class="w3-radio" >
                         </span>
                         <span>
-                            지원담당: <input type="radio" id="dptchk3" name="area" onclick="areaChange(3)" class="w3-radio" >
+                 지원1담당: <input type="radio" id="dptchk3" name="area" onclick="areaChange(3)" class="w3-radio" >
+                        </span>
+                        <span>
+                 지원2담당: <input type="radio" id="dptchk4" name="area" onclick="areaChange(4)" class="w3-radio" >
                         </span>
                     </div>
                         
@@ -402,11 +405,11 @@
                         <div class="memberSelector w3-border  w3-button" 
                         id="2" onclick="memberClick('2');" style="display: inline">윤재웅</div>
                         <div class="memberSelector w3-border  w3-button" 
-                        id="3" onclick="memberClick('3');" style="display: inline">유승록</div>
+                        id="4" onclick="memberClick('4');" style="display: inline">유승록</div>
                         <div class="memberSelector w3-border  w3-button" 
-                        id="4" onclick="memberClick('4');" style="display: inline">김재우</div>
+                        id="51" onclick="memberClick('51');" style="display: inline">김재우</div>
                         <div class="memberSelector w3-border  w3-button" 
-                        id="4" onclick="memberClick('4');" style="display: inline">김상국</div>
+                        id="64" onclick="memberClick('64');" style="display: inline">김상국</div>
                         </div>
                         <!-- **영업1담당** -->
                         <div id="business1">
@@ -433,14 +436,19 @@
                         
                         <!-- **지원담당** -->
                         <div id="support" style="display:none">
-	                        <!-- 경영지원 -->
-	                        <div id="SPTmembers" style='padding-top: 10px; padding-bottom: 10px'>
-	                        <label style="color:darkred">[ IT_경영지원 Part ]</label>
-	                        </div>
 	                        <!-- 인프라 -->
+	                        <br>
 	                        <div id="INFmembers" style='padding-bottom: 10px'>
 	                        <label style="color:darkred">[ IT_인프라 Part ]</label>
 	                        </div> 
+                        </div>  
+                        <!-- **지원2담당** -->
+                        <div id="support2" style="display:none">
+	                        <!-- 경영지원 -->
+	                        <br>
+	                        <div id="SPTmembers" style='padding-top: 10px; padding-bottom: 10px'>
+	                        <label style="color:darkred">[ IT_경영지원 Part ]</label>
+	                        </div>
 	                        <!-- 재무  -->   
 	                        <div id="FINmembers" style='padding-bottom: 10px'>
 	                        <label style="color:darkred">[ IT_재무 Part ]</label>
@@ -707,17 +715,22 @@ function areaChange(areaCode){
 	//영업1담당
 	if(areaCode == 1){
 		$('#business1').show(); 
-		$('#business2, #support').hide(); 
+		$('#business2, #support, #support2').hide(); 
 	}
 	//영업2담당
 	else if(areaCode ==2 ){
 		$('#business2').show(); 
-		$('#business1, #support').hide(); 
+		$('#business1, #support, #support2').hide(); 
 	}
-	//지원담당
-	else{
-		$('#business1, #business2').hide(); 
+	//지원1담당
+	else if(areaCode ==3 ){
+		$('#business1, #business2, #support2').hide(); 
 		$('#support').show(); 
+	}
+	//지원2담당
+	else {
+		$('#business1, #business2, #support').hide(); 
+		$('#support2').show(); 
 	}
 	
 }
