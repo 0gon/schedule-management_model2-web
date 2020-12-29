@@ -184,7 +184,7 @@
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO2.work } </span><br>
-	             <span class="w3-small">&nbsp;</span><br>
+	             <span class="w3-small">점검 : ${weekVO2.monitor }</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO2.members[0]}">
@@ -197,6 +197,17 @@
 	                </div>
 	            </div>
            		 </c:if>
+           		 <!-- 당직 점검 추가 -->
+           		 <c:if test="${not empty weekVO2.members[1]}">
+            	 <div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO2.members[1]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	             </div>
+          		  </c:if>
          	</c:if>
              
         </div>
@@ -279,7 +290,7 @@
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO3.work } </span><br>
-	             <span class="w3-small">&nbsp;</span><br>
+	             <span class="w3-small">점검 : ${weekVO3.monitor }</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO3.members[0]}">
@@ -292,6 +303,17 @@
 	                </div>
 	            </div>
            		 </c:if>
+           		 <!-- 당직 점검 추가 -->
+           		 <c:if test="${not empty weekVO3.members[1]}">
+            	 <div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO3.members[1]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	             </div>
+          		  </c:if>
          	</c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
@@ -371,7 +393,7 @@
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO4.work } </span><br>
-	             <span class="w3-small">&nbsp;</span><br>
+	             <span class="w3-small">점검 : ${weekVO4.monitor }</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO4.members[0]}">
@@ -384,6 +406,17 @@
 	                </div>
 	            </div>
            		 </c:if>
+           		 <!-- 당직 점검 추가 -->
+           		 <c:if test="${not empty weekVO4.members[1]}">
+            	 <div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO4.members[1]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	             </div>
+          		  </c:if>
          	</c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
@@ -463,7 +496,7 @@
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO5.work } </span><br>
-	             <span class="w3-small">&nbsp;</span><br>
+	             <span class="w3-small">점검 : ${weekVO5.monitor }</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO5.members[0]}">
@@ -476,6 +509,17 @@
 	                </div>
 	            </div>
            		 </c:if>
+           		 <!-- 당직 점검 추가 -->
+           		 <c:if test="${not empty weekVO5.members[1]}">
+            	 <div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO5.members[1]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	             </div>
+          		  </c:if>
          	</c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
@@ -554,7 +598,7 @@
 	             <span class="w3-small">&nbsp;</span><br>
 	             <span class="w3-small"><font color="red"> - 휴 무 - </font></span><br>
 	             <span class="w3-small">근무 : ${weekVO6.work } </span><br>
-	             <span class="w3-small">&nbsp;</span><br>
+	             <span class="w3-small">점검 : ${weekVO6.monitor }</span><br>
 	             <span class="w3-small">&nbsp;</span><br>
                 </div>
                 <c:if test="${not empty weekVO6.members[0]}">
@@ -567,6 +611,17 @@
 	                </div>
 	            </div>
            		 </c:if>
+           		 <!-- 당직 점검 추가 -->
+           		 <c:if test="${not empty weekVO6.members[1]}">
+            	 <div class="w3-sand w3-border w3-border-black">
+             		점검
+	                <div class="w3-white w3-padding">
+			          	 <c:forEach var="member" items="${weekVO6.members[1]}">
+			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			          	 </c:forEach>
+	                </div>
+	             </div>
+          		  </c:if>
          	</c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-gray w3-center">

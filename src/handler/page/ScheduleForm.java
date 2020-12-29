@@ -78,6 +78,10 @@ public class ScheduleForm implements CommandHandler {
 			}else if(dptNo == 9) {
 				schedules=scheduleDAO.selectScheduleSaleManage2();
 				members=userDAO.selectUserSaleManage2();
+			//지원1담당 매니저
+			}else if(dptNo == 10) {
+				schedules=scheduleDAO.selectScheduleSupManage1();
+				members=userDAO.selectUserSupManage1();
 			//지원2담당 매니저
 			}else if (dptNo == 11) {
 				schedules=scheduleDAO.selectScheduleSupManage2();

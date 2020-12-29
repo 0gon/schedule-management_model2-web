@@ -87,6 +87,15 @@
                           내용 : <input type="text" id="Realetc_u" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
                     </div>
+                     <!-- 외근 huga로 보내서 1 or 2로 받음-->
+                    <div class="w3-padding" id="duty7_u" style="display: none">
+                        <span class="w3-margin">
+                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" checked>
+                        </span>
+                        <span>
+                           외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
+                        </span>
+                    </div>
                		 </li>
        
        <li><label>시작일</label>

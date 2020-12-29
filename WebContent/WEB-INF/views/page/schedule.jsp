@@ -10,7 +10,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js?v=20200910"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js?v=20201229"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/datePicker.js"></script>
 <script
@@ -23,7 +23,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20200910"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20201229"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
@@ -227,7 +227,7 @@
 							<td>
 								<div style="display: inline;"
 									class="w3-marign w3-padding-small w3-border w3-border-black w3-blue">&nbsp;</div>
-								<span style="margin-left: 5px; margin-right: 10px">: 출장</span>
+								<span style="margin-left: 5px; margin-right: 10px">: 출장/외근</span>
 							</td>
 	
 							<td>
@@ -369,6 +369,15 @@
                     <div class="w3-padding">
                           내용 : <input type="text" id="Realetc" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
+                    </div>
+                     <!-- 외근 outwork로 보내서 1 or 2로 받음-->
+                    <div class="w3-padding" id="duty7" style="display: none">
+                        <span class="w3-margin">
+                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" checked>
+                        </span>
+                        <span>
+                           외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
+                        </span>
                     </div>
 
                 </li>
@@ -541,6 +550,15 @@
                     <div class="w3-padding">
                           내용 : <input type="text" id="Realetc_b" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
+                    </div>
+                      <!-- 외근 huga로 보내서 1 or 2로 받음-->
+                    <div class="w3-padding" id="duty7_b" style="display: none">
+                        <span class="w3-margin">
+                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" checked>
+                        </span>
+                        <span>
+                           외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
+                        </span>
                     </div>
 
                 </li>

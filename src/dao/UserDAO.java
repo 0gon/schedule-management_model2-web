@@ -172,6 +172,14 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<UserVO> selectUserSupManage1() {
+		SqlSession sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectUserSupManage1");
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<UserVO> selectUserSupManage2() {
 		SqlSession sqlSession = sqlSession();
 		try {

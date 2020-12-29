@@ -121,6 +121,10 @@ public class UpdateProDuty implements CommandHandler {
 			content ="재택근무" ;
 		}else if(dutyId.equals("7") && Realetc!=null) {
 			content =Realetc ;
+		}else if(dutyId.equals("8") && huga.equals("1")) {
+			content = "외근(오전)";
+		}else if(dutyId.equals("8") && huga.equals("2")) {
+			content = "외근(오후)";
 		}
 		return content;
 	}

@@ -134,6 +134,14 @@ public class ScheduleDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<ScheduleVO> selectScheduleSupManage1() {
+		SqlSession sqlSession = sqlSession();
+		try {
+			return sqlSession.selectList(namespace + ".selectScheduleSupManage1");
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<ScheduleVO> selectScheduleAllByHighGrade() {
 		SqlSession sqlSession = sqlSession();
 		try {

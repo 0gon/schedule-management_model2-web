@@ -58,6 +58,11 @@ function viewScheduleList(scheduleList){
 					  //home db에 기타->출장 수정, 기타근무 추가     
 				    }
 	    		}
+	    		else if(scheduleList[i].dutyId==8){ //외근
+	    			var term = viewTerm(scheduleList,i);
+					viewSchedule('blue','외근',scheduleList,i,j,term);	
+	    		}
+	    		
 	    	}
 	    }
 }

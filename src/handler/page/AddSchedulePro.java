@@ -27,6 +27,7 @@ public class AddSchedulePro implements CommandHandler {
 		String working = req.getParameter("working");
 		String startWorkTime = req.getParameter("startWorkTime");
 		String endWorkTime = req.getParameter("endWorkTime");
+		String outwork = req.getParameter("outwork");
 		ScheduleVO scheduleVO = new ScheduleVO();
 		//상세내용 설정
 		String content="";
@@ -67,6 +68,10 @@ public class AddSchedulePro implements CommandHandler {
 				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 				scheduleDAO.insertScheduleALLC(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime);
 				return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
+			}else if(dutyId.equals("8") && outwork.equals("1")) {
+				content = "외근(오전)";
+			}else if(dutyId.equals("8") && outwork.equals("2")) {
+				content = "외근(오후)";
 			}
 			
 			java.util.Date utilDate = cal.getTime();
@@ -96,6 +101,10 @@ public class AddSchedulePro implements CommandHandler {
 				content ="재택근무" ;
 			}else if(dutyId.equals("7") && Realetc!=null) {
 				content =Realetc ;
+			}else if(dutyId.equals("8") && outwork.equals("1")) {
+				content = "외근(오전)";
+			}else if(dutyId.equals("8") && outwork.equals("2")) {
+				content = "외근(오후)";
 			}
 		
 			java.util.Date utilDate = cal.getTime();
@@ -186,6 +195,10 @@ public class AddSchedulePro implements CommandHandler {
 				content ="재택근무" ;
 			}else if(dutyId.equals("7") && Realetc!=null) {
 				content =Realetc ;
+			}else if(dutyId.equals("8") && outwork.equals("1")) {
+				content = "외근(오전)";
+			}else if(dutyId.equals("8") && outwork.equals("2")) {
+				content = "외근(오후)";
 			}
 			
 			//스케줄 Bean 객체 설정
