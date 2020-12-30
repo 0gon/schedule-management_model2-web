@@ -72,6 +72,8 @@ public class AddSchedulePro implements CommandHandler {
 				content = "외근(오전)";
 			}else if(dutyId.equals("8") && outwork.equals("2")) {
 				content = "외근(오후)";
+			}else if(dutyId.equals("8") && outwork.equals("3")) {
+				content = "외근(종일)";
 			}
 			
 			java.util.Date utilDate = cal.getTime();
@@ -105,6 +107,8 @@ public class AddSchedulePro implements CommandHandler {
 				content = "외근(오전)";
 			}else if(dutyId.equals("8") && outwork.equals("2")) {
 				content = "외근(오후)";
+			}else if(dutyId.equals("8") && outwork.equals("3")) {
+				content = "외근(종일)";
 			}
 		
 			java.util.Date utilDate = cal.getTime();
@@ -199,6 +203,8 @@ public class AddSchedulePro implements CommandHandler {
 				content = "외근(오전)";
 			}else if(dutyId.equals("8") && outwork.equals("2")) {
 				content = "외근(오후)";
+			}else if(dutyId.equals("8") && outwork.equals("3")) {
+				content = "외근(종일)";
 			}
 			
 			//스케줄 Bean 객체 설정

@@ -125,6 +125,8 @@ public class UpdateProDuty implements CommandHandler {
 			content = "외근(오전)";
 		}else if(dutyId.equals("8") && huga.equals("2")) {
 			content = "외근(오후)";
+		}else if(dutyId.equals("8") && huga.equals("3")) {
+			content = "외근(종일)";
 		}
 		return content;
 	}

@@ -372,8 +372,11 @@
                     </div>
                      <!-- 외근 outwork로 보내서 1 or 2로 받음-->
                     <div class="w3-padding" id="duty7" style="display: none">
-                        <span class="w3-margin">
-                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" checked>
+                        <span>
+                           외근(종일) <input type="radio" name="outwork" value="3" class="w3-radio" checked>
+                        </span>
+                        <span >
+                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" >
                         </span>
                         <span>
                            외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
@@ -551,10 +554,13 @@
                           내용 : <input type="text" id="Realetc_b" name="Realetc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
                     </div>
-                      <!-- 외근 huga로 보내서 1 or 2로 받음-->
+                      <!-- 외근 로 보내서 1 or 2로 받음-->
                     <div class="w3-padding" id="duty7_b" style="display: none">
-                        <span class="w3-margin">
-                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" checked>
+                        <span>
+                           외근(종일) <input type="radio" name="outwork" value="3" class="w3-radio" checked>
+                        </span>
+                        <span>
+                            외근(오전) <input type="radio" name="outwork" value="1" class="w3-radio" >
                         </span>
                         <span>
                            외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
