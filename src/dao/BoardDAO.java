@@ -45,6 +45,34 @@ public class BoardDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	public int selectBoardCount_sale1() {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount_sale1");
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectBoardCount_sale2() {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount_sale2");
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectBoardCount_sup1() {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount_sup1");
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectBoardCount_sup2() {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		boardAllCount = sqlSession.selectOne(namespace + ".selectBoardCount_sup2");
+		sqlSession.close();
+		return boardAllCount;
+	}
 	public int selectBoardBookCount() {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();
@@ -75,6 +103,50 @@ public class BoardDAO extends MybatisConnector {
 		map.put("dptNo", dptNo);  
 		try {
 			return sqlSession.selectList(namespace + ".selectBoardList", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<BoardVO> selectBoardList_sale1(int startRow, int endRow) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		try {
+			return sqlSession.selectList(namespace + ".selectBoardList_sale1", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<BoardVO> selectBoardList_sale2(int startRow, int endRow) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		try {
+			return sqlSession.selectList(namespace + ".selectBoardList_sale2", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<BoardVO> selectBoardList_sup1(int startRow, int endRow) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		try {
+			return sqlSession.selectList(namespace + ".selectBoardList_sup1", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public List<BoardVO> selectBoardList_sup2(int startRow, int endRow) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow", startRow); 
+		map.put("endRow", endRow);  
+		try {
+			return sqlSession.selectList(namespace + ".selectBoardList_sup2", map);
 		} finally {
 			sqlSession.close();
 		}

@@ -23,14 +23,14 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20201229"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210104"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js?v=20210104"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20200914"></script>
+	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20210104"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
@@ -46,6 +46,7 @@
 			var memberVO = {
 				memberId : "${member.id}",
 				memberNm : "${member.memberNm}",
+				lotteId : "${member.memberId}",
 			}
 			memberList.push(memberVO);
 		}

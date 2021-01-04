@@ -31,6 +31,7 @@ public class BoardList implements CommandHandler {
 		String memberId = (String) session.getAttribute("memberId");
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
+		int dptNo = userVO.getDptNo(); 
 		
 		//게시판 페이지 로직
 		int pageSize = 3;
@@ -39,15 +40,13 @@ public class BoardList implements CommandHandler {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-		
 		List<?> boards = null;
-		count = boardDAO.selectBoardCount(userVO.getDptNo());
-		/*
-		*/
+		
+		count = boardListCount(count,dptNo, boardDAO);
+		boards = boardListPro(dptNo,startRow,endRow,boards,boardDAO);
 		
 		if (count > 0) {
 			CommentDAO commentDAO = CommentDAO.getInstance();
-			boards = boardDAO.selectBoardList(startRow, endRow,userVO.getDptNo());
 			for(Object board:boards) {
 				BoardVO tmp=(BoardVO)board;
 				int commentCount = commentDAO.selectCommentCount(Integer.toString(tmp.getId()));
@@ -56,6 +55,7 @@ public class BoardList implements CommandHandler {
 			}
 		}
 		number = count - (currentPage - 1) * pageSize;
+		
 		
 		int bottomLine = 3;
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -78,7 +78,43 @@ public class BoardList implements CommandHandler {
 		req.setAttribute("boards", boards);
 		return "/WEB-INF/views/board/boardList.jsp";
 	}
-	
+	public int boardListCount(int count,int dptNo, BoardDAO boardDAO) {
+			//영업1담당 매니저인 경우
+			if(dptNo == 8) {
+				count = boardDAO.selectBoardCount_sale1();
+			//영업2담당 매니저
+			}else if(dptNo == 9) {
+				count = boardDAO.selectBoardCount_sale2();
+			//지원1담당 매니저
+			}else if(dptNo == 10) {
+				count = boardDAO.selectBoardCount_sup1();
+			//지원2담당 매니저
+			}else if (dptNo == 11) {
+				count = boardDAO.selectBoardCount_sup2();
+			}else {
+				count = boardDAO.selectBoardCount(dptNo);
+			}
+			return count;
+	}
+	public List<?> boardListPro(int dptNo,int startRow, int endRow, 
+			 List<?> boards, BoardDAO boardDAO) {
+		//영업1담당 매니저인 경우
+		if(dptNo == 8) {
+			boards = boardDAO.selectBoardList_sale1(startRow, endRow);
+			//영업2담당 매니저
+		}else if(dptNo == 9) {
+			boards = boardDAO.selectBoardList_sale2(startRow, endRow);
+			//지원1담당 매니저
+		}else if(dptNo == 10) {
+			boards = boardDAO.selectBoardList_sup1(startRow, endRow);
+			//지원2담당 매니저
+		}else if (dptNo == 11) {
+			boards = boardDAO.selectBoardList_sup2(startRow, endRow);
+		}else {
+			boards = boardDAO.selectBoardList(startRow, endRow,dptNo);
+		}
+		return boards;
+	}
 	public static String getDayOfweek(Date date) {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");

@@ -70,6 +70,8 @@ function buildCalendar(){
     viewScheduleList(scheduleList);
  	mouseoverEffect(memberList);
  	
+ 	//사번 보이게끔 추가_2021.01.04
+ 	mouseoverEffect_ID(memberList);
  	if(currentId == memberList[0].memberId){
  		$('#trid'+memberList[0].memberId).attr("style", "background-color:#BBDEFB");
  	}
