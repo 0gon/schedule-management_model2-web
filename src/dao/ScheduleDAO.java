@@ -296,7 +296,18 @@ public class ScheduleDAO extends MybatisConnector {
 		} finally {
 			sqlSession.close();
 		}
-		
+	}
+	public void updateScheduleDptChange(int pkId_int, int dptNo_tobe) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("dptNo_tobe", dptNo_tobe);
+		map.put("pkId_int", pkId_int);
+		try {
+			sqlSession.update(namespace + ".updateScheduleDptChange", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
 	}
 	
 	public void updateScheduleDuty(ScheduleVO scheduleVO) {

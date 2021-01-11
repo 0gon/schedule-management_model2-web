@@ -20,6 +20,7 @@ public class UpdatePro implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		UserDAO userDAO = UserDAO.getInstance();
+		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		// memberId memberPwd memberNm dptNo(dpt.id) grade 0,1,2,3 monthHoliday alterHoliday holiday useYn
 		String pkId = req.getParameter("pkId");
 		String memberId = req.getParameter("memberId");
@@ -31,6 +32,17 @@ public class UpdatePro implements CommandHandler {
 		String alterHoliday = req.getParameter("alterHoliday");
 		String holiday = req.getParameter("holiday");
 		String useYn = req.getParameter("useYn");
+		
+		
+		//부서이동하는 경우
+		int pkId_int = Integer.parseInt(pkId);
+		UserVO userVO_asis= userDAO.selectUserInfoByPK(pkId_int);
+		int dptNo_tobe = Integer.parseInt(dptNo);
+		int dptno_asis = userVO_asis.getDptNo();
+		if(dptNo_tobe != dptno_asis ) {
+			scheduleDAO.updateScheduleDptChange(pkId_int, dptNo_tobe);
+		}
+		
 		
 		UserVO userVO = new UserVO();
 		userVO.setId(Integer.parseInt(pkId));

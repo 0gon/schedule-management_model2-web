@@ -234,6 +234,46 @@ public class BoardDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public BoardVO selectBoardInfoByPK_sale1(String boardId) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK_sale1", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public BoardVO selectBoardInfoByPK_sale2(String boardId) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK_sale2", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public BoardVO selectBoardInfoByPK_sup1(String boardId) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK_sup1", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	public BoardVO selectBoardInfoByPK_sup2(String boardId) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("boardId", boardId);
+		try {
+			return sqlSession.selectOne(namespace + ".selectBoardInfoByPK_sup2", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public BoardAllVO selectBoardAllInfoByPK(String boardId) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();

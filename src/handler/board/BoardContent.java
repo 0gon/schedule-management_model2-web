@@ -31,8 +31,25 @@ public class BoardContent implements CommandHandler {
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		String dptNo = userVO.getDptNo()+"";
+		int dptNo_int =  userVO.getDptNo();
 		// boardID 값으로 해당 board VO객체 호출
-		BoardVO boardVO = boardDAO.selectBoardInfoByPK(boardId, dptNo);
+		BoardVO boardVO = null;
+		
+		if(dptNo_int == 8) {
+			boardVO = boardDAO.selectBoardInfoByPK_sale1(boardId);
+		//영업2담당 매니저
+		}else if(dptNo_int == 9) {
+			boardVO = boardDAO.selectBoardInfoByPK_sale2(boardId);
+		//지원1담당 매니저
+		}else if(dptNo_int == 10) {
+			boardVO = boardDAO.selectBoardInfoByPK_sup1(boardId);
+		//지원2담당 매니저
+		}else if (dptNo_int == 11) {
+			boardVO = boardDAO.selectBoardInfoByPK_sup2(boardId);
+		}else {
+			boardVO =  boardDAO.selectBoardInfoByPK(boardId, dptNo);
+		}
+		
 		String formatDate = getDayOfweek(boardVO.getRegDate());
 		boardVO.setFormatDate(formatDate);
 
