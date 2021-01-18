@@ -9,7 +9,7 @@ function viewScheduleList(scheduleList){
 		    			var term = viewTerm(scheduleList,i);
 		    			if(scheduleList[i].content=='대체휴무'){
 		    				viewSchedule('red','대휴',scheduleList,i,j,term);	
-		    			}else if(scheduleList[i].content=='반차'){
+		    			}else if(scheduleList[i].content.includes('반차')){
 		    				viewSchedule('red','반차',scheduleList,i,j,term);	
 		    			}
 		    			else if(scheduleList[i].content=='공가'){

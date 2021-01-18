@@ -10,7 +10,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js?v=20200910"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js?v=20201229"></script>
+	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js?v=20210118"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/datePicker.js"></script>
 <script
@@ -23,7 +23,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210104"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210118"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
@@ -312,20 +312,29 @@
                     <div id="duty1" style="padding-top:5px;padding-bottom:5px">
                     <!-- 일반등급만 휴무등록할 수 있도록 -->
 	                        <span>
-	                            연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
+	                            연차: <input type="radio" onclick="banclick(0)" name="humu" value="1" class="w3-radio" checked>
 	                        </span>&nbsp;
 	                        <span>
-	                            반차: <input type="radio" name="humu" value="0" class="w3-radio" >
+	                            반차: <input type="radio" onclick="banclick(1)" name="humu" value="0" class="w3-radio" >
 	                        </span>&nbsp;
 	                        <span>
-	                            대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
+	                            대체휴무: <input type="radio" onclick="banclick(0)" name="humu" value="2" class="w3-radio" >
 	                        </span>&nbsp;
                         <span>
-                            공가: <input type="radio" name="humu" value="3" class="w3-radio" >
+                            공가: <input type="radio" onclick="banclick(0)" name="humu" value="3" class="w3-radio" >
                         </span>&nbsp;
                         <span class="">
-                             보상: <input type="radio" name="humu" value="4" class="w3-radio" >
+                             보상: <input type="radio" onclick="banclick(0)" name="humu" value="4" class="w3-radio" >
                         </span>&nbsp;
+                    </div>
+                    <!-- 반차 선택영역 -->
+                    <div class="w3-border" id="banTypeDiv" style="display: none;">
+                      <span>
+	                            오전 : <input type="radio" name="banType" checked value="1" class="w3-radio" style="width:20px;height:20px;" >
+                       </span>
+                      <span>
+	                         &nbsp;&nbsp;&nbsp;오후 : <input type="radio" name="banType" value="2" class="w3-radio" style="width:20px;height:20px;">
+                       </span>
                     </div>
                    <!--교육 eduSubject로 보냄-->
                     <div id="duty2" style="display: none">

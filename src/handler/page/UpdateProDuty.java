@@ -143,6 +143,7 @@ public class UpdateProDuty implements CommandHandler {
 		String working = req.getParameter("working");
 		String Realetc = req.getParameter("Realetc");
 		String memberId = req.getParameter("memberId");
+		String banType = req.getParameter("banType");
 		ScheduleVO scheduleVO = new ScheduleVO();
 		String content="";
 		UserDAO userDAO = UserDAO.getInstance();
@@ -178,7 +179,7 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}else if(dutyId.equals("1") && humu.equals("0")) {
-					content = "반차";
+					content = banType.equals("1") ? "반차(오전)" :"반차(오후)"; 
 					//하루반차 혹은 기간반차
 					if(updateDiff==1) {
 						float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
@@ -252,7 +253,7 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}else if(dutyId.equals("1") && humu.equals("0")) {
-					content = "반차";
+					content = banType.equals("1") ? "반차(오전)" :"반차(오후)"; 
 					//등록된 연차보다 차감수가 더 적게 수정되는 경우 ex) 연차 3개, 반차 5개(2.5) : 연차 0.5 증가 
 					if(registedDiff-(0.5*updateDiff)>0) {
 						float dateDiffVal = humuPlusValue((float)0.5,2,registedDiff,updateDiff);
@@ -338,7 +339,7 @@ public class UpdateProDuty implements CommandHandler {
 				}
 				//하루반차에서 기간반차로 수정되는 경우 
 				else if(dutyId.equals("1") && humu.equals("0")) {
-					content = "반차";
+					content = banType.equals("1") ? "반차(오전)" :"반차(오후)"; 
 					if(monthHoliCnt-0.5<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",0.5);
@@ -403,7 +404,7 @@ public class UpdateProDuty implements CommandHandler {
 				//반차로 수정되는 경우
 				else if(dutyId.equals("1") && humu.equals("0")) {
 					//기간이 줄어든 경우 +연차
-					content = "반차";
+					content = banType.equals("1") ? "반차(오전)" :"반차(오후)"; 
 					if(updateDiff<registedDiff) {
 						float dateDiffVal = humuPlusValue((float)0.5,1,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
@@ -488,7 +489,7 @@ public class UpdateProDuty implements CommandHandler {
 			}
 			//반차로 수정하는 경우
 			else if(dutyId.equals("1") && humu.equals("0")) {
-				content = "반차";
+				content = banType.equals("1") ? "반차(오전)" :"반차(오후)"; 
 				//수정하려는 게 등록된것보다 작거나 같은 경우
 				if(updateDiff <= registedDiff) {
 					//보유보다 많이 등록한 경우

@@ -28,21 +28,31 @@
                    <!--휴무  humu로 보내서 1 or 2로 받음--> 
                      <div class="w3-padding" id="duty1_u">
                         <span class="">
-                            연차: <input type="radio" name="humu" value="1" class="w3-radio" checked>
+                            연차: <input type="radio" onclick="banclick_u(0)" name="humu" value="1" class="w3-radio" checked>
                         </span>&nbsp;
                         <span>
-                           반차: <input type="radio" name="humu" value="0" class="w3-radio" >
+                           반차: <input type="radio" onclick="banclick_u(1)" name="humu" value="0" class="w3-radio" >
                         </span>&nbsp;
                         <span>
-                            대체휴무: <input type="radio" name="humu" value="2" class="w3-radio" >
+                            대체휴무: <input type="radio" onclick="banclick_u(0)" name="humu" value="2" class="w3-radio" >
                         </span>&nbsp;
                         <span>
-                            공가: <input type="radio" name="humu" value="3" class="w3-radio" >
+                            공가: <input type="radio" onclick="banclick_u(0)" name="humu" value="3" class="w3-radio" >
                         </span>&nbsp;
                         <span class="">
-                             보상: <input type="radio" name="humu" value="4" class="w3-radio" >
+                             보상: <input type="radio" onclick="banclick_u(0)" name="humu" value="4" class="w3-radio" >
                         </span>&nbsp;
                     </div>
+                       <!-- 반차 선택영역 -->
+                    <div class="w3-border" id="banTypeDiv_u" style="display: none;">
+                      <span>
+	                            오전 : <input type="radio" name="banType" checked value="1" class="w3-radio" style="width:20px;height:20px;" >
+                       </span>
+                      <span>
+	                         &nbsp;&nbsp;&nbsp;오후 : <input type="radio" name="banType" value="2" class="w3-radio" style="width:20px;height:20px;">
+                       </span>
+                    </div>
+                    
                    <!--교육 eduSubject로 보냄-->
                     <div id="duty2_u" style="display: none">
                     <div class="w3-padding">

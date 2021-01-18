@@ -28,6 +28,7 @@ public class AddSchedulePro implements CommandHandler {
 		String startWorkTime = req.getParameter("startWorkTime");
 		String endWorkTime = req.getParameter("endWorkTime");
 		String outwork = req.getParameter("outwork");
+		String banType = req.getParameter("banType"); // 1: 오전 , 2: 오후
 		ScheduleVO scheduleVO = new ScheduleVO();
 		//상세내용 설정
 		String content="";
@@ -141,7 +142,7 @@ public class AddSchedulePro implements CommandHandler {
 				};
 			}
 			else if(dutyId.equals("1") && humu.equals("0")) {
-				content = "반차";
+				content = banType.equals("1") ? "반차(오전)" :"반차(오후)"; 
 				if((monthHoliCnt-banChaVal)<0) {
 					req.setAttribute("userVO",userVO);
 					req.setAttribute("banChaVal",banChaVal);

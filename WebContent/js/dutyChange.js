@@ -126,3 +126,21 @@ function dutyChange_b(dutyCode){
     	$('#duty1_b, #duty2_b, #duty3_b, #duty4_b, #duty5_b, #duty6_b').hide(); 
     }
 }
+
+//반차 클릭시, 오전/오후 나올 수 있도록
+function banclick(isBan){
+	//isBan 1일경우 오전오후 표시
+	if(isBan == 1){
+		$('#banTypeDiv').show();
+	}else{
+    	$('#banTypeDiv').hide(); 
+	}
+}
+function banclick_u(isBan){
+	//isBan 1일경우 오전오후 표시
+	if(isBan == 1){
+		$('#banTypeDiv_u').show();
+	}else{
+		$('#banTypeDiv_u').hide(); 
+	}
+}

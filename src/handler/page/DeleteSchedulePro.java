@@ -36,7 +36,7 @@ public class DeleteSchedulePro implements CommandHandler {
 		
 		if(scheduleVO.getContent().equals("연차")) {
 			userDAO.updateUserMonthHoliday_plus(pkId, dateDiff);
-		}else if(scheduleVO.getContent().equals("반차")) {
+		}else if(scheduleVO.getContent().contains("반차")) {
 			userDAO.updateUserMonthHoliday_plus(pkId, banChaVal);
 		}else if(scheduleVO.getContent().equals("주말근무")||scheduleVO.getContent().equals("책임당직")) {
 			userDAO.updateUserAlterHoliday(pkId, dateDiff);
