@@ -108,6 +108,10 @@
                         <span>
                            외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
                         </span>
+                        <!-- CONTENT2 추가 -->
+                            <div class="w3-padding">
+                          		내용 : <input type="text" id="outwork_content" name="outwork_content" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                    		</div>
                     </div>
                		 </li>
        

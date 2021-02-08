@@ -85,8 +85,13 @@ function viewSchedule(scheduleColor, scheduleName, scheduleList,i,j,term){
 			scheduleName+'<div class="w3-dropdown-content w3-bar-block w3-border" >'+  
 			'<div  class="w3-bar-item " style="width:220px"><font color="grey">[유형]:</font> <font size="4"> '+scheduleName+'</font></div>'
 			if(scheduleName!=='점검'){
-				hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
-			}    
+				if(scheduleName =='외근'){
+					hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[구분]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
+					hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content2+'</font></div>'
+				}else{
+					hoverContent+='<div  class="w3-bar-item " style="width:220px"><font color="grey">[상세]:</font> <font size="4">'+scheduleList[i].content+'</font></div>'
+				}
+			}
 		hoverContent+=term;
 		$('#sdid'+memberId+scheduleList[i].year+scheduleList[i].month+Number(scheduleList[i].startDay+j)).html(hoverContent)
 	}

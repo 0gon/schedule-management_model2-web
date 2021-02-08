@@ -160,13 +160,14 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public void insertScheduleALL(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
-			String content,String startWorkTime,String endWorkTime) {
+			String content,String startWorkTime,String endWorkTime, String content2) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("dutyId", dutyId); 
 		map.put("transStartDate", transStartDate);
 		map.put("transEndDate", transEndDate);
 		map.put("content", content);
+		map.put("content2", content2);
 		try {
 			for(int i=0;i<members.size();i++) {
 				UserVO userVO= (UserVO)members.get(i);
@@ -180,13 +181,14 @@ public class ScheduleDAO extends MybatisConnector {
 		}
 	}
 	public void insertScheduleALLC(List<?> members, String dutyId, Date transStartDate, Date transEndDate,
-			String content,String startWorkTime,String endWorkTime) {
+			String content,String startWorkTime,String endWorkTime, String content2) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("dutyId", dutyId); 
 		map.put("transStartDate", transStartDate);
 		map.put("transEndDate", transEndDate);
 		map.put("content", content);
+		map.put("content2", content2);
 		try {
 			for(int i=0;i<8;i++) {
 				map.put("dptNo", i);

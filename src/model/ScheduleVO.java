@@ -10,14 +10,18 @@ public class ScheduleVO {
 	private Date startDate;
 	private Date endDate;
 	private String content;
+	private String content2;
 	private String startWorkTime;
 	private String endWorkTime;
 	private UserVO userVO;
 	private DutyVO dutyVO;
 	
-	
-	
-	
+	public String getContent2() {
+		return content2;
+	}
+	public void setContent2(String content2) {
+		this.content2 = content2;
+	}
 	public int getDptNo() {
 		return dptNo;
 	}

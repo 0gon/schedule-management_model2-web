@@ -23,7 +23,7 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210118"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210208"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
@@ -75,6 +75,7 @@
 			month : padMonth,
 			dutyTerm : dutyTerm,
 			content : "${schedule.content}",
+			content2 : "${schedule.content2}",
 			startWorkTime : "${schedule.startWorkTime}",
 			endWorkTime : "${schedule.endWorkTime}",
 		};
@@ -391,6 +392,10 @@
                         <span>
                            외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
                         </span>
+                        <!-- CONTENT2 추가 -->
+                            <div class="w3-padding">
+                          		내용 : <input type="text" id="outwork_content" name="outwork_content" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                    		</div>
                     </div>
 
                 </li>

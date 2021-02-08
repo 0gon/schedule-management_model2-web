@@ -79,13 +79,14 @@ public class UpdateProDuty implements CommandHandler {
 		return minusValue;
 	}
 	public ScheduleVO returnScheduleVO(String dutyId,String scheduleId,Date transEndDate,
-			Date transStartDate, String content) {
+			Date transStartDate, String content, String content2) {
 		ScheduleVO scheduleVO = new ScheduleVO();
 		scheduleVO.setDutyId(Integer.parseInt(dutyId));
 		scheduleVO.setId(Integer.parseInt(scheduleId));
 		scheduleVO.setEndDate(transEndDate);
 		scheduleVO.setStartDate(transStartDate);
 		scheduleVO.setContent(content);
+		scheduleVO.setContent2(content2);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(scheduleVO.getEndDate());
 		cal.add(Calendar.DATE, +1);
@@ -144,8 +145,10 @@ public class UpdateProDuty implements CommandHandler {
 		String Realetc = req.getParameter("Realetc");
 		String memberId = req.getParameter("memberId");
 		String banType = req.getParameter("banType");
+		String outwork_content = req.getParameter("outwork_content");
 		ScheduleVO scheduleVO = new ScheduleVO();
 		String content="";
+		String content2 = "";
 		UserDAO userDAO = UserDAO.getInstance();
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		
@@ -161,7 +164,7 @@ public class UpdateProDuty implements CommandHandler {
 		float monthHoliCnt = userVO.getMonthHoliday();
 		float alterHoliCnt = userVO.getAlterHoliday();
 		
-
+		content2 = outwork_content;
 		if(scheduleVO_db.getContent().equals("연차")) {
 			//등록된 게 하루연차인 경우 
 			if(registedDiff==1) {
@@ -175,7 +178,7 @@ public class UpdateProDuty implements CommandHandler {
 						float dateDiffVal = humuMinusValue(1,1,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
-						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}else if(dutyId.equals("1") && humu.equals("0")) {
@@ -195,7 +198,7 @@ public class UpdateProDuty implements CommandHandler {
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
 					}
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					//하루연차에서 대체휴무로 수정하는 경우 
@@ -210,7 +213,7 @@ public class UpdateProDuty implements CommandHandler {
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 						userDAO.updateUserAlterHoliday(memberId, dateDiffVal);
 						scheduleVO.setDutyId(Integer.parseInt(dutyId));
-						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
@@ -223,10 +226,11 @@ public class UpdateProDuty implements CommandHandler {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 					content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+					content2 = outwork_content;
 					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
 					userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 					scheduleVO.setDutyId(Integer.parseInt(dutyId));
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			//기간연차에서 수정하는 경우
@@ -249,7 +253,7 @@ public class UpdateProDuty implements CommandHandler {
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
 					}
-						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}else if(dutyId.equals("1") && humu.equals("0")) {
@@ -269,7 +273,7 @@ public class UpdateProDuty implements CommandHandler {
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
 					}
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					//기간연차에서 대체휴무로 수정하는 경우
@@ -284,7 +288,7 @@ public class UpdateProDuty implements CommandHandler {
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 						userDAO.updateUserAlterHoliday(memberId, dateDiffVal);
 						scheduleVO.setDutyId(Integer.parseInt(dutyId));
-						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
@@ -297,10 +301,11 @@ public class UpdateProDuty implements CommandHandler {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
 				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 				scheduleVO.setDutyId(Integer.parseInt(dutyId));
-				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
@@ -333,7 +338,7 @@ public class UpdateProDuty implements CommandHandler {
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
 					}
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}
@@ -349,7 +354,7 @@ public class UpdateProDuty implements CommandHandler {
 						float dateDiffVal = humuMinusValue((float)0.5,2,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				// 반차에서 대체휴무로 수정하는 경우
@@ -365,10 +370,11 @@ public class UpdateProDuty implements CommandHandler {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
 				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 				scheduleVO.setDutyId(Integer.parseInt(dutyId));
-				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			//기간 반차애서 수정되는 경우	
@@ -393,11 +399,11 @@ public class UpdateProDuty implements CommandHandler {
 							float dateDiffVal = humuMinusValue((float)0.5,4,registedDiff,updateDiff);
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
-						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}
@@ -421,12 +427,12 @@ public class UpdateProDuty implements CommandHandler {
 							float dateDiffVal = humuMinusValue((float)0.5,1,registedDiff,updateDiff);
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
-						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
 					//그대로인 경우
-					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}
@@ -444,10 +450,11 @@ public class UpdateProDuty implements CommandHandler {
 				}
 				//그 외
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
 				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 				scheduleVO.setDutyId(Integer.parseInt(dutyId));
-				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
@@ -483,7 +490,7 @@ public class UpdateProDuty implements CommandHandler {
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
 				}
-				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
@@ -518,8 +525,9 @@ public class UpdateProDuty implements CommandHandler {
 				}
 			}
 			content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+			content2 = outwork_content;
 			scheduleVO.setDutyId(Integer.parseInt(dutyId));
-			scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content);
+			scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 			scheduleDAO.updateScheduleDuty(scheduleVO);
 			return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 		}
