@@ -17,13 +17,31 @@ public class ScheduleDAO extends MybatisConnector {
 	public static ScheduleDAO getInstance() {
 		return instance;
 	}
-	
+	//정휴날 근무등록 방지를 위한 코드, 0보다 큰값이면 정휴
+	public int selectIsJunghu(String startDate) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectIsJunghu", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
 	public int selectWorkCount(String startDate) {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectWorkCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectWorkCountbyJung(String startDate) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectWorkCountbyJung", map);
 		sqlSession.close();
 		return boardAllCount;
 	}

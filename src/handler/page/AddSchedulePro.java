@@ -40,14 +40,13 @@ public class AddSchedulePro implements CommandHandler {
 		UserDAO userDAO = UserDAO.getInstance();
 		java.sql.Date transStartDate= java.sql.Date.valueOf(startDate);
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
-		
 		String substrId = memberId.substring(0, 1);
 		String substrDptNo = memberId.substring(1);
+		Calendar cal = Calendar.getInstance();
 		//슈퍼관리자로 전체등록하는 경우
 		if(memberId.equals("T")) {
 			List<?> members = userDAO.selectUserAllInfo();
 			scheduleVO.setEndDate(transEndDate);
-			Calendar cal = Calendar.getInstance();
 			cal.setTime(scheduleVO.getEndDate());
 			cal.add(Calendar.DATE, 1);
 			
@@ -93,7 +92,6 @@ public class AddSchedulePro implements CommandHandler {
 		}else if (substrId.equals("P")) {
 			List<?> members = userDAO.selectUserAllInfoByDpt(Integer.parseInt(substrDptNo));
 			scheduleVO.setEndDate(transEndDate);
-			Calendar cal = Calendar.getInstance();
 			cal.setTime(scheduleVO.getEndDate());
 			cal.add(Calendar.DATE, 1);
 			if(dutyId.equals("1") && humu.equals("3")) {
@@ -202,6 +200,14 @@ public class AddSchedulePro implements CommandHandler {
 				content=etc;
 			}else if(dutyId.equals("5") && working.equals("1")) {
 				content ="주말근무" ;
+				//주말 및 공휴일이 아닌 날에 등록할 경우 등록실패
+				cal.setTime(transStartDate);
+				int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+				boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
+				int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
+				if(isWeek == false || isJung > 0) {
+					return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+				}
 				userDAO.updateUserAlterHoliday_plus(memberId, dateDiff);
 			}else if(dutyId.equals("5") && working.equals("2")) {
 				content ="책임당직" ;
@@ -229,7 +235,6 @@ public class AddSchedulePro implements CommandHandler {
 			scheduleVO.setEndDate(transEndDate);
 			scheduleVO.setDptNo(userVO.getDptNo());
 			scheduleVO.setContent2(content2);
-			Calendar cal = Calendar.getInstance();
 			cal.setTime(scheduleVO.getEndDate());
 			cal.add(Calendar.DATE, 1);
 
@@ -243,4 +248,12 @@ public class AddSchedulePro implements CommandHandler {
 		
 		return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		}
+	
+	static boolean isWeekend(int dayNum) {
+        boolean result = false;
+        if (dayNum == Calendar.SATURDAY || dayNum == Calendar.SUNDAY) {
+            result = true;
+        }
+        return result;
+    }
 }

@@ -25,6 +25,16 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	public List<UserVO> selectUserWorkbyJung(String startDate) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		try {
+			return sqlSession.selectList(namespace + ".selectUserWorkbyJung", map);
+		} finally {
+			sqlSession.close();
+		}
+	}
 	public List<UserVO> selectUserMonitor(String startDate) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();

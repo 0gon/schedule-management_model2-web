@@ -119,10 +119,11 @@ public class TeamSchedule implements CommandHandler {
 					
 				//정기휴무인 경우	
 				}else {
-					int work = scheduleDAO.selectWorkCount(week);
+					int work = scheduleDAO.selectWorkCountbyJung(week);
 					int monitor = scheduleDAO.selectMonitorCount(week);
-					members_work = userDAO.selectUserWork(week);
+					members_work = userDAO.selectUserWorkbyJung(week);
 					members_monitor = userDAO.selectUserMonitor(week);
+					 
 					weekVO.setWork(work);
 					weekVO.setMembers(memberLists);
 					weekVO.setMonitor(monitor);

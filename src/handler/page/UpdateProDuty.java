@@ -96,6 +96,15 @@ public class UpdateProDuty implements CommandHandler {
 		return scheduleVO;
 	}
 	
+	public boolean isWeekend(int dayNum) {
+        boolean result = false;
+        if (dayNum == Calendar.SATURDAY || dayNum == Calendar.SUNDAY) {
+            result = true;
+        }
+        return result;
+    }
+	
+	
 	public String setContent(String content, String dutyId, String humu, 
 			String eduSubject, String huga, String etc, String working, String Realetc) {
 		if(dutyId.equals("1") && humu.equals("2")) {
@@ -151,7 +160,7 @@ public class UpdateProDuty implements CommandHandler {
 		String content2 = "";
 		UserDAO userDAO = UserDAO.getInstance();
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
-		
+		Calendar cal = Calendar.getInstance() ;
 		java.sql.Date transStartDate= java.sql.Date.valueOf(startDate);
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
 		// update member set MONTHHOLIDAY = 3 where id = 6;
@@ -226,6 +235,17 @@ public class UpdateProDuty implements CommandHandler {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 					content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+					if(content.equals("주말근무")) {
+						//주말 및 공휴일이 아닌 날에 등록할 경우 등록실패
+						cal.setTime(transStartDate);
+						int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+						boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
+						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
+						if(isWeek == false || isJung > 0) {
+							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+						}
+					}
+					
 					content2 = outwork_content;
 					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
 					userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
@@ -301,6 +321,16 @@ public class UpdateProDuty implements CommandHandler {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+				if(content.equals("주말근무")) {
+					//주말 및 공휴일이 아닌 날에 등록할 경우 등록실패
+					cal.setTime(transStartDate);
+					int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+					boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
+					int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
+					if(isWeek == false || isJung > 0) {
+						return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+					}
+				}
 				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
 				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
@@ -370,6 +400,16 @@ public class UpdateProDuty implements CommandHandler {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+				if(content.equals("주말근무")) {
+					//주말 및 공휴일이 아닌 날에 등록할 경우 등록실패
+					cal.setTime(transStartDate);
+					int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+					boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
+					int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
+					if(isWeek == false || isJung > 0) {
+						return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+					}
+				}
 				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
 				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
@@ -450,6 +490,16 @@ public class UpdateProDuty implements CommandHandler {
 				}
 				//그 외
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+				if(content.equals("주말근무")) {
+					//주말 및 공휴일이 아닌 날에 등록할 경우 등록실패
+					cal.setTime(transStartDate);
+					int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+					boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
+					int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
+					if(isWeek == false || isJung > 0) {
+						return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+					}
+				}
 				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
 				userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
@@ -525,6 +575,16 @@ public class UpdateProDuty implements CommandHandler {
 				}
 			}
 			content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
+			if(content.equals("주말근무")) {
+				//주말 및 공휴일이 아닌 날에 등록할 경우 등록실패
+				cal.setTime(transStartDate);
+				int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+				boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
+				int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
+				if(isWeek == false || isJung > 0) {
+					return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+				}
+			}
 			content2 = outwork_content;
 			scheduleVO.setDutyId(Integer.parseInt(dutyId));
 			scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
