@@ -27,6 +27,15 @@ public class ScheduleDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	public int selectIsGong(String startDate) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectIsGong", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
 	public int selectWorkCount(String startDate) {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();

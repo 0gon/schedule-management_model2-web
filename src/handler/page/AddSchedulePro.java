@@ -204,8 +204,8 @@ public class AddSchedulePro implements CommandHandler {
 				cal.setTime(transStartDate);
 				int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
 				boolean isWeek = isWeekend(dayNum); // 시작일이 주말인 경우 True
-				int isJung = scheduleDAO.selectIsJunghu(startDate); // 0보다 큰경우 정휴
-				if(isWeek == false || isJung > 0) {
+				int isGong = scheduleDAO.selectIsGong(startDate); // 0보다 큰경우 공휴일
+				if(isWeek == false && isGong == 0) {
 					return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
 				}
 				userDAO.updateUserAlterHoliday_plus(memberId, dateDiff);

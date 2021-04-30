@@ -87,7 +87,7 @@ public class TeamSchedule implements CommandHandler {
 				weekVOList.add(weekVO);
 			}else {
 				//정휴체크 카운트
-				int jungCnt = scheduleDAO.selectJungCheckCount(week);
+				int jungCnt = scheduleDAO.selectIsGong(week);
 				jungCntList.add(jungCnt);
 				//정기휴무가 아닌경우
 				if(jungCnt == 0) {
