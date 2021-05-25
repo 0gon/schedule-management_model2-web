@@ -551,17 +551,12 @@
                     </div>
                     <!-- 근무 -->
                     <div  id="duty5_b" style="display: none">
-                          <c:if test="${userVO.grade==0}">
+                          <c:if test="${userVO.grade==1}">
                         <span>
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
                         <span>
                             재택근무: <input type="radio" name="working" value="3" class="w3-radio">
-                        </span>
-                          </c:if>
-                          <c:if test="${userVO.grade!=0}">
-                        <span>
-                            재택근무: <input type="radio" name="working" value="3" class="w3-radio" checked>
                         </span>
                           </c:if>
                     </div>

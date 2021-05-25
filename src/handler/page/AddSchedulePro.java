@@ -123,7 +123,7 @@ public class AddSchedulePro implements CommandHandler {
 			java.util.Date utilDate = cal.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime, content2);
-
+			
 			return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		//일반으로 등록하는 경우
 		}else {

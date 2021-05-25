@@ -86,11 +86,11 @@ public class TeamSchedule implements CommandHandler {
 				weekVO.setMembers(memberLists);
 				weekVOList.add(weekVO);
 			}else {
-				//정휴체크 카운트
-				int jungCnt = scheduleDAO.selectIsGong(week);
-				jungCntList.add(jungCnt);
-				//정기휴무가 아닌경우
-				if(jungCnt == 0) {
+				//정휴체크 카운트 > 공휴일로 변경 : 0보다 크면 공휴일
+				int jungCnt = scheduleDAO.selectJungCheckCount(week);
+				int gongCnt = scheduleDAO.selectIsGong(week);
+				jungCntList.add(jungCnt+gongCnt);
+				if(jungCnt == 0 && gongCnt ==0 ) {
 					//일자별 휴무 인원수 VO 생성
 					int humu = scheduleDAO.selectHumuCount(week);
 					int huga = scheduleDAO.selectHugaCount(week);
@@ -117,13 +117,19 @@ public class TeamSchedule implements CommandHandler {
 					weekVO.setHomework(homework);
 					weekVOList.add(weekVO);
 					
-				//정기휴무인 경우	
+				//공휴일	
 				}else {
-					int work = scheduleDAO.selectWorkCountbyJung(week);
+					int work =  0;
 					int monitor = scheduleDAO.selectMonitorCount(week);
-					members_work = userDAO.selectUserWorkbyJung(week);
+					if (jungCnt > 0) {
+						work = scheduleDAO.selectWorkCountbyJung(week);
+						members_work = userDAO.selectUserWorkbyJung(week);
+					}else {
+						work = scheduleDAO.selectWorkCount(week);
+						members_work = userDAO.selectUserWork(week);
+					}
 					members_monitor = userDAO.selectUserMonitor(week);
-					 
+					
 					weekVO.setWork(work);
 					weekVO.setMembers(memberLists);
 					weekVO.setMonitor(monitor);
