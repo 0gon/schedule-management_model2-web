@@ -1,18 +1,8 @@
 package handler.page;
 
 import java.text.SimpleDateFormat;
-import java.sql.Date;
-
-
-//================================================================= 
-
-import java.text.ParseException; 
-import java.text.SimpleDateFormat; 
-
-
 import java.util.Calendar;
 import java.util.List;
-import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +12,6 @@ import controller.CommandHandler;
 import dao.AlterDateDAO;
 import dao.ScheduleDAO;
 import dao.UserDAO;
-
 import model.AlterDateVO;
 import model.ScheduleVO;
 import model.UserVO;
@@ -159,7 +148,6 @@ public class AddSchedulePro implements CommandHandler {
 			java.util.Date utilDate = cal.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			scheduleDAO.insertScheduleALL(members,dutyId, transStartDate,sqlDate,content,startWorkTime,endWorkTime, content2);
-			
 			
 			return "/WEB-INF/views/calendar/addSuccessMessage.jsp";
 		//일반으로 등록하는 경우

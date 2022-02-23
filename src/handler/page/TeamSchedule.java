@@ -87,7 +87,6 @@ public class TeamSchedule implements CommandHandler {
 				weekVO.setMembers(memberLists);
 				weekVOList.add(weekVO);
 			}else {
-				//정휴체크 카운트
 				int jungCnt = scheduleDAO.selectJungCheckCount(week);
 				int gongCnt = scheduleDAO.selectGongCheckCount(week);
 				jungCntList.add(jungCnt+gongCnt);
@@ -131,13 +130,9 @@ public class TeamSchedule implements CommandHandler {
 					
 					weekVOList.add(weekVO);
 					
-					
-					
-					
 				}else {
-					int work = 0;
+					int work =  0;
 					int monitor = scheduleDAO.selectMonitorCount(week);
-					members_monitor = userDAO.selectUserMonitor(week);
 					if (jungCnt > 0) {
 						work = scheduleDAO.selectWorkCountbyJung(week);
 						members_work = userDAO.selectUserWorkbyJung(week);
@@ -145,6 +140,8 @@ public class TeamSchedule implements CommandHandler {
 						work = scheduleDAO.selectWorkCount(week);
 						members_work = userDAO.selectUserWork(week);
 					}
+					members_monitor = userDAO.selectUserMonitor(week);
+					
 					weekVO.setWork(work);
 					weekVO.setMembers(memberLists);
 					weekVO.setMonitor(monitor);
