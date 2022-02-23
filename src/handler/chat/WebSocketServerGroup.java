@@ -26,7 +26,7 @@ public class WebSocketServerGroup {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("a h:mm");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
-		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy³â MM¿ù ddÀÏ");
+		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyyë…„ MMì›” ddì¼");
 		String datetext = sdf.format(date);
 		String forDateTitle = sdf2.format(date);
 		String checkDate = sdf3.format(date);
@@ -65,11 +65,11 @@ public class WebSocketServerGroup {
 			}
 			for (Session client : clients) {
 				/*
-				 * cid : client¿¡¼­ º¸³»´Â group¸í sid : ¼­¹ö°¡ °¡Áö°í ÀÖ´Â session group¸í
+				 * cid : clientì—ì„œ ë³´ë‚´ëŠ” groupëª… sid : ì„œë²„ê°€ ê°€ì§€ê³  ìˆëŠ” session groupëª…
 				 */
 				String sid = (String) client.getRequestParameterMap().get("group").get(0);
 				System.out.println(sid + ":" + cid);
-				// ÀÚ±â ÀÚ½ÅÇÑÅ×´Â º¸³»Áö ¾ÊÀ½
+				// ìê¸° ìì‹ í•œí…ŒëŠ” ë³´ë‚´ì§€ ì•ŠìŒ
 				if (!client.equals(session)) {
 					if (cid.equals(sid))
 						client.getBasicRemote().sendText(movemessage);

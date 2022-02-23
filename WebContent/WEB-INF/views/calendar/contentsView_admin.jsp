@@ -36,6 +36,25 @@
 
 				</table>
 				<div style="margin-top:10px">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<%-- 버튼 추가 ------------------------------------------------------------------------------------%>
+			
+				<c:if test="${schedule.dutyId==5 || schedule.dutyId==6}">
+           			<c:if test="${schedule.content != '재택근무&점검' && schedule.content != '주말근무'&& schedule.content != '책임당직'}">
+						<button class="w3-button w3-blue" onclick="toUpdateAddPage(${schedule.id});">추가</button>
+					</c:if>
+				</c:if>
+				
+				
+				
 				<input type="reset" class="w3-button w3-red"
 					onclick="deleteScheduleIncludeHoli(${schedule.id},${userVO.id},${schedule.dutyId},${schedule.startDate},${schedule.endDate});" value="삭제">
 				<c:if test="${schedule.content!='책임당직' && schedule.content!='대체휴무' && schedule.content!='Refresh 휴가' && schedule.content!='하계휴가'}">

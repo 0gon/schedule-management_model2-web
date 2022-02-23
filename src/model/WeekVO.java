@@ -65,7 +65,7 @@ public class WeekVO {
 	@Override
 	public String toString() {
 		return "WeekVO [work=" + work + ", humu=" + humu + ", huga=" + huga + ", education=" + education + ", chul="
-				+ chul + ", members=" + members + "]";
+				+ chul + ", monitor = " + monitor + ", members=" + members + "]";
 	}
 	
 	

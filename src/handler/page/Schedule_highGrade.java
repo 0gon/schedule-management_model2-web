@@ -28,11 +28,11 @@ public class Schedule_highGrade implements CommandHandler {
 		List<?> members_HG = userDAO.selectUserAllInfoByGrade();
 		List<?> schedules_HG = scheduleDAO.selectScheduleAllByHighGrade();
 		List<?> duties = dutyDAO.selectDutyInfo();
-		//°Ô½ÃÆÇ º¯¼öµé
+		//ê²Œì‹œíŒ ë³€ìˆ˜ë“¤
 		req.setAttribute("duties", duties);
 		req.setAttribute("schedules", schedules_HG);
 		req.setAttribute("userVO", userVO);		
 		req.setAttribute("members",members_HG);
-		return "/WEB-INF/views/page/schedule_highGrade.jsp";
+		return "/WEB-INF/views/mobile/schedule_highGrade_mobile.jsp";
 	}
 }

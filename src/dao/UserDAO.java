@@ -7,6 +7,19 @@ import org.apache.ibatis.session.SqlSession;
 
 import model.UserVO;
 
+
+
+//===================================================================== 2021.03.10 
+			
+			
+			
+import model.AlterDateVO;
+
+
+
+//=====================================================================
+
+
 public class UserDAO extends MybatisConnector {
 	private final String namespace = "user";
 
@@ -121,6 +134,7 @@ public class UserDAO extends MybatisConnector {
 		sqlSession.close();
 		return userAllCount;
 	}
+	
 	public int selectUserCountSearch(String userName) {
 		int userAllCount = 0;
 		SqlSession sqlSession = sqlSession();
@@ -156,10 +170,11 @@ public class UserDAO extends MybatisConnector {
 		}
 	}
 	
-	public List<UserVO> selectUserAllInfoByDpt(int dptNo) {
+	public List<UserVO> selectUserAllInfoByDpt(int dptNo, int id) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("dptNo", dptNo);
+		map.put("id", id);
 		try {
 			return sqlSession.selectList(namespace + ".selectUserAllInfoByDpt",map);
 		} finally {
@@ -417,6 +432,8 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	
+	
 	public void updateUserHoliday_plus(String pkId, float dateDiff) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -429,4 +446,55 @@ public class UserDAO extends MybatisConnector {
 			sqlSession.close();
 		}
 	}
+	
+	
+	
+	
+	public void deleteHolidayDate(AlterDateVO alterDateVO) {
+		SqlSession sqlSession = sqlSession();
+		try {
+			sqlSession.update(namespace + ".deleteHolidayDate", alterDateVO);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}	
+	
+	
+	//===================================================================== 2021.03.10 
+			
+			
+			
+
+	public void updateUserWorkingDate(String pkId, String workingDate) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Id", pkId);
+		map.put("workingDate", workingDate);
+		try {
+			sqlSession.update(namespace + ".updateUserWorkingDate", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	
+	public void updateUserHolidayDate(String pkId, String HolidayDate) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Id", pkId);
+		map.put("HolidayDate", HolidayDate);
+		try {
+			sqlSession.update(namespace + ".updateUserHolidayDate", map);
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+
+	//=====================================================================
+	
+	
 }

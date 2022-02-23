@@ -13,7 +13,7 @@ import model.TrafficPriceVO;
 public class RegcardUsePro implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		//°øÅë
+		//ê³µí†µ
 		String useCode = req.getParameter("useCode");
 		String memberId = req.getParameter("memberId");
 		String memberNm = req.getParameter("memberNm");
@@ -24,16 +24,16 @@ public class RegcardUsePro implements CommandHandler {
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
 		
 		
-		//±³Åëºñ·Î µé¾î¿Â °æ¿ì
+		//êµí†µë¹„ë¡œ ë“¤ì–´ì˜¨ ê²½ìš°
 		if(useCode.equals("1")) {
-			//±³Åëºñ
+			//êµí†µë¹„
 			String departure = req.getParameter("departure");
 			String destination = req.getParameter("destination");
 			String departureTime = req.getParameter("departureTime");
 			String destinationTime = req.getParameter("destinationTime");
 			String taxiPrice = req.getParameter("taxiPrice");
 			String trafficType = req.getParameter("trafficType");
-			//traffic Bean »ı¼º
+			//traffic Bean ìƒì„±
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
 			trafficVO.setPrice(taxiPrice);
@@ -45,25 +45,25 @@ public class RegcardUsePro implements CommandHandler {
 			trafficVO.setMemberId(memberId);
 			trafficVO.setMemberNm(memberNm);
 			trafficVO.setUseDate(transUseDate);
-			//ÅÃ½Ã
+			//íƒì‹œ
 			if(trafficType.equals("1")) {
-				trafficVO.setCardType("ÅÃ½Ã");
-			//ÁöÇÏÃ¶
+				trafficVO.setCardType("íƒì‹œ");
+			//ì§€í•˜ì² 
 			}else if(trafficType.equals("2")) {
-				trafficVO.setCardType("ÁöÇÏÃ¶");
-			//¹ö½º
+				trafficVO.setCardType("ì§€í•˜ì² ");
+			//ë²„ìŠ¤
 			}else {
-				trafficVO.setCardType("¹ö½º");
+				trafficVO.setCardType("ë²„ìŠ¤");
 			}
 			trafficDAO.insertTraffic(trafficVO);
-		//¾ß±Ù½Ä´ë·Î µé¾î¿Â°æ¿ì useCode 2
+		//ì•¼ê·¼ì‹ëŒ€ë¡œ ë“¤ì–´ì˜¨ê²½ìš° useCode 2
 		}else {
-			//¾ß±Ù½Ä´ë
+			//ì•¼ê·¼ì‹ëŒ€
 			String shopName = req.getParameter("shopName");
 			String price = req.getParameter("price");
 			String cardHolder = req.getParameter("cardHolder");
 			String selectIdList = req.getParameter("selectIdList");
-			//¼±ÅÃÇÑ ÀÎ¿ø ¼ö ¸¸Å­ ¹İº¹ insert ¼öÇà
+			//ì„ íƒí•œ ì¸ì› ìˆ˜ ë§Œí¼ ë°˜ë³µ insert ìˆ˜í–‰
 			String[] targetIdList = selectIdList.split(",");
 			OvertimePriceVO overtimeVO = new OvertimePriceVO();
 			java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
@@ -74,7 +74,7 @@ public class RegcardUsePro implements CommandHandler {
 			overtimeVO.setMemberNm(memberNm);
 			overtimeVO.setPrice(price);
 			overtimeVO.setUseDate(transUseDate);
-			//group ID ¼³Á¤ : ÃÖ´ë°ª ±¸ÇØ¼­ +1
+			//group ID ì„¤ì • : ìµœëŒ€ê°’ êµ¬í•´ì„œ +1
 			String groupId = overtimeDAO.selectLastGroupId();
 			int inputGroupId = Integer.parseInt(groupId);
 			inputGroupId++;

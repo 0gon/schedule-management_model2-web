@@ -30,7 +30,7 @@ public class BoardList implements CommandHandler {
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
-		//°Ô½ÃÆÇ ÆäÀÌÁö ·ÎÁ÷
+		//ê²Œì‹œíŒ í˜ì´ì§€ ë¡œì§
 		int pageSize = 5;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
@@ -58,7 +58,7 @@ public class BoardList implements CommandHandler {
 			endPage = pageCount;
 		
 		
-		//°Ô½ÃÆÇ º¯¼öµé
+		//ê²Œì‹œíŒ ë³€ìˆ˜ë“¤
 		req.setAttribute("count", count);
 		req.setAttribute("number", number);
 		req.setAttribute("startPage", startPage);
@@ -78,8 +78,8 @@ public class BoardList implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

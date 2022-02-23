@@ -18,10 +18,10 @@ function mouseoverEffect(memberList){
 	    })
 	}
 }
-
-function mouseoverEffect_ID(memberList){
+ 
+function mouseoverEffect_ID(memberList){ 
     for(var i =0 ; i<memberList.length;i++){
-    	var tmp = '<div class="w3-dropdown-content w3-bar-block w3-border"><div href="#" class="w3-bar-item ">사번 : '
+    	var tmp = '<div class="w3-dropdown-content w3-bar-block w3-border"><div href="#" class="w3-bar-item " style="position:sticky;left:0;z-index:0">사번 : '
     		+memberList[i].lotteId+' </div></div>'
 	    $('#tdid'+memberList[i].memberId).append(tmp);
 	}

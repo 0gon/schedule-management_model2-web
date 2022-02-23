@@ -15,6 +15,10 @@ import dao.UserDAO;
 import model.BoardVO;
 import model.UserVO;
 
+
+
+
+
 public class ScheduleForm implements CommandHandler {
 	
 	@Override
@@ -23,6 +27,9 @@ public class ScheduleForm implements CommandHandler {
 		String memberId = (String) session.getAttribute("memberId");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String pageNum = req.getParameter("pageNum");
+		
+		
+		
 		if (pageNum == null || pageNum =="") {
 		      pageNum = "1";
 		   }
@@ -35,34 +42,39 @@ public class ScheduleForm implements CommandHandler {
 		int dptNo = userVO.getDptNo(); 
 		List<?> members = null; 		
 		List<?> schedules = null;
-		//½´ÆÛ°ü¸®ÀÚ´Â userYN =1ÀÎ ¸ğµç ÀÎ¿ø
+		
+		//ìŠˆí¼ê´€ë¦¬ìëŠ” userYN =1ì¸ ëª¨ë“  ì¸ì›
 			if(userVO.getGrade()==3) {
 				schedules=scheduleDAO.selectScheduleAll();
 				members=userDAO.selectUserAllInfo();
 			}else {
 				schedules=scheduleDAO.selectScheduleAllByDptNo(userVO.getDptNo());
-				members=userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
+				members=userDAO.selectUserAllInfoByDpt(userVO.getDptNo(), userVO.getId());
 			}
-			//¿µ¾÷1´ã´ç ¸Å´ÏÀúÀÎ °æ¿ì
+			//ì˜ì—…1ë‹´ë‹¹ ë§¤ë‹ˆì €ì¸ ê²½ìš°
 			if(dptNo == 8) {
 				schedules=scheduleDAO.selectScheduleSaleManage1();
 				members=userDAO.selectUserSaleManage1();
-			//¿µ¾÷2´ã´ç ¸Å´ÏÀú
+			//ì˜ì—…2ë‹´ë‹¹ ë§¤ë‹ˆì €
 			}else if(dptNo == 9) {
 				schedules=scheduleDAO.selectScheduleSaleManage2();
 				members=userDAO.selectUserSaleManage2();
-			//Áö¿ø1´ã´ç ¸Å´ÏÀú
+			//ì§€ì›1ë‹´ë‹¹ ë§¤ë‹ˆì €
 			}else if(dptNo == 10) {
 				schedules=scheduleDAO.selectScheduleSupManage1();
 				members=userDAO.selectUserSupManage1();
-			//Áö¿ø2´ã´ç ¸Å´ÏÀú
+			//ì§€ì›2ë‹´ë‹¹ ë§¤ë‹ˆì €
 			}else if (dptNo == 11) {
 				schedules=scheduleDAO.selectScheduleSupManage2();
 				members=userDAO.selectUserSupManage2();
 			}
 			
 		List<?> duties = dutyDAO.selectDutyInfo();
-		//°Ô½ÃÆÇ º¯¼öµé
+		//ê²Œì‹œíŒ ë³€ìˆ˜ë“¤
+		
+		
+		
+
 		
 		req.setAttribute("duties", duties);
 		req.setAttribute("schedules", schedules);

@@ -22,6 +22,13 @@ public class UserVO {
 	private float alterHoliday;
 	private DptVO dptVO;
 	
+
+	
+	
+	
+	
+	
+	
 	public DptVO getDptVO() {
 		return dptVO;
 	}
@@ -106,6 +113,11 @@ public class UserVO {
 	public void setHoliday(int holiday) {
 		this.holiday = holiday;
 	}
+	
+	
+	
+	/*
+	
 	@Override
 	public String toString() {
 		return "UserVO [Id=" + Id + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberNm=" + memberNm
@@ -114,6 +126,59 @@ public class UserVO {
 				+ monthHoliday + ", alterHoliday=" + alterHoliday + "]";
 	}
 	
+	*/
+	
+	
+	//================================================================= 2021.03.10
+				 
+				
+			
+				 
+				
+
+	private int dutyId;
+	private String workingDate;
+	private String holidayDate;
+	
+	
+	
+	public int getDutyId() {
+		return dutyId;
+	}
+	public void setDutyId(int DutyId) {
+		this.dutyId = dutyId;
+	}
+	
+	
+	public String getWorkingDate() {
+		return workingDate;
+	}
+	public void setWorkingDate(String workingDate) {
+		this.workingDate = workingDate;
+	}
+	
+	public String getHolidayDate() {
+		return holidayDate;
+	}
+	public void setHolidayDate(String holidayDate) {
+		this.holidayDate = holidayDate;
+	}
+	
+
+
+	@Override
+	public String toString() {
+		return "UserVO [Id=" + Id + ", memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberNm=" + memberNm
+				+ ", dptNo=" + dptNo + ", grade=" + grade + ", useyn=" + useyn + ", createDate=" + createDate
+				+ ", likedDpr=" + likedDpr + ", likedDest=" + likedDest + ", holiday=" + holiday + ", monthHoliday="
+				+ monthHoliday + ", alterHoliday=" + alterHoliday + ", dutyId=" + dutyId + ", workingDate=" + workingDate
+				+ ", holidayDate=" + holidayDate + "]";
+	}
+	
+	
+	
+	
+	//=================================================================	
 	
 	
 }

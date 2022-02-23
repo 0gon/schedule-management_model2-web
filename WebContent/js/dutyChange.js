@@ -130,9 +130,15 @@ function dutyChange_b(dutyCode){
 //반차 클릭시, 오전/오후 나올 수 있도록
 function banclick(isBan){
 	//isBan 1일경우 오전오후 표시
+	//isBan 2일경우 공가 오전오후 표시
 	if(isBan == 1){
 		$('#banTypeDiv').show();
+		$('#gongTypeDiv').hide();
+	}else if(isBan == 2){
+		$('#banTypeDiv').hide();
+		$('#gongTypeDiv').show();
 	}else{
+		$('#gongTypeDiv').hide();
     	$('#banTypeDiv').hide(); 
 	}
 }

@@ -21,6 +21,7 @@ function dateCheck(){
 		  $('#commitbtn, #cancelbtn, #xbutton').attr('disabled',true); 
 		  $('#commitbtn').html('<i class="fa fa-spinner fa-spin" style="font-size:16px;padding:3px" ></i>');
 		  var data=$(this).serialize();
+
 		  addSchedule(data);
 		  document.getElementById('addDay').style.display='none';
 		  document.getElementById('message').style.display='block';

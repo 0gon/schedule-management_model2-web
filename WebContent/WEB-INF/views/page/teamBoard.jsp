@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+<script>
+	sessionStorage.setItem('temp_day', new Date())</script>
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -120,6 +137,14 @@
         </div>
         </div>
 <script>
+
+		
+	
+			
+			
+			
+
+
 		function boardWriteForm(type) {
 				document.getElementById('borderReg'+type).style.display = 'block';
 		}
@@ -234,6 +259,12 @@
 				$('#bookTitle').val(bookTitle);
 				
 		});
+		
+		
+		
+		
+		
+		
 
 </script>
 

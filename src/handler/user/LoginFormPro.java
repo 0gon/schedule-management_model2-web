@@ -28,6 +28,7 @@ public class LoginFormPro implements CommandHandler {
 			session.setAttribute("memberId", memberId);
 			session.setMaxInactiveInterval(3600);
 
+//			res.sendRedirect(req.getContextPath() + "/page/mobile/schedule");
 			res.sendRedirect(req.getContextPath() + "/page/teamSchedule");
 			return null;
 		}

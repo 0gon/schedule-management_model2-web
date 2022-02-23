@@ -26,24 +26,24 @@ public class BoardContent implements CommandHandler {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		UserDAO userDAO = UserDAO.getInstance();
 
-		// ¼¼¼Ç¿¡ ÀÖ´Â À¯ÀúÁ¤º¸ ºÒ·¯¿À±â
+		// ì„¸ì…˜ì— ìˆëŠ” ìœ ì €ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		String dptNo = userVO.getDptNo()+"";
 		int dptNo_int =  userVO.getDptNo();
-		// boardID °ªÀ¸·Î ÇØ´ç board VO°´Ã¼ È£Ãâ
+		// boardID ê°’ìœ¼ë¡œ í•´ë‹¹ board VOê°ì²´ í˜¸ì¶œ
 		BoardVO boardVO = null;
 		
 		if(dptNo_int == 8) {
 			boardVO = boardDAO.selectBoardInfoByPK_sale1(boardId);
-		//¿µ¾÷2´ã´ç ¸Å´ÏÀú
+		//ì˜ì—…2ë‹´ë‹¹ ë§¤ë‹ˆì €
 		}else if(dptNo_int == 9) {
 			boardVO = boardDAO.selectBoardInfoByPK_sale2(boardId);
-		//Áö¿ø1´ã´ç ¸Å´ÏÀú
+		//ì§€ì›1ë‹´ë‹¹ ë§¤ë‹ˆì €
 		}else if(dptNo_int == 10) {
 			boardVO = boardDAO.selectBoardInfoByPK_sup1(boardId);
-		//Áö¿ø2´ã´ç ¸Å´ÏÀú
+		//ì§€ì›2ë‹´ë‹¹ ë§¤ë‹ˆì €
 		}else if (dptNo_int == 11) {
 			boardVO = boardDAO.selectBoardInfoByPK_sup2(boardId);
 		}else {
@@ -53,7 +53,7 @@ public class BoardContent implements CommandHandler {
 		String formatDate = getDayOfweek(boardVO.getRegDate());
 		boardVO.setFormatDate(formatDate);
 
-		// ´ñ±Û ÆäÀÌÂ¡
+		// ëŒ“ê¸€ í˜ì´ì§•
 		CommentDAO commentDAO =CommentDAO.getInstance();
 		String pageNum = req.getParameter("pageNum");
 		if (pageNum == null || pageNum == "") {
@@ -109,8 +109,8 @@ public class BoardContent implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

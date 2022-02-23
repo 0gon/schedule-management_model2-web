@@ -10,33 +10,43 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js?v=20200910"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js?v=20210118"></script>
+	src="${ pageContext.servletContext.contextPath }/js/dutyChange.js?v=20210510"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/datePicker.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js?v=20200909"></script>
+	src="${ pageContext.servletContext.contextPath }/js/scheduleCRUD.js?v=20210413"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/updateDateCheck.js?v=20210413"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/scheduleClick.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/hashmap.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewCommonList.js?v=20210413"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210208"></script>
+	src="${ pageContext.servletContext.contextPath }/js/viewScheduleList.js?v=20210413"></script>
 <script src="${ pageContext.servletContext.contextPath }/js/viewTerm.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/markTodayYoil.js?v=20210413"></script>
 <script
 	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js?v=20210104"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20210104"></script>
+	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20210531"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js?v=20210531"></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
+
+
 <script type="text/javascript">
-	var today = new Date();
+
+	//=========================================================================================================
+	
+	var today=new Date();
+	
+	//sessionStorage.setItem('temp_day', today);
+	
+	//==========================================================================================================
+	
 	
 	// DB저장되어 있는 유저정보 List
 	function memberDBtoJS() {
@@ -51,8 +61,11 @@
 			memberList.push(memberVO);
 		}
 		</c:forEach>
+		
+		
 		return memberList;
 	}
+	
 	// DB저장되어 있는 일정정보 List
 	function scheduleDBtoJS() {
 		var scheduleList = new Array();
@@ -78,18 +91,30 @@
 			content2 : "${schedule.content2}",
 			startWorkTime : "${schedule.startWorkTime}",
 			endWorkTime : "${schedule.endWorkTime}",
+			
+			
 		};
+		
+		
 		scheduleList.push(scheduleVO);
+		
 		</c:forEach>
 		return scheduleList;
 	}
+	
+	
+	
 	$(function() {
-		
+	
 		buildCalendar();
 		datePicker();
 		$('#boardContent').load('${ pageContext.servletContext.contextPath }/page/board/boardList');
 		
 	});
+	
+	
+	
+	
 	
 </script>
 <div class="w3-main"
@@ -105,7 +130,12 @@
 				<font size="6">일정현황</font> <i
 					class="fa fa-arrow-circle-o-left w3-button"
 					style="font-size: 34px; margin-left: 5px" onclick="prevCalendar()"></i>
-				<font size="7" id="buttonDate"> </font> <font size="6">월</font> <i
+					
+					
+				<font size="7" id="buttonDate"> </font> 
+				
+				
+				<font size="6">월</font> <i
 					class="	fa fa-arrow-circle-o-right w3-button"
 					style="font-size: 34px;" onclick="nextCalendar()"></i>
 						
@@ -137,6 +167,8 @@
 		        </div>
 		        <div class="w3-container w3-padding" >
 		        <font color ='grey'>* 해당 글은 파트원끼리 공유됩니다. 전체 게시글은 자유게시판이용.</font>
+		        
+		        
 		        <button id="xbutton_b" onclick="document.getElementById('borderReg').style.display='none';" class="w3-button w3-display-topright">&times;</button>
 		                <div class="w3-row w3-padding">
 		                <form method="post">
@@ -210,37 +242,42 @@
 								
 							<td>
 							&nbsp;
-								<div style="display: inline;"
-									class="w3-marign w3-padding-small w3-border w3-border-black w3-red">&nbsp;</div>
-								<span style="margin-left: 5px; margin-right: 10px">:
+								<div style="display: inline; background-color:#FF8B8B;" 
+									class="w3-marign w3-padding-small w3-border w3-border-black" style=>&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px; ">:
 									휴무(연차/대휴)</span>
 							</td>
 							<td>
-								<div style="display: inline;"
-									class="w3-marign w3-padding-small w3-border w3-border-black w3-green">&nbsp;</div>
+								<div style="display: inline; background-color:#ff7171;"
+									class="w3-marign w3-padding-small w3-border w3-border-black">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">: 휴가</span>
+							</td>
+							<td>
+								<div style="display: inline; background-color:#ffab73;"
+									class="w3-marign w3-padding-small w3-border w3-border-black">&nbsp;</div>
+								<span style="margin-left: 5px; margin-right: 10px">: 점검</span>
+							</td>
+							<td>
+								<div style="display: inline; background-color:#87bba2;"
+									class="w3-marign w3-padding-small w3-border w3-border-black">&nbsp;</div>
 								<span style="margin-left: 5px; margin-right: 10px">: 교육 및
 									세미나</span>
 							</td>
 							<td>
-								<div style="display: inline;"
-									class="w3-marign w3-padding-small w3-border w3-border-black w3-orange">&nbsp;</div>
-								<span style="margin-left: 5px; margin-right: 10px">: 휴가</span>
-							</td>
-							<td>
-								<div style="display: inline;"
-									class="w3-marign w3-padding-small w3-border w3-border-black w3-blue">&nbsp;</div>
+								<div style="display: inline; background-color:#ada7c9;"
+									class="w3-marign w3-padding-small w3-border w3-border-black">&nbsp;</div>
 								<span style="margin-left: 5px; margin-right: 10px">: 출장/외근</span>
 							</td>
 	
 							<td>
-								<div style="display: inline;"
-									class="w3-marign w3-padding-small w3-border w3-border-black w3-brown">&nbsp;</div>
+								<div style="display: inline; background-color:#778da9;"
+									class="w3-marign w3-padding-small w3-border w3-border-black">&nbsp;</div>
 								<span style="margin-left: 5px; margin-right: 10px">:
 									근무(주말/책임당직/재택)</span>
 							</td>
 							<td>
-								<div style="display: inline;"
-									class="w3-marign w3-padding-small w3-border w3-border-black w3-purple">&nbsp;</div>
+								<div style="display: inline; background-color:#A0A0A0;"
+									class="w3-marign w3-padding-small w3-border w3-border-black">&nbsp;</div>
 								<span style="margin-left: 5px; margin-right: 10px">: 기타일정</span>
 							</td>
 									<!--  
@@ -277,7 +314,7 @@
 	</header>
 	<!-- 일정 -->
 	<div class="w3-container w3-padding-large w3-card-2 w3-white" style="width:1450px;margin-left:10px;margin-top:10px">
-    <table id="scheduleTable" class="w3-table" style="width:1400px" >
+    <table id="scheduleTable" class="w3-table" style="width:1400px;border-collapse: separate;" >
         <tr id ='date'>
         </tr>
         <tr id='yoil'></tr>
@@ -304,10 +341,12 @@
              	<input type="hidden" name="memberId" value="${userVO.id}">
                 <ul class="w3-ul w3-light-grey">
                 <li><label>일정구분</label>
-                  <select id="dutyCode" onchange="dutyChange(this)" name="dutyId" class="w3-select" >
+                  <select id="dutyCode"  onclick="banclick(0)" onchange="dutyChange(this)" name="dutyId" class="w3-select" >
                      <c:forEach var="duty" items="${duties}">
                         <option value="${duty.id}">${duty.title}</option>
                      </c:forEach>
+                     
+                     
                    </select>
                    <!--휴무  humu로 보내서 1 or 2로 받음--> 
                     <div id="duty1" style="padding-top:5px;padding-bottom:5px">
@@ -322,7 +361,7 @@
 	                            대체휴무: <input type="radio" onclick="banclick(0)" name="humu" value="2" class="w3-radio" >
 	                        </span>&nbsp;
                         <span>
-                            공가: <input type="radio" onclick="banclick(0)" name="humu" value="3" class="w3-radio" >
+                            공가: <input type="radio" onclick="banclick(2)" name="humu" value="3" class="w3-radio" >
                         </span>&nbsp;
                         <span class="">
                              보상: <input type="radio" onclick="banclick(0)" name="humu" value="4" class="w3-radio" >
@@ -337,6 +376,24 @@
 	                         &nbsp;&nbsp;&nbsp;오후 : <input type="radio" name="banType" value="2" class="w3-radio" style="width:20px;height:20px;">
                        </span>
                     </div>
+                    
+                    
+                    <!-- 공가 선택영역 -->
+                    <div class="w3-border" id="gongTypeDiv" style="display: none;">
+                      <span>
+	                          	오전 : <input type="radio" name="gongType" checked value="1" class="w3-radio" style="width:20px;height:20px;" >
+                       </span>
+                      <span>
+	                         &nbsp;&nbsp;&nbsp;오후 : <input type="radio" name="gongType" value="2" class="w3-radio" style="width:20px;height:20px;">
+                       </span>
+                      <span>
+	                         &nbsp;&nbsp;&nbsp;종일 : <input type="radio" name="gongType" value="3" class="w3-radio" style="width:20px;height:20px;">
+                       </span>
+                    </div>
+                    
+                    
+                    
+                    
                    <!--교육 eduSubject로 보냄-->
                     <div id="duty2" style="display: none">
                     <div class="w3-padding">
@@ -551,7 +608,7 @@
                     </div>
                     <!-- 근무 -->
                     <div  id="duty5_b" style="display: none">
-                          <c:if test="${userVO.grade==0}">
+                          <c:if test="${userVO.grade==1}">
                         <span>
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
@@ -559,11 +616,7 @@
                             재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
                           </c:if>
-                          <c:if test="${userVO.grade!=0}">
-                        <span>
-                            재택근무: <input type="radio" name="working" value="3" class="w3-radio" checked>
-                        </span>
-                          </c:if>
+                       
                     </div>
                     <!--  기타일정 추가-->
                     <div id="duty6_b" style="display: none">
@@ -582,6 +635,15 @@
                         <span>
                            외근(오후) <input type="radio" name="outwork" value="2" class="w3-radio">
                         </span>
+                        
+                        
+                        
+                    <div class="w3-padding">
+                    	내용 : <input type="text" id="outwork_content" name="outwork_content" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
+                    </div>
+                    	
+                    	
+                    	
                     </div>
 
                 </li>
@@ -596,6 +658,12 @@
 
        <button id="cancelbtn_button" class="w3-button w3-red" onclick="document.getElementById('addDay_button').style.display='none';event.preventDefault();location.reload();">
                 취소</button>
+                
+                
+              
+                
+                
+                
                 </li>
                 </ul>
             </form>
@@ -691,12 +759,31 @@
 			});
 		}
 	}
+	
+	
+	
 	function deleteScheduleIncludeHoli (scheduleId, memberId,dutyId,startDate,endDate){
 	
-			console.log(startDate, endDate);
+		console.log(startDate, endDate);
 		var id = "id=" + scheduleId + "&memberId=" + memberId+ "&dutyId=" + dutyId + "&startDate=" + startDate + "&endDate=" + endDate;
 		sendRequest(ctx + "/page/deleteSchedule", id, fromServer, "POST");
 	
-	
 	}
+	
+	
+	
+	
+	function toUpdateAddPage(data) {
+	
+		var data1 = "id=" + data + "&Add=" + data;
+		sendRequest(ctx + "/page/updateForm", data1, fromServerForUpdate, "POST");
+		event.preventDefault();
+		
+	}
+
+	
+	
+	
+	
+	
 </script>

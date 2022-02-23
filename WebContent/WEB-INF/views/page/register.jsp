@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!-- !PAGE CONTENT! -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
 <script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 
+<script>
+	sessionStorage.setItem('temp_day', new Date())</script>
 
  <style>
 	 .ui-timepicker-container{ 
@@ -15,6 +19,7 @@
 	}
  </style>
 <script>
+
 	function memberDBtoALL() {
 		var memberList_ALL = new Array();
 		<c:forEach var="member" items="${Allmembers}">
@@ -182,6 +187,7 @@
         <button class="w3-black" style="margin-left:1050px"
         onclick = "document.getElementById('cardList').style.display='block'"
         >카드소지자</button>
+       
          <div class=" w3-bottombar">
 	        <font size="3">달력에 등록된</font> 
 	        <font size="4" color="red">[교통비], [야근식대]</font>
@@ -232,7 +238,7 @@
      </div>
      </c:if>	
     </div>
-     --> 
+      
     </div>
   </header>
   
@@ -246,16 +252,38 @@
    </div>  
 </div>
 
+
 <div id="cardList" class="w3-modal" style="background-color: rgba(0,0,0,0.0);padding-top:10px;" >
     <div id="cardListDrag" class="w3-border w3-modal-content w3-light-grey w3-card-2" style="width: 1400px;">
-        <div class="w3-container w3-center w3-teal" style="height:38px">
-            <div style=""><font size=5>카드소지자 등록내역</font></div>
+        <div  class="w3-container w3-center w3-teal" style="height:38px">
+            <div class="w3-container w3-left w3-teal"><font style ="font-family : Do Hyeon;" size=5>카드소지자 등록내역</font>
+			<div class="w3-container w3-right w3-teal" style="height : 38px">
+             <!-- 내가추가 --> 
+             <form action="${pageContext.servletContext.contextPath }/page/register" method="post">
+             <select id="sYear_p" name="sYear" class="w3-select " style="font-family : Do Hyeon; width:100px;padding:6px;">
+     	  	<option id="${currentYear}" value="${currentYear}" >${currentYear }</option>
+     	  	<option id="${previousOneYear}" value="${previousOneYear}">${previousOneYear }</option>
+     	  	<option id="${previousTwoYear}" value="${previousTwoYear}">${previousTwoYear }</option>
+     	  	<option id="${previousThreeYear}" value="${previousThreeYear}">${previousThreeYear}</option>
+        </select>
+             <select id="sMonth_p" name="sMonth" class="w3-select " style="font-family : Do Hyeon; width:80px;padding:6px;">
+     	  	<option id="01" value="01">1월</option><option id="02" value="02">2월</option><option id="03" value="03">3월</option><option id="04" value="04">4월</option>
+     	  	<option id="05" value="05">5월</option><option id="06" value="06">6월</option><option id="07" value="07">7월</option><option id="08" value="08">8월</option>
+     	  	<option id="09" value="09">9월</option><option id="10" value="10">10월</option><option id="11" value="11">11월</option><option id="12" value="12">12월</option>
+        </select>
+    	   <button type = "button" class="w3-button w3-border" onclick = "moveSelectMonth()" style="font-family : Do Hyeon;padding:5px" type="submit">바로가기</button>
+    	   <!-- 내가추가 --> 
+            </form>
+           </div> 
         </div>
-        <div class="w3-container " >
+        </div>
+        
+        <div class="w3-container " id="cardListArea" >
         <button id='xbutton_crd' onclick="document.getElementById('cardList').style.display='none';" class="w3-button w3-display-topright">&times;</button>
-	        <div class="w3-center  w3-container" id="modal">
+	        <div class="w3-center  w3-container" id= "modalMonth" >
 	        	<br>
-	    <c:if test="${count_o==0 }">
+	    <!-- 사용 내역이 없으면 아래-->
+	    <c:if test="${count_o == 0 }">
 			<div class="w3-center w3-padding-top">
 			<table class="w3-table table-bordered w3-center" width="100%">
 			<tr  >
@@ -265,9 +293,11 @@
 			</table>
 			</div>
 		</c:if>
-	        	<!--  overtimesLiCard -->
+		
+	 <!-- 사용 내역이 있으면 아래-->
+<!--  overtimesLiCard -->
 	        	  	<c:if test="${count_o>0}">
-       	<table class="w3-table  w3-centered" style="border:black; ">
+       	<table class="w3-table w3-centered" style="border:black; ">
 		    <tr class="w3-black">
 		      <th class="w3-center">사용일자</th>
 		      <th class="w3-center">등록인</th>
@@ -280,7 +310,7 @@
 		    </tr>
      <c:forEach var="overtime" items="${overtimesLiCard}">
      <tr class="w3-hover-white">
-      <td width="100px" class="w3-border">
+      <td width="120px" class="w3-border">
        	${overtime.useDate}
       </td>
       <td width="80px"  class="w3-border"> 
@@ -314,7 +344,7 @@
   </table>
      </c:if>
      <br>
-	        	<button class="w3-black w3-button"  onclick="document.getElementById('cardList').style.display='none';">닫기</button>
+	        	<button class="w3-black w3-button"  onclick="document.getElementById('cardList').style.display='none';" style ="font-family : Do Hyeon;">닫기</button>
 	        	<br><br>
 	        </div>
         </div>
@@ -337,7 +367,6 @@
             	<input type="hidden" name="memberNm" value="${userVO.memberNm }" >
                 <ul class="w3-ul w3-light-grey">
                 <li><label>사용구분</label>
-                
                     <div style="margin-left: 25px; padding-bottom: 5px;width: 350px" >
                         <select id="useCode" name="useCode" onchange="useChange(this)" class="w3-select"  >
                             <option value="2">야근식대</option>
@@ -490,8 +519,9 @@
 	       <input type="text" id="cardInput" name="cardHolder" placeholder="ex) 황영민" class="w3-input w3-border"
 	       style="display: inline;width: 100px;">
        </div>
+
        </li>
-	   
+   
        <li>
        <button class="w3-button w3-black" id="commitbtn" onclick="checkValue()" >
              등록
@@ -604,6 +634,34 @@ $.datepicker.setDefaults({
 ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
 ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
 });
+
+//연 월데이터를 모달창으로 
+function moveSelectMonth() {
+	 
+	var sYear_p = $("#sYear_p").val();
+	var sMonth_p = $("#sMonth_p").val();
+	console.log(sYear_p + "--"+sMonth_p);
+	
+	$.ajax({
+     url : "${ pageContext.servletContext.contextPath}/page/registerMonth", 
+   	 method : "GET",  
+   	 dataType:"text",
+   	 data:{
+   		"sYear_p" : sYear_p,
+   		"sMonth_p" :sMonth_p,
+   			}, 
+         success: function(data){
+        	console.log(data)
+       	  	$('#modalMonth').html(data);
+		}, 
+	error: function(request, status, error) {
+		alert("error");
+	}
+	});	
+}
+
+//추가 끝
+
 
 function checkValue(){
 	var input=eval("document.userinput");
@@ -1045,5 +1103,9 @@ function placeChange(){
 	$('#departure').val($('#destination').val());
 	$('#destination').val(tmp);
 }
+
+
+
+
 </script>
 

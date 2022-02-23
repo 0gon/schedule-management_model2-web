@@ -1,8 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<script>
+	sessionStorage.setItem('temp_day', new Date())
+	</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
 <html>
 <head>
+
+<style>
+.swal-button
+{
+	background-color: #367588;
+	font-size: 12px;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+.swal-text
+{
+	font-size: 25px;
+}
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -77,6 +101,7 @@
             > ▶ </button>
             </div>
         </div> 
+     
         <div style="float:left;width:200px" class="w3-border  w3-gray w3-center">
             <div id ="week${week1 }"><font>일(${week1 }) </font></div>
             <div id="weekD${week1 }" class="w3-white w3- w3-padding">
@@ -101,10 +126,28 @@
              		점검
 	                <div class="w3-white w3-padding">
 			          	 <c:forEach var="member" items="${weekVO1.members[1]}">
-			                 <span class="w3-small"> ${member.memberNm}</span><br>
+			                 <span class="w3-small"> 
+			                 ${member.memberNm}</span><br>
+						
 			          	 </c:forEach>
 	                </div>
 	            </div>
+            </c:if>
+            
+           	<c:if test= "${week1 eq currentDay}">	
+            <c:if test="${not empty weekVO1.members[1]}">
+	             <c:forEach var="member" items="${weekVO1.members[1]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+	              		swal({
+            				title : "알림",
+            				text : "일요일 점검 일정이 있습니다.",
+            				icon : "info"
+            			})	            		
+            			</script>
+	             	</c:if>   
+					</c:forEach>
+	        </c:if> 
             </c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
@@ -115,8 +158,10 @@
 		             <span class="w3-small">휴가 <font color="grey">(Refresh + 하계)</font> : ${weekVO2.huga }</span><br>
 		             <span class="w3-small">교육 : ${weekVO2.education }</span><br>
 		             <span class="w3-small">재택근무 : ${weekVO2.homework }</span><br>
-		             <span class="w3-small">출장 : ${weekVO2.chul }</span><br>
+		             <span class="w3-small">출장 : ${weekVO2.chul }</span><br>  
 	            </div>
+
+	             
 	             <c:if test="${not empty weekVO2.members[0]}">
 	            	<div class="w3-sand w3-border w3-border-black">
 	             		연차/대휴/공가/보상
@@ -209,6 +254,23 @@
 	             </div>
           		  </c:if>
          	</c:if>
+             
+            <c:if test= "${week2 eq currentDay}">
+               <c:if test="${not empty weekVO2.members[6]}">
+	             <c:forEach var="member" items="${weekVO2.members[6]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+		              		swal({
+        	    				title : "알림",
+            					text : "월요일 점검 일정이 있습니다.",
+            					icon : "info"
+            				})	            		
+            			</script>
+	             	</c:if>   
+				 </c:forEach>
+				 </c:if>
+	            </c:if> 
+          
              
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
@@ -315,6 +377,23 @@
 	             </div>
           		  </c:if>
          	</c:if>
+         	<c:if test= "${week3 eq currentDay}">	
+         	<c:if test="${not empty weekVO3.members[6]}">
+	             <c:forEach var="member" items="${weekVO3.members[6]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+	              		swal({
+            				title : "알림",
+            				text : "화요일 점검 일정이 있습니다.",
+            				icon : "info"
+            			})	            		</script>
+	             	</c:if>   
+					</c:forEach>
+	        </c:if> 
+         	</c:if>
+         	
+         	
+         	
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week4 }"><font>수(${week4 }) </font></div>
@@ -418,6 +497,23 @@
 	             </div>
           		  </c:if>
          	</c:if>
+         	
+         	<c:if test= "${week4 eq currentDay}">	
+         	<c:if test="${not empty weekVO4.members[6]}">
+	             <c:forEach var="member" items="${weekVO4.members[6]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+	            			swal({
+	            				title : "알림",
+	            				text : "수요일 점검 일정이 있습니다.",
+	            				icon : "info"
+	            			})
+	            		</script>
+	             	</c:if>   
+					</c:forEach>
+	        </c:if> 
+         	</c:if> 
+         	
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week5 }" ><font >목(${week5 }) </font></div>
@@ -519,8 +615,25 @@
 			          	 </c:forEach>
 	                </div>
 	             </div>
-          		  </c:if>
+          		  </c:if> 		  
          	</c:if>
+         	
+         	<c:if test= "${week5 eq currentDay}">	
+         	
+         	<c:if test="${not empty weekVO5.members[6]}">
+	             <c:forEach var="member" items="${weekVO5.members[6]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+	              		swal({
+            				title : "알림",
+            				text : "목요일 점검 일정이 있습니다.",
+            				icon : "info"
+            			})	            		</script>
+	             	</c:if>   
+					</c:forEach>
+	        </c:if> 
+	        </c:if> 
+	        
         </div>
         <div style="float:left;width:200px" class="w3-border w3-light-gray w3-center">
             <div id="week${week6 }" ><font>금(${week6 }) </font></div>
@@ -623,6 +736,20 @@
 	             </div>
           		  </c:if>
          	</c:if>
+         	<c:if test= "${week6 eq currentDay}">         	
+         	<c:if test="${not empty weekVO6.members[6]}">
+	             <c:forEach var="member" items="${weekVO6.members[6]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+	              		swal({
+            				title : "알림",
+            				text : "금요일 점검 일정이 있습니다.",
+            				icon : "info"
+            			})	            		</script>
+	             	</c:if>   
+					</c:forEach>
+	        </c:if> 
+         	</c:if>
         </div>
         <div style="float:left;width:200px" class="w3-border w3-gray w3-center">
             <div id="week${week7 }"><font>토(${week7 }) </font></div>
@@ -653,6 +780,21 @@
 	                </div>
 	            </div>
             </c:if>
+       	<c:if test= "${week7 eq currentDay}">	
+            
+            <c:if test="${not empty weekVO7.members[1]}">
+	             <c:forEach var="member" items="${weekVO7.members[1]}">
+	             	<c:if test="${member.memberNm eq userVO.memberNm}">
+	              		<script>
+	              		swal({
+            				title : "알림",
+            				text : "토요일 점검 일정이 있습니다.",
+            				icon : "info"
+            			})	            		</script>
+	             	</c:if>   
+					</c:forEach>
+	        </c:if> 
+            </c:if>
         </div>
     </div>
 </div>
@@ -661,6 +803,8 @@
 </div>
   
   <script>
+
+
 	//공지사항 쓰기폼 모달
 	function boardWriteForm() {
 		document.getElementById('borderReg').style.display = 'block';
@@ -709,24 +853,31 @@
     	var sendDate = '${currentYear }${currentMonth}${currentDay}'
 		location.href='${ pageContext.servletContext.contextPath }/page/teamSchedule?sdate='+sendDate+'&action='+action;			
 	}
+	
+	
+	
+	
+	<!-----------------------------------------< 색상 변경 >----------------------------------------------------------------------------->
+	
     $(document).ready(function(){
     	//오늘 날짜에 해당하는 영역 주황색 음영
 		var today = new Date();
 	    var todayDate = today.getDate();
 	    todayDate = todayDate < 10 ? todayDate = '0'+(todayDate).toString() : todayDate ; 
 		$('#week'+todayDate).attr({
-			'class' :'w3-orange'
+			'style':'background-color:#9DC3C1'
 		});
 		$('#weekD'+todayDate).attr({
-			'class' :'w3-amber w3-padding'
+			'style':'background-color:#D8E6E7;', 'class' :'w3-padding'
 		});
 		$('#week'+todayDate).append("<i class='fa fa-calendar-check-o'></i>");
 		
 		//공지사항 로드
 		$('#boardList').load('${ pageContext.servletContext.contextPath }/page/board/boardAllList');
 		
-	
 	});
+	
+	
   </script>
 </body>
 </html>

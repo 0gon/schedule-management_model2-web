@@ -15,12 +15,47 @@ function pad(n, width) {
 			+ n;
 }
 function prevCalendar() {// 이전 달
-	today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+	today = new Date(today.getFullYear(), today.getMonth()-1, today.getDate());
+	
+	//===============================================================================
+	var temp_today = new Date(sessionStorage.getItem('temp_day'));	
+	if(temp_today != null){
+		
+		temp_today = new Date(temp_today.getFullYear(), temp_today.getMonth() - 1, today.getDate());
+		
+		sessionStorage.setItem('temp_day', temp_today);
+	}
+	else{
+		sessionStorage.setItem('temp_day', today);
+	}
+	//===============================================================================
+
 	$('.scheduleTr').remove();
 	buildCalendar();
 }
+
+
+
+
 function nextCalendar() {// 다음 달
-	today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+	
+	
+	today = new Date(today.getFullYear(), today.getMonth() +1, today.getDate());
+	//===============================================================================
+	var temp_today = new Date(sessionStorage.getItem('temp_day'));	
+	
+	
+	if(temp_today != null){
+		
+		temp_today = new Date(temp_today.getFullYear(), temp_today.getMonth() + 1,today.getDate());
+		
+		sessionStorage.setItem('temp_day', temp_today);
+	}
+	else{
+		sessionStorage.setItem('temp_day', today);
+	}
+	//===============================================================================
+
 	$('.scheduleTr').remove();
 	buildCalendar();
 }

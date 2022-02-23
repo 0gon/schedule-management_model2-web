@@ -1,9 +1,11 @@
 package handler.page;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,23 +27,51 @@ public class RegisterForm implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		String sYear = req.getParameter("sYear");
+		String sMonth = req.getParameter("sMonth");
+		
 		DecimalFormat formatter = new DecimalFormat("###,###");
-		//DAO °´Ã¼ »ı¼º
+		//í˜„ì¬ ì›” ì¶”ì¶œ
+		Calendar cal = Calendar.getInstance();
+		String format = "yyyy-MM";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		String currentMonth = sdf.format(cal.getTime());
+		String currentYear = currentMonth.substring(0,4);
+		String onlyMonth = currentMonth.substring(5,7);
+		int previousOneYear = Integer.parseInt(currentYear) - 1; 
+		int previousTwoYear = Integer.parseInt(currentYear) - 2; 
+		int previousThreeYear = Integer.parseInt(currentYear) - 3; 
+		if(sYear != null & sMonth != null) {
+			onlyMonth = sMonth; //ì´ê²Œ ë‹¬ë§Œ
+			currentMonth = sYear+"-"+sMonth;
+			currentYear = sYear;
+		}
+		
+//		DecimalFormat formatter = new DecimalFormat("###,###");
+		//DAO ê°ì²´ ìƒì„±
 		UserDAO userDAO = UserDAO.getInstance();
 		TrafficDAO trafficDAO = TrafficDAO.getInstance();
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance();
 		DutyDAO dutyDAO = DutyDAO.getInstance();
-		//session id¿¡ µû¸¥ À¯ÀúÁ¤º¸
+		//session idì— ë”°ë¥¸ ìœ ì €ì •ë³´
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
-		int count_o = overtimeDAO.selectOvertimeCountByMonthC(userVO.getMemberNm()); 
+		
+		//ì›ë˜ì½”ë“œ
+		int count_o = overtimeDAO.selectOvertimeCountByMonthC(userVO.getMemberNm());
+		//System.out.println(count_o);
+
 		List<?> overtimesCard = null;
-		List overtimesLiCard = null;
-		//Ä«µå¼ÒÁöÀÚ ¸®½ºÆ® »Ì±â
+		List overtimesLiCard = null;	
+		
+		//ì¹´ë“œì†Œì§€ì ë¦¬ìŠ¤íŠ¸ ë½‘ê¸°
 		if(count_o>0) {
+			//ê¸°ì¡´ì½”ë“œ
 			overtimesCard = overtimeDAO.selectOvertimeCardList(userVO.getMemberNm());
+
 			Iterator<?> it = overtimesCard.iterator();
 			if(it.hasNext()) {
 				overtimesLiCard=new ArrayList<OvertimePriceVO>();
@@ -60,11 +90,11 @@ public class RegisterForm implements CommandHandler {
 			}
 		}
 		
-		//±³Åëºñ ³»¿ª List »ı¼º
+		//êµí†µë¹„ ë‚´ì—­ List ìƒì„±
 		List<?> traffics = trafficDAO.selectTrafficInfoByPK(userVO.getId());
-		//¾ß±Ù½Ä´ë ³»¿ª List »ı¼º
+		//ì•¼ê·¼ì‹ëŒ€ ë‚´ì—­ List ìƒì„±
 		List<?> overtimes = overtimeDAO.selectOvertimeInfoByPK(userVO.getId());
-		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo());
+		List<?> members = userDAO.selectUserAllInfoByDpt(userVO.getDptNo(), userVO.getId());
 		List<?> Allmembers = userDAO.selectUserAllInfo();
 		List<?> MDmembers = userDAO.selectUserAllInfoMD();
 		List<?> POSmembers= userDAO.selectUserAllInfoPOS();
@@ -89,7 +119,19 @@ public class RegisterForm implements CommandHandler {
 		req.setAttribute("FINmembers", FINmembers);
 		req.setAttribute("duties", duties);
 		req.setAttribute("userVO", userVO);
-
+		//ë‚´ê°€ì¶”ê°€ 2ê°œ ì•„ë˜
+		req.setAttribute("currentYear", currentYear);
+		req.setAttribute("currentMonth", currentMonth);
+		req.setAttribute("onlyMonth", onlyMonth);
+		req.setAttribute("previousOneYear", previousOneYear);
+		req.setAttribute("previousTwoYear", previousTwoYear);
+		req.setAttribute("previousThreeYear", previousThreeYear);
+		
+		
 		return "/WEB-INF/views/page/register.jsp";
 	}
+	
+	
+	
+	
 }

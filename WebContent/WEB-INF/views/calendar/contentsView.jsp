@@ -36,13 +36,26 @@
 
 				</table>
 				<div style="margin-top:10px">
-				<c:if test="${schedule.content!='책임당직' && schedule.content!='대체휴무' && schedule.content!='Refresh 휴가' && schedule.content!='하계휴가' && schedule.content!='공휴일'}">
+				
+           
+           		<c:if test="${schedule.dutyId==5 || schedule.dutyId==6}">
+           			<c:if test="${schedule.content != '재택근무&점검' && schedule.content != '주말근무'&& schedule.content != '책임당직'}">
+						<button class="w3-button w3-blue" onclick="toUpdateAddPage(${schedule.id});">추가</button>
+					</c:if>
+				</c:if>
+               
+               
+				<c:if test="${schedule.content!='주말근무' && schedule.content!='책임당직' && schedule.content!='대체휴무' && schedule.content!='Refresh 휴가' && schedule.content!='하계휴가' && schedule.content!='공휴일'}">
 					<button class="w3-button w3-border" onclick="toUpdatePage(${schedule.id});">수정</button>
 				</c:if>
+				
 				<input type="reset" class="w3-button w3-red"
 					onclick="deleteScheduleIncludeHoli(${schedule.id},${userVO.id},${schedule.dutyId},${schedule.startDate},${schedule.endDate});" value="삭제">
+					
+					
 				<button onclick="document.getElementById('message').style.display='none';event.preventDefault();location.reload();"
                class="w3-button w3-border">취소</button>	
+               
 				</div>
 
 			</form>

@@ -27,12 +27,12 @@ public class TeamSchedule implements CommandHandler {
 		
 		String selectDate = req.getParameter("sdate");
 		String action = req.getParameter("action");
-		//¼¼¼Ç À¯ÀúÁ¤º¸
+		//ì„¸ì…˜ ìœ ì €ì •ë³´
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
-		//ÇöÀç ¿ù ÃßÃâ
+		//í˜„ì¬ ì›” ì¶”ì¶œ
 		Calendar cal = Calendar.getInstance();
 		String format = "yyyyMMdd";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -46,6 +46,7 @@ public class TeamSchedule implements CommandHandler {
 			}
 		}
 		
+		
 		String currentDate = sdf.format(cal.getTime());
 		String currentYear = currentDate.substring(0,4);
 		String currentMonth = currentDate.substring(4,6);
@@ -58,7 +59,7 @@ public class TeamSchedule implements CommandHandler {
 		
 		for(int i = 0; i < 7; i++) {
 			WeekVO weekVO = new WeekVO();
-			//¿À´Ã³¯Â¥ ±âÁØ ÇØ´ç ÁÖ ÀÏ¿äÀÏ ±¸ÇÏ±â
+			//ì˜¤ëŠ˜ë‚ ì§œ ê¸°ì¤€ í•´ë‹¹ ì£¼ ì¼ìš”ì¼ êµ¬í•˜ê¸°
 			cal.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY+i);
 			String week = sdf.format(cal.getTime());
 			String weekDay= week.substring(6,8);
@@ -72,7 +73,7 @@ public class TeamSchedule implements CommandHandler {
 			List<?> members_homework = null;
 			List<?> members_monitor = null;
 			ArrayList<Object> memberLists = new ArrayList<>();
-			//ÁÖ¸»ÀÎ °æ¿ì¿¡´Â ±Ù¹«ÀÎ¿ø¸¸ ±¸ÇÏ±â(ÀÏ, Åä)
+			//ì£¼ë§ì¸ ê²½ìš°ì—ëŠ” ê·¼ë¬´ì¸ì›ë§Œ êµ¬í•˜ê¸°(ì¼, í† )
 			if(i==0 || i==6) {
 				int work = scheduleDAO.selectWorkCount(week);
 				int monitor = scheduleDAO.selectMonitorCount(week);
@@ -86,17 +87,24 @@ public class TeamSchedule implements CommandHandler {
 				weekVO.setMembers(memberLists);
 				weekVOList.add(weekVO);
 			}else {
-				//Á¤ÈŞÃ¼Å© Ä«¿îÆ®
+				//ì •íœ´ì²´í¬ ì¹´ìš´íŠ¸
 				int jungCnt = scheduleDAO.selectJungCheckCount(week);
-				jungCntList.add(jungCnt);
-				//Á¤±âÈŞ¹«°¡ ¾Æ´Ñ°æ¿ì
-				if(jungCnt == 0) {
-					//ÀÏÀÚº° ÈŞ¹« ÀÎ¿ø¼ö VO »ı¼º
+				int gongCnt = scheduleDAO.selectGongCheckCount(week);
+				jungCntList.add(jungCnt+gongCnt);
+				if(jungCnt == 0 && gongCnt ==0 ) {
+					//ì¼ìë³„ íœ´ë¬´ ì¸ì›ìˆ˜ VO ìƒì„±
 					int humu = scheduleDAO.selectHumuCount(week);
 					int huga = scheduleDAO.selectHugaCount(week);
 					int education = scheduleDAO.selectEducationCount(week);
 					int	 chul = scheduleDAO.selectChulCount(week);
 					int homework = scheduleDAO.selectHomeworkCount(week);
+					
+
+					//ì•„ë˜ 4ì¤„ ì¶”ê°€
+					int monitor = scheduleDAO.selectMonitorCount(week);
+					members_monitor = userDAO.selectUserMonitor(week);
+					
+					
 					members_humu = userDAO.selectUserHumu(week);
 					members_ban = userDAO.selectUserBan(week);
 					members_huga = userDAO.selectUserHuga(week);
@@ -109,21 +117,34 @@ public class TeamSchedule implements CommandHandler {
 					memberLists.add(members_edu);
 					memberLists.add(members_chul);
 					memberLists.add(members_homework);
+					
+					memberLists.add(members_monitor);
+					
 					weekVO.setChul(chul);
 					weekVO.setEducation(education);
 					weekVO.setHuga(huga);
 					weekVO.setHumu(humu);
 					weekVO.setMembers(memberLists);
 					weekVO.setHomework(homework);
+							
+					weekVO.setMonitor(monitor);
+					
 					weekVOList.add(weekVO);
 					
-				//Á¤±âÈŞ¹«ÀÎ °æ¿ì	
+					
+					
+					
 				}else {
-					int work = scheduleDAO.selectWorkCountbyJung(week);
+					int work = 0;
 					int monitor = scheduleDAO.selectMonitorCount(week);
-					members_work = userDAO.selectUserWorkbyJung(week);
 					members_monitor = userDAO.selectUserMonitor(week);
-					 
+					if (jungCnt > 0) {
+						work = scheduleDAO.selectWorkCountbyJung(week);
+						members_work = userDAO.selectUserWorkbyJung(week);
+					}else {
+						work = scheduleDAO.selectWorkCount(week);
+						members_work = userDAO.selectUserWork(week);
+					}
 					weekVO.setWork(work);
 					weekVO.setMembers(memberLists);
 					weekVO.setMonitor(monitor);
@@ -166,8 +187,8 @@ public class TeamSchedule implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

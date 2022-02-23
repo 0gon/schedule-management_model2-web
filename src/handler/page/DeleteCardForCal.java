@@ -16,15 +16,15 @@ public class DeleteCardForCal implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String inputId = req.getParameter("id");
-		//inputId ¾Õ±ÛÀÚ·Î traffic, overtime ±¸ºĞ
+		//inputId ì•ê¸€ìë¡œ traffic, overtime êµ¬ë¶„
 		char cardType = inputId.charAt(0);
 		String cardId = inputId.substring(1);
 		
-		//DAO »ı¼º
+		//DAO ìƒì„±
 		TrafficDAO trafficDAO = TrafficDAO.getInstance(); 
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance(); 
 		
-		//trafficÀÎ °æ¿ì
+		//trafficì¸ ê²½ìš°
 		if(cardType == 't') {
 			trafficDAO.deleteTraffic(Integer.parseInt(cardId));
 		}else {

@@ -19,9 +19,9 @@ public class BoardFreeReg implements CommandHandler {
 		String content = req.getParameter("content");
 		String openYn = req.getParameter("openYn");
 		if(openYn.equals("N")) {
-			memberNm = "∫Ò∞¯∞≥";
+			memberNm = "ÎπÑÍ≥µÍ∞ú";
 		}
-		//VO ∞¥√º set
+		//VO Í∞ùÏ≤¥ set
 		BoardFreeVO boardBookVO = new BoardFreeVO();
 		boardBookVO.setMemberId(memberId);
 		boardBookVO.setMemberNm(memberNm);

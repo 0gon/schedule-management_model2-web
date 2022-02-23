@@ -24,7 +24,7 @@ public class BookList implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		DecimalFormat formatter = new DecimalFormat("###,###");
-		//ÇöÀç ¿ù ÃßÃâ
+		//í˜„ì¬ ì›” ì¶”ì¶œ
 		Calendar cal = Calendar.getInstance();
 		String format = "yyyy-MM";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -51,7 +51,7 @@ public class BookList implements CommandHandler {
 		req.setAttribute("userVO", userVO);
 		
 		
-		//°Ô½ÃÆÇ º¯¼öµé
+		//ê²Œì‹œíŒ ë³€ìˆ˜ë“¤
 		req.setAttribute("count", count);
 		req.setAttribute("books", books);
 		
@@ -68,8 +68,8 @@ public class BookList implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

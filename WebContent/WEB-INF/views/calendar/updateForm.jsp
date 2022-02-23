@@ -77,8 +77,17 @@
                           내용 : <input type="text" id="etc_u" name="etc" class="w3-input w3-round" style="display: inline;width: 205px;height: 35" placeholder="10자 이내">
                     </div>
                     </div>
+                    
+                    
+                    
+                    
+                    <!-- 근무 id -> duty5_u로 변경-------------------------------------------------------------------------->
+                    
+                    
+                    
+                    
                     <!-- 근무 -->
-                     <div  id="duty5" style="display: none">
+                     <div  id="duty5_u" style="display: none">
                         <span >
                             주말근무: <input type="radio" name="working" value="1" class="w3-radio" checked>
                         </span>&nbsp;
@@ -88,9 +97,17 @@
 	                        </span>&nbsp;
                          </c:if>
                         <span>
-               재택근무: <input type="radio" name="working" value="3" class="w3-radio">
+               	재택근무: <input type="radio" name="working" value="3" class="w3-radio">
                         </span>
                     </div>
+                    
+                    
+                     <!-- 근무 id -> duty5_u로 변경-------------------------------------------------------------------------->
+                  
+                    
+                    
+                    
+                    
                     <!--  기타일정 추가-->
                     <div id="duty6_u" style="display: none">
                     <div class="w3-padding">

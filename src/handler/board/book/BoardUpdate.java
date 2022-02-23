@@ -22,7 +22,7 @@ public class BoardUpdate implements CommandHandler {
 		String boardId = req.getParameter("bid");
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		
-		// boardID °ªÀ¸·Î ÇØ´ç board VO°´Ã¼ È£Ãâ
+		// boardID ê°’ìœ¼ë¡œ í•´ë‹¹ board VOê°ì²´ í˜¸ì¶œ
 		BoardBookVO boardVO = boardDAO.selectBoardBookInfoByPK(boardId);
 		String formatDate = getDayOfweek(boardVO.getRegDate());
 		boardVO.setFormatDate(formatDate);
@@ -38,8 +38,8 @@ public class BoardUpdate implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddhh:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

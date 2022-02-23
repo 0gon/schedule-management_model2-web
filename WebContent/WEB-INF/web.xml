@@ -18,6 +18,11 @@
 			<include-coda>/WEB-INF/common/footer.jsp</include-coda>
 		</jsp-property-group>
 		<jsp-property-group>
+			<url-pattern>/WEB-INF/views/mobile/*</url-pattern>
+			<include-prelude>/WEB-INF/common/header_mobile.jsp</include-prelude>
+			<include-coda>/WEB-INF/common/footer_mobile.jsp</include-coda>
+		</jsp-property-group>
+		<jsp-property-group>
 			<url-pattern>/WEB-INF/views/error/*</url-pattern>
 			<include-prelude>/WEB-INF/common/header.jsp</include-prelude>
 			<include-coda>/WEB-INF/common/footer.jsp</include-coda>
@@ -67,7 +72,7 @@
 		<servlet-name>page</servlet-name>
 		<url-pattern>/page/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>

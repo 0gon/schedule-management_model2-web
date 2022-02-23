@@ -18,7 +18,7 @@ public class BoardUpdatePro implements CommandHandler {
 		String content = req.getParameter("content");
 		String openYn = req.getParameter("openYn");
 		
-		//VO ∞¥√º set
+		//VO Í∞ùÏ≤¥ set
 		BoardFreeVO boardBookVO = new BoardFreeVO();
 		boardBookVO.setId(Integer.parseInt(boardId));
 		boardBookVO.setTitle(title);

@@ -2,24 +2,33 @@ package handler.page;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
+import java.util.*;
+import java.text.ParseException; 
+import java.text.SimpleDateFormat; 
+
+import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.CommandHandler;
 import dao.ScheduleDAO;
 import dao.UserDAO;
+import dao.AlterDateDAO;
+
 import model.ScheduleVO;
 import model.UserVO;
+import model.AlterDateVO;
 
 public class UpdateProDuty implements CommandHandler {
 	/*
-	  banType  0 : º¸À¯+¼öÁ¤
-	  banType  1 : º¸À¯+(µî·ÏµÈ-¼öÁ¤)
-	  banType  2 : º¸À¯+(µî·ÏµÈ-¼öÁ¤*0.5)
-	  banType  3 : º¸À¯+(µî·ÏµÈ*0.5-¼öÁ¤)
-	  banType  4 : º¸À¯+0.5µî·ÏµÈ	
-	  banType  5 : º¸À¯+(0.5µî·ÏµÈ-¼öÁ¤)	
+	  banType  0 : ë³´ìœ +ìˆ˜ì •
+	  banType  1 : ë³´ìœ +(ë“±ë¡ëœ-ìˆ˜ì •)
+	  banType  2 : ë³´ìœ +(ë“±ë¡ëœ-ìˆ˜ì •*0.5)
+	  banType  3 : ë³´ìœ +(ë“±ë¡ëœ*0.5-ìˆ˜ì •)
+	  banType  4 : ë³´ìœ +0.5ë“±ë¡ëœ	
+	  banType  5 : ë³´ìœ +(0.5ë“±ë¡ëœ-ìˆ˜ì •)	
 	 */
 	
 	public float humuPlusValue(float banVal, int banType, long registedDiff, long updateDiff) {
@@ -47,12 +56,12 @@ public class UpdateProDuty implements CommandHandler {
 		return plusValue;
 	}
 	/*
-	  banType  0 : º¸À¯-¼öÁ¤
-	  banType  1 : º¸À¯-(¼öÁ¤-µî·ÏµÈ)
-	  banType  2 : º¸À¯-(µî·ÏµÈ-¼öÁ¤)
-	  banType  3 : º¸À¯-0.5*µî·ÏµÈ
-	  banType  4 : º¸À¯-(¼öÁ¤-0.5µî·ÏµÈ)
-	  banType  5 : º¸À¯-(0.5¼öÁ¤-µî·ÏµÈ)
+	  banType  0 : ë³´ìœ -ìˆ˜ì •
+	  banType  1 : ë³´ìœ -(ìˆ˜ì •-ë“±ë¡ëœ)
+	  banType  2 : ë³´ìœ -(ë“±ë¡ëœ-ìˆ˜ì •)
+	  banType  3 : ë³´ìœ -0.5*ë“±ë¡ëœ
+	  banType  4 : ë³´ìœ -(ìˆ˜ì •-0.5ë“±ë¡ëœ)
+	  banType  5 : ë³´ìœ -(0.5ìˆ˜ì •-ë“±ë¡ëœ)
 	 */
 	public float humuMinusValue(float banVal, int banType, long registedDiff, long updateDiff) {
 		float minusValue = 0;
@@ -105,38 +114,41 @@ public class UpdateProDuty implements CommandHandler {
     }
 	
 	
+	
 	public String setContent(String content, String dutyId, String humu, 
 			String eduSubject, String huga, String etc, String working, String Realetc) {
 		if(dutyId.equals("1") && humu.equals("2")) {
-			content = "´ëÃ¼ÈŞ¹«";
+			content = "ëŒ€ì²´íœ´ë¬´";
 		}else if(dutyId.equals("1") && humu.equals("3")) {
-			content = "°ø°¡";
+			content = "ê³µê°€";
 		}else if(dutyId.equals("1") && humu.equals("4")) {
-			content = "º¸»ó";
+			content = "ë³´ìƒ";
 		}else if(dutyId.equals("1") && humu.equals("5")) {
-			content = "Á¤±âÈŞ¹«";
+			content = "ì •ê¸°íœ´ë¬´";
 		}else if(dutyId.equals("2") && eduSubject!=null) {
 			content=eduSubject;
 		}else if(dutyId.equals("3") && huga.equals("1")) {
-			content = "Refresh ÈŞ°¡";
+			content = "Refresh íœ´ê°€";
 		}else if(dutyId.equals("3") && huga.equals("2")) {
-			content = "ÇÏ°èÈŞ°¡";
+			content = "í•˜ê³„íœ´ê°€";
 		}else if(dutyId.equals("4") && etc!=null) {
 			content=etc;
 		}else if(dutyId.equals("5") && working.equals("1")) {
-			content ="ÁÖ¸»±Ù¹«" ;
+			content ="ì£¼ë§ê·¼ë¬´" ;
 		}else if(dutyId.equals("5") && working.equals("2")) {
-			content ="Ã¥ÀÓ´çÁ÷" ;
+			content ="ì±…ì„ë‹¹ì§" ;
 		}else if(dutyId.equals("5") && working.equals("3")) {
-			content ="ÀçÅÃ±Ù¹«" ;
+			content ="ì¬íƒê·¼ë¬´" ;
 		}else if(dutyId.equals("7") && Realetc!=null) {
 			content =Realetc ;
 		}else if(dutyId.equals("8") && huga.equals("1")) {
-			content = "¿Ü±Ù(¿ÀÀü)";
+			content = "ì™¸ê·¼(ì˜¤ì „)";
 		}else if(dutyId.equals("8") && huga.equals("2")) {
-			content = "¿Ü±Ù(¿ÀÈÄ)";
+			content = "ì™¸ê·¼(ì˜¤í›„)";
 		}else if(dutyId.equals("8") && huga.equals("3")) {
-			content = "¿Ü±Ù(Á¾ÀÏ)";
+			content = "ì™¸ê·¼(ì¢…ì¼)";
+		}else if(dutyId.equals("6")) {
+			content="ì ê²€";
 		}
 		return content;
 	}
@@ -165,7 +177,7 @@ public class UpdateProDuty implements CommandHandler {
 		java.sql.Date transEndDate= java.sql.Date.valueOf(endDate);
 		// update member set MONTHHOLIDAY = 3 where id = 6;
 		long updateDiff =((transEndDate.getTime()-transStartDate.getTime())/(24*60*60*1000))+1;
-		//¿¬Â÷, ÈŞ¹« °¹¼ö È®ÀÎ ·ÎÁ÷
+		//ì—°ì°¨, íœ´ë¬´ ê°¯ìˆ˜ í™•ì¸ ë¡œì§
 		ScheduleVO scheduleVO_db = scheduleDAO.selectScheduleInfoBySCHPK(Integer.parseInt(scheduleId));
 		long registedDiff= (scheduleVO_db.getEndDate().getTime()-scheduleVO_db.getStartDate().getTime())/(24*60*60*1000);
 		long diffVal = updateDiff - registedDiff > 0 ? updateDiff - registedDiff : registedDiff - updateDiff;
@@ -174,11 +186,51 @@ public class UpdateProDuty implements CommandHandler {
 		float alterHoliCnt = userVO.getAlterHoliday();
 		
 		content2 = outwork_content;
-		if(scheduleVO_db.getContent().equals("¿¬Â÷")) {
-			//µî·ÏµÈ °Ô ÇÏ·ç¿¬Â÷ÀÎ °æ¿ì 
+		
+		//========================================================================================================================2021.03.19
+		
+		AlterDateDAO alterDateDAO = AlterDateDAO.getInstance();
+		AlterDateVO alterDateVO = new AlterDateVO();
+		
+		String addMultiSchedule = req.getParameter("Add");
+		
+		
+		if((scheduleVO_db.getDutyId()==6 && addMultiSchedule.equals("Add"))||(scheduleVO_db.getDutyId()==5 && addMultiSchedule.equals("Add"))) {
+			
+			content = "ì¬íƒê·¼ë¬´&ì ê²€";
+			content2 = "";
+			scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
+			
+			scheduleVO.setDutyId(5);
+			scheduleDAO.updateScheduleDuty(scheduleVO);
+			
+			return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+		}
+
+
+
+		String scheduleContent = scheduleVO_db.getContent();
+
+	/*
+		if(scheduleContent.equals("ì¬íƒê·¼ë¬´&ì ê²€"))
+		{
+		
+			content = "ì¬íƒê·¼ë¬´";
+			scheduleVO.setDutyId(5);
+			scheduleDAO.updateScheduleDuty(scheduleVO);
+			
+		}
+	*/
+		//============================================================================================================================
+		
+		
+		
+		
+		if(scheduleVO_db.getContent().equals("ì—°ì°¨")) {
+			//ë“±ë¡ëœ ê²Œ í•˜ë£¨ì—°ì°¨ì¸ ê²½ìš° 
 			if(registedDiff==1) {
 				if(dutyId.equals("1") && humu.equals("1")) {
-					content = "¿¬Â÷";
+					content = "ì—°ì°¨";
 					if((monthHoliCnt-diffVal)<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",diffVal);
@@ -191,8 +243,8 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}else if(dutyId.equals("1") && humu.equals("0")) {
-					content = banType.equals("1") ? "¹İÂ÷(¿ÀÀü)" :"¹İÂ÷(¿ÀÈÄ)"; 
-					//ÇÏ·ç¹İÂ÷ È¤Àº ±â°£¹İÂ÷
+					content = banType.equals("1") ? "ë°˜ì°¨(ì˜¤ì „)" :"ë°˜ì°¨(ì˜¤í›„)"; 
+					//í•˜ë£¨ë°˜ì°¨ í˜¹ì€ ê¸°ê°„ë°˜ì°¨
 					if(updateDiff==1) {
 						float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
@@ -210,9 +262,9 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
-					//ÇÏ·ç¿¬Â÷¿¡¼­ ´ëÃ¼ÈŞ¹«·Î ¼öÁ¤ÇÏ´Â °æ¿ì 
+					//í•˜ë£¨ì—°ì°¨ì—ì„œ ëŒ€ì²´íœ´ë¬´ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš° 
 				}else if(dutyId.equals("1") && humu.equals("2")) {
-					content = "´ëÃ¼ÈŞ¹«";
+					content = "ëŒ€ì²´íœ´ë¬´";
 					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
 					if(alterHoliCnt < dateDiffVal) {
 						req.setAttribute("userVO",userVO);
@@ -224,26 +276,126 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleVO.setDutyId(Integer.parseInt(dutyId));
 						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
+						
+
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						
+						
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String holidaySDate = startDate;
+						String holidayEDate = endDate;
+						
+						
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						
+						
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						 
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						
+						
+						
+						String holidaySDateTemp;
+						String workingDateContent = "";
+						do{
+						
+								holidaySDateTemp = dateForm.format(calSDate.getTime()).toString();
+						
+								List<?> workingDates=alterDateDAO.selectWorkingDate(memberId);
+								
+								String workingDate = workingDates.get(0).toString();
+								workingDate = workingDate.substring(13, 23);
+								
+								alterDateVO.setWorkingDate(workingDate);
+								alterDateVO.setHolidayDate(holidaySDateTemp);
+								alterDateDAO.updateHolidayDate(alterDateVO);
+								
+								workingDateContent = workingDateContent + workingDate;
+								
+								if(holidaySDateTemp.equals(holidayEDate)) {
+								
+									alterDateVO.setWorkingDate(workingDateContent);
+									alterDateVO.setHolidayDate(startDate);
+									
+									alterDateDAO.updateHolidayDateContent(alterDateVO);
+									
+									break;}
+								else{ workingDateContent = workingDateContent + " , "; }
+								
+					
+								calSDate.add(Calendar.DATE, +1);
+						
+						
+						}while(!holidaySDateTemp.equals(holidayEDate));
+							
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
-				}// ÇÏ·ç¿¬Â÷¿¡¼­ Refresh·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				}// í•˜ë£¨ì—°ì°¨ì—ì„œ Refreshë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("1")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				//ÇÏ·ç¿¬Â÷¿¡¼­ ÇÏ±âÈŞ°¡·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				//í•˜ë£¨ì—°ì°¨ì—ì„œ í•˜ê¸°íœ´ê°€ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("2")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 					content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
-					if(content.equals("ÁÖ¸»±Ù¹«")) {
-						//ÁÖ¸» ¹× °øÈŞÀÏÀÌ ¾Æ´Ñ ³¯¿¡ µî·ÏÇÒ °æ¿ì µî·Ï½ÇÆĞ
+				if(content.equals("ì£¼ë§ê·¼ë¬´") || content.equals("ì±…ì„ë‹¹ì§")) {
+				
+						if(content.equals("ì£¼ë§ê·¼ë¬´")){
+						//ì£¼ë§ ë° ê³µíœ´ì¼ì´ ì•„ë‹Œ ë‚ ì— ë“±ë¡í•  ê²½ìš° ë“±ë¡ì‹¤íŒ¨
 						cal.setTime(transStartDate);
 						int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-						boolean isWeek = isWeekend(dayNum); // ½ÃÀÛÀÏÀÌ ÁÖ¸»ÀÎ °æ¿ì True
-						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0º¸´Ù Å«°æ¿ì Á¤ÈŞ
+						boolean isWeek = isWeekend(dayNum); // ì‹œì‘ì¼ì´ ì£¼ë§ì¸ ê²½ìš° True
+						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0ë³´ë‹¤ í°ê²½ìš° ì •íœ´
 						if(isWeek == false || isJung > 0) {
-							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
+							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";}
 						}
+						
+					//============================================================
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String workingSDate = startDate;
+						String workingEDate = endDate;
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						String workingSDateTemp;
+						do{
+								workingSDateTemp = dateForm.format(calSDate.getTime()).toString();
+								List<?> holidayDates=alterDateDAO.selectHolidayDate(memberId,"0000-00-00");
+								if(holidayDates.size()>0){
+									String holidayDate = holidayDates.get(0).toString();
+									holidayDate = holidayDate.substring(13, 23);
+									alterDateVO.setHolidayDate(holidayDate);
+									alterDateVO.setWorkingDate(workingSDateTemp);
+									alterDateDAO.updateWorkingDateChange(alterDateVO);
+									List<?> contents=alterDateDAO.selectContent(memberId,holidayDate);
+									String temp_content = contents.get(0).toString();
+									temp_content = temp_content.substring(10,temp_content.length()-1);
+									temp_content = temp_content.replaceFirst("0000-00-00",workingSDateTemp);
+									alterDateVO.setContent2(temp_content);
+									alterDateDAO.updateWorkingDateContent(alterDateVO);
+									calSDate.add(Calendar.DATE, +1);
+									continue;
+								}
+								alterDateVO.setWorkingDate(workingSDateTemp);
+								alterDateDAO.insertWorkingDate(alterDateVO);
+								calSDate.add(Calendar.DATE, +1);
+								if(workingSDateTemp.equals(workingEDate)) {break;}
+						}while(!workingSDateTemp.equals(workingEDate));
+					//=================================================================
+						
+						userDAO.updateUserAlterHoliday_plus(memberId, registedDiff);
 					}
 					
 					content2 = outwork_content;
@@ -253,17 +405,17 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
-			//±â°£¿¬Â÷¿¡¼­ ¼öÁ¤ÇÏ´Â °æ¿ì
+			//ê¸°ê°„ì—°ì°¨ì—ì„œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 			}else {
 				if(dutyId.equals("1") && humu.equals("1")) {
-					content = "¿¬Â÷";
-					//µî·ÏµÈ¿¬Â÷º¸´Ù ´õ Âª°Ô µî·ÏÇÑ °æ¿ì
+					content = "ì—°ì°¨";
+					//ë“±ë¡ëœì—°ì°¨ë³´ë‹¤ ë” ì§§ê²Œ ë“±ë¡í•œ ê²½ìš°
 					if(registedDiff - updateDiff > 0) {
 						float dateDiffVal = humuPlusValue(1,1,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
-					//µî·ÏµÈ ¿¬Â÷º¸´Ù ´õ ±æ°Ô µî·ÏÇÑ °æ¿ì
+					//ë“±ë¡ëœ ì—°ì°¨ë³´ë‹¤ ë” ê¸¸ê²Œ ë“±ë¡í•œ ê²½ìš°
 					}else if(registedDiff - updateDiff < 0){
-						//º¸À¯º¸´Ù ¸¹ÀÌ µî·ÏÇÑ °æ¿ì
+						//ë³´ìœ ë³´ë‹¤ ë§ì´ ë“±ë¡í•œ ê²½ìš°
 						if(monthHoliCnt < diffVal) {
 							req.setAttribute("userVO",userVO);
 							req.setAttribute("dateDiff",diffVal);
@@ -277,13 +429,13 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}else if(dutyId.equals("1") && humu.equals("0")) {
-					content = banType.equals("1") ? "¹İÂ÷(¿ÀÀü)" :"¹İÂ÷(¿ÀÈÄ)"; 
-					//µî·ÏµÈ ¿¬Â÷º¸´Ù Â÷°¨¼ö°¡ ´õ Àû°Ô ¼öÁ¤µÇ´Â °æ¿ì ex) ¿¬Â÷ 3°³, ¹İÂ÷ 5°³(2.5) : ¿¬Â÷ 0.5 Áõ°¡ 
+					content = banType.equals("1") ? "ë°˜ì°¨(ì˜¤ì „)" :"ë°˜ì°¨(ì˜¤í›„)"; 
+					//ë“±ë¡ëœ ì—°ì°¨ë³´ë‹¤ ì°¨ê°ìˆ˜ê°€ ë” ì ê²Œ ìˆ˜ì •ë˜ëŠ” ê²½ìš° ex) ì—°ì°¨ 3ê°œ, ë°˜ì°¨ 5ê°œ(2.5) : ì—°ì°¨ 0.5 ì¦ê°€ 
 					if(registedDiff-(0.5*updateDiff)>0) {
 						float dateDiffVal = humuPlusValue((float)0.5,2,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 					}else if(registedDiff-(0.5*updateDiff)<0){
-						//º¸À¯º¸´Ù ¸¹ÀÌ µî·ÏÇÑ °æ¿ì
+						//ë³´ìœ ë³´ë‹¤ ë§ì´ ë“±ë¡í•œ ê²½ìš°
 						if(monthHoliCnt < (0.5*updateDiff-registedDiff)) {
 							req.setAttribute("userVO",userVO);
 							req.setAttribute("dateDiff",(0.5*updateDiff-registedDiff));
@@ -296,9 +448,9 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
-					//±â°£¿¬Â÷¿¡¼­ ´ëÃ¼ÈŞ¹«·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+					//ê¸°ê°„ì—°ì°¨ì—ì„œ ëŒ€ì²´íœ´ë¬´ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				}else if(dutyId.equals("1") && humu.equals("2")) {
-					content = "´ëÃ¼ÈŞ¹«";
+					content = "ëŒ€ì²´íœ´ë¬´";
 					float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
 					if(alterHoliCnt < dateDiffVal) {
 						req.setAttribute("userVO",userVO);
@@ -310,26 +462,128 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleVO.setDutyId(Integer.parseInt(dutyId));
 						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 						scheduleDAO.updateScheduleDuty(scheduleVO);
+						
+						
+						
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						
+						
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String holidaySDate = startDate;
+						String holidayEDate = endDate;
+						
+						
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						
+						
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						 
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						
+						
+						
+						String holidaySDateTemp;
+						String workingDateContent = "";
+						do{
+						
+								holidaySDateTemp = dateForm.format(calSDate.getTime()).toString();
+						
+								List<?> workingDates=alterDateDAO.selectWorkingDate(memberId);
+								
+								String workingDate = workingDates.get(0).toString();
+								workingDate = workingDate.substring(13, 23);
+								
+								alterDateVO.setWorkingDate(workingDate);
+								alterDateVO.setHolidayDate(holidaySDateTemp);
+								
+								
+								alterDateDAO.updateHolidayDate(alterDateVO);
+								
+								workingDateContent = workingDateContent + workingDate;
+								
+								
+								if(holidaySDateTemp.equals(holidayEDate)) {
+								
+									alterDateVO.setWorkingDate(workingDateContent);
+									alterDateVO.setHolidayDate(startDate);
+									
+									alterDateDAO.updateHolidayDateContent(alterDateVO);
+									
+									break;}
+								else{ workingDateContent = workingDateContent + " , "; }
+								
+								calSDate.add(Calendar.DATE, +1);
+						
+						
+						}while(!holidaySDateTemp.equals(holidayEDate));
+							
+						
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
-				}// ÇÏ·ç¿¬Â÷¿¡¼­ Refresh·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				}// í•˜ë£¨ì—°ì°¨ì—ì„œ Refreshë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("1")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				//ÇÏ·ç¿¬Â÷¿¡¼­ ÇÏ±âÈŞ°¡·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				//í•˜ë£¨ì—°ì°¨ì—ì„œ í•˜ê¸°íœ´ê°€ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("2")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
-				if(content.equals("ÁÖ¸»±Ù¹«")) {
-					//ÁÖ¸» ¹× °øÈŞÀÏÀÌ ¾Æ´Ñ ³¯¿¡ µî·ÏÇÒ °æ¿ì µî·Ï½ÇÆĞ
-					cal.setTime(transStartDate);
-					int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-					boolean isWeek = isWeekend(dayNum); // ½ÃÀÛÀÏÀÌ ÁÖ¸»ÀÎ °æ¿ì True
-					int isJung = scheduleDAO.selectIsJunghu(startDate); // 0º¸´Ù Å«°æ¿ì Á¤ÈŞ
-					if(isWeek == false || isJung > 0) {
-						return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
-					}
+				if(content.equals("ì£¼ë§ê·¼ë¬´") || content.equals("ì±…ì„ë‹¹ì§")) {
+				
+						if(content.equals("ì£¼ë§ê·¼ë¬´")){
+						//ì£¼ë§ ë° ê³µíœ´ì¼ì´ ì•„ë‹Œ ë‚ ì— ë“±ë¡í•  ê²½ìš° ë“±ë¡ì‹¤íŒ¨
+						cal.setTime(transStartDate);
+						int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+						boolean isWeek = isWeekend(dayNum); // ì‹œì‘ì¼ì´ ì£¼ë§ì¸ ê²½ìš° True
+						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0ë³´ë‹¤ í°ê²½ìš° ì •íœ´
+						if(isWeek == false || isJung > 0) {
+							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";}
+						}
+					//============================================================
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String workingSDate = startDate;
+						String workingEDate = endDate;
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						String workingSDateTemp;
+						do{
+								workingSDateTemp = dateForm.format(calSDate.getTime()).toString();
+								List<?> holidayDates=alterDateDAO.selectHolidayDate(memberId,"0000-00-00");
+								if(holidayDates.size()>0){
+									String holidayDate = holidayDates.get(0).toString();
+									holidayDate = holidayDate.substring(13, 23);
+									alterDateVO.setHolidayDate(holidayDate);
+									alterDateVO.setWorkingDate(workingSDateTemp);
+									alterDateDAO.updateWorkingDateChange(alterDateVO);
+									List<?> contents=alterDateDAO.selectContent(memberId,holidayDate);
+									String temp_content = contents.get(0).toString();
+									temp_content = temp_content.substring(10,temp_content.length()-1);
+									temp_content = temp_content.replaceFirst("0000-00-00",workingSDateTemp);
+									alterDateVO.setContent2(temp_content);
+									alterDateDAO.updateWorkingDateContent(alterDateVO);
+									calSDate.add(Calendar.DATE, +1);
+									continue;
+								}
+								alterDateVO.setWorkingDate(workingSDateTemp);
+								alterDateDAO.insertWorkingDate(alterDateVO);
+								calSDate.add(Calendar.DATE, +1);
+								if(workingSDateTemp.equals(workingEDate)) {break;}
+						}while(!workingSDateTemp.equals(workingEDate));
+					//=================================================================
+					userDAO.updateUserAlterHoliday_plus(memberId,  registedDiff);
 				}
 				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue(1,0,registedDiff,updateDiff);
@@ -339,15 +593,15 @@ public class UpdateProDuty implements CommandHandler {
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
-		//¹İÂ÷¿¡¼­ ¿¬Â÷, ¹İÂ÷, ±× ¿Ü·Î ¼öÁ¤ÇÏ´Â °æ¿ì
-		}else if(scheduleVO_db.getContent().equals("¹İÂ÷")) {
-			//ÇÏ·ç ¹İÂ÷ÀÎ °æ¿ì
+		//ë°˜ì°¨ì—ì„œ ì—°ì°¨, ë°˜ì°¨, ê·¸ ì™¸ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
+		}else if(scheduleVO_db.getContent().equals("ë°˜ì°¨")) {
+			//í•˜ë£¨ ë°˜ì°¨ì¸ ê²½ìš°
 			if(registedDiff == 1) {
 				if(dutyId.equals("1") && humu.equals("1")) {
-					content = "¿¬Â÷";
-					//ÇÏ·ç¿¬Â÷·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+					content = "ì—°ì°¨";
+					//í•˜ë£¨ì—°ì°¨ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 					if(updateDiff == 1) {
-						// ¿¬Â÷ -0.5 Â÷°¨
+						// ì—°ì°¨ -0.5 ì°¨ê°
 						if(monthHoliCnt<0.5) {
 							req.setAttribute("userVO",userVO);
 							req.setAttribute("dateDiff",0.5);
@@ -356,13 +610,13 @@ public class UpdateProDuty implements CommandHandler {
 							float dateDiffVal = humuMinusValue((float)0.5,0,registedDiff,updateDiff);
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 						}
-					//±â°£¿¬Â÷·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+					//ê¸°ê°„ì—°ì°¨ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 					}else {
 						if(monthHoliCnt-(updateDiff-0.5*registedDiff)<0) {
 							req.setAttribute("userVO",userVO);
 							req.setAttribute("dateDiff",(updateDiff-0.5*registedDiff));
 							return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
-						// º¸À¯°¹¼ö¿¡¼­ Â÷°¨µÇ´Â °æ¿ì
+						// ë³´ìœ ê°¯ìˆ˜ì—ì„œ ì°¨ê°ë˜ëŠ” ê²½ìš°
 						}else if (monthHoliCnt-(updateDiff-0.5*registedDiff)>=0) {
 							float dateDiffVal = humuMinusValue((float)0.5,4,registedDiff,updateDiff);
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
@@ -372,14 +626,14 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}
-				//ÇÏ·ç¹İÂ÷¿¡¼­ ±â°£¹İÂ÷·Î ¼öÁ¤µÇ´Â °æ¿ì 
+				//í•˜ë£¨ë°˜ì°¨ì—ì„œ ê¸°ê°„ë°˜ì°¨ë¡œ ìˆ˜ì •ë˜ëŠ” ê²½ìš° 
 				else if(dutyId.equals("1") && humu.equals("0")) {
-					content = banType.equals("1") ? "¹İÂ÷(¿ÀÀü)" :"¹İÂ÷(¿ÀÈÄ)"; 
+					content = banType.equals("1") ? "ë°˜ì°¨(ì˜¤ì „)" :"ë°˜ì°¨(ì˜¤í›„)"; 
 					if(monthHoliCnt-0.5<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",0.5);
 						return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
-					// º¸À¯°¹¼ö¿¡¼­ Â÷°¨µÇ´Â °æ¿ì
+					// ë³´ìœ ê°¯ìˆ˜ì—ì„œ ì°¨ê°ë˜ëŠ” ê²½ìš°
 					}else if (monthHoliCnt-0.5>=0) {
 						float dateDiffVal = humuMinusValue((float)0.5,2,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
@@ -387,28 +641,69 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
-				// ¹İÂ÷¿¡¼­ ´ëÃ¼ÈŞ¹«·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				// ë°˜ì°¨ì—ì„œ ëŒ€ì²´íœ´ë¬´ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				}else if(dutyId.equals("1") && humu.equals("2")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				// ÇÏ·ç¹İÂ÷¿¡¼­ Refresh·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				// í•˜ë£¨ë°˜ì°¨ì—ì„œ Refreshë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("1")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				//ÇÏ·ç¹İÂ÷¿¡¼­ ÇÏ±âÈŞ°¡·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				//í•˜ë£¨ë°˜ì°¨ì—ì„œ í•˜ê¸°íœ´ê°€ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("2")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
-				if(content.equals("ÁÖ¸»±Ù¹«")) {
-					//ÁÖ¸» ¹× °øÈŞÀÏÀÌ ¾Æ´Ñ ³¯¿¡ µî·ÏÇÒ °æ¿ì µî·Ï½ÇÆĞ
-					cal.setTime(transStartDate);
-					int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-					boolean isWeek = isWeekend(dayNum); // ½ÃÀÛÀÏÀÌ ÁÖ¸»ÀÎ °æ¿ì True
-					int isJung = scheduleDAO.selectIsJunghu(startDate); // 0º¸´Ù Å«°æ¿ì Á¤ÈŞ
-					if(isWeek == false || isJung > 0) {
-						return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
-					}
+				if(content.equals("ì£¼ë§ê·¼ë¬´") || content.equals("ì±…ì„ë‹¹ì§")) {
+				
+						if(content.equals("ì£¼ë§ê·¼ë¬´")){
+						//ì£¼ë§ ë° ê³µíœ´ì¼ì´ ì•„ë‹Œ ë‚ ì— ë“±ë¡í•  ê²½ìš° ë“±ë¡ì‹¤íŒ¨
+						cal.setTime(transStartDate);
+						int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+						boolean isWeek = isWeekend(dayNum); // ì‹œì‘ì¼ì´ ì£¼ë§ì¸ ê²½ìš° True
+						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0ë³´ë‹¤ í°ê²½ìš° ì •íœ´
+						if(isWeek == false || isJung > 0) {
+							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";}
+						}
+					//============================================================
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String workingSDate = startDate;
+						String workingEDate = endDate;
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						String workingSDateTemp;
+						do{
+								workingSDateTemp = dateForm.format(calSDate.getTime()).toString();
+								List<?> holidayDates=alterDateDAO.selectHolidayDate(memberId,"0000-00-00");
+								if(holidayDates.size()>0){
+									String holidayDate = holidayDates.get(0).toString();
+									holidayDate = holidayDate.substring(13, 23);
+									alterDateVO.setHolidayDate(holidayDate);
+									alterDateVO.setWorkingDate(workingSDateTemp);
+									alterDateDAO.updateWorkingDateChange(alterDateVO);
+									List<?> contents=alterDateDAO.selectContent(memberId,holidayDate);
+									String temp_content = contents.get(0).toString();
+									temp_content = temp_content.substring(10,temp_content.length()-1);
+									temp_content = temp_content.replaceFirst("0000-00-00",workingSDateTemp);
+									alterDateVO.setContent2(temp_content);
+									alterDateDAO.updateWorkingDateContent(alterDateVO);
+									calSDate.add(Calendar.DATE, +1);
+									continue;
+								}
+								alterDateVO.setWorkingDate(workingSDateTemp);
+								alterDateDAO.insertWorkingDate(alterDateVO);
+								calSDate.add(Calendar.DATE, +1);
+								if(workingSDateTemp.equals(workingEDate)) {break;}
+						}while(!workingSDateTemp.equals(workingEDate));
+					//=================================================================
+					userDAO.updateUserAlterHoliday_plus(memberId,  registedDiff);
 				}
 				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
@@ -417,24 +712,24 @@ public class UpdateProDuty implements CommandHandler {
 				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
-			//±â°£ ¹İÂ÷¾Ö¼­ ¼öÁ¤µÇ´Â °æ¿ì	
+			//ê¸°ê°„ ë°˜ì°¨ì• ì„œ ìˆ˜ì •ë˜ëŠ” ê²½ìš°	
 			}else {
-				//¿¬Â÷·Î ¼öÁ¤µÇ´Â °æ¿ì
+				//ì—°ì°¨ë¡œ ìˆ˜ì •ë˜ëŠ” ê²½ìš°
 				if(dutyId.equals("1") && humu.equals("1")) {
-					//µî·ÏµÈ ¹İÂ÷º¸´Ù ÀÛÀº °æ¿ì +¿¬Â÷
-					content = "¿¬Â÷";
+					//ë“±ë¡ëœ ë°˜ì°¨ë³´ë‹¤ ì‘ì€ ê²½ìš° +ì—°ì°¨
+					content = "ì—°ì°¨";
 					if(0.5*registedDiff-updateDiff>0) {
 						float dateDiffVal = humuPlusValue((float)0.5,5,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 					}
-					//µî·ÏµÈ ¹İÂ÷º¸´Ù Å« °æ¿ì  -¿¬Â÷
+					//ë“±ë¡ëœ ë°˜ì°¨ë³´ë‹¤ í° ê²½ìš°  -ì—°ì°¨
 					else if(0.5*registedDiff-updateDiff<0) {
-						//º¸À¯º¸´Ù ¸¹ÀÌ µî·ÏÇÑ °æ¿ì
+						//ë³´ìœ ë³´ë‹¤ ë§ì´ ë“±ë¡í•œ ê²½ìš°
 						if(monthHoliCnt - (updateDiff-0.5*registedDiff)<0) {
 							req.setAttribute("userVO",userVO);
 							req.setAttribute("dateDiff",(updateDiff-0.5*registedDiff));
 							return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
-						//º¸À¯º¸´Ù Àû°Ô µî·ÏÇÑ °æ¿ì -> Â÷°¨ 
+						//ë³´ìœ ë³´ë‹¤ ì ê²Œ ë“±ë¡í•œ ê²½ìš° -> ì°¨ê° 
 						}else if(monthHoliCnt - (updateDiff-0.5*registedDiff)>=0) {
 							float dateDiffVal = humuMinusValue((float)0.5,4,registedDiff,updateDiff);
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
@@ -447,22 +742,22 @@ public class UpdateProDuty implements CommandHandler {
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}
-				//¹İÂ÷·Î ¼öÁ¤µÇ´Â °æ¿ì
+				//ë°˜ì°¨ë¡œ ìˆ˜ì •ë˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("1") && humu.equals("0")) {
-					//±â°£ÀÌ ÁÙ¾îµç °æ¿ì +¿¬Â÷
-					content = banType.equals("1") ? "¹İÂ÷(¿ÀÀü)" :"¹İÂ÷(¿ÀÈÄ)"; 
+					//ê¸°ê°„ì´ ì¤„ì–´ë“  ê²½ìš° +ì—°ì°¨
+					content = banType.equals("1") ? "ë°˜ì°¨(ì˜¤ì „)" :"ë°˜ì°¨(ì˜¤í›„)"; 
 					if(updateDiff<registedDiff) {
 						float dateDiffVal = humuPlusValue((float)0.5,1,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday_plus(memberId, dateDiffVal);
 					}
-					//±â°£ÀÌ ´Ã¾î³­ °æ¿ì -¿¬Â÷
+					//ê¸°ê°„ì´ ëŠ˜ì–´ë‚œ ê²½ìš° -ì—°ì°¨
 					else if(updateDiff>registedDiff) {
-						//º¸À¯º¸´Ù ¸¹Àº °æ¿ì 
+						//ë³´ìœ ë³´ë‹¤ ë§ì€ ê²½ìš° 
 						if(monthHoliCnt<0.5*(diffVal)) {
 							req.setAttribute("userVO",userVO);
 							req.setAttribute("dateDiff",0.5*(diffVal));
 							return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
-						//º¸À¯º¸´Ù ÀûÀº °æ¿ì -> Â÷°¨
+						//ë³´ìœ ë³´ë‹¤ ì ì€ ê²½ìš° -> ì°¨ê°
 						}else if(monthHoliCnt>=0.5*(diffVal)) {
 							float dateDiffVal = humuMinusValue((float)0.5,1,registedDiff,updateDiff);
 							userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
@@ -471,34 +766,79 @@ public class UpdateProDuty implements CommandHandler {
 						scheduleDAO.updateScheduleDuty(scheduleVO);
 						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 					}
-					//±×´ë·ÎÀÎ °æ¿ì
+					//ê·¸ëŒ€ë¡œì¸ ê²½ìš°
 					scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 					scheduleDAO.updateScheduleDuty(scheduleVO);
 					return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 				}
-				//±â°£¹İÂ÷¿¡¼­ ´ëÃ¼ÈŞ¹«
+				//ê¸°ê°„ë°˜ì°¨ì—ì„œ ëŒ€ì²´íœ´ë¬´
 				else if(dutyId.equals("1") && humu.equals("2")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				// ±â°£¹İÂ÷¿¡¼­ Refresh·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				// ê¸°ê°„ë°˜ì°¨ì—ì„œ Refreshë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("1")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				//±â°£¹İÂ÷¿¡¼­ ÇÏ±âÈŞ°¡·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+				//ê¸°ê°„ë°˜ì°¨ì—ì„œ í•˜ê¸°íœ´ê°€ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 				else if(dutyId.equals("3") && huga.equals("2")) {
 					return "/WEB-INF/views/calendar/failMessage_banChaForUP.jsp";
 				}
-				//±× ¿Ü
+				//ê·¸ ì™¸
 				content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
-				if(content.equals("ÁÖ¸»±Ù¹«")) {
-					//ÁÖ¸» ¹× °øÈŞÀÏÀÌ ¾Æ´Ñ ³¯¿¡ µî·ÏÇÒ °æ¿ì µî·Ï½ÇÆĞ
-					cal.setTime(transStartDate);
-					int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-					boolean isWeek = isWeekend(dayNum); // ½ÃÀÛÀÏÀÌ ÁÖ¸»ÀÎ °æ¿ì True
-					int isJung = scheduleDAO.selectIsJunghu(startDate); // 0º¸´Ù Å«°æ¿ì Á¤ÈŞ
-					if(isWeek == false || isJung > 0) {
-						return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
-					}
+				
+				
+				
+				
+				if(content.equals("ì£¼ë§ê·¼ë¬´") || content.equals("ì±…ì„ë‹¹ì§")) {
+				
+						if(content.equals("ì£¼ë§ê·¼ë¬´")){
+						//ì£¼ë§ ë° ê³µíœ´ì¼ì´ ì•„ë‹Œ ë‚ ì— ë“±ë¡í•  ê²½ìš° ë“±ë¡ì‹¤íŒ¨
+						cal.setTime(transStartDate);
+						int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+						boolean isWeek = isWeekend(dayNum); // ì‹œì‘ì¼ì´ ì£¼ë§ì¸ ê²½ìš° True
+						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0ë³´ë‹¤ í°ê²½ìš° ì •íœ´
+						if(isWeek == false || isJung > 0) {
+							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";}
+						}
+					//============================================================
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String workingSDate = startDate;
+						String workingEDate = endDate;
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						String workingSDateTemp;
+						do{
+								workingSDateTemp = dateForm.format(calSDate.getTime()).toString();
+								List<?> holidayDates=alterDateDAO.selectHolidayDate(memberId,"0000-00-00");
+								if(holidayDates.size()>0){
+									String holidayDate = holidayDates.get(0).toString();
+									holidayDate = holidayDate.substring(13, 23);
+									alterDateVO.setHolidayDate(holidayDate);
+									alterDateVO.setWorkingDate(workingSDateTemp);
+									alterDateDAO.updateWorkingDateChange(alterDateVO);
+									List<?> contents=alterDateDAO.selectContent(memberId,holidayDate);
+									String temp_content = contents.get(0).toString();
+									temp_content = temp_content.substring(10,temp_content.length()-1);
+									temp_content = temp_content.replaceFirst("0000-00-00",workingSDateTemp);
+									alterDateVO.setContent2(temp_content);
+									alterDateDAO.updateWorkingDateContent(alterDateVO);
+									calSDate.add(Calendar.DATE, +1);
+									continue;
+								}
+								alterDateVO.setWorkingDate(workingSDateTemp);
+								alterDateDAO.insertWorkingDate(alterDateVO);
+								calSDate.add(Calendar.DATE, +1);
+								if(workingSDateTemp.equals(workingEDate)) {break;}
+						}while(!workingSDateTemp.equals(workingEDate));
+					//=================================================================
+					userDAO.updateUserAlterHoliday_plus(memberId,  registedDiff);
 				}
 				content2 = outwork_content;
 				float dateDiffVal = humuPlusValue((float)0.5,4,registedDiff,updateDiff);
@@ -508,82 +848,209 @@ public class UpdateProDuty implements CommandHandler {
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
-		//±× ¿Ü¿¡¼­ ¿¬Â÷, ¹İÂ÷·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+		//ê·¸ ì™¸ì—ì„œ ì—°ì°¨, ë°˜ì°¨ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 		}else {
-			//¿¬Â÷·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+			//ì—°ì°¨ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 			if(dutyId.equals("1") && humu.equals("1")) {
-				content = "¿¬Â÷";
-				//¼öÁ¤ÀÌ µî·ÏµÈº¸´Ù ÀÛÀº °æ¿ì
+				content = "ì—°ì°¨";
+				//ìˆ˜ì •ì´ ë“±ë¡ëœë³´ë‹¤ ì‘ì€ ê²½ìš°
 				if(updateDiff <= registedDiff) {
-					//º¸À¯º¸´Ù ¸¹ÀÌ µî·ÏÇÑ °æ¿ì
+					//ë³´ìœ ë³´ë‹¤ ë§ì´ ë“±ë¡í•œ ê²½ìš°
 					if(monthHoliCnt-updateDiff<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",updateDiff);
 						return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
 					}
-					//Â÷°¨µÇ´Â °æ¿ì
+					//ì°¨ê°ë˜ëŠ” ê²½ìš°
 					else if(monthHoliCnt-updateDiff>=0) {
 						float dateDiffVal = humuMinusValue(1,0,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
 				}
-				//¼öÁ¤ÀÌ µî·ÏµÈº¸´Ù Å« °æ¿ì ex) Á¡°Ë Á¡°Ë -> ¿¬Â÷ ¿¬Â÷ ¿¬Â÷  ¼öÁ¤ - µî·ÏµÈ 
+				//ìˆ˜ì •ì´ ë“±ë¡ëœë³´ë‹¤ í° ê²½ìš° ex) ì ê²€ ì ê²€ -> ì—°ì°¨ ì—°ì°¨ ì—°ì°¨  ìˆ˜ì • - ë“±ë¡ëœ 
 				else {
 					if(monthHoliCnt-updateDiff<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",updateDiff);
 						return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
 					}
-					//Â÷°¨µÇ´Â °æ¿ì
+					//ì°¨ê°ë˜ëŠ” ê²½ìš°
 					else if(monthHoliCnt-updateDiff>=0) {
 						float dateDiffVal = humuMinusValue(1,0,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
 				}
+				
 				scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
 				scheduleDAO.updateScheduleDuty(scheduleVO);
 				return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
 			}
-			//¹İÂ÷·Î ¼öÁ¤ÇÏ´Â °æ¿ì
+			//ë°˜ì°¨ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
 			else if(dutyId.equals("1") && humu.equals("0")) {
-				content = banType.equals("1") ? "¹İÂ÷(¿ÀÀü)" :"¹İÂ÷(¿ÀÈÄ)"; 
-				//¼öÁ¤ÇÏ·Á´Â °Ô µî·ÏµÈ°Íº¸´Ù ÀÛ°Å³ª °°Àº °æ¿ì
+				content = banType.equals("1") ? "ë°˜ì°¨(ì˜¤ì „)" :"ë°˜ì°¨(ì˜¤í›„)"; 
+				//ìˆ˜ì •í•˜ë ¤ëŠ” ê²Œ ë“±ë¡ëœê²ƒë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì€ ê²½ìš°
 				if(updateDiff <= registedDiff) {
-					//º¸À¯º¸´Ù ¸¹ÀÌ µî·ÏÇÑ °æ¿ì
+					//ë³´ìœ ë³´ë‹¤ ë§ì´ ë“±ë¡í•œ ê²½ìš°
 					if(monthHoliCnt-0.5*updateDiff<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",0.5*updateDiff);
 						return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
 					}
-					//Â÷°¨µÇ´Â °æ¿ì
+					//ì°¨ê°ë˜ëŠ” ê²½ìš°
 					else if(monthHoliCnt-0.5*updateDiff>=0) {
 						float dateDiffVal = humuMinusValue((float)0.5,0,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
-				//¼öÁ¤ÀÌ µî·ÏµÈ°Íº¸´Ù Å« °æ¿ì
+				//ìˆ˜ì •ì´ ë“±ë¡ëœê²ƒë³´ë‹¤ í° ê²½ìš°
 				}else {
 					if(monthHoliCnt-0.5*updateDiff<0) {
 						req.setAttribute("userVO",userVO);
 						req.setAttribute("dateDiff",0.5*updateDiff);
 						return "/WEB-INF/views/calendar/failMessage_monthHoli.jsp";
 					}
-					//Â÷°¨µÇ´Â °æ¿ì
+					//ì°¨ê°ë˜ëŠ” ê²½ìš°
 					else if(monthHoliCnt-0.5*updateDiff>=0) {
 						float dateDiffVal = humuMinusValue((float)0.5,0,registedDiff,updateDiff);
 						userDAO.updateUserMonthHoliday(memberId, dateDiffVal);
 					}
 				}
 			}
+			
+			//========================================================================
+			
+			//ëŒ€íœ´ë¡œ ìˆ˜ì •í•˜ëŠ” ê²½ìš°
+			else if(dutyId.equals("1") && humu.equals("2")) {
+					content = "ëŒ€ì²´íœ´ë¬´";
+					float dateDiffVal = humuPlusValue(1,4,registedDiff,updateDiff);
+					if(alterHoliCnt < dateDiffVal) {
+						req.setAttribute("userVO",userVO);
+						req.setAttribute("dateDiff",dateDiffVal);
+						return "/WEB-INF/views/calendar/failMessage_alterHoliday.jsp";
+					}else {
+						userDAO.updateUserAlterHoliday(memberId, dateDiffVal);
+						scheduleVO.setDutyId(Integer.parseInt(dutyId));
+						scheduleVO = returnScheduleVO(dutyId, scheduleId, transEndDate, transStartDate, content, content2);
+						scheduleDAO.updateScheduleDuty(scheduleVO);
+						
+						
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						
+						
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String holidaySDate = startDate;
+						String holidayEDate = endDate;
+						
+						
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						
+						
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						 
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						
+						
+						
+						String holidaySDateTemp;
+						String workingDateContent = "";
+						do{
+						
+								holidaySDateTemp = dateForm.format(calSDate.getTime()).toString();
+						
+								List<?> workingDates=alterDateDAO.selectWorkingDate(memberId);
+								
+								String workingDate = workingDates.get(0).toString();
+								workingDate = workingDate.substring(13, 23);
+								
+								alterDateVO.setWorkingDate(workingDate);
+								alterDateVO.setHolidayDate(holidaySDateTemp);
+								
+								
+								alterDateDAO.updateHolidayDate(alterDateVO);
+								
+								workingDateContent = workingDateContent + workingDate;
+								
+								
+								
+								if(holidaySDateTemp.equals(holidayEDate)) {
+								
+									alterDateVO.setWorkingDate(workingDateContent);
+									alterDateVO.setHolidayDate(startDate);
+									
+									alterDateDAO.updateHolidayDateContent(alterDateVO);
+									
+									break;}
+								else{ workingDateContent = workingDateContent + " , "; }
+								
+					
+								calSDate.add(Calendar.DATE, +1);
+						
+						
+						}while(!holidaySDateTemp.equals(holidayEDate));
+					
+						
+						
+						return "/WEB-INF/views/calendar/updateSuccessMessage.jsp";
+					}
+			}	
+			//========================================================================
+				
+				
 			content = setContent(content, dutyId, humu, eduSubject, huga, etc, working, Realetc);
-			if(content.equals("ÁÖ¸»±Ù¹«")) {
-				//ÁÖ¸» ¹× °øÈŞÀÏÀÌ ¾Æ´Ñ ³¯¿¡ µî·ÏÇÒ °æ¿ì µî·Ï½ÇÆĞ
-				cal.setTime(transStartDate);
-				int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-				boolean isWeek = isWeekend(dayNum); // ½ÃÀÛÀÏÀÌ ÁÖ¸»ÀÎ °æ¿ì True
-				int isJung = scheduleDAO.selectIsJunghu(startDate); // 0º¸´Ù Å«°æ¿ì Á¤ÈŞ
-				if(isWeek == false || isJung > 0) {
-					return "/WEB-INF/views/calendar/failMessage_junghu.jsp";
-				}
+				if(content.equals("ì£¼ë§ê·¼ë¬´") || content.equals("ì±…ì„ë‹¹ì§")) {
+				
+						if(content.equals("ì£¼ë§ê·¼ë¬´")){
+						//ì£¼ë§ ë° ê³µíœ´ì¼ì´ ì•„ë‹Œ ë‚ ì— ë“±ë¡í•  ê²½ìš° ë“±ë¡ì‹¤íŒ¨
+						cal.setTime(transStartDate);
+						int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+						boolean isWeek = isWeekend(dayNum); // ì‹œì‘ì¼ì´ ì£¼ë§ì¸ ê²½ìš° True
+						int isJung = scheduleDAO.selectIsJunghu(startDate); // 0ë³´ë‹¤ í°ê²½ìš° ì •íœ´
+						if(isWeek == false || isJung > 0) {
+							return "/WEB-INF/views/calendar/failMessage_junghu.jsp";}
+						}
+					//============================================================
+						alterDateVO = new AlterDateVO();
+						alterDateVO.setDutyId(Integer.parseInt(dutyId));
+						alterDateVO.setMemberId(Integer.parseInt(memberId));
+						SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd");
+						String workingSDate = startDate;
+						String workingEDate = endDate;
+						java.util.Date tempSDate = dateForm.parse(startDate);
+						java.util.Date tempEDate = dateForm.parse(endDate);
+						Calendar calSDate = Calendar.getInstance();
+						Calendar calEDate = Calendar.getInstance();
+						calSDate.setTime(tempSDate);
+						calEDate.setTime(tempEDate);
+						String workingSDateTemp;
+						do{
+								workingSDateTemp = dateForm.format(calSDate.getTime()).toString();
+								List<?> holidayDates=alterDateDAO.selectHolidayDate(memberId,"0000-00-00");
+								if(holidayDates.size()>0){
+									String holidayDate = holidayDates.get(0).toString();
+									holidayDate = holidayDate.substring(13, 23);
+									alterDateVO.setHolidayDate(holidayDate);
+									alterDateVO.setWorkingDate(workingSDateTemp);
+									alterDateDAO.updateWorkingDateChange(alterDateVO);
+									List<?> contents=alterDateDAO.selectContent(memberId,holidayDate);
+									String temp_content = contents.get(0).toString();
+									temp_content = temp_content.substring(10,temp_content.length()-1);
+									temp_content = temp_content.replaceFirst("0000-00-00",workingSDateTemp);
+									alterDateVO.setContent2(temp_content);
+									alterDateDAO.updateWorkingDateContent(alterDateVO);
+									calSDate.add(Calendar.DATE, +1);
+									continue;
+								}
+								alterDateVO.setWorkingDate(workingSDateTemp);
+								alterDateDAO.insertWorkingDate(alterDateVO);
+								calSDate.add(Calendar.DATE, +1);
+								if(workingSDateTemp.equals(workingEDate)) {break;}
+						}while(!workingSDateTemp.equals(workingEDate));
+					//=================================================================
+					userDAO.updateUserAlterHoliday_plus(memberId,  registedDiff);
 			}
 			content2 = outwork_content;
 			scheduleVO.setDutyId(Integer.parseInt(dutyId));

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="alterDate">
+
+
+
+
+
+
+
+
+
+	<insert id="insertWorkingDate" parameterType="hashmap">
+		insert into
+		ALTERDATE(memberId, workingDate)
+		values(#{memberId}, #{workingDate})
+	</insert>
+
+
+
+
+	<update id="updateHolidayDate" parameterType="hashmap">
+		update top(1)
+		ALTERDATE
+		set holidayDate = #{holidayDate}
+		where memberId = #{memberId} and
+		workingDate = #{workingDate} and holidayDate is null
+	</update>
+
+
+
+	<select id="selectWorkingDate" resultType="hashmap"
+		parameterType="hashmap">
+		select top 1 workingDate
+		from ALTERDATE
+		where MEMBERID = #{memberId} and
+		holidayDate is null
+		order by workingDate asc
+	</select>
+
+
+	<update id="updateHolidayDateContent" parameterType="hashmap">
+		update
+		top(1) SCHEDULE
+		set content2 = #{workingDate}
+		where memberId = #{memberId} and startDate =
+		#{holidayDate} and content = '대체휴무'
+	</update>
+
+
+
+
+
+
+
+	<!-- <select id="selectAlterDateInfo" resultType="alterDate" parameterType="hashmap" 
+		> select * from ALTERDATE with(nolock) where memberId=#{memberId} </select> 
+		<delete id="deleteAlterDate" parameterType="hashmap"> delete top(1) from 
+		ALTERDATE where memberId=#{memberId} </delete> <update id="updateHolidayDate" 
+		parameterType="hashmap"> update ALTERDATE set holidayDate = #{holidayDate} 
+		where memberId = #{memberId} </update> <insert id="insertAlterDate" parameterType="AlterDate"> 
+		insert into ALTERDATE(memberId,workingDate) values(#{memberId},#{workingDate}) 
+		</insert> <insert id="insertAlterDate" parameterType="AlterDate"> insert 
+		into ALTERDATE(Id,memberId, dutyId, workingDate, holidayDate) values(#{Id},#{memberId}, 
+		#{dutyId},#{workingDate},#{holidayDate}) </insert> <insert id="insertAlterDate" 
+		parameterType="hashmap"> insert into SCHEDULE(memberId, dutyId, workingDate, 
+		holidayDate) values(#{memberId}, #{dutyId},#{workingDate},#{holidayDate}) 
+		</insert> <insert id="insertScheduleALLC" parameterType="hashmap"> insert 
+		into SCHEDULE(memberId, dptNo,dutyId, startDate, endDate, content, content2) 
+		values('12', #{dptNo},#{dutyId},#{transStartDate},#{transEndDate},#{content},#{content2}) 
+		</insert> <select id="selectJungCheckCount" resultType="int"> select count(1) 
+		from member a join SCHEDULE b with(nolock) on a.ID = b.MEMBERID and (b.startdate 
+		&lt;= #{startDate} and #{startDate} &lt; b.enddate) and b.MEMBERID = '12' 
+		and b.dutyid = '7' </select> <select id="selectScheduleInfo" resultType="Schedule" 
+		parameterType="hashmap" > select * from SCHEDULE with(nolock) where memberId=#{memberId} 
+		</select> <select id="selectScheduleInfoByPK" resultType="Schedule" parameterType="hashmap"> 
+		select * from SCHEDULE with(nolock) where memberId=#{Id} </select> <select 
+		id="selectScheduleInfoBySCHPK" resultType="Schedule" parameterType="hashmap"> 
+		select * from SCHEDULE with(nolock) where id=#{scheduleId} </select> <delete 
+		id="deleteScheduleC" parameterType="hashmap"> delete from SCHEDULE where 
+		memberId = '12' and dutyid = '7' and startdate=#{startDate} and endDate = 
+		#{endDate} </delete> <delete id="deleteSchedule" parameterType="hashmap"> 
+		delete from SCHEDULE where id=#{scheduleId} </delete> <delete id="deleteScheduleAdm" 
+		parameterType="hashmap"> delete from SCHEDULE where startdate=#{startDate} 
+		</delete> <delete id="deleteSchedulePT" parameterType="hashmap"> delete from 
+		SCHEDULE where startdate=#{startDate} and dptNo = #{dptNo} </delete> <update 
+		id="updateSchedule" parameterType="Schedule"> update SCHEDULE set startdate=#{startDate},enddate=#{endDate} 
+		where id=#{Id} </update> <update id="updateScheduleDptChange" parameterType="Schedule"> 
+		update SCHEDULE set dptNo=#{dptNo_tobe} where memberid=#{pkId_int} </update> 
+		<update id="updateScheduleDuty" parameterType="Schedule"> update SCHEDULE 
+		set startdate=#{startDate},enddate=#{endDate}, dutyId=#{dutyId}, content=#{content}, 
+		content2 = #{content2} where id=#{Id} </update> -->
+
+
+
+
+</mapper>

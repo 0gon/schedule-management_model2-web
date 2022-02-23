@@ -18,12 +18,12 @@ public class LikedReg implements CommandHandler {
 		
 		UserDAO userDAO = UserDAO.getInstance();
 		
-		//ÀÚÁÖ°¡´Â Ãâ¹ßÁö µî·Ï
+		//ìì£¼ê°€ëŠ” ì¶œë°œì§€ ë“±ë¡
 		if(type.equals("1")) {
 			String departure = req.getParameter("departure");
 			userDAO.updateUserLikedDpr(userId, departure);
 		}
-		//µµÂøÁö µî·Ï	
+		//ë„ì°©ì§€ ë“±ë¡	
 		else {
 			String destination = req.getParameter("destination");
 			userDAO.updateUserLikedDest(userId, destination);

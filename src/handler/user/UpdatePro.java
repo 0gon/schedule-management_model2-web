@@ -34,7 +34,7 @@ public class UpdatePro implements CommandHandler {
 		String useYn = req.getParameter("useYn");
 		
 		
-		//ºÎ¼­ÀÌµ¿ÇÏ´Â °æ¿ì
+		//ë¶€ì„œì´ë™í•˜ëŠ” ê²½ìš°
 		int pkId_int = Integer.parseInt(pkId);
 		UserVO userVO_asis= userDAO.selectUserInfoByPK(pkId_int);
 		int dptNo_tobe = Integer.parseInt(dptNo);

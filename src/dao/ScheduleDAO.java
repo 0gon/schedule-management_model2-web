@@ -17,7 +17,7 @@ public class ScheduleDAO extends MybatisConnector {
 	public static ScheduleDAO getInstance() {
 		return instance;
 	}
-	//Á¤ÈŞ³¯ ±Ù¹«µî·Ï ¹æÁö¸¦ À§ÇÑ ÄÚµå, 0º¸´Ù Å«°ªÀÌ¸é Á¤ÈŞ
+	//ì •íœ´ë‚  ê·¼ë¬´ë“±ë¡ ë°©ì§€ë¥¼ ìœ„í•œ ì½”ë“œ, 0ë³´ë‹¤ í°ê°’ì´ë©´ ì •íœ´
 	public int selectIsJunghu(String startDate) {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();
@@ -105,6 +105,15 @@ public class ScheduleDAO extends MybatisConnector {
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("startDate", startDate); 
 		boardAllCount = sqlSession.selectOne(namespace + ".selectJungCheckCount", map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	public int selectGongCheckCount(String startDate) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("startDate", startDate); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectGongCheckCount", map);
 		sqlSession.close();
 		return boardAllCount;
 	}

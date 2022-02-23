@@ -10,9 +10,15 @@ import controller.CommandHandler;
 import dao.DutyDAO;
 import dao.ScheduleDAO;
 import dao.UserDAO;
+
+import dao.AlterDateDAO;
+
+
 import model.DutyVO;
 import model.ScheduleVO;
 import model.UserVO;
+
+import model.AlterDateVO;
 
 public class ContentsViewForm implements CommandHandler {
 	
@@ -23,10 +29,16 @@ public class ContentsViewForm implements CommandHandler {
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance(); 
 		DutyDAO dutyDAO = DutyDAO.getInstance();
 		
+		
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
+		
+		
+		
+		AlterDateDAO alterDateDAO = AlterDateDAO.getInstance();
+			
 		
 		
 		ScheduleVO scVO = scheduleDAO.selectScheduleInfoBySCHPK(Integer.parseInt(scheduleId));
@@ -46,13 +58,13 @@ public class ContentsViewForm implements CommandHandler {
 		req.setAttribute("schedule",scVO);
 		req.setAttribute("userVO",userVO);
 
+
+
 		return "/WEB-INF/views/calendar/contentsView.jsp";
 	}
 	
 	
 		
-	
-	
 	
 	
 	

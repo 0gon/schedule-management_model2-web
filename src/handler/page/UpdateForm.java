@@ -18,10 +18,73 @@ public class UpdateForm implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	
+	
+	
+		
 		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
 		DutyDAO dutyDAO = DutyDAO.getInstance();
 		String scheduleId = req.getParameter("id");
+		
+		
+
+		String scheduleAddId = req.getParameter("Add");
+		
+		
+		
+		if(scheduleId.equals(scheduleAddId)){
+			
+			
+			
+			
+			ScheduleVO scheduleVO = scheduleDAO.selectScheduleInfoBySCHPK(Integer.parseInt(scheduleAddId));
+		
+		
+		
+		
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(scheduleVO.getEndDate());
+			cal.add(Calendar.DATE, -1);
+			
+			java.util.Date utilDate = cal.getTime();
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	
+			scheduleVO.setEndDate(sqlDate);
+	
+	
+	
+			HttpSession session = req.getSession();
+			String memberId = (String) session.getAttribute("memberId");
+			UserDAO userDAO = UserDAO.getInstance();
+			UserVO userVO = userDAO.selectUserInfo(memberId);
+			
+			
+			
+			
+			
+			List<?> duties = dutyDAO.selectDutyInfo();
+			req.setAttribute("schedule", scheduleVO);
+			req.setAttribute("duties", duties);
+			req.setAttribute("userVO", userVO);
+			
+			
+			
+			req.setAttribute("addMulti","addMulti");
+			
+			return "/WEB-INF/views/calendar/updateAddForm.jsp";
+		}
+	
+		
+		
+		//===================================================================================================
+		
+		
 		ScheduleVO scheduleVO = scheduleDAO.selectScheduleInfoBySCHPK(Integer.parseInt(scheduleId));
+		
+		
+		
+		
+		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(scheduleVO.getEndDate());
 		cal.add(Calendar.DATE, -1);
@@ -31,15 +94,26 @@ public class UpdateForm implements CommandHandler {
 
 		scheduleVO.setEndDate(sqlDate);
 
+
+
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserDAO userDAO = UserDAO.getInstance();
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
+		
+		
+		
+		
 		List<?> duties = dutyDAO.selectDutyInfo();
 		req.setAttribute("schedule", scheduleVO);
 		req.setAttribute("duties", duties);
 		req.setAttribute("userVO", userVO);
+		
+		
+		
+		
 		return "/WEB-INF/views/calendar/updateForm.jsp";
+		
 	}
 }

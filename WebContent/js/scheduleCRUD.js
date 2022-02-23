@@ -76,11 +76,49 @@ function addSchedule(data) {
 function update(data) {
 	sendRequest(ctx + "/page/updatePro", data, fromServer, "POST");
 }
+
+
+
+//===========================================================2021.03.19
+
+
+
 function updateInclueDuty(data) {
+	
+	
+	var data = data + "&Add="+ "No";
+	
+	
 	sendRequest(ctx + "/page/updateProDuty", data, fromServer, "POST");
 }
+
+
+
+function updateInclueDuty_Add(data) {
+	
+	var data1 = data + "&Add="+ "Add";
+	
+	sendRequest(ctx + "/page/updateProDuty", data1, fromServer, "POST");
+}
+
+
+//============================================================
+
+
 function toUpdatePage(data) {
+	
 	var data1 = "id=" + data;
 	sendRequest(ctx + "/page/updateForm", data1, fromServerForUpdate, "POST");
 	event.preventDefault();
 }
+
+
+
+function toUpdateAddPage(data) {
+	
+	var data1 = "id=" + data + "&Add" + data;
+	sendRequest(ctx + "/page/updateForm", data1, fromServerForUpdate, "POST");
+	event.preventDefault();
+}
+
+

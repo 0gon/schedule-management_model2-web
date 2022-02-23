@@ -1,14 +1,14 @@
 function viewCommonList(memberList, year, month, lastDay, week, weekend) {
     //공통열 추가 
-    var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand">공통</td>';
+    var schedule ='<tr class="scheduleTr" ><td class="w3-border w3-center w3-sand" style="position:sticky;left:0;">공통</td>';
     for(var j=0;j<lastDay;j++){
   	     schedule +='<td class="w3-sand w3-border w3-text-red" id="commonId'+year+month+(j+1)+
   	     '"<td style="text-align:center"></td>'
     }
     schedule += '</tr>';
     
-    for(var i=0;i<memberList.length;i++){
-      schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td id="tdid'+memberList[i].memberId+'" style="width:5%" class="w3-dropdown-hover w3-white w3-border w3-center ">'+memberList[i].memberNm+'</td>';
+    for(var i=0;i<memberList.length;i++){ 
+      schedule += '<tr class="scheduleTr" id="trid'+memberList[i].memberId+'" ><td id="tdid'+memberList[i].memberId+'" style="width:5%;position:sticky;left:0;z-index: '+(50-i)+'" class="w3-dropdown-hover w3-white w3-border w3-center ">'+memberList[i].memberNm+'</td>';
       for(var j=0;j<lastDay;j++){
     	  //토요일 일요일마다 회색 음영
     	  // memberId 가 10보다 작은 경우 0 붙여주기 ex) 5 -> 05

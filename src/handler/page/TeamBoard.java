@@ -15,7 +15,7 @@ public class TeamBoard implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		UserDAO userDAO = UserDAO.getInstance();
 		
-		//¼¼¼Ç À¯ÀúÁ¤º¸
+		//ì„¸ì…˜ ìœ ì €ì •ë³´
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);

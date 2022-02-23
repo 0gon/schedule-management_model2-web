@@ -28,7 +28,7 @@ public class RegisterList implements CommandHandler {
 		String sMonth = req.getParameter("sMonth");
 		
 		DecimalFormat formatter = new DecimalFormat("###,###");
-		//ÇöÀç ¿ù ÃßÃâ
+		//í˜„ì¬ ì›” ì¶”ì¶œ
 		Calendar cal = Calendar.getInstance();
 		String format = "yyyy-MM";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -65,7 +65,7 @@ public class RegisterList implements CommandHandler {
 				trafficsLi=new ArrayList<TrafficPriceVO>();
 				do {
 					TrafficPriceVO trafficVO = (TrafficPriceVO) it.next();
-					// ¼ıÀÚ¿¡ ÄŞ¸¶ Áı¾î³Ö±â ex) 6000 > 6,000
+					// ìˆ«ìì— ì½¤ë§ˆ ì§‘ì–´ë„£ê¸° ex) 6000 > 6,000
 					String formatStr = formatter.format(Integer.parseInt(trafficVO.getPrice()));
 					trafficVO.setPrice(formatStr);
 					trafficsLi.add(trafficVO);
@@ -74,7 +74,7 @@ public class RegisterList implements CommandHandler {
 		}
 		if (count_o > 0) {
 			overtimes = overtimeDAO.selectOvertimeList(onlyMonth);
-			//overtimeList¿¡ µ¿ÇàÀÎ »ğÀÔ
+			//overtimeListì— ë™í–‰ì¸ ì‚½ì…
 			Iterator<?> it = overtimes.iterator();
 			if(it.hasNext()) {
 				overtimesLi=new ArrayList<OvertimePriceVO>();
@@ -83,11 +83,11 @@ public class RegisterList implements CommandHandler {
 					String targetNameList = overtimeDAO.selectOvertimeTargetList(overtimeVO.getGroupId()
 							,overtimeVO.getMemberNm());
 					int tagetNameCount = overtimeDAO.selectOvertimeTargetListCnt(overtimeVO.getGroupId());
-					//µ¿ÇàÀÎÀÌ ¾ø´Â °æ¿ì 0¸í Ã³¸®
+					//ë™í–‰ì¸ì´ ì—†ëŠ” ê²½ìš° 0ëª… ì²˜ë¦¬
 					tagetNameCount = tagetNameCount < 0 ? tagetNameCount= 0 : tagetNameCount;
 					overtimeVO.setTargetListCount(tagetNameCount);
 					overtimeVO.setTargetListName(targetNameList);
-					// ¼ıÀÚ¿¡ ÄŞ¸¶ Áı¾î³Ö±â ex) 6000 > 6,000
+					// ìˆ«ìì— ì½¤ë§ˆ ì§‘ì–´ë„£ê¸° ex) 6000 > 6,000
 					String formatStr = formatter.format(Integer.parseInt(overtimeVO.getPrice()));
 					overtimeVO.setPrice(formatStr);
 					overtimesLi.add(overtimeVO);
@@ -100,7 +100,7 @@ public class RegisterList implements CommandHandler {
 		req.setAttribute("userVO", userVO);
 		
 		
-		//°Ô½ÃÆÇ º¯¼öµé
+		//ê²Œì‹œíŒ ë³€ìˆ˜ë“¤
 		req.setAttribute("count_t", count_t);
 		req.setAttribute("count_o", count_o);
 		req.setAttribute("traffics", trafficsLi);
@@ -120,8 +120,8 @@ public class RegisterList implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

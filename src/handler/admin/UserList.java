@@ -33,7 +33,7 @@ public class UserList implements CommandHandler {
 		String memberId = (String) session.getAttribute("memberId"); 
 		UserVO userVO = userDAO.selectUserInfo(memberId);
 		
-		//°Ô½ÃÆÇ ÆäÀÌÁö ·ÎÁ÷
+		//ê²Œì‹œíŒ í˜ì´ì§€ ë¡œì§
 		int pageSize = 7;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
@@ -69,7 +69,7 @@ public class UserList implements CommandHandler {
 		if (endPage > pageCount)
 			endPage = pageCount;
 		
-		//°Ô½ÃÆÇ º¯¼öµé
+		//ê²Œì‹œíŒ ë³€ìˆ˜ë“¤
 		req.setAttribute("membersLi",membersLi);
 		req.setAttribute("userVO",userVO);
 		req.setAttribute("dptList",dptList);
@@ -90,8 +90,8 @@ public class UserList implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

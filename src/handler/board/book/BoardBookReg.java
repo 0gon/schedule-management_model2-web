@@ -19,7 +19,7 @@ public class BoardBookReg implements CommandHandler {
 		String price = req.getParameter("price");
 		String pchURL = req.getParameter("pchURL");
 		
-		//VO ∞¥√º set
+		//VO Í∞ùÏ≤¥ set
 		BoardBookVO boardBookVO = new BoardBookVO();
 		boardBookVO.setBookName(bookName);
 		boardBookVO.setMemberId(memberId);

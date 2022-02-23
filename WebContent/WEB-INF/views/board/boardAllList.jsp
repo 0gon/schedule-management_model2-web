@@ -8,7 +8,7 @@
 				<td class="w3-border w3-center" width="200px"><font
 					color="grey">[${number}]</font></td>
 				<c:set var="number" value="${number-1}" />
-				<td class="w3-border w3-center w3-sand  w3-hover-orange"
+				<td class="w3-border w3-center w3-sand  w3-hover-pale-yellow"
 					width="1000px">${board.title }</td>
 				<td class="w3-border w3-center" width="200px">${board.formatDate }</td>
 			</tr>

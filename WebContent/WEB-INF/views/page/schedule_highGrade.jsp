@@ -7,6 +7,9 @@
 	sessionStorage.setItem("currentId", "${userVO.id}")
 	sessionStorage.setItem("grade", "${userVO.grade}")
 </script>
+
+
+
 <script
 	src="${ pageContext.servletContext.contextPath }/js/dateCheck.js?v=20200910"></script>
 <script
@@ -30,13 +33,17 @@
 <script
 	src="${ pageContext.servletContext.contextPath }/js/mouseoverEffect.js"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/buildCalendar.js?v=20210531"></script>
 <script
-	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js"></script>
+	src="${ pageContext.servletContext.contextPath }/js/calendarControl.js?v=20210531""></script>
 <!--  function checkReg() 삭제, 해당소스는 register.jsp 백업 -->
 
+
+	
 <script type="text/javascript">
+
 	var today = new Date();
+	//sessionStorage.setItem('temp_day', today);
 	
 	// DB저장되어 있는 유저정보 List
 	function memberDBtoJS() {
@@ -82,6 +89,8 @@
 		</c:forEach>
 		return scheduleList;
 	}
+	
+	
 
 	$(function() {
 		

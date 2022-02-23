@@ -34,6 +34,23 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
+	
+	//Ï∂îÍ∞Ä ÏΩîÎìú 2021-04
+	public int selectOvertimeCountByMonthMember(String currentYear,String onlyMonth, String memberNm) {
+		int boardAllCount = 0;
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("currentYear", currentYear);
+		map.put("onlyMonth", onlyMonth);
+		map.put("memberNm", memberNm); 
+		boardAllCount = sqlSession.selectOne(namespace + ".selectOvertimeCountByMonthMember",map);
+		sqlSession.close();
+		return boardAllCount;
+	}
+	//Ï∂îÍ∞Ä ÏΩîÎìú ÎÅù
+
+	
+	//Í∏∞Ï°¥ÏΩîÎìú
 	public int selectOvertimeCountByMonthC(String memberNm) {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();
@@ -43,7 +60,7 @@ public class OvertimeDAO extends MybatisConnector {
 		sqlSession.close();
 		return boardAllCount;
 	}
-	// 
+	
 	public int selectOvertimeTargetListCnt(String groupId) {
 		int boardAllCount = 0;
 		SqlSession sqlSession = sqlSession();
@@ -65,13 +82,31 @@ public class OvertimeDAO extends MybatisConnector {
 	public List<OvertimePriceVO> selectOvertimeList(String currentMonth) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("currentMonth", currentMonth); 
+		map.put("currentMonth", currentMonth);
+		map.put("onlyMonth", currentMonth);
 		try {
 			return sqlSession.selectList(namespace + ".selectOvertimeList",map);
 		} finally {
 			sqlSession.close();
 		}
 	}
+	
+	//Ï∂îÍ∞ÄÏΩîÎìú 2021-04
+	public List<OvertimePriceVO> selectOvertimeListMonthMember(String currentYear,String onlyMonth, String memberNm) {
+		SqlSession sqlSession = sqlSession();
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("currentYear", currentYear);
+		map.put("onlyMonth", onlyMonth);
+		map.put("memberNm", memberNm);
+		try {
+			return sqlSession.selectList(namespace + ".selectOvertimeListMonthMember",map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	
+	//Í∏∞Ï°¥ÏΩîÎìú
 	public List<OvertimePriceVO> selectOvertimeCardList(String memberNm) {
 		SqlSession sqlSession = sqlSession();
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -97,7 +132,7 @@ public class OvertimeDAO extends MybatisConnector {
 		UserDAO userDao = UserDAO.getInstance();
 		try {
 			for(int i = 0; i< targetIdList.length ; i++) {
-				//¿ﬂ∑¡¡¯ taget list id±‚¡ÿ¿∏∑Œ ¿Ø¿˙¡§∫∏ 
+				 
 				UserVO targetVO = userDao.selectUserInfoByPK(Integer.parseInt(targetIdList[i]));
 				overtimeVO.setTargetMbrId(targetIdList[i]);
 				overtimeVO.setTargetMbrNm(targetVO.getMemberNm());

@@ -41,7 +41,7 @@ public class ChatForm implements CommandHandler {
 		req.setAttribute("name", name);
 		req.setAttribute("userVO", userVO);
 		req.setAttribute("group", dptNo);
-		//ÇöÀç »ç¿ëÁßÀÎ È¸¿ø¸¸ Ã¤ÆÃÆû È°¼ºÈ­(±¸ºĞÀÚ useryn, 0: ¹Ì»ç¿ë, 1:»ç¿ë)
+		//í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ íšŒì›ë§Œ ì±„íŒ…í¼ í™œì„±í™”(êµ¬ë¶„ì useryn, 0: ë¯¸ì‚¬ìš©, 1:ì‚¬ìš©)
 		if(!useyn.equals("0")) {
 
 		File rootDir = null;
@@ -57,7 +57,7 @@ public class ChatForm implements CommandHandler {
 				   rootDir.mkdirs();
 			File[] rootDirs = rootDir.listFiles();
 
-		// 3ÀÏÄ¡ ÆÄÀÏ °¡Á®¿À±â
+		// 3ì¼ì¹˜ íŒŒì¼ ê°€ì ¸ì˜¤ê¸°
 		if (rootDirs.length >= 3) {
 			for (int i = rootDirs.length - 3; i < rootDirs.length; i++) {
 				files.add(rootDirs[i].getPath());
@@ -66,7 +66,7 @@ public class ChatForm implements CommandHandler {
 					lastday=rootDirs[i].getName().replace(cid+"_", "");
 				}
 			}
-			// ÆÄÀÏÀÌ 3ÀÏÄ¡ ÀÌÇÏÀÎ °æ¿ì
+			// íŒŒì¼ì´ 3ì¼ì¹˜ ì´í•˜ì¸ ê²½ìš°
 		} else {
 			for (int i = 0; i < rootDirs.length; i++) {
 				files.add(rootDirs[i].getPath());
@@ -127,9 +127,9 @@ public class ChatForm implements CommandHandler {
 			lastdayText=datetext;
 		}
 		req.setAttribute("lastday", lastdayText);
-		HashMap<String,String> namemap=new HashMap<String,String>();		//»çÁø
-		HashMap<String,String> namemap2=new HashMap<String,String>();			//´Ğ³×ÀÓ
-		HashMap<String,String> namemap3=new HashMap<String,String>();			//¿ªÇÒ
+		HashMap<String,String> namemap=new HashMap<String,String>();		//ì‚¬ì§„
+		HashMap<String,String> namemap2=new HashMap<String,String>();			//ë‹‰ë„¤ì„
+		HashMap<String,String> namemap3=new HashMap<String,String>();			//ì—­í• 
 		
 		/*
 		List<RelationVO> memberList=rPro.getJoinMemberListForChat(group);
@@ -143,9 +143,9 @@ public class ChatForm implements CommandHandler {
 			String position=member.getPosition();
 			if(position==null) {
 				if(member.getMemberId().equals(member.getLeader())) {
-					member.setPosition("¹æÀå");
+					member.setPosition("ë°©ì¥");
 				}else {
-					member.setPosition("È¸¿ø");
+					member.setPosition("íšŒì›");
 				}
 				
 			}

@@ -16,21 +16,21 @@ public class UpdateProForCal implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String inputId = req.getParameter("id");
-		//inputId ¾Õ±ÛÀÚ·Î traffic, overtime ±¸ºĞ
+		//inputId ì•ê¸€ìë¡œ traffic, overtime êµ¬ë¶„
 		char cardType = inputId.charAt(0);
 		String cardId = inputId.substring(1);
 		
-		//°øÅë
+		//ê³µí†µ
 		String content = req.getParameter("content");
 		String useDate = req.getParameter("useDate");
 		java.sql.Date transUseDate= java.sql.Date.valueOf(useDate);
 		
 		
-		//DAO »ı¼º
+		//DAO ìƒì„±
 		TrafficDAO trafficDAO = TrafficDAO.getInstance(); 
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance(); 
 		
-		//trafficÀÎ °æ¿ì
+		//trafficì¸ ê²½ìš°
 		if(cardType == 't') {
 			String taxiPrice = req.getParameter("taxiPrice");
 			TrafficPriceVO trafficVO = new TrafficPriceVO();
@@ -48,7 +48,7 @@ public class UpdateProForCal implements CommandHandler {
 				trafficVO.setUseDate(transUseDate);
 				trafficVO.setPrice(taxiPrice);
 				trafficDAO.updateTrafficPrice(trafficVO);
-			// ´Ş·Â ÄÁÅÄÃ÷ ÀÌµ¿À» ÅëÇÑ ¼öÁ¤
+			// ë‹¬ë ¥ ì»¨íƒ ì¸  ì´ë™ì„ í†µí•œ ìˆ˜ì •
 			}else{
 				trafficVO.setUseDate(transUseDate);
 				trafficDAO.updateTrafficPriceForCal(trafficVO);

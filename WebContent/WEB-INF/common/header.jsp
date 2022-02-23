@@ -19,7 +19,18 @@
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/api/fullcalendar-3.9.0/gcal.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/api/httpRequest.js"></script>
+
+
 <script type="text/javascript">
+
+
+
+
+
+
+
+
+
 
 var dataset = [
     <c:forEach var="list" items="${trafficsLi}" varStatus="status">
@@ -228,9 +239,31 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Do Hyeon"}
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
     <i class="fa fa-users fa-fw w3-margin-right"></i><font color="blue">팀</font> 주간현황</a>
     
-    <a href="${ pageContext.servletContext.contextPath }/page/schedule" 
+    
+    
+    
+    
+    
+    <!-------------------------------------------------------------------------->
+   
+    
+    <a href="${ pageContext.servletContext.contextPath }/page/schedule.jsp"
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">
     <i class="fa fa-calendar fa-fw w3-margin-right"></i><font color="red">휴무</font> 등록</a>
+    
+    
+  
+
+
+
+
+ 
+    <!-------------------------------------------------------------------------->
+
+
+
+
+    
      
     <a href="${ pageContext.servletContext.contextPath }/page/scheduleHG" 
     onclick="w3_close()" class="w3-bar-item w3-button w3-padding ">

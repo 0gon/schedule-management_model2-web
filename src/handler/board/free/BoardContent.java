@@ -23,12 +23,12 @@ public class BoardContent implements CommandHandler {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		UserDAO userDAO = UserDAO.getInstance();
 		
-		// boardID °ªÀ¸·Î ÇØ´ç board VO°´Ã¼ È£Ãâ
+		// boardID ê°’ìœ¼ë¡œ í•´ë‹¹ board VOê°ì²´ í˜¸ì¶œ
 		BoardFreeVO boardVO = boardDAO.selectBoardFreeInfoByPK(boardId);
 		String formatDate = getDayOfweek(boardVO.getRegDate());
 		boardVO.setFormatDate(formatDate);
 
-		// ¼¼¼Ç¿¡ ÀÖ´Â À¯ÀúÁ¤º¸ ºÒ·¯¿À±â
+		// ì„¸ì…˜ì— ìˆëŠ” ìœ ì €ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
 		HttpSession session = req.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		UserVO userVO = userDAO.selectUserInfo(memberId);
@@ -45,8 +45,8 @@ public class BoardContent implements CommandHandler {
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyyMMddHH:mm");
 		String formatDate = dateformat.format(date);
 		String dateForTime = dayformat.format(date);
-		String time = dateForTime.substring(8); // ½Ã°£±¸ÇÏ±â
-		String[] week = { "ÀÏ", "¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä" };
+		String time = dateForTime.substring(8); // ì‹œê°„êµ¬í•˜ê¸°
+		String[] week = { "ì¼", "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† " };
 		Calendar cal = Calendar.getInstance();
 		Date getDate;
 		getDate = date;

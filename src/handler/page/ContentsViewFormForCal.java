@@ -19,22 +19,22 @@ public class ContentsViewFormForCal implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String inputId = req.getParameter("id");
-		//inputId ¾Õ±ÛÀÚ·Î traffic, overtime ±¸ºĞ
+		//inputId ì•ê¸€ìë¡œ traffic, overtime êµ¬ë¶„
 		char cardType = inputId.charAt(0);
 		String cardId = inputId.substring(1);
 		
-		//DAO »ı¼º
+		//DAO ìƒì„±
 		TrafficDAO trafficDAO = TrafficDAO.getInstance(); 
 		OvertimeDAO overtimeDAO = OvertimeDAO.getInstance(); 
 		
-		//trafficÀÎ °æ¿ì
+		//trafficì¸ ê²½ìš°
 		if(cardType == 't') {
 			TrafficPriceVO trafficVO = trafficDAO.selectTrafficInfoByTFPK(Integer.parseInt(cardId));
 			req.setAttribute("trafficVO",trafficVO);
 			return "/WEB-INF/views/calendar/contentsView_traffic.jsp";
 		}else {
 			OvertimePriceVO overtimeVO = overtimeDAO.selectOvertimeInfoByOVTPK(Integer.parseInt(cardId));
-			//groupId¸¦ °¡Áö°í¿Í¼­ ±×·ìÀ¸·Î µî·ÏµÈ Á¤º¸(targetNm, targetId) °¡Á®¿À±â 
+			//groupIdë¥¼ ê°€ì§€ê³ ì™€ì„œ ê·¸ë£¹ìœ¼ë¡œ ë“±ë¡ëœ ì •ë³´(targetNm, targetId) ê°€ì ¸ì˜¤ê¸° 
 			String groupId = overtimeDAO.selectTargetGroupId(cardId);
 			List<?> overtimes = overtimeDAO.selectOvertimeUserInfoByPK(groupId);
 			List overtimesLi = null;

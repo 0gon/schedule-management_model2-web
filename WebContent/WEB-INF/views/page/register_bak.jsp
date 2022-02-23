@@ -271,6 +271,9 @@ function checkReg(){
     	};
     		
     }
+    
+    
+    
 function checkUpdateValue(){
 	
 	var input=eval("document.updateinput");
@@ -302,6 +305,8 @@ function checkUpdateValue(){
 	};
 		
 }
+
+
 function contentView(data){
 	var id="id="+data;
 	sendRequest("<%=request.getContextPath()%>/page/contentsView",id,fromServer,"POST");
@@ -351,11 +356,33 @@ function update(data){
 function updateInclueDuty(data){
 	sendRequest("<%=request.getContextPath()%>/page/updateProDuty",data,fromServer,"POST");
 }
+
+
+
+
 function toUpdatePage(data){
+
 	var data1="id="+data;
 		sendRequest("<%=request.getContextPath()%>/page/updateForm",data1,fromServer,"POST");	
 		event.preventDefault(); 	
 }
+
+
+//======================================================================================== 2021.03.17
+
+function toUpdateAddPage(data){
+
+	var data1="id="+data;
+		sendRequest("<%=request.getContextPath()%>/page/updateForm",data1,fromServer,"POST");	
+		event.preventDefault(); 	
+}
+
+
+//========================================================================================
+
+
+
+
 function dutyChange(dutyCode){
     if(dutyCode.value==1){
     	$('#eduSubject').val(null);

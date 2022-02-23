@@ -6,11 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/api/w3css.css"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 </head>
 
-<title>POS 휴무관리시스템</title>
+<title>백화점IS팀 근무관리시스템</title>
 <style>
 body,h1 {font-family: "Do Hyeon", sans-serif}
 body, html {height: 100%}
@@ -28,8 +29,7 @@ body, html {height: 100%}
     <img src="${ pageContext.servletContext.contextPath }/imgs/logo.png" style="height: 40px" id="lotteLogo">
       <br>
       <font class="w3-small" style="color: red;font-family:sans-serif"><b>LOTTE</b></font>
-      
-    
+          
   </div>
   <div class="w3-display-middle">
 
@@ -38,16 +38,16 @@ body, html {height: 100%}
 
         <header class="w3-container w3-light-grey w3-padding w3-round">
             <div class="w3-center">
-                <font class=" w3-margin-right" size="5"> POS 휴무관리시스템 </font></div>
+                <font class=" w3-margin-right" size="5">백화점IS팀 근무관리시스템 </font></div>
         </header>
-		<form action="${ pageContext.servletContext.contextPath }/page/user/LoginFormPro" method="post">
+		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/page/user/LoginFormPro" method="post">
         <div class="w3-container">
           <hr>
-            <input name="memberId" value="${memberId}" placeholder="ex) 23074" type="text" class="w3-input w3-pale-blue " style="margin-bottom: 10px;text-align:center">
-            <input name="memberPwd" placeholder="Password" type="password" class="w3-input w3-pale-blue " style=";text-align: center">
+            <input name="memberId"  placeholder="ex) L23074" type="text" class="w3-input w3-pale-blue " style="margin-bottom: 10px;text-align:center">
+            <input name="memberPwd"   placeholder="Password" type="password" class="w3-input w3-pale-blue " style=";text-align: center">
         </div>
           <div class="w3-padding" >
-            <button type="submit" class="w3-button w3-block w3-black" style="margin-top: 10px; margin-bottom: 8px">로그인</button>
+            <button id="loginbtn" onclick="login()"class="w3-button w3-block w3-black" style="margin-top: 10px; margin-bottom: 8px">로그인</button>
           </div>
          </form>
       </div>
@@ -58,7 +58,13 @@ body, html {height: 100%}
     by gon
   </div>
 </div>
-<script src="${ pageContext.servletContext.contextPath }/js/adminCheck.js"></script>
-
+<script src="${ pageContext.servletContext.contextPath }/js/adminCheck.js?v=20200909"></script>
+<script>
+	function login(){
+		$('#loginbtn').attr('disabled',true); 
+		$('#loginbtn').html('<i class="fa fa-spinner fa-spin w3-text-white" style="font-size:16px;padding:3px"></i>');
+		$('#loginForm').submit();
+	}
+</script>
 </body>
 </html>

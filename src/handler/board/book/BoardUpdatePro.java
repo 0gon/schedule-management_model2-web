@@ -17,7 +17,7 @@ public class BoardUpdatePro implements CommandHandler {
 		String bookName = req.getParameter("bookName");
 		String price = req.getParameter("price");
 		String pchURL = req.getParameter("pchURL");
-		// boardBookVO ∞¥√º set
+		// boardBookVO Í∞ùÏ≤¥ set
 		BoardBookVO boardVO = new BoardBookVO();
 		boardVO.setId(Integer.parseInt(boardId));
 		boardVO.setBookName(bookName);
